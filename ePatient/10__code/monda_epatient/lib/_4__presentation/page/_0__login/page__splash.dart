@@ -6,6 +6,7 @@ import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/widget__monda_logo.dart';
 
 class SplashPage extends AbstractPage {
   SplashPage() : super(
@@ -42,12 +43,11 @@ class SplashPage extends AbstractPage {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    Asset.png__logo,
-                    width: Get.size.width / 2,
-                  ),
-                  Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 10),),
-                  Text(TextString.app_tagline, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(248, 138, 76, 1)),),
+                  MondaLogo(width: Get.size.width / 2,),
+                  SizedBox(height: 10,),
+                  Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 12),),
+                  SizedBox(height: 5,),
+                  Text(TextString.app_tagline, style: GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
                 ],
               ),
             ),

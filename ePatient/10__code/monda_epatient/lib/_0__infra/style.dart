@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class Style {
   static final Color colorPrimary = Color.fromRGBO(255, 160, 113, 1);
+  static final Color colorPrimary2 = Color.fromRGBO(248, 138, 76, 1);
 
   static final Color backgroundColor = Color(0xFFF5F5F5); // Colors.grey[100];
 

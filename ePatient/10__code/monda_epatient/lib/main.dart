@@ -40,7 +40,7 @@ class MondaEDoctorApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Style.appMaterialColor,
           backgroundColor: Style.backgroundColor,
-
+          primaryColorLight: Style.colorPrimary
         ),
         getPages: [
           // --------------------------------------------------------- 0. Splash

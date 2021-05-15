@@ -34,9 +34,13 @@ class TextString {
 
   static const String label__signin = 'SIGN IN';
 
+  static const String label__signup = 'SIGN UP';
+
   static const String label__enter_username = 'Enter Username';
 
   static const String label__password = 'Password';
 
   static const String label__enter_password = 'Enter Password';
+
+  static const String label__join_monda_and_start_asking_doctors = 'Join Monda and start asking doctors';
 }
