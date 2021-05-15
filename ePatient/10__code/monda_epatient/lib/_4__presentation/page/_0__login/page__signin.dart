@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
@@ -158,7 +156,7 @@ class SigninPage extends AbstractPage {
           child: Row(
             children: [
               Expanded(child: Container(), flex: 1,),
-              Expanded(child: Text('LOGIN', textAlign: TextAlign.center, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w500, letterSpacing: 3),), flex: 2,),
+              Expanded(child: Text(TextString.label__login, textAlign: TextAlign.center, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w500, letterSpacing: 3),), flex: 2,),
               Expanded(child: Icon(Icons.arrow_right_alt, color: Colors.white,), flex: 1,),
             ],
           ),
@@ -174,7 +172,7 @@ class SigninPage extends AbstractPage {
         Text(TextString.label__not_member_of_monda, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.colorPrimary),),
         TextButton(
           onPressed: () {
-            RouteNavigator.gotoSignupPage();
+            RouteNavigator.gotoSignUpPage();
           },
           child: Text(TextString.page_title__sign_up, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.colorPrimary, fontWeight: FontWeight.w600),),),
       ],

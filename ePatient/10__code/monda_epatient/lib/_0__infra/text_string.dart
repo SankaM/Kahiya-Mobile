@@ -30,11 +30,15 @@ class TextString {
 
   static const String label__search = 'Search...';
 
+  static const String label__email = 'Email';
+
   static const String label__username = 'Username';
 
   static const String label__sign_in = 'SIGN IN';
 
   static const String label__sign_up = 'SIGN UP';
+
+  static const String label__enter_email = 'Enter Email';
 
   static const String label__enter_username = 'Enter Username';
 
@@ -45,4 +49,10 @@ class TextString {
   static const String label__join_monda_and_start_asking_doctors = 'Join Monda and start asking doctors';
 
   static const String label__not_member_of_monda = 'Not member of Monda?';
+
+  static const String label__already_a_member = 'Already a member?';
+
+  static const String label__login = 'LOGIN';
+
+  static const String label__register = 'REGISTER';
 }

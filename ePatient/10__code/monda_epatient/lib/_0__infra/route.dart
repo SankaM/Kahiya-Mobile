@@ -24,15 +24,15 @@ class RouteNavigator {
     return _goto(Routes.page_splash, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoSigninOrSignupPage() {
+  static Future<dynamic> gotoSignInOrSignUpPage() {
     return _goto(Routes.page_signin_or_signup, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoSigninPage() {
+  static Future<dynamic> gotoSignInPage() {
     return _goto(Routes.page_signin, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoSignupPage() {
+  static Future<dynamic> gotoSignUpPage() {
     return _goto(Routes.page_signup, forgetBefore: true);
   }
 

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -27,7 +26,7 @@ class SigninOrSignupPage extends AbstractPage {
       padding: EdgeInsets.all(0),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoSigninOrSignupPage();
+          RouteNavigator.gotoSignInOrSignUpPage();
         },
         child: Stack(
           children: [
@@ -46,7 +45,7 @@ class SigninOrSignupPage extends AbstractPage {
                     child: GFButton(
                       color: Style.colorPrimary,
                       onPressed: () {
-                        RouteNavigator.gotoSigninPage();
+                        RouteNavigator.gotoSignInPage();
                       },
                       fullWidthButton: true,
                       text: TextString.label__sign_in,
@@ -60,7 +59,7 @@ class SigninOrSignupPage extends AbstractPage {
                     child: GFButton(
                       color: Style.colorPrimary,
                       onPressed: () {
-                        RouteNavigator.gotoSignupPage();
+                        RouteNavigator.gotoSignUpPage();
                       },
                       fullWidthButton: true,
                       type: GFButtonType.outline,

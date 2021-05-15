@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -25,7 +24,7 @@ class SplashPage extends AbstractPage {
       padding: EdgeInsets.all(0),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoSigninOrSignupPage();
+          RouteNavigator.gotoSignInOrSignUpPage();
         },
         child: Stack(
           children: [
