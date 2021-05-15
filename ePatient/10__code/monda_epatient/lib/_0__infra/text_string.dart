@@ -1,6 +1,10 @@
 class TextString {
   // ================================================================== App Name
-  static const String app_name = 'Monda - ePatient';
+  static const String app_name = 'MONDA';
+
+  static const String app_name_epatient = 'Monda - ePatient';
+
+  static const String app_tagline = 'Your Personal eDoctor';
 
   static const String app_version = 'Development version';
 
@@ -9,7 +13,11 @@ class TextString {
 
   static const String page_title__splash = 'Splash';
 
-  static const String page_title__login = 'Login';
+  static const String page_title__signin_or_signup = 'Signin or Signup';
+
+  static const String page_title__signin = 'Signin';
+
+  static const String page_title__signup = 'Signup';
 
   static const String page_title__home = 'Home';
 

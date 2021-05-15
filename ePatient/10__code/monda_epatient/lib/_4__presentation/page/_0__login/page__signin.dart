@@ -7,9 +7,9 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
 
-class LoginPage extends AbstractPage {
-  LoginPage() : super(
-    title: TextString.page_title__login,
+class SigninPage extends AbstractPage {
+  SigninPage() : super(
+    title: TextString.page_title__signin,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
@@ -69,7 +69,7 @@ class LoginPage extends AbstractPage {
       width: 100,
       height: 100,
       child: Image.asset(
-        Asset.png_logo,
+        Asset.png__logo,
         width: 100,
       ),
     );

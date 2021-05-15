@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 class Routes {
   static const String page_splash = '/splash';
 
-  static const String page_login = '/login';
+  static const String page_signin_or_signup = '/signin-or-signup';
+  
+  static const String page_signin = '/signin';
+
+  static const String page_signup = '/signup';
 
   static const String page_home = '/home';
 
@@ -20,8 +24,16 @@ class RouteNavigator {
     return _goto(Routes.page_splash, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoLoginPage() {
-    return _goto(Routes.page_login, forgetBefore: true);
+  static Future<dynamic> gotoSigninOrSignupPage() {
+    return _goto(Routes.page_signin_or_signup, forgetBefore: true);
+  }
+
+  static Future<dynamic> gotoSigninPage() {
+    return _goto(Routes.page_signin, forgetBefore: true);
+  }
+
+  static Future<dynamic> gotoSignupPage() {
+    return _goto(Routes.page_signup, forgetBefore: true);
   }
 
   static Future<dynamic> gotoHomePage() {

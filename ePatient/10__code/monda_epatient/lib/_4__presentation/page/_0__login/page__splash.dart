@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
@@ -18,29 +20,38 @@ class SplashPage extends AbstractPage {
   Widget constructBody(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.red,
+      padding: EdgeInsets.all(0),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoLoginPage();
+          RouteNavigator.gotoSigninOrSignupPage();
         },
         child: Stack(
           children: [
             Container(
-              width: double.infinity,
-              height: double.infinity,
+              color: Colors.black,
+              padding: EdgeInsets.all(00),
+              margin: EdgeInsets.all(00),
               child: Image.asset(
-                Asset.png_splash2,
+                Asset.png__background_splash,
                 fit: BoxFit.fitWidth,
+                width: Get.size.width,
               ),
             ),
             Align(
-                child: Text(TextString.app_name + ' (' + TextString.app_version + ')',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: Style.fontSize_XS),
-                ),
-                alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    Asset.png__logo,
+                    width: Get.size.width / 2,
+                  ),
+                  Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 10),),
+                  Text(TextString.app_tagline, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(248, 138, 76, 1)),),
+                ],
               ),
-            ],
+            ),
+          ],
         )
       ),
     );

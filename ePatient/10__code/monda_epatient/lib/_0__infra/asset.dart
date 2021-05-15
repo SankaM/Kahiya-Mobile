@@ -1,7 +1,8 @@
 class Asset {
+  // ------------------------------------------------------------------- eDoctor
   static const svg_background01 = 'assets/background01.svg';
 
-  static const png_logo = 'assets/logo.png';
+  static const png__logo = 'assets/logo.png';
 
   static const png_splash = 'assets/splash.png';
 
@@ -22,4 +23,7 @@ class Asset {
   static const png_prescription03 = 'assets/prescription03.png';
 
   static const png_filter_button = 'assets/filter_button.png';
+
+  // ------------------------------------------------------------------ ePatient
+  static const png__background_splash = 'assets/background_splash.png';
 }

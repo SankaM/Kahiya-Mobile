@@ -24,6 +24,14 @@ class Style {
 
   static const double fontSize_4XL = 24;
 
+  static const double fontSize_5XL = 26;
+
+  static const double fontSize_6XL = 28;
+
+  static const double fontSize_7XL = 30;
+
+  static const double fontSize_8XL = 32;
+
   static const double iconSize_Default = 20;
 
   static const Map<int, Color> colorPalettes =  {

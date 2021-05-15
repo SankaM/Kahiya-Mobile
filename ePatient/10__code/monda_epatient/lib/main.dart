@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/page/_0__login/page__login.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_signup.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/page__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__invoice.dart';
@@ -44,7 +46,11 @@ class MondaEDoctorApp extends StatelessWidget {
           // --------------------------------------------------------- 0. Splash
           GetPage(name: Routes.page_splash, page: () => SplashPage(),),
 
-          GetPage(name: Routes.page_login, page: () => LoginPage(),),
+          GetPage(name: Routes.page_signin_or_signup, page: () => SigninOrSignupPage(),),
+
+          GetPage(name: Routes.page_signin, page: () => SigninPage(),),
+
+          GetPage(name: Routes.page_signup, page: () => SignupPage(),),
 
           // ----------------------------------------------------------- 1. Home
           GetPage(name: Routes.page_home, page: () => HomePage(),),
