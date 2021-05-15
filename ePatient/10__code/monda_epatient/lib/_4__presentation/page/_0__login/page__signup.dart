@@ -9,7 +9,7 @@ import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart
 
 class SignupPage extends AbstractPage {
   SignupPage() : super(
-    title: TextString.page_title__signup,
+    title: TextString.page_title__sign_up,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
@@ -19,7 +19,7 @@ class SignupPage extends AbstractPage {
   @override
   Widget constructBody(BuildContext context) {
     return Center(
-      child: Text(TextString.page_title__signup),
+      child: Text(TextString.page_title__sign_up),
     );
   }
 }

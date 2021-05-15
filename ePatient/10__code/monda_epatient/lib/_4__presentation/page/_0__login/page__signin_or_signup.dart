@@ -8,11 +8,12 @@ import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/widget__background.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/widget__monda_logo.dart';
 
 class SigninOrSignupPage extends AbstractPage {
   SigninOrSignupPage() : super(
-    title: TextString.page_title__signin_or_signup,
+    title: TextString.page_title__sign_in_or_sign_up,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
@@ -30,21 +31,12 @@ class SigninOrSignupPage extends AbstractPage {
         },
         child: Stack(
           children: [
-            Container(
-              color: Colors.black,
-              padding: EdgeInsets.all(00),
-              margin: EdgeInsets.all(00),
-              child: Image.asset(
-                Asset.png__background_splash,
-                fit: BoxFit.fitWidth,
-                width: Get.size.width,
-              ),
-            ),
+            Background(),
             Align(
               child: Column(
                 children: [
                   SizedBox(height: 175,),
-                  MondaLogo(width: Get.size.width / 3),
+                  MondaLogo(sideLength: Get.size.width / 3),
                   SizedBox(height: 50,),
                   Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
                   SizedBox(height: 20,),
@@ -57,7 +49,7 @@ class SigninOrSignupPage extends AbstractPage {
                         RouteNavigator.gotoSigninPage();
                       },
                       fullWidthButton: true,
-                      text: TextString.label__signin,
+                      text: TextString.label__sign_in,
                       textStyle: GoogleFonts.montserrat(fontSize: Style.fontSize_2XL, color: Colors.white, letterSpacing: 4),
                     ),
                   ),
@@ -72,7 +64,7 @@ class SigninOrSignupPage extends AbstractPage {
                       },
                       fullWidthButton: true,
                       type: GFButtonType.outline,
-                      text: TextString.label__signup,
+                      text: TextString.label__sign_up,
                       textStyle: GoogleFonts.montserrat(fontSize: Style.fontSize_2XL, color: Style.colorPrimary, letterSpacing: 4),
                     ),
                   )

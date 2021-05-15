@@ -6,6 +6,7 @@ import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/widget__background.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/widget__monda_logo.dart';
 
 class SplashPage extends AbstractPage {
@@ -28,22 +29,13 @@ class SplashPage extends AbstractPage {
         },
         child: Stack(
           children: [
-            Container(
-              color: Colors.black,
-              padding: EdgeInsets.all(00),
-              margin: EdgeInsets.all(00),
-              child: Image.asset(
-                Asset.png__background_splash,
-                fit: BoxFit.fitWidth,
-                width: Get.size.width,
-              ),
-            ),
+            Background(),
             Align(
               alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MondaLogo(width: Get.size.width / 2,),
+                  MondaLogo(sideLength: Get.size.width / 2,),
                   SizedBox(height: 10,),
                   Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 12),),
                   SizedBox(height: 5,),

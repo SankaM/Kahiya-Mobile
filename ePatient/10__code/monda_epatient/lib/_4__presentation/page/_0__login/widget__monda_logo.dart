@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 
 class MondaLogo extends StatelessWidget {
-  final double width;
+  final double sideLength;
 
-  MondaLogo({required this.width});
+  MondaLogo({required this.sideLength});
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      Asset.png__logo,
-      width: width,
+    return Container(
+      width: sideLength,
+      height: sideLength,
+      child: Image.asset(
+        Asset.png__logo,
+        width: sideLength,
+      ),
     );
   }
 }

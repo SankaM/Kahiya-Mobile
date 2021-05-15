@@ -25,5 +25,5 @@ class Asset {
   static const png_filter_button = 'assets/filter_button.png';
 
   // ------------------------------------------------------------------ ePatient
-  static const png__background_splash = 'assets/background_splash.png';
+  static const png__background = 'assets/background.png';
 }

@@ -13,11 +13,11 @@ class TextString {
 
   static const String page_title__splash = 'Splash';
 
-  static const String page_title__signin_or_signup = 'Signin or Signup';
+  static const String page_title__sign_in_or_sign_up = 'Sign In or Sign Up';
 
-  static const String page_title__signin = 'Signin';
+  static const String page_title__sign_in = 'Sign In';
 
-  static const String page_title__signup = 'Signup';
+  static const String page_title__sign_up = 'Sign Up';
 
   static const String page_title__home = 'Home';
 
@@ -32,9 +32,9 @@ class TextString {
 
   static const String label__username = 'Username';
 
-  static const String label__signin = 'SIGN IN';
+  static const String label__sign_in = 'SIGN IN';
 
-  static const String label__signup = 'SIGN UP';
+  static const String label__sign_up = 'SIGN UP';
 
   static const String label__enter_username = 'Enter Username';
 
@@ -43,4 +43,6 @@ class TextString {
   static const String label__enter_password = 'Enter Password';
 
   static const String label__join_monda_and_start_asking_doctors = 'Join Monda and start asking doctors';
+
+  static const String label__not_member_of_monda = 'Not member of Monda?';
 }

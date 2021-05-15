@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:getwidget/components/button/gf_button.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/widget__background.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/widget__monda_logo.dart';
 
 class SigninPage extends AbstractPage {
   SigninPage() : super(
-    title: TextString.page_title__signin,
+    title: TextString.page_title__sign_in,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
@@ -21,20 +23,9 @@ class SigninPage extends AbstractPage {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.5, 0.9],
-          colors: [
-            Color.fromRGBO(255, 218, 202, 1),
-            Color.fromRGBO(215, 255, 185, 1),
-          ],
-        ),
-      ),
       child: Stack(
         children: [
-          Positioned(child: SvgPicture.asset(Asset.svg_background01), top: 0.0,),
+          Background(),
           _constructLoginForm(context),
         ],
       )
@@ -49,34 +40,24 @@ class SigninPage extends AbstractPage {
       child: ListView(
         children: [
           SizedBox(height: 75,),
-          _logoSection(context),
+          MondaLogo(sideLength: 100),
           SizedBox(height: 40,),
-          _signinLabelSection(context),
+          _signInLabelSection(context),
           SizedBox(height: 30,),
           _usernameSection(context),
           SizedBox(height: 20,),
           _passwordSection(context),
           SizedBox(height: 50,),
           _loginButton(context),
+          _signUpInfoSection(context),
           SizedBox(height: 75,),
         ],
       ),
     );
   }
 
-  Widget _logoSection(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      child: Image.asset(
-        Asset.png__logo,
-        width: 100,
-      ),
-    );
-  }
-
-  Widget _signinLabelSection(BuildContext context) {
-    return Text(TextString.label__signin, textAlign: TextAlign.center, style: GoogleFonts.montserrat(fontSize: Style.fontSize_3XL, color: Colors.deepOrange[400], letterSpacing: 2),);
+  Widget _signInLabelSection(BuildContext context) {
+    return Text(TextString.label__sign_in, textAlign: TextAlign.center, style: GoogleFonts.montserrat(fontSize: Style.fontSize_3XL, color: Colors.deepOrange[400], letterSpacing: 2),);
   }
 
   Widget _usernameSection(BuildContext context) {
@@ -183,6 +164,20 @@ class SigninPage extends AbstractPage {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _signUpInfoSection(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(TextString.label__not_member_of_monda, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.colorPrimary),),
+        TextButton(
+          onPressed: () {
+            RouteNavigator.gotoSignupPage();
+          },
+          child: Text(TextString.page_title__sign_up, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.colorPrimary, fontWeight: FontWeight.w600),),),
+      ],
     );
   }
 }
