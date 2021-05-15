@@ -13,7 +13,7 @@ class TextString {
 
   static const String page_title__home = 'Home';
 
-  static const String page_title__notification = 'Notification';
+  static const String page_title__notifications = 'Notifications';
 
   static const String page_title__medical_history = 'Medical History';
 

@@ -107,7 +107,7 @@ class MyScaffold extends StatelessWidget {
 
   FloatingActionButton _fab() {
     return FloatingActionButton(
-      child: Icon(Icons.person_add, color: Colors.white,),
+      child: Icon(Icons.home, color: Colors.white,),
       backgroundColor: Style.colorPalettes[900],
       elevation: 0,
       onPressed: () {
@@ -118,7 +118,7 @@ class MyScaffold extends StatelessWidget {
 
   Widget _defaultBottomNavigationBar() {
     var itemIconList = [Icons.event_note, Icons.store];
-    var itemLabelList = ['Invoice', 'Inventory'];
+    var itemLabelList = [TextString.page_title__notifications, TextString.page_title__medical_history];
 
     return AnimatedBottomNavigationBar.builder(
         elevation: 20,
