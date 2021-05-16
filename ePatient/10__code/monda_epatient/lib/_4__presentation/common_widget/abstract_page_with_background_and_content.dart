@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/common_widget/widget__background.dart';
 
-abstract class AbstractPageWithContent extends AbstractPage {
-  AbstractPageWithContent({
+abstract class AbstractPageWithBackgroundAndContent extends AbstractPage {
+  final String backgroundAsset;
+
+  AbstractPageWithBackgroundAndContent({
     required String title,
+    required this.backgroundAsset,
     bool usingSafeArea = true,
     bool showAppBar = false,
     bool showFloatingActionButton = false,
@@ -41,7 +43,9 @@ abstract class AbstractPageWithContent extends AbstractPage {
   }
 
   Widget constructBackground(BuildContext context) {
-    return SvgPicture.asset(Asset.svg_background01);
+    return Background(backgroundAsset: backgroundAsset);
+    // return SvgPicture.asset(Asset.svg_background01);
+
   }
 
   Widget constructContent(BuildContext context) {

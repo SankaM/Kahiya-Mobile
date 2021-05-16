@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 
 class Background extends StatelessWidget {
+  final String backgroundAsset;
+
+  Background({required this.backgroundAsset});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,7 +13,7 @@ class Background extends StatelessWidget {
       padding: EdgeInsets.all(00),
       margin: EdgeInsets.all(00),
       child: Image.asset(
-        Asset.png__background,
+        backgroundAsset,
         fit: BoxFit.fitWidth,
         width: Get.size.width,
       ),

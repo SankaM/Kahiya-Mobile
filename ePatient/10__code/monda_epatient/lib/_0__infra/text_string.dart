@@ -55,4 +55,10 @@ class TextString {
   static const String label__login = 'LOGIN';
 
   static const String label__register = 'REGISTER';
+
+  static const String label__doctors = 'Doctors';
+
+  static const String label__my_appointments = 'My Appointments';
+
+  static const String label__view_appointments = 'View Appointments';
 }

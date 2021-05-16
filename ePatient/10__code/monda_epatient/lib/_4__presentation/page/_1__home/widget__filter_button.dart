@@ -50,9 +50,9 @@ class _FilterButtonState extends State<FilterButton> {
         color: Style.colorPrimary,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
-            offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 3.0,
+            color: Colors.grey[400]!,
+            offset: Offset(0.5, 0.5), //(x,y)
+            blurRadius: 0.5,
           ),
         ],
       ),

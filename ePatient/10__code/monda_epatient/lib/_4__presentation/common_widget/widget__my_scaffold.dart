@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -117,7 +118,7 @@ class MyScaffold extends StatelessWidget {
   }
 
   Widget _defaultBottomNavigationBar() {
-    var itemIconList = [Icons.event_note, Icons.store];
+    var itemIconList = [Icons.notifications, Icons.notes];
     var itemLabelList = [TextString.page_title__notifications, TextString.page_title__medical_history];
 
     return AnimatedBottomNavigationBar.builder(

@@ -1,36 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
-import 'package:monda_epatient/_4__presentation/page/_0__login/widget__background.dart';
-import 'package:monda_epatient/_4__presentation/page/_0__login/widget__monda_logo.dart';
+import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common_widget/widget__monda_logo.dart';
 
-class SignupPage extends AbstractPage {
+class SignupPage extends AbstractPageWithBackgroundAndContent {
   SignupPage() : super(
     title: TextString.page_title__sign_up,
+    backgroundAsset: Asset.png__background01,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
     showBottomNavigationBar: false,
+    selectedIndexOfBottomNavigationBar: -1,
   );
 
   @override
-  Widget constructBody(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          children: [
-            Background(),
-            _constructSignUpForm(context),
-          ],
-        )
-    );
-  }
-
-  Widget _constructSignUpForm(BuildContext context) {
+  Widget constructContent(BuildContext context) {
     return Container(
       width: double.infinity,
       height: double.infinity,
