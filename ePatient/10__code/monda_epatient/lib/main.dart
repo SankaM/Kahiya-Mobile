@@ -12,6 +12,7 @@ import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__invoice.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,8 @@ class MondaEDoctorApp extends StatelessWidget {
     return GetMaterialApp(
         onInit: _onInit,
         title: TextString.app_name,
-        initialRoute: Routes.page_splash,
+        // initialRoute: Routes.page_splash,
+        initialRoute: Routes.page_home,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Style.appMaterialColor,
@@ -60,6 +62,9 @@ class MondaEDoctorApp extends StatelessWidget {
 
           // ------------------------------------------------ 3. Medical History
           GetPage(name: Routes.page_medical_history, page: () => MedicalHistoryPage(),),
+
+          // ------------------------------------------------- 4. Doctor Profile
+          GetPage(name: Routes.page_doctor_profile, page: () => DoctorProfilePage(),),
         ],
     );
   }

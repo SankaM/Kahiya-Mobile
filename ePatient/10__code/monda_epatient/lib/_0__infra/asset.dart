@@ -5,6 +5,8 @@ class Asset {
 
   static const png__background02 = 'assets/background02.png';
 
+  static const png__background03 = 'assets/background03.png';
+
   static const png__patient01 = 'assets/patient01.png';
 
   static const png_filter_button = 'assets/filter_button.png';

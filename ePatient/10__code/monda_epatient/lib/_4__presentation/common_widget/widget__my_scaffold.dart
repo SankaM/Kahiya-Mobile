@@ -1,9 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -49,7 +47,7 @@ class MyScaffold extends StatelessWidget {
     var scaffold = Scaffold(
       backgroundColor: Style.backgroundColor,
       appBar: showAppBar ? _appBar() : null,
-      body: _doubleBackToCloseAppBody(),
+      body: _body(),
       floatingActionButton: showFloatingActionButton ? _fab() : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: showBottomNavigationBar ? _bottomNavigationBar() : null,
@@ -73,13 +71,6 @@ class MyScaffold extends StatelessWidget {
   PreferredSizeWidget _defaultAppBar() {
     return AppBar(
       title: Text(title, style: TextStyle(fontSize: Style.fontSize_Default),),
-    );
-  }
-
-  Widget _doubleBackToCloseAppBody() {
-    return DoubleBack(
-      child: _body(),
-      message: TextString.label__double_click_to_close,
     );
   }
 

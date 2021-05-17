@@ -16,6 +16,8 @@ class Routes {
   static const String page_notification = '/notification';
 
   static const String page_medical_history = '/medical-history';
+
+  static const String page_doctor_profile = '/doctor-profile';
 }
 
 class RouteNavigator {
@@ -46,6 +48,23 @@ class RouteNavigator {
 
   static Future<dynamic> gotoMedicalHistoryPage() {
     return _goto(Routes.page_medical_history, forgetBefore: true);
+  }
+
+  static Future<dynamic> gotoDoctorProfilePage(
+      {required String assetImage,
+      required String firstLineText,
+      required String secondLineText,
+      required String thirdLineText,
+      required String assetIcon}) {
+    var arguments = {
+      'assetImage': assetImage,
+      'firstLineText': firstLineText,
+      'secondLineText': secondLineText,
+      'thirdLineText': thirdLineText,
+      'assetIcon': assetIcon,
+    };
+
+    return _goto(Routes.page_doctor_profile, forgetBefore: false, arguments: arguments);
   }
 
   // -------------------------------------------------------------------- helper

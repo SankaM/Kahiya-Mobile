@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Style {
-  static final Color colorPrimary = Color.fromRGBO(255, 160, 113, 1);
-  static final Color colorPrimary2 = Color.fromRGBO(248, 138, 76, 1);
+  static const  Color colorPrimary = Color.fromRGBO(255, 160, 113, 1);
 
-  static final Color backgroundColor = Color(0xFFF5F5F5); // Colors.grey[100];
+  static const  Color colorPrimary2 = Color.fromRGBO(248, 138, 76, 1);
 
-  static final Color textColorPrimary = Colors.white;
+  static const Color backgroundColor = const Color(0xFFF5F5F5); // Colors.grey[100];
+
+  static const Color textColorPrimary = const Color(0xFFFFFFFF);
 
   static const double fontSize_XS = 10;
 
@@ -49,4 +51,8 @@ class Style {
   };
 
   static const MaterialColor appMaterialColor = MaterialColor(0xFF880E4F, colorPalettes);
+
+  static TextStyle defaultTextStyle({double fontSize = Style.fontSize_Default, Color color = Style.textColorPrimary, FontWeight fontWeight = FontWeight.w400, double letterSpacing = 0}) {
+    return GoogleFonts.montserrat(fontSize: fontSize, color: color, fontWeight: fontWeight, letterSpacing: letterSpacing);
+  }
 }
