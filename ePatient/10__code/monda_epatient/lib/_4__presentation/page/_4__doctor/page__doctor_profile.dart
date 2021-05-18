@@ -8,25 +8,11 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 
 class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
-  final String assetImage;
-
-  final String firstLineText;
-
-  final String secondLineText;
-
-  final String thirdLineText;
-
-  final String assetIcon;
-
   DoctorProfilePage()
-      : assetImage = Get.arguments['assetImage'],
-        firstLineText = Get.arguments['firstLineText'],
-        secondLineText = Get.arguments['secondLineText'],
-        thirdLineText = Get.arguments['thirdLineText'],
-        assetIcon = Get.arguments['assetIcon'],
-        super(
+      : super(
           title: TextString.page_title__doctor_profile,
           backgroundAsset: Asset.png__background03,
           usingSafeArea: true,
@@ -38,6 +24,16 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
+    var arguments = Get.arguments;
+    if(arguments != null) {
+      DoctorProfileController.instance.initializeData(
+          assetImage: arguments['assetImage'],
+          firstLineText: arguments['firstLineText'],
+          secondLineText: arguments['secondLineText'],
+          thirdLineText: arguments['thirdLineText'],
+          assetIcon: arguments['assetIcon']);
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: _contentCustomAppBar(context),
@@ -48,7 +44,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   PreferredSize _contentCustomAppBar(BuildContext context) {
     return CustomAppBarBuilder.build(
       context: context,
-      firstLineLabel: Text(firstLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
+      firstLineLabel: Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
       secondLineLabel: Text('Profile', style: Style.defaultTextStyle()),
     );
   }
@@ -99,7 +95,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               margin: EdgeInsets.all(10),
               height: double.infinity,
               child: GFAvatar(
-                backgroundImage: AssetImage(assetImage),
+                backgroundImage: AssetImage(DoctorProfileController.instance.assetImage),
                 shape: GFAvatarShape.square,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
@@ -112,18 +108,18 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(firstLineText, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
+                  Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
                   SizedBox(height: 5,),
-                  Text(secondLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
+                  Text(DoctorProfileController.instance.secondLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
 
                   Spacer(),
                   Text(TextString.label__available_for_appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, color: Colors.grey[500]!),),
                   SizedBox(height: 5,),
                   Row(
                     children: [
-                      Image.asset(assetIcon, width: 16, height: 16,),
+                      Image.asset(DoctorProfileController.instance.assetIcon, width: 16, height: 16,),
                       SizedBox(width: 10,),
-                      Text(thirdLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
+                      Text(DoctorProfileController.instance.thirdLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
                     ],
                   )
                 ],
@@ -206,11 +202,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         size: 50,
         elevation: 3,
         onPressed: () {
-          var arguments = Get.arguments;
-          var assetImage = arguments['assetImage'];
-          var doctorName = arguments['firstLineText'];
-
-          RouteNavigator.gotoConfirmAppointmentPage(assetImage: assetImage, doctorName: doctorName);
+          RouteNavigator.gotoConfirmAppointmentPage();
         },
         child: Text(TextString.label__make_an_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),

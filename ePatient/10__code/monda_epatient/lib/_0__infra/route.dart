@@ -71,22 +71,12 @@ class RouteNavigator {
     return _goto(Routes.page_doctor_profile, forgetBefore: false, arguments: arguments);
   }
 
-  static Future<dynamic> gotoConfirmAppointmentPage({required String assetImage, required doctorName}) {
-    var arguments = {
-      'assetImage': assetImage,
-      'doctorName': doctorName,
-    };
-
-    return _goto(Routes.page_confirm_appointment, forgetBefore: false, arguments: arguments);
+  static Future<dynamic> gotoConfirmAppointmentPage() {
+    return _goto(Routes.page_confirm_appointment, forgetBefore: false,);
   }
 
-  static Future<dynamic> gotoPayAndConfirmPage({required String assetImage, required doctorName}) {
-    var arguments = {
-      'assetImage': assetImage,
-      'doctorName': doctorName,
-    };
-
-    return _goto(Routes.page_pay_and_confirm, forgetBefore: false, arguments: arguments);
+  static Future<dynamic> gotoPayAndConfirmPage() {
+    return _goto(Routes.page_pay_and_confirm, forgetBefore: false,);
   }
 
   // -------------------------------------------------------------------- helper

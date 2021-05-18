@@ -44,8 +44,6 @@ abstract class AbstractPageWithBackgroundAndContent extends AbstractPage {
 
   Widget constructBackground(BuildContext context) {
     return Background(backgroundAsset: backgroundAsset);
-    // return SvgPicture.asset(Asset.svg_background01);
-
   }
 
   Widget constructContent(BuildContext context) {

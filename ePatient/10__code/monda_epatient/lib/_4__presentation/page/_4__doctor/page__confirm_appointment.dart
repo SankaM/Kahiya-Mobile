@@ -8,16 +8,11 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 
 class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
-  final String assetImage;
-
-  final String doctorName;
-
   ConfirmAppointmentPage()
-      : assetImage = Get.arguments['assetImage'],
-        doctorName = Get.arguments['doctorName'],
-        super(
+      : super(
           title: TextString.page_title__confirm_appointment,
           backgroundAsset: Asset.png__background04,
           usingSafeArea: true,
@@ -79,13 +74,13 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 width: double.infinity,
-                child: Image.asset(assetImage, fit: BoxFit.fitWidth,),
+                child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
               ),
             ),
             SizedBox(height: 10,),
             Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
             SizedBox(height: 5,),
-            Text(doctorName, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
+            Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
             SizedBox(height: 15,),
             Row(
               children: [
@@ -118,7 +113,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
           size: 50,
           elevation: 3,
           onPressed: () {
-            RouteNavigator.gotoPayAndConfirmPage(assetImage: assetImage, doctorName: doctorName);
+            RouteNavigator.gotoPayAndConfirmPage();
           },
           child: Text(TextString.label__confirm_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
         ),
@@ -137,6 +132,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
           type: GFButtonType.outline,
           size: 50,
           onPressed: () {
+            Get.back();
           },
           child: Text(TextString.label__cancel, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Style.colorPrimary),),
         ),
