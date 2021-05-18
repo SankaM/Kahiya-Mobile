@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common_widget/builder__custom_app_bar.dart';
 
 class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   DoctorProfilePage() : super(
@@ -28,31 +30,16 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   }
 
   PreferredSize _contentCustomAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(Get.size.height * 0.25),
-      child: Padding(
-        padding: EdgeInsets.only(left: 20, top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(Icons.arrow_back, color: Colors.white,),
-            ),
-            SizedBox(height: 40,),
-            Text(Get.arguments['firstLineText'], style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
-            SizedBox(height: 10,),
-            Text('Profile', style: Style.defaultTextStyle()),
-          ],
-        ),
-      ),
+    return CustomAppBarBuilder.build(
+      context: context,
+      firstLineLabel: Text(Get.arguments['firstLineText'], style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
+      secondLineLabel: Text('Profile', style: Style.defaultTextStyle()),
     );
   }
 
   Widget _contentBody(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.only(left: 30, top: 30, right: 30),
       decoration: BoxDecoration(
         border: Border.all(
@@ -205,7 +192,11 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         size: 50,
         elevation: 3,
         onPressed: () {
+          var arguments = Get.arguments;
+          var assetImage = arguments['assetImage'];
+          var doctorName = arguments['firstLineText'];
 
+          RouteNavigator.gotoConfirmAppointmentPage(assetImage: assetImage, doctorName: doctorName);
         },
         child: Text(TextString.label__make_an_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),
@@ -319,7 +310,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
 
   Widget _optionItemWidget(BuildContext context, _OptionHour _optionHour) {
     Color color1 = (selectedId == _optionHour.id) ? Colors.grey[700]! : Colors.grey[500]!;
-    Color color2 = (selectedId == _optionHour.id) ? Colors.grey[500]! : Colors.grey[400]!;
+    Color color2 = (selectedId == _optionHour.id) ? Colors.grey[600]! : Colors.grey[400]!;
 
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10),

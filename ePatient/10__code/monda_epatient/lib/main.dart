@@ -13,6 +13,8 @@ import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__invoice.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_confirm.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +67,11 @@ class MondaEDoctorApp extends StatelessWidget {
 
           // ------------------------------------------------- 4. Doctor Profile
           GetPage(name: Routes.page_doctor_profile, page: () => DoctorProfilePage(),),
+
+          GetPage(name: Routes.page_confirm_appointment, page: () => ConfirmAppointmentPage(),),
+
+          // -------------------------------------------------------- 5. Payment
+          GetPage(name: Routes.page_pay_and_confirm, page: () => PayAndConfirmPage(),),
         ],
     );
   }

@@ -18,6 +18,10 @@ class Routes {
   static const String page_medical_history = '/medical-history';
 
   static const String page_doctor_profile = '/doctor-profile';
+
+  static const String page_confirm_appointment = '/confirm-appointment';
+
+  static const String page_pay_and_confirm = '/pay-and-confirm';
 }
 
 class RouteNavigator {
@@ -65,6 +69,19 @@ class RouteNavigator {
     };
 
     return _goto(Routes.page_doctor_profile, forgetBefore: false, arguments: arguments);
+  }
+
+  static Future<dynamic> gotoConfirmAppointmentPage({required String assetImage, required doctorName}) {
+    var arguments = {
+      'assetImage': assetImage,
+      'doctorName': doctorName,
+    };
+
+    return _goto(Routes.page_confirm_appointment, forgetBefore: false, arguments: arguments);
+  }
+
+  static Future<dynamic> gotoPayAndConfirmPage() {
+    return _goto(Routes.page_pay_and_confirm, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

@@ -27,6 +27,10 @@ class TextString {
 
   static const String page_title__doctor_profile = 'Doctor Profile';
 
+  static const String page_title__confirm_appointment = 'Confirm Appointment';
+
+  static const String page_title__pay_and_confirm = 'Pay & Confirm';
+
   // ===================================================================== Label
   static const String label__double_click_to_close = 'Double click to close the app';
 
@@ -74,7 +78,19 @@ class TextString {
 
   static const String label__work_hours = 'Work Hours';
 
+  static const String label__confirm = 'Confirm';
+
+  static const String label__appointment = 'Appointment';
+
+  static const String label__pay_and = 'Pay &';
+
+  static const String label__appointment_with = 'Appointment With';
+
   static const String label__available_appointment_hours = 'Available Appointment Hours';
+
+  static const String label__confirm_appointment = 'Confirm Appointment';
+
+  static const String label__cancel = 'Cancel';
 
   static const String label__lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 }
