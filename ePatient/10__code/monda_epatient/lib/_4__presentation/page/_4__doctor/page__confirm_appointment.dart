@@ -3,21 +3,29 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/builder__custom_app_bar.dart';
+import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
 
 class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
-  ConfirmAppointmentPage() : super(
-    title: TextString.page_title__confirm_appointment,
-    backgroundAsset: Asset.png__background04,
-    usingSafeArea: true,
-    showAppBar: false,
-    showFloatingActionButton: true,
-    showBottomNavigationBar: true,
-    selectedIndexOfBottomNavigationBar: -1,
-  );
+  final String assetImage;
+
+  final String doctorName;
+
+  ConfirmAppointmentPage()
+      : assetImage = Get.arguments['assetImage'],
+        doctorName = Get.arguments['doctorName'],
+        super(
+          title: TextString.page_title__confirm_appointment,
+          backgroundAsset: Asset.png__background04,
+          usingSafeArea: true,
+          showAppBar: false,
+          showFloatingActionButton: true,
+          showBottomNavigationBar: true,
+          selectedIndexOfBottomNavigationBar: -1,
+        );
 
   @override
   Widget constructContent(BuildContext context) {
@@ -53,10 +61,6 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _heroSection(BuildContext context) {
-    var arguments = Get.arguments;
-    var assetImage = arguments['assetImage'];
-    var doctorName = arguments['doctorName'];
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -114,6 +118,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
           size: 50,
           elevation: 3,
           onPressed: () {
+            RouteNavigator.gotoPayAndConfirmPage(assetImage: assetImage, doctorName: doctorName);
           },
           child: Text(TextString.label__confirm_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
         ),

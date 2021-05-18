@@ -80,8 +80,13 @@ class RouteNavigator {
     return _goto(Routes.page_confirm_appointment, forgetBefore: false, arguments: arguments);
   }
 
-  static Future<dynamic> gotoPayAndConfirmPage() {
-    return _goto(Routes.page_pay_and_confirm, forgetBefore: false);
+  static Future<dynamic> gotoPayAndConfirmPage({required String assetImage, required doctorName}) {
+    var arguments = {
+      'assetImage': assetImage,
+      'doctorName': doctorName,
+    };
+
+    return _goto(Routes.page_pay_and_confirm, forgetBefore: false, arguments: arguments);
   }
 
   // -------------------------------------------------------------------- helper

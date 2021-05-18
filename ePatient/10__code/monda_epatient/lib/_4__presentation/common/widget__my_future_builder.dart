@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/widget__my_circular_progress_indicator.dart';
+import 'package:monda_epatient/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 
 class MyFutureBuilder extends StatelessWidget {
   final Future future;

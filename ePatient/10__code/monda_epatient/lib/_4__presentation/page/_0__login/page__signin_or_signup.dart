@@ -7,8 +7,8 @@ import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/widget__monda_logo.dart';
+import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common/widget__monda_logo.dart';
 
 class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
   SigninOrSignupPage() : super(

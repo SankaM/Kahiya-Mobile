@@ -6,19 +6,35 @@ import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/builder__custom_app_bar.dart';
+import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
 
 class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
-  DoctorProfilePage() : super(
-    title: TextString.page_title__doctor_profile,
-    backgroundAsset: Asset.png__background03,
-    usingSafeArea: true,
-    showAppBar: false,
-    showFloatingActionButton: true,
-    showBottomNavigationBar: true,
-    selectedIndexOfBottomNavigationBar: -1,
-  );
+  final String assetImage;
+
+  final String firstLineText;
+
+  final String secondLineText;
+
+  final String thirdLineText;
+
+  final String assetIcon;
+
+  DoctorProfilePage()
+      : assetImage = Get.arguments['assetImage'],
+        firstLineText = Get.arguments['firstLineText'],
+        secondLineText = Get.arguments['secondLineText'],
+        thirdLineText = Get.arguments['thirdLineText'],
+        assetIcon = Get.arguments['assetIcon'],
+        super(
+          title: TextString.page_title__doctor_profile,
+          backgroundAsset: Asset.png__background03,
+          usingSafeArea: true,
+          showAppBar: false,
+          showFloatingActionButton: true,
+          showBottomNavigationBar: true,
+          selectedIndexOfBottomNavigationBar: -1,
+        );
 
   @override
   Widget constructContent(BuildContext context) {
@@ -32,7 +48,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   PreferredSize _contentCustomAppBar(BuildContext context) {
     return CustomAppBarBuilder.build(
       context: context,
-      firstLineLabel: Text(Get.arguments['firstLineText'], style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
+      firstLineLabel: Text(firstLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
       secondLineLabel: Text('Profile', style: Style.defaultTextStyle()),
     );
   }
@@ -71,8 +87,6 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _firstRowProfile(BuildContext context) {
-    dynamic arguments = Get.arguments;
-
     return Container(
       height: 125,
       child: Row(
@@ -85,7 +99,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               margin: EdgeInsets.all(10),
               height: double.infinity,
               child: GFAvatar(
-                backgroundImage: AssetImage(arguments['assetImage']),
+                backgroundImage: AssetImage(assetImage),
                 shape: GFAvatarShape.square,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
@@ -98,18 +112,18 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(arguments['firstLineText'], style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
+                  Text(firstLineText, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
                   SizedBox(height: 5,),
-                  Text(arguments['secondLineText'], style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
+                  Text(secondLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
 
                   Spacer(),
                   Text(TextString.label__available_for_appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, color: Colors.grey[500]!),),
                   SizedBox(height: 5,),
                   Row(
                     children: [
-                      Image.asset(arguments['assetIcon'], width: 16, height: 16,),
+                      Image.asset(assetIcon, width: 16, height: 16,),
                       SizedBox(width: 10,),
-                      Text(arguments['thirdLineText'], style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
+                      Text(thirdLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
                     ],
                   )
                 ],

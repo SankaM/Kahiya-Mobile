@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/widget__my_scaffold.dart';
+import 'package:monda_epatient/_4__presentation/common/widget__my_scaffold.dart';
 
 abstract class AbstractPage extends StatelessWidget {
   final String title;

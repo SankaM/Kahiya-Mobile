@@ -38,8 +38,8 @@ class MondaEDoctorApp extends StatelessWidget {
     return GetMaterialApp(
         onInit: _onInit,
         title: TextString.app_name,
-        // initialRoute: Routes.page_splash,
-        initialRoute: Routes.page_home,
+        initialRoute: Routes.page_splash,
+        // initialRoute: Routes.page_home,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Style.appMaterialColor,

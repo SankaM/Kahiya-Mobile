@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/widget__background.dart';
+import 'package:monda_epatient/_4__presentation/common/abstract_page.dart';
+import 'package:monda_epatient/_4__presentation/common/widget__background.dart';
 
 abstract class AbstractPageWithBackgroundAndContent extends AbstractPage {
   final String backgroundAsset;

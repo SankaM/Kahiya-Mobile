@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
-import 'package:monda_epatient/_4__presentation/common_widget/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__doctor_card.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__filter_button.dart';
 
