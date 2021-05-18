@@ -1,6 +1,10 @@
 class Asset {
   static const png__logo = 'assets/logo.png';
 
+  static const png__logo_cc = 'assets/logo_cc.png';
+
+  static const png__logo__paypal = 'assets/logo_paypal.png';
+
   static const png__background01 = 'assets/background01.png';
 
   static const png__background02 = 'assets/background02.png';
