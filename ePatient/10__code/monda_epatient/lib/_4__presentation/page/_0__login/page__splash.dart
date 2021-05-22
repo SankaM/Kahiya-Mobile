@@ -21,6 +21,7 @@ class SplashPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
+    print('====================================================== 3 => ${Get.size.height}H x ${Get.size.width}W');
     return InkWell(
       onTap: () {
         RouteNavigator.gotoSignInOrSignUpPage();

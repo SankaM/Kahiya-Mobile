@@ -9,13 +9,15 @@ class Background extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: Get.width,
+      height: Get.height,
       color: Colors.black,
       padding: EdgeInsets.all(00),
       margin: EdgeInsets.all(00),
       child: Image.asset(
         backgroundAsset,
-        fit: BoxFit.fitWidth,
-        width: Get.size.width,
+        fit: BoxFit.cover,
+        // width: Get.size.width,
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:get/get.dart';
 
 class Routes {
+  static const String page_blank_before_splash = '/blank-before-splash';
+
   static const String page_splash = '/splash';
 
   static const String page_signin_or_signup = '/signin-or-signup';
@@ -26,6 +28,10 @@ class Routes {
 
 class RouteNavigator {
   // -------------------------------------------------------------------- Splash
+  static Future<dynamic> gotoBlankBeforeSplashPage() {
+    return _goto(Routes.page_blank_before_splash, forgetBefore: true);
+  }
+
   static Future<dynamic> gotoSplashPage() {
     return _goto(Routes.page_splash, forgetBefore: true);
   }

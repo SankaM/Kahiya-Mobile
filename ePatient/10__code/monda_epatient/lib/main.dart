@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/page__blank_before_splash.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signup.dart';
@@ -19,11 +20,15 @@ import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_c
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  return runApp(
-    Phoenix(
-      child: MondaEDoctorApp(),
-    ),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((_) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    return runApp(
+      Phoenix(
+        child: MondaEDoctorApp(),
+      ),
+    );
+  });
 }
 
 class MondaEDoctorApp extends StatelessWidget {
@@ -34,14 +39,10 @@ class MondaEDoctorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
     return GetMaterialApp(
         onInit: _onInit,
         title: TextString.app_name,
-        initialRoute: Routes.page_splash,
+        initialRoute: Routes.page_blank_before_splash,
         // initialRoute: Routes.page_home,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -51,6 +52,8 @@ class MondaEDoctorApp extends StatelessWidget {
         ),
         getPages: [
           // --------------------------------------------------------- 0. Splash
+          GetPage(name: Routes.page_blank_before_splash, page: () => BlankBeforeSplashPage(),),
+
           GetPage(name: Routes.page_splash, page: () => SplashPage(),),
 
           GetPage(name: Routes.page_signin_or_signup, page: () => SigninOrSignupPage(),),
