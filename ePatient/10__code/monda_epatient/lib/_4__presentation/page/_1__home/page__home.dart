@@ -81,33 +81,34 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _searchBar(BuildContext context) {
-    return Padding(
+    return Container(
+      height: ScreenUtil.heightInPercent(10),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: Row(
         children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-              child: TextFormField(
-                style: TextStyle(color: Style.colorPrimary),
-                cursorColor: Style.colorPrimary,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
-                  hintText: TextString.label__search,
-                  hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none,
-                  ),
+          Container(
+            width: ScreenUtil.widthInPercent(60),
+            height: ScreenUtil.heightInPercent(8),
+            child: TextFormField(
+              style: TextStyle(color: Style.colorPrimary),
+              cursorColor: Style.colorPrimary,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
+                hintText: TextString.label__search,
+                hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
           ),
-          SizedBox(width: ScreenUtil.widthInPercent(3),),
-          Expanded(
-            flex: 1,
+          Spacer(),
+          Container(
+            width: ScreenUtil.heightInPercent(8),
+            height: ScreenUtil.heightInPercent(8),
             child: FilterButton(labels: ['Name', 'Phone', 'Past History'],),
           )
         ],
