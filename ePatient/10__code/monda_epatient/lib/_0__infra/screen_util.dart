@@ -24,7 +24,8 @@ class ScreenUtil {
   ScreenUtil._();
 
   ScreenUtil.init(BuildContext context) {
-    print('================== textScaleFactor: ${MediaQuery.of(context).textScaleFactor}');
+    print('================== textScaleFactor : ${MediaQuery.of(context).textScaleFactor}');
+    print('================== devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}');
 
     if(!_alreadyInitialized) {
       _mediaQueryData = MediaQuery.of(context);
@@ -63,6 +64,7 @@ class ScreenUtil {
   }
 
   static double fontSize(double size) {
-    return size * _safeBlockHorizontal;
+    // return size * _safeBlockHorizontal;
+    return size * _safeBlockVertical;
   }
 }
