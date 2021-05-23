@@ -33,7 +33,7 @@ class SplashPage extends AbstractPageWithBackgroundAndContent {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MondaLogo(sideLength: Get.size.width / 2,),
+            MondaLogo(sideLength: ScreenUtil.heightInPercent(22.5),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 12),),
             SizedBox(height: 5,),
