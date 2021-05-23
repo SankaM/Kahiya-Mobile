@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -23,22 +24,22 @@ class SignupPage extends AbstractPageWithBackgroundAndContent {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      padding: EdgeInsets.all(30),
+      padding: EdgeInsets.all(ScreenUtil.widthInPercent(8)),
       child: ListView(
         children: [
-          MondaLogo(sideLength: 100),
-          SizedBox(height: 40,),
+          MondaLogo(sideLength: ScreenUtil.heightInPercent(15)),
+          SizedBox(height: ScreenUtil.heightInPercent(4),),
           _signUpLabelSection(context),
-          SizedBox(height: 30,),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           _emailSection(context),
-          SizedBox(height: 20,),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           _usernameSection(context),
-          SizedBox(height: 20,),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           _passwordSection(context),
-          SizedBox(height: 50,),
+          SizedBox(height: ScreenUtil.heightInPercent(3),),
           _loginButton(context),
           _signInInfoSection(context),
-          SizedBox(height: 75,),
+          SizedBox(height: ScreenUtil.heightInPercent(10),),
         ],
       ),
     );
@@ -55,12 +56,12 @@ class SignupPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__email, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Container(
               child: TextFormField(
                 style: TextStyle(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w400),
@@ -93,12 +94,12 @@ class SignupPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__username, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Container(
               child: TextFormField(
                 style: TextStyle(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w400),
@@ -131,12 +132,12 @@ class SignupPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__password, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white,),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Container(
               child: TextFormField(
                 obscureText: true,
@@ -165,7 +166,7 @@ class SignupPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _loginButton(BuildContext context) {
     return Container(
-      height: 55,
+      height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
       child: InkWell(
         onTap: () {

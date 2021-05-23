@@ -58,7 +58,7 @@ class MondaEDoctorApp extends StatelessWidget {
 
           GetPage(name: Routes.page_signin_or_signup, page: () => SigninOrSignupPage(),),
 
-          GetPage(name: Routes.page_signin, page: () => SigninPage(),),
+          GetPage(name: Routes.page_signin, page: () => SignInPage(),),
 
           GetPage(name: Routes.page_signup, page: () => SignupPage(),),
 

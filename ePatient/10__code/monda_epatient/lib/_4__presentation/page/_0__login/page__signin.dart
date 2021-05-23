@@ -8,8 +8,8 @@ import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/widget__monda_logo.dart';
 
-class SigninPage extends AbstractPageWithBackgroundAndContent {
-  SigninPage() : super(
+class SignInPage extends AbstractPageWithBackgroundAndContent {
+  SignInPage() : super(
     title: TextString.page_title__sign_in,
     backgroundAsset: Asset.png__background01,
     usingSafeArea: true,
@@ -55,12 +55,12 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(ScreenUtil.widthInPercent(6)),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__username, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white),),
-            SizedBox(height: ScreenUtil.heightInPercent(2),),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Container(
               child: TextFormField(
                 style: TextStyle(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w400),
@@ -93,12 +93,12 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(ScreenUtil.widthInPercent(6)),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__password, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white,),),
-            SizedBox(height: ScreenUtil.heightInPercent(2),),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Container(
               child: TextFormField(
                 obscureText: true,
