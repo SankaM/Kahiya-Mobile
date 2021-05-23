@@ -115,7 +115,7 @@ class MyScaffold extends StatelessWidget {
         child: Icon(
           Icons.home,
           color: Colors.white,
-          size: 50,
+          size: ScreenUtil.widthInPercent(7),
         ),
         backgroundColor: Style.colorPalettes[900],
         elevation: 0,

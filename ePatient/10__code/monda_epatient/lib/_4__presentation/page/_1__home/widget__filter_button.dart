@@ -44,8 +44,7 @@ class _FilterButtonState extends State<FilterButton> {
 
   Widget _filterButton() {
     return Container(
-      width: ScreenUtil.widthInPercent(10),
-      // padding: EdgeInsets.all(ScreenUtil.widthInPercent(1)),
+      width: ScreenUtil.widthInPercent(17),
       child: Image.asset(Asset.png_filter_button),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
