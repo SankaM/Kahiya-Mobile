@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,14 +26,14 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
     return Align(
       child: Column(
         children: [
-          SizedBox(height: ScreenUtil.heightInPercent(14),),
+          SizedBox(height: ScreenUtil.heightInPercent(18),),
           MondaLogo(sideLength: ScreenUtil.widthInPercent(35)),
+          SizedBox(height: ScreenUtil.heightInPercent(10),),
+          Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: Style.colorPrimary,),),
           SizedBox(height: ScreenUtil.heightInPercent(4),),
-          Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: ScreenUtil.fontSize(15), fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
-          SizedBox(height: ScreenUtil.heightInPercent(2),),
           Container(
             height: ScreenUtil.heightInPercent(6),
-            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(5), right: ScreenUtil.widthInPercent(5)),
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(15), right: ScreenUtil.widthInPercent(15)),
             child: GFButton(
               color: Style.colorPrimary,
               onPressed: () {
@@ -45,10 +44,10 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
               textStyle: GoogleFonts.montserrat(fontSize: Style.fontSize_2XL, color: Colors.white, letterSpacing: 4),
             ),
           ),
-          SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           Container(
             height: ScreenUtil.heightInPercent(6),
-            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(5), right: ScreenUtil.widthInPercent(5)),
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(15), right: ScreenUtil.widthInPercent(15)),
             child: GFButton(
               color: Style.colorPrimary,
               onPressed: () {

@@ -21,9 +21,6 @@ class ScreenUtil {
 
   static late final double _safeBlockVertical;
 
-  static late final double _textScaleFactor;
-
-
   ScreenUtil._();
 
   ScreenUtil.init(BuildContext context) {
@@ -40,8 +37,6 @@ class ScreenUtil {
       _safeAreaVertical = _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
       _safeBlockHorizontal = (_realScreenWidth - _safeAreaHorizontal) / 100;
       _safeBlockVertical = (_realScreenHeight - _safeAreaVertical) / 100;
-
-      _textScaleFactor = _mediaQueryData.textScaleFactor;
 
       _alreadyInitialized = true;
     }
@@ -67,7 +62,7 @@ class ScreenUtil {
     return percent * _safeBlockVertical;
   }
 
-  static double fontSize(int size) {
-    return size * _safeBlockHorizontal / 5;
+  static double fontSize(double size) {
+    return size * _safeBlockHorizontal;
   }
 }
