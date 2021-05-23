@@ -4,6 +4,7 @@ import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -52,12 +53,12 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   Widget _contentBody(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(left: 30, top: 30, right: 30),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(40)),
+        borderRadius: BorderRadius.all(Radius.circular(50)),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -84,7 +85,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _firstRowProfile(BuildContext context) {
     return Container(
-      height: 125,
+      height: ScreenUtil.heightInPercent(16),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,33 +93,32 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
           Expanded(
             flex: 2,
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(ScreenUtil.widthInPercent(1.5)),
               height: double.infinity,
               child: GFAvatar(
                 backgroundImage: AssetImage(DoctorProfileController.instance.assetImage),
                 shape: GFAvatarShape.square,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
             ),
           ),
           Expanded(
             flex: 3,
             child: Container(
-              margin: EdgeInsets.only(left: 10, top: 15, right: 10, bottom: 15),
+              margin: EdgeInsets.fromLTRB(ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1), ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1.5)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
-                  SizedBox(height: 5,),
+                  SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Text(DoctorProfileController.instance.secondLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
-
                   Spacer(),
                   Text(TextString.label__available_for_appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, color: Colors.grey[500]!),),
-                  SizedBox(height: 5,),
+                  SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Row(
                     children: [
-                      Image.asset(DoctorProfileController.instance.assetIcon, width: 16, height: 16,),
-                      SizedBox(width: 10,),
+                      Image.asset(DoctorProfileController.instance.assetIcon, width: Style.iconSize_Default, height: Style.iconSize_Default,),
+                      SizedBox(width: ScreenUtil.widthInPercent(1),),
                       Text(DoctorProfileController.instance.thirdLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
                     ],
                   )
