@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_9__modify/flutter/custom_popup_menu_item.dart';
 
@@ -43,7 +44,7 @@ class _FilterButtonState extends State<FilterButton> {
 
   Widget _filterButton() {
     return Container(
-      padding: EdgeInsets.all(17),
+      padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
       child: Image.asset(Asset.png_filter_button),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -72,8 +73,8 @@ class _FilterButtonState extends State<FilterButton> {
         value: menuItemLabel,
         child: Row(
           children: [
-            Container(height: 20, width: 4, color: markerColor,),
-            SizedBox(width: 20,),
+            Container(height: ScreenUtil.heightInPercent(3), width: ScreenUtil.widthInPercent(1), color: markerColor,),
+            SizedBox(width: ScreenUtil.heightInPercent(3),),
             Text(menuItemLabel, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: textColor),),
           ],
         ),

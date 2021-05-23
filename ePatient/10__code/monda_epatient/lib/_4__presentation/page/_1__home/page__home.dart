@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -153,7 +152,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1.5), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1.5)),
       child: GFButton(
-        text: TextString.label__view_appointments,
+        child: Text(TextString.label__view_appointments, style: GoogleFonts.montserrat(color: Style.colorPrimary, fontSize: Style.fontSize_Default),),
         type: GFButtonType.outline,
         color: Style.colorPrimary,
         shape: GFButtonShape.standard,
