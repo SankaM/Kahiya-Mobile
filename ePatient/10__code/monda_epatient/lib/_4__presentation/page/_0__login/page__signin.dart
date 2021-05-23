@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -23,21 +24,21 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      padding: EdgeInsets.all(30),
+      padding: EdgeInsets.all(ScreenUtil.widthInPercent(8)),
       child: ListView(
         children: [
-          SizedBox(height: 75,),
-          MondaLogo(sideLength: 100),
-          SizedBox(height: 40,),
+          SizedBox(height: ScreenUtil.heightInPercent(10),),
+          MondaLogo(sideLength: ScreenUtil.heightInPercent(15)),
+          SizedBox(height: ScreenUtil.heightInPercent(5),),
           _signInLabelSection(context),
-          SizedBox(height: 30,),
+          SizedBox(height: ScreenUtil.heightInPercent(3),),
           _usernameSection(context),
-          SizedBox(height: 20,),
+          SizedBox(height: ScreenUtil.heightInPercent(3),),
           _passwordSection(context),
-          SizedBox(height: 50,),
+          SizedBox(height: ScreenUtil.heightInPercent(6),),
           _loginButton(context),
           _signUpInfoSection(context),
-          SizedBox(height: 75,),
+          SizedBox(height: ScreenUtil.heightInPercent(10),),
         ],
       ),
     );
@@ -54,12 +55,12 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(6)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__username, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
             Container(
               child: TextFormField(
                 style: TextStyle(fontSize: Style.fontSize_Default, color: Colors.white, fontWeight: FontWeight.w400),
@@ -92,12 +93,12 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(6)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(TextString.label__password, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.white,),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
             Container(
               child: TextFormField(
                 obscureText: true,
@@ -126,7 +127,7 @@ class SigninPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _loginButton(BuildContext context) {
     return Container(
-      height: 55,
+      height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
       child: InkWell(
         onTap: () {
