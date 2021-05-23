@@ -81,6 +81,12 @@ class Style {
 
   static const double iconSize_Default = 20;
 
+  static const double iconSize_L = 24;
+
+  static const double iconSize_XL = 28;
+
+  static const double iconSize_2XL = 32;
+
   static const Map<int, Color> colorPalettes =  {
     50:Color.fromRGBO(255, 160, 113, .3),
     100:Color.fromRGBO(255, 160, 113, .4),

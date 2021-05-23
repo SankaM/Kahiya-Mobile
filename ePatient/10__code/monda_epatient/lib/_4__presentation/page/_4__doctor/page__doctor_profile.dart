@@ -136,11 +136,12 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 30, right: 10),
+          // padding: EdgeInsets.only(left: 10, top: 30, right: 10),
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__about, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 20, right: 10),
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
           child: Text(TextString.label__lorem_ipsum, style: Style.defaultTextStyle(color: Colors.grey[600]!,), textAlign: TextAlign.justify,),
         )
       ],
@@ -152,7 +153,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 30, right: 10, bottom: 10),
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__past_history, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
         _PastHistoryItem(icon: Icons.system_update_tv_outlined, itemLabel: 'Total Diagnostic', itemCount: '25'),
@@ -167,7 +168,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 30, right: 10, bottom: 10),
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__work_hours, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
         Row(
@@ -222,16 +223,16 @@ class _PastHistoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-      padding: EdgeInsets.all(15),
+      margin: EdgeInsets.only(left: ScreenUtil.widthInPercent(1.5), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(1.5), bottom: ScreenUtil.heightInPercent(1.5)),
+      padding: EdgeInsets.all(ScreenUtil.heightInPercent(2)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Style.colorPrimary.withOpacity(0.10),
       ),
       child: Row(
         children: [
-          Icon(icon, color: Style.colorPrimary,),
-          SizedBox(width: 10,),
+          Icon(icon, color: Style.colorPrimary, size: Style.iconSize_2XL,),
+          SizedBox(width: ScreenUtil.heightInPercent(1.5),),
           Text(itemLabel, style: Style.defaultTextStyle(fontWeight: FontWeight.w600, color: Style.colorPrimary, letterSpacing: 0.5),),
           Spacer(),
           Text(itemCount, style: Style.defaultTextStyle(fontWeight: FontWeight.w600, color: Style.colorPrimary, letterSpacing: 0.5, fontSize: Style.fontSize_2XL),),
@@ -248,13 +249,14 @@ class _WorkHourCard extends StatelessWidget {
 
   final double height;
   
-  _WorkHourCard({required this.dayNameLabel, required this.workHoursLabel, this.height = 75.0});
+  _WorkHourCard({required this.dayNameLabel, required this.workHoursLabel, this.height = 0});
   
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+      height: (height == 0) ? ScreenUtil.heightInPercent(10) : height,
       margin: EdgeInsets.all(1),
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(0.5)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Style.colorPrimary.withOpacity(0.75),
@@ -262,7 +264,7 @@ class _WorkHourCard extends StatelessWidget {
       child: Column(
         children: [
           Text(dayNameLabel, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, fontWeight: FontWeight.w700)),
-          SizedBox(height: 20,),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           Text(workHoursLabel, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS),),
         ],
       ),
