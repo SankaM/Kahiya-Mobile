@@ -77,7 +77,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
           _workHoursSection(context),
           _availableAppointmentHoursSection(context),
           _makeAnAppointmentButton(context),
-          SizedBox(height: 125,),
+          SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
       ),
     );
@@ -136,7 +136,6 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          // padding: EdgeInsets.only(left: 10, top: 30, right: 10),
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__about, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
@@ -197,10 +196,10 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _makeAnAppointmentButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
       child: GFButton(
         color: Style.colorPrimary,
-        size: 50,
+        size: ScreenUtil.heightInPercent(6),
         elevation: 3,
         onPressed: () {
           RouteNavigator.gotoConfirmAppointmentPage();
@@ -301,7 +300,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
     List<Widget> childrenList = [];
     childrenList.add(
       Padding(
-        padding: EdgeInsets.only(left: 10, top: 30, right: 10, bottom: 10),
+        padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
         child: Text(TextString.label__available_appointment_hours, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
       ),
     );
@@ -321,8 +320,8 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
     Color color2 = (selectedId == _optionHour.id) ? Colors.grey[600]! : Colors.grey[400]!;
 
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+      margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1.5), left: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(1)),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(3), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(3)),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.all(Radius.circular(10),),
@@ -341,7 +340,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(_optionHour.dayLabel, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: color1),),
-                SizedBox(height: 5,),
+                SizedBox(height: ScreenUtil.heightInPercent(1),),
                 Text(_optionHour.timeLabel, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: color1),),
               ]
             ),
