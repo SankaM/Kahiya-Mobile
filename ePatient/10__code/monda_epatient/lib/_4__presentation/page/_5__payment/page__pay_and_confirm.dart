@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -34,21 +35,21 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary,),
-      firstLineLabel: Text(TextString.label__pay_and, style: Style.defaultTextStyle(fontSize: Style.fontSize_6XL, color: Colors.black),),
-      secondLineLabel: Text(TextString.label__confirm, style: Style.defaultTextStyle(fontSize: Style.fontSize_6XL, color: Colors.black),),
+      firstLineLabel: Text(TextString.label__pay_and, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
+      secondLineLabel: Text(TextString.label__confirm, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
     );
   }
 
   Widget _contentBody(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
       child: ListView(
         children: [
           _heroSection(context),
           _paymentMethodsSection(context),
           _cancelButton(context),
-          SizedBox(height: 125,)
+          SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
       ),
     );
@@ -65,7 +66,8 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        // padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,15 +78,16 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
                 child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
               ),
             ),
-            SizedBox(height: 10,),
+            // SizedBox(height: 10,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
-            SizedBox(height: 5,),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
             Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Row(
               children: [
-                Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_S,),
-                SizedBox(width: 5,),
+                Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_Default,),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
                 Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
@@ -92,7 +95,7 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
             Row(
               children: [
                 Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
-                SizedBox(width: 5,),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
                 Text('12:00 PM', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
@@ -107,7 +110,7 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 30, right: 10, bottom: 20),
+          padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
           child: Text(TextString.label__payment_methods, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
         PaymentMethodOption(
@@ -115,14 +118,14 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
           label: Text(
             'Pay With Paypal',
             style: Style.defaultTextStyle(color: Colors.blue[600]!, fontWeight: FontWeight.w500),),
-          logo: Image.asset(Asset.png__logo__paypal, width: 25,),
+          logo: Image.asset(Asset.png__logo__paypal, width: ScreenUtil.widthInPercent(5),),
         ),
         PaymentMethodOption(
           backgroundColor: Style.colorPrimary.withOpacity(0.3),
           label: Text(
             'Pay With Credit Card',
             style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),
-          logo: Image.asset(Asset.png__logo_cc, width: 25,),
+          logo: Image.asset(Asset.png__logo_cc, width: ScreenUtil.widthInPercent(5),),
         ),
       ],
     );
@@ -130,14 +133,14 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _cancelButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 30),
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
       child: Container(
         color: Colors.white,
         width: double.infinity,
         child: GFButton(
           color: Style.colorPrimary,
           type: GFButtonType.outline,
-          size: 50,
+          size: ScreenUtil.heightInPercent(6),
           onPressed: () {
             Get.back();
           },
@@ -164,8 +167,8 @@ class PaymentMethodOption extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: backgroundColor,
       ),
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(top: 10, bottom: 10),
+      padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
+      margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: Row(
         children: [
           label,
