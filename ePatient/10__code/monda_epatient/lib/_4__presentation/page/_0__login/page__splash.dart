@@ -37,7 +37,7 @@ class SplashPage extends AbstractPageWithBackgroundAndContent {
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 12),),
             SizedBox(height: 5,),
-            Text(TextString.app_tagline, style: GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
+            Text(TextString.app_tagline, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
           ],
         ),
       ),
