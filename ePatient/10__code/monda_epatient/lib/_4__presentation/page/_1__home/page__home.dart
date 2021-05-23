@@ -6,6 +6,7 @@ import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -29,7 +30,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20,),
+        SizedBox(height: ScreenUtil.heightInPercent(2.5),),
         _welcomeAccountRow(context),
         _searchBar(context),
         _scrollableSection(context),
@@ -56,11 +57,11 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _accountProfilePicture(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30, top: 20, right: 30),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: GFAvatar(
         backgroundImage: AssetImage(Asset.png__patient01),
         shape: GFAvatarShape.square,
-        size: 25,
+        size: ScreenUtil.widthInPercent(7),
         borderRadius: BorderRadius.all(Radius.circular(10)),
       )
     );
@@ -68,21 +69,21 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _welcomeText(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30, top: 20, right: 30),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: Text('Welcome,', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.textColorPrimary),),
     );
   }
 
   Widget _patientNameText(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30, top: 10, right: 30),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(8)),
       child: Text('Steve,', style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
     );
   }
 
   Widget _searchBar(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30, top: 20, right: 30),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: Row(
         children: [
           Expanded(
@@ -104,7 +105,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
               ),
             ),
           ),
-          SizedBox(width: 10,),
+          SizedBox(width: ScreenUtil.widthInPercent(3),),
           FilterButton(labels: ['Name', 'Phone', 'Past History'],),
         ],
       ),
@@ -112,22 +113,22 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _scrollableSection(BuildContext context) {
-    var width = Get.size.width - (20 * 2);
+    var width = ScreenUtil.widthInPercent(80);
+    var height = ScreenUtil.heightInPercent(17);
 
     return Padding(
       padding: EdgeInsets.only(left: 25, top: 20, right: 25),
       child: Container(
-        width: Get.size.width - (10 * 2),
-        height: Get.size.height * 0.7,
+        height: ScreenUtil.heightInPercent(70),
         child: ListView(
           children: [
             _doctorsTextLabel(context),
-            DoctorCard(width: width, assetImage: Asset.png_face01, firstLineText: 'Dr. Carl Johnson', secondLineText: 'Skin Care Specialist', thirdLineText: '10:00 AM - 5:00 PM', assetIcon: Asset.png_time01,),
-            DoctorCard(width: width, assetImage: Asset.png_face02, firstLineText: 'Dr. Melinda Margot', secondLineText: 'ENT Specialist / Surgeon', thirdLineText: '9:00 AM - 6:00 PM', assetIcon: Asset.png_time02,),
-            DoctorCard(width: width, assetImage: Asset.png_face03, firstLineText: 'Dr. William Martin', secondLineText: 'Gynecologist', thirdLineText: '10:00 AM - 7:00 PM', assetIcon: Asset.png_time03,),
+            DoctorCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Dr. Carl Johnson', secondLineText: 'Skin Care Specialist', thirdLineText: '10:00 AM - 5:00 PM', assetIcon: Asset.png_time01,),
+            DoctorCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Dr. Melinda Margot', secondLineText: 'ENT Specialist / Surgeon', thirdLineText: '9:00 AM - 6:00 PM', assetIcon: Asset.png_time02,),
+            DoctorCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Dr. William Martin', secondLineText: 'Gynecologist', thirdLineText: '10:00 AM - 7:00 PM', assetIcon: Asset.png_time03,),
             _myAppointmentTextLabel(context),
             _myAppointmentButton(context),
-            SizedBox(height: 80,),
+            SizedBox(height: ScreenUtil.heightInPercent(10),),
           ],
         ),
       ),
@@ -136,27 +137,27 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _doctorsTextLabel(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, top: 30, right: 10),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(3), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(3)),
       child: Text(TextString.label__doctors, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w700, color: Colors.grey[500],),),
     );
   }
 
   Widget _myAppointmentTextLabel(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, top: 30, right: 10),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(3), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(3)),
       child: Text(TextString.label__my_appointments, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w700, color: Colors.grey[500],),),
     );
   }
 
   Widget _myAppointmentButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 5, top: 20, right: 5),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1.5), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1.5)),
       child: GFButton(
         text: TextString.label__view_appointments,
         type: GFButtonType.outline,
         color: Style.colorPrimary,
         shape: GFButtonShape.standard,
-        size: 50,
+        size: ScreenUtil.heightInPercent(6.5),
         onPressed: () {},
       ),
     );

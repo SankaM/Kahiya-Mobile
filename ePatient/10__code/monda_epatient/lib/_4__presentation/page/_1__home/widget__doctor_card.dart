@@ -18,13 +18,15 @@ class DoctorCard extends StatelessWidget {
 
   final double width;
 
-  DoctorCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width});
+  final double height;
+
+  DoctorCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 125,
+      height: height,
       margin: EdgeInsets.only(top: 10, bottom: 10),
       child: InkWell(
         onTap: () {
