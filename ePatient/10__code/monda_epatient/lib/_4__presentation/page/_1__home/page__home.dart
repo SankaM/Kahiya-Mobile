@@ -86,6 +86,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
       child: Row(
         children: [
           Expanded(
+            flex: 4,
             child: Container(
               child: TextFormField(
                 style: TextStyle(color: Style.colorPrimary),
@@ -105,7 +106,10 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
             ),
           ),
           SizedBox(width: ScreenUtil.widthInPercent(3),),
-          FilterButton(labels: ['Name', 'Phone', 'Past History'],),
+          Expanded(
+            flex: 1,
+            child: FilterButton(labels: ['Name', 'Phone', 'Past History'],),
+          )
         ],
       ),
     );
