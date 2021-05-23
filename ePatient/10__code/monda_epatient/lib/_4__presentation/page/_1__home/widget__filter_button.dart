@@ -44,7 +44,8 @@ class _FilterButtonState extends State<FilterButton> {
 
   Widget _filterButton() {
     return Container(
-      padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
+      width: ScreenUtil.widthInPercent(10),
+      // padding: EdgeInsets.all(ScreenUtil.widthInPercent(1)),
       child: Image.asset(Asset.png_filter_button),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -74,7 +75,7 @@ class _FilterButtonState extends State<FilterButton> {
         child: Row(
           children: [
             Container(height: ScreenUtil.heightInPercent(3), width: ScreenUtil.widthInPercent(1), color: markerColor,),
-            SizedBox(width: ScreenUtil.heightInPercent(3),),
+            SizedBox(width: ScreenUtil.heightInPercent(3), height: ScreenUtil.heightInPercent(6),),
             Text(menuItemLabel, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: textColor),),
           ],
         ),

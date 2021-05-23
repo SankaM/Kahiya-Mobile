@@ -69,7 +69,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   Widget _welcomeText(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Text('Welcome,', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.textColorPrimary),),
+      child: Text(TextString.label__welcome, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.textColorPrimary),),
     );
   }
 

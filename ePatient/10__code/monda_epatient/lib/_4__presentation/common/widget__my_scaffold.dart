@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 
@@ -50,11 +51,14 @@ class MyScaffold extends StatelessWidget {
       body: _body(),
       floatingActionButton: showFloatingActionButton ? _fab() : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: showBottomNavigationBar ? _bottomNavigationBar() : null,
+      bottomNavigationBar:
+          showBottomNavigationBar ? _bottomNavigationBar() : null,
     );
 
     if (usingSafeArea) {
-      return SafeArea(child: scaffold,);
+      return SafeArea(
+        child: scaffold,
+      );
     } else {
       return scaffold;
     }
@@ -70,7 +74,10 @@ class MyScaffold extends StatelessWidget {
 
   PreferredSizeWidget _defaultAppBar() {
     return AppBar(
-      title: Text(title, style: TextStyle(fontSize: Style.fontSize_Default),),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: Style.fontSize_Default),
+      ),
     );
   }
 
@@ -96,21 +103,35 @@ class MyScaffold extends StatelessWidget {
     }
   }
 
+  Widget _fab() {
+    var sideSize = ScreenUtil.widthInPercent(14).floor();
+    var margin = ScreenUtil.widthInPercent(1).floor();
 
-  FloatingActionButton _fab() {
-    return FloatingActionButton(
-      child: Icon(Icons.home, color: Colors.white,),
-      backgroundColor: Style.colorPalettes[900],
-      elevation: 0,
-      onPressed: () {
-        RouteNavigator.gotoHomePage();
-      },
+    return Container(
+      width: sideSize.toDouble(),
+      height: sideSize.toDouble(),
+      margin: EdgeInsets.all(margin.toDouble()),
+      child: FloatingActionButton(
+        child: Icon(
+          Icons.home,
+          color: Colors.white,
+          size: 50,
+        ),
+        backgroundColor: Style.colorPalettes[900],
+        elevation: 0,
+        onPressed: () {
+          RouteNavigator.gotoHomePage();
+        },
+      ),
     );
   }
 
   Widget _defaultBottomNavigationBar() {
     var itemIconList = [Icons.notifications, Icons.notes];
-    var itemLabelList = [TextString.page_title__notifications, TextString.page_title__medical_history];
+    var itemLabelList = [
+      TextString.page_title__notifications,
+      TextString.page_title__medical_history
+    ];
 
     return AnimatedBottomNavigationBar.builder(
         elevation: 20,
@@ -120,7 +141,7 @@ class MyScaffold extends StatelessWidget {
         notchSmoothness: NotchSmoothness.softEdge,
         leftCornerRadius: 32,
         rightCornerRadius: 32,
-        height: 90,
+        height: ScreenUtil.heightInPercent(10),
         tabBuilder: (int index, bool isActive) {
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -128,7 +149,7 @@ class MyScaffold extends StatelessWidget {
             children: [
               Icon(
                 itemIconList[index],
-                size: 24,
+                size: ScreenUtil.heightInPercent(3.5),
                 color: Style.colorPrimary,
               ),
               const SizedBox(height: 4),
@@ -137,19 +158,22 @@ class MyScaffold extends StatelessWidget {
                 child: AutoSizeText(
                   itemLabelList[index],
                   maxLines: 1,
-                  style: TextStyle(color: Style.colorPrimary),
+                  style: TextStyle(
+                      color: Style.colorPrimary,
+                      fontSize: Style.fontSize_Default),
                   group: autoSizeGroup,
                 ),
               ),
-              if(isActive) const SizedBox(height: 10),
-              if(isActive) DottedLine(
-                dashColor: Style.colorPrimary,
-                dashLength: 20,
-                dashGapLength: 0,
-                lineThickness: 4,
-                dashRadius: 16,
-                lineLength: 20,
-              ),
+              if (isActive) SizedBox(height: ScreenUtil.heightInPercent(0.8)),
+              if (isActive)
+                DottedLine(
+                  dashColor: Style.colorPrimary,
+                  dashLength: ScreenUtil.widthInPercent(4),
+                  dashGapLength: 0,
+                  lineThickness: ScreenUtil.widthInPercent(1),
+                  dashRadius: 16,
+                  lineLength: ScreenUtil.widthInPercent(5),
+                ),
             ],
           );
         },
@@ -166,7 +190,6 @@ class MyScaffold extends StatelessWidget {
                 break;
               }
           }
-        }
-    );
+        });
   }
 }
