@@ -27,7 +27,7 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
       child: Column(
         children: [
           SizedBox(height: ScreenUtil.heightInPercent(18),),
-          MondaLogo(sideLength: ScreenUtil.widthInPercent(35)),
+          MondaLogo(sideLength: ScreenUtil.heightInPercent(15)),
           SizedBox(height: ScreenUtil.heightInPercent(10),),
           Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: Style.colorPrimary,),),
           SizedBox(height: ScreenUtil.heightInPercent(4),),
