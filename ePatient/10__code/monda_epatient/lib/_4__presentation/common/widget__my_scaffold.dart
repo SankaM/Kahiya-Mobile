@@ -91,7 +91,7 @@ class MyScaffold extends StatelessWidget {
 
   Widget _defaultBody() {
     return Center(
-      child: Text(title),
+      child: Text(title, style: TextStyle(fontSize: Style.fontSize_Default),),
     );
   }
 

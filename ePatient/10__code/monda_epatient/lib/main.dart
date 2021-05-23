@@ -11,7 +11,7 @@ import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_s
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
-import 'package:monda_epatient/_4__presentation/page/_2__notification/page__invoice.dart';
+import 'package:monda_epatient/_4__presentation/page/_2__notification/page__notification.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
