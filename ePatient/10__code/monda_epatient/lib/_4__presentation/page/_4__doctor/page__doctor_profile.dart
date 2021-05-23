@@ -46,7 +46,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       firstLineLabel: Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
-      secondLineLabel: Text('Profile', style: Style.defaultTextStyle()),
+      secondLineLabel: Text(TextString.label__profile, style: Style.defaultTextStyle()),
     );
   }
 
