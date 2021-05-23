@@ -93,6 +93,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
               style: TextStyle(color: Style.colorPrimary),
               cursorColor: Style.colorPrimary,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
                 prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
                 hintText: TextString.label__search,
                 hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
