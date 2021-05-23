@@ -5,6 +5,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -26,14 +27,14 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
     return Align(
       child: Column(
         children: [
-          SizedBox(height: 175,),
-          MondaLogo(sideLength: Get.size.width / 3),
-          SizedBox(height: 50,),
-          Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: 15, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
-          SizedBox(height: 20,),
+          SizedBox(height: ScreenUtil.heightInPercent(14),),
+          MondaLogo(sideLength: ScreenUtil.widthInPercent(35)),
+          SizedBox(height: ScreenUtil.heightInPercent(4),),
+          Text(TextString.label__join_monda_and_start_asking_doctors, style: GoogleFonts.montserrat(fontSize: ScreenUtil.fontSize(15), fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 50, right: 50),
+            height: ScreenUtil.heightInPercent(6),
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(5), right: ScreenUtil.widthInPercent(5)),
             child: GFButton(
               color: Style.colorPrimary,
               onPressed: () {
@@ -44,10 +45,10 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
               textStyle: GoogleFonts.montserrat(fontSize: Style.fontSize_2XL, color: Colors.white, letterSpacing: 4),
             ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: ScreenUtil.heightInPercent(1.5),),
           Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 50, right: 50),
+            height: ScreenUtil.heightInPercent(6),
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(5), right: ScreenUtil.widthInPercent(5)),
             child: GFButton(
               color: Style.colorPrimary,
               onPressed: () {
