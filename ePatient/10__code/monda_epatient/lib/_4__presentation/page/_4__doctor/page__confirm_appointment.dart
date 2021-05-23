@@ -4,6 +4,7 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -35,21 +36,21 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary,),
-      firstLineLabel: Text(TextString.label__confirm, style: Style.defaultTextStyle(fontSize: Style.fontSize_6XL, color: Colors.black),),
-      secondLineLabel: Text(TextString.label__appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_6XL, color: Colors.black),),
+      firstLineLabel: Text(TextString.label__confirm, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
+      secondLineLabel: Text(TextString.label__appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
     );
   }
 
   Widget _contentBody(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
       child: ListView(
         children: [
           _heroSection(context),
           _confirmAppointmentButton(context),
           _cancelButton(context),
-          SizedBox(height: 125,)
+          SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
       ),
     );
@@ -66,7 +67,8 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        // padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -77,15 +79,16 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
                 child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
               ),
             ),
-            SizedBox(height: 10,),
+            // SizedBox(height: 10,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
-            SizedBox(height: 5,),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
             Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
-            SizedBox(height: 15,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Row(
               children: [
-                Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_S,),
-                SizedBox(width: 5,),
+                Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_Default,),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
                 Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
@@ -93,7 +96,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
             Row(
               children: [
                 Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
-                SizedBox(width: 5,),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
                 Text('12:00 PM', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
@@ -105,12 +108,12 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _confirmAppointmentButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 30),
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
       child: Container(
         width: double.infinity,
         child: GFButton(
           color: Style.colorPrimary,
-          size: 50,
+          size: ScreenUtil.heightInPercent(6),
           elevation: 3,
           onPressed: () {
             RouteNavigator.gotoPayAndConfirmPage();
@@ -123,14 +126,14 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _cancelButton(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 30),
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
       child: Container(
         color: Colors.white,
         width: double.infinity,
         child: GFButton(
           color: Style.colorPrimary,
           type: GFButtonType.outline,
-          size: 50,
+          size: ScreenUtil.heightInPercent(6),
           onPressed: () {
             Get.back();
           },
