@@ -116,7 +116,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
     var height = ScreenUtil.heightInPercent(17);
 
     return Padding(
-      padding: EdgeInsets.only(left: 25, top: 20, right: 25),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: Container(
         height: ScreenUtil.heightInPercent(70),
         child: ListView(
