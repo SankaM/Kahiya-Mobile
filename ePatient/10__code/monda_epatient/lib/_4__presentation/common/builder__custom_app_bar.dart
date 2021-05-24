@@ -21,12 +21,18 @@ class CustomAppBarBuilder {
               onTap: () {
                 Get.back();
               },
-              child: backButtonIcon,
+              child: Container(
+                margin: EdgeInsets.all(0),
+                padding: EdgeInsets.all(0),
+                width: ScreenUtil.widthInPercent(12),
+                height: ScreenUtil.heightInPercent(5),
+                child: backButtonIcon,
+              ),
             ),
-            SizedBox(height: ScreenUtil.heightInPercent(4),),
-            firstLineLabel,
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
+            Padding(padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(4)), child: firstLineLabel,),
             if(secondLineLabel != null) SizedBox(height: ScreenUtil.heightInPercent(1),),
-            if(secondLineLabel != null) secondLineLabel
+            if(secondLineLabel != null) Padding(padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(4)), child: secondLineLabel),
           ],
         ),
       ),

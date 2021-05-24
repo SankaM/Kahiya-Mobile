@@ -23,6 +23,7 @@ dependencies:
   flutter_svg: ^0.22.0
   getwidget: ^2.0.1-nullsafety.4
   google_fonts: ^2.0.0
+  simple_html_css: ^3.0.1
 
 dev_dependencies:
   flutter_test:

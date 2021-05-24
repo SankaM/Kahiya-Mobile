@@ -102,8 +102,8 @@ class Style {
 
   static const MaterialColor appMaterialColor = MaterialColor(0xFF880E4F, colorPalettes);
 
-  static TextStyle defaultTextStyle({double? fontSize, Color color = Style.textColorPrimary, FontWeight fontWeight = FontWeight.w400, double letterSpacing = 0}) {
+  static TextStyle defaultTextStyle({double? fontSize, Color color = Style.textColorPrimary, FontWeight fontWeight = FontWeight.w400, double letterSpacing = 0, double height = 1.0}) {
     if(fontSize == null) fontSize = Style.fontSize_Default;
-    return GoogleFonts.montserrat(fontSize: fontSize, color: color, fontWeight: fontWeight, letterSpacing: letterSpacing);
+    return GoogleFonts.montserrat(fontSize: fontSize, color: color, fontWeight: fontWeight, letterSpacing: letterSpacing, height: height);
   }
 }

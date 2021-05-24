@@ -82,5 +82,4 @@ class AllAppointmentPage extends AbstractPageWithBackgroundAndContent {
       ],
     );
   }
-
 }
