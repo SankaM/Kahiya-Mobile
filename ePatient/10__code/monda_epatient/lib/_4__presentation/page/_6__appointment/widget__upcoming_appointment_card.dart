@@ -163,7 +163,9 @@ class _CancelDialog extends StatelessWidget {
         color: Style.colorPrimary,
         size: ScreenUtil.heightInPercent(6),
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         child: Text(
           TextString.label__yes,
           style: Style.defaultTextStyle(fontWeight: FontWeight.w700),
@@ -180,7 +182,9 @@ class _CancelDialog extends StatelessWidget {
         color: Style.colorPrimary,
         type: GFButtonType.outline,
         size: ScreenUtil.heightInPercent(6),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         child: Text(
           TextString.label__no,
           style: Style.defaultTextStyle(
