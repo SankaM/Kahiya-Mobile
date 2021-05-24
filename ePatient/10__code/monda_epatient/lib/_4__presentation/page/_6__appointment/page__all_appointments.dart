@@ -52,9 +52,6 @@ class AllAppointmentPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _upcomingAppointmentSection(BuildContext context) {
-    var width = double.infinity;
-    var height = ScreenUtil.heightInPercent(20);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

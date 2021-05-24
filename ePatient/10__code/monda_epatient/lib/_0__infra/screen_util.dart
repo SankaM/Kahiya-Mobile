@@ -21,6 +21,7 @@ class ScreenUtil {
 
   static late final double _safeBlockVertical;
 
+  // ignore: unused_element
   ScreenUtil._();
 
   ScreenUtil.init(BuildContext context) {
