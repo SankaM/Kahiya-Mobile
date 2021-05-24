@@ -34,7 +34,7 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
   PreferredSize _contentCustomAppBar(BuildContext context) {
     return CustomAppBarBuilder.build(
       context: context,
-      backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary,),
+      backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary, size: Style.iconSize_2XL,),
       firstLineLabel: Text(TextString.label__pay_and, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
       secondLineLabel: Text(TextString.label__confirm, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
     );

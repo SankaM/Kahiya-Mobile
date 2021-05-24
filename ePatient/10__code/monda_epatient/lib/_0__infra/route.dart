@@ -63,7 +63,7 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoAllAppointmentPage() {
-    return _goto(Routes.page_appointment_all, forgetBefore: true);
+    return _goto(Routes.page_appointment_all, forgetBefore: false);
   }
 
   static Future<dynamic> gotoDoctorProfilePage(
