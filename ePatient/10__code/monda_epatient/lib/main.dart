@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
+import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__blank_before_splash.dart';
@@ -17,6 +18,7 @@ import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doct
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_confirm.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/page__all_appointments.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,17 +42,17 @@ class MondaEDoctorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        onInit: _onInit,
-        title: TextString.app_name,
-        initialRoute: Routes.page_blank_before_splash,
-        // initialRoute: Routes.page_home,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Style.appMaterialColor,
-          backgroundColor: Style.backgroundColor,
-          primaryColorLight: Style.colorPrimary
-        ),
-        getPages: [
+      onInit: _onInit,
+      title: TextString.app_name,
+      initialRoute: Routes.page_blank_before_splash,
+      // initialRoute: Routes.page_appointment_all,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Style.appMaterialColor,
+        backgroundColor: Style.backgroundColor,
+        primaryColorLight: Style.colorPrimary,
+      ),
+      getPages: [
           // --------------------------------------------------------- 0. Splash
           GetPage(name: Routes.page_blank_before_splash, page: () => BlankBeforeSplashPage(),),
 
@@ -78,6 +80,9 @@ class MondaEDoctorApp extends StatelessWidget {
 
           // -------------------------------------------------------- 5. Payment
           GetPage(name: Routes.page_pay_and_confirm, page: () => PayAndConfirmPage(),),
+
+          // ---------------------------------------------------- 6. Appointment
+          GetPage(name: Routes.page_appointment_all, page: () => AllAppointmentPage(),),
         ],
     );
   }

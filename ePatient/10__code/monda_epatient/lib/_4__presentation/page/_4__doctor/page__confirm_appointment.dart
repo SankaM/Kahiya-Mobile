@@ -79,7 +79,6 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
                 child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
               ),
             ),
-            // SizedBox(height: 10,),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
@@ -92,7 +91,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
                 Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Row(
               children: [
                 Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),

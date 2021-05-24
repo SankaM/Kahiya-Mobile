@@ -24,6 +24,8 @@ class Routes {
   static const String page_confirm_appointment = '/confirm-appointment';
 
   static const String page_pay_and_confirm = '/pay-and-confirm';
+
+  static const String page_appointment_all = '/appointment/all';
 }
 
 class RouteNavigator {
@@ -58,6 +60,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoMedicalHistoryPage() {
     return _goto(Routes.page_medical_history, forgetBefore: true);
+  }
+
+  static Future<dynamic> gotoAllAppointmentPage() {
+    return _goto(Routes.page_appointment_all, forgetBefore: true);
   }
 
   static Future<dynamic> gotoDoctorProfilePage(

@@ -5,6 +5,7 @@ import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
+import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -163,7 +164,9 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
         color: Style.colorPrimary,
         shape: GFButtonShape.standard,
         size: ScreenUtil.heightInPercent(6.5),
-        onPressed: () {},
+        onPressed: () {
+          RouteNavigator.gotoAllAppointmentPage();
+        },
       ),
     );
   }
