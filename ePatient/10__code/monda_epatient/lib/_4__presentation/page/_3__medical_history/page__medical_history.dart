@@ -59,6 +59,7 @@ class MedicalHistoryPage extends AbstractPageWithBackgroundAndContent {
         children: [
           _firstRowProfile(context),
           _medicalDescriptionSection(context),
+          _currentPrescriptionSection(context),
           _pastHistorySection(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
@@ -90,7 +91,6 @@ class MedicalHistoryPage extends AbstractPageWithBackgroundAndContent {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('Steve Elliot', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
-                // SizedBox(height: ScreenUtil.heightInPercent(1),),
                 Text('Male, 26 yrs', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
               ],
             ),
@@ -116,6 +116,21 @@ class MedicalHistoryPage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
+  Widget _currentPrescriptionSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
+          child: Text(TextString.label__current_prescriptions, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+        ),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+      ],
+    );
+  }
+
   Widget _pastHistorySection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,6 +143,113 @@ class MedicalHistoryPage extends AbstractPageWithBackgroundAndContent {
         _PastDiagnosticItem(diagnosticLabel: 'Stomach Ache', dateLabel: '18 Marc, 2021', prescribed: true,),
         _PastDiagnosticItem(diagnosticLabel: 'Dry Cough', dateLabel: '2 Mar, 2021', prescribed: false,),
       ],
+    );
+  }
+}
+
+class _CurrentPrescriptionItem extends StatelessWidget {
+  final String prescribedFor;
+
+  final String prescribedDrug;
+
+  final String prescribedDrugCount;
+
+  final String dosage;
+
+  final String dosageCount;
+
+  final String prescribedBy;
+
+  _CurrentPrescriptionItem(
+      {required this.prescribedFor,
+      required this.prescribedDrug,
+      required this.prescribedDrugCount,
+      required this.dosage,
+      required this.dosageCount,
+      required this.prescribedBy});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: ScreenUtil.heightInPercent(2)),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(40)),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(7)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //-----
+            Text(TextString.label__prescribed_for, style: Style.defaultTextStyle(color: Colors.grey),),
+            SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+            Text(prescribedFor, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+
+            //-----
+            Text(TextString.label__prescribed_drug, style: Style.defaultTextStyle(color: Colors.grey),),
+            SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+            Row(
+              children: [
+                Text(prescribedDrug, style: Style.defaultTextStyle(color: Colors.black),),
+                Spacer(),
+                Icon(Icons.mediation, color: Colors.purple, size: Style.iconSize_S,),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(prescribedDrugCount, style: Style.defaultTextStyle(color: Colors.purple, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+
+            //-----
+            Text(TextString.label__dosage, style: Style.defaultTextStyle(color: Colors.grey),),
+            SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+            Row(
+              children: [
+                Text(dosage, style: Style.defaultTextStyle(color: Colors.black),),
+                Spacer(),
+                Icon(Icons.watch_later, color: Colors.green, size: Style.iconSize_S,),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(dosageCount, style: Style.defaultTextStyle(color: Colors.green, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+
+            //-----
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: ScreenUtil.heightInPercent(6),
+                  width: ScreenUtil.heightInPercent(6),
+                  child: GFAvatar(
+                    backgroundImage: AssetImage(Asset.png__patient01),
+                    shape: GFAvatarShape.square,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1), ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1.5)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(TextString.label__prescribed_by, style: Style.defaultTextStyle(color: Colors.grey[500]!),),
+                      SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+                      Text(prescribedBy, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_Default),),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

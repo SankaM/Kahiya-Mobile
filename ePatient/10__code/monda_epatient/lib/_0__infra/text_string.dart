@@ -130,6 +130,16 @@ class TextString {
 
   static const String label__not_prescribed = 'Not Prescribed';
 
+  static const String label__current_prescriptions = 'Current Prescriptions';
+
+  static const String label__prescribed_for = 'Prescribed For';
+
+  static const String label__prescribed_drug = 'Prescribed Drug';
+
+  static const String label__dosage = 'Dosage';
+
+  static const String label__prescribed_by = 'Prescribed By';
+
   // ============================================================ TemplateString
   static final TemplateString labelCancelAppointmentDialog = TemplateString('<center>Are you sure want to cancel appointment with <b>{doctorName}</b> due on <b>{date}</b> at <b>{time}</b> ?</center>');
 

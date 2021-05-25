@@ -80,7 +80,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
               ),
             ),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
-            Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
+            Text(TextString.label__appointment_with, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
