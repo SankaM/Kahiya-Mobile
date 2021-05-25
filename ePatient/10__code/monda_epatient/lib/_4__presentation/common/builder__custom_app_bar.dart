@@ -7,7 +7,7 @@ import 'package:monda_epatient/_0__infra/style.dart';
 class CustomAppBarBuilder {
   static const backButtonDefault = Icon(Icons.arrow_back, color: Colors.white, size: Style.iconSize_2XL,);
 
-  static PreferredSize build({required BuildContext context, Size? preferredSize, Icon backButtonIcon = backButtonDefault, required Text firstLineLabel, Text? secondLineLabel,}) {
+  static PreferredSize build({required BuildContext context, Size? preferredSize, Icon backButtonIcon = backButtonDefault, required Text firstLineLabel, Text? secondLineLabel}) {
     if(preferredSize == null) preferredSize = Size.fromHeight(ScreenUtil.heightInPercent(20));
 
     return PreferredSize(
