@@ -140,6 +140,8 @@ class TextString {
 
   static const String label__prescribed_by = 'Prescribed By';
 
+  static const String label__notifications = 'Notifications';
+
   // ============================================================ TemplateString
   static final TemplateString labelCancelAppointmentDialog = TemplateString('<center>Are you sure want to cancel appointment with <b>{doctorName}</b> due on <b>{date}</b> at <b>{time}</b> ?</center>');
 

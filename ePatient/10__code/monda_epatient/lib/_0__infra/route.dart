@@ -26,6 +26,8 @@ class Routes {
   static const String page_pay_and_confirm = '/pay-and-confirm';
 
   static const String page_appointment_all = '/appointment/all';
+
+  Routes._();
 }
 
 class RouteNavigator {
@@ -103,4 +105,6 @@ class RouteNavigator {
 
     return completer.future;
   }
+
+  RouteNavigator._();
 }

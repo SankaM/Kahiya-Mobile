@@ -28,4 +28,6 @@ class Asset {
   static const png_time02 = 'assets/time02.png';
 
   static const png_time03 = 'assets/time03.png';
+
+  Asset._();
 }

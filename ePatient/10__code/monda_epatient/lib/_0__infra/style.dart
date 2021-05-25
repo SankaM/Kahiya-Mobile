@@ -106,4 +106,6 @@ class Style {
     if(fontSize == null) fontSize = Style.fontSize_Default;
     return GoogleFonts.montserrat(fontSize: fontSize, color: color, fontWeight: fontWeight, letterSpacing: letterSpacing, height: height);
   }
+
+  Style._();
 }
