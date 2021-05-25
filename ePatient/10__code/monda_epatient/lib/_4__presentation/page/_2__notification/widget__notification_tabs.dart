@@ -24,9 +24,12 @@ class NotificationTabs extends StatelessWidget {
                   indicatorColor: Style.colorPrimary,
                   tabBarIndicatorSize: TabBarIndicatorSize.tab,
                   insets: EdgeInsets.zero,
+                  padding: EdgeInsets.zero
                 ),
+                labelPadding: EdgeInsets.zero,
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey[600],
+                labelStyle: Style.defaultTextStyle(letterSpacing: 0, fontWeight: FontWeight.w500),
                 tabs: [
                   Tab(text: 'Notifications'),
                   Tab(text: 'Medication Alerts'),
