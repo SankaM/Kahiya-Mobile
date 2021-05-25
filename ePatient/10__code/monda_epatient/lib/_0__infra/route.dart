@@ -55,11 +55,11 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoNotificationPage() {
-    return _goto(Routes.page_notification, forgetBefore: true);
+    return _goto(Routes.page_notification, forgetBefore: false);
   }
 
   static Future<dynamic> gotoMedicalHistoryPage() {
-    return _goto(Routes.page_medical_history, forgetBefore: true);
+    return _goto(Routes.page_medical_history, forgetBefore: false);
   }
 
   static Future<dynamic> gotoAllAppointmentPage() {

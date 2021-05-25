@@ -141,7 +141,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         ),
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
-          child: Text(TextString.label__lorem_ipsum, style: Style.defaultTextStyle(color: Colors.grey[600]!,), textAlign: TextAlign.justify,),
+          child: Text(TextString.label__lorem_ipsum, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
         )
       ],
     );
