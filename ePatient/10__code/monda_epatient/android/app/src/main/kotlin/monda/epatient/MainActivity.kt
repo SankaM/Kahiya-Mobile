@@ -1,4 +1,4 @@
-package monda.monda_epatient
+package monda.epatient
 
 import io.flutter.embedding.android.FlutterActivity
 
