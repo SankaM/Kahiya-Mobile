@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="monda.monda_epatient">
    <application
-        android:label="monda_epatient"
+        android:label="Monda - ePatient"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
