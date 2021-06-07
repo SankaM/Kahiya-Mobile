@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="1073" viewBox="0 0 375 1073">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_5" data-name="Rectangle 5" width="65.445" height="55.556" transform="translate(1 2)" fill="#dfffbb"/>
+    </clipPath>
+    <filter id="Rectangle_6" x="-47.5" y="161.5" width="474" height="952" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="-9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="16.5" result="blur"/>
+      <feFlood flood-color="#ffa071" flood-opacity="0.341"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_4" x="1.5" y="958.5" width="366" height="99" filterUnits="userSpaceOnUse">
+      <feOffset dx="-3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="8.5" result="blur-2"/>
+      <feFlood flood-color="#f76d28" flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_4">
+      <rect width="375" height="1073"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_4" data-name="iPhone X, XS, 11 Pro – 4" clip-path="url(#clip-iPhone_X_XS_11_Pro_4)">
+    <rect width="375" height="1073" fill="#fff"/>
+    <path id="Path_1" data-name="Path 1" d="M454.873,45.72c92.821,155.353-45.048-211.054,21.8,155.842S244.226,332.392,77.831,394.631,51.746,6.209,51.746,6.209H433S362.052-109.632,454.873,45.72Z" transform="translate(-76 -132)" fill="#f76d28" opacity="0.4"/>
+    <path id="Path_2" data-name="Path 2" d="M365.512,30.076c74.9,125.356-43.958-212.48-30.147,34.644S-229.719,297,61.714,284.306-25.927,45.958-25.927,45.958L347.863-1.806S290.614-95.28,365.512,30.076Z" transform="matrix(0.985, 0.174, -0.174, 0.985, 57.758, -117.947)" fill="#f76d28" opacity="0.1"/>
+    <text id="Register_Patient" data-name="Register 
+Patient" transform="translate(30 141)" fill="#fff" font-size="30" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0">Register </tspan><tspan x="0" y="41">Patient</tspan></text>
+    <path id="Path_7" data-name="Path 7" d="M1138.094,87.435c36.175,4.263,68.37,13.883,47.7,44.828-2.3,5.415-6.955,9.476-23.532,20.962-9.332,6.467-26.272,7.079-34.76-.507C1104.245,131.935,1101.919,83.172,1138.094,87.435Z" transform="translate(-841.365 -31.796) rotate(3)" fill="#f76d28" opacity="0.5"/>
+    <g id="Patient_Reports" data-name="Patient Reports" transform="translate(264.527 116.148)" clip-path="url(#clip-path)">
+      <path id="Path_8" data-name="Path 8" d="M28.37,18.017H11.209A2.748,2.748,0,0,1,8.3,15.109,2.748,2.748,0,0,1,11.209,12.2H28.37a2.748,2.748,0,0,1,2.909,2.909A2.915,2.915,0,0,1,28.37,18.017Z" transform="translate(13.933 19.468)" fill="#dfffbb"/>
+      <path id="Path_9" data-name="Path 9" d="M14.109,32.179A2.748,2.748,0,0,1,11.2,29.27V12.109A2.748,2.748,0,0,1,14.109,9.2a2.748,2.748,0,0,1,2.909,2.909V29.27A2.915,2.915,0,0,1,14.109,32.179Z" transform="translate(19.468 13.742)" fill="#dfffbb"/>
+      <path id="Path_10" data-name="Path 10" d="M63.055,57.265a2.748,2.748,0,0,1-2.909-2.909V17.416H33.386a2.645,2.645,0,0,1-2.327-1.163l-6.4-8.435H6.917V54.356a2.748,2.748,0,0,1-2.909,2.909A2.748,2.748,0,0,1,1.1,54.356V4.909A2.748,2.748,0,0,1,4.009,2H26.115a2.645,2.645,0,0,1,2.327,1.163l6.4,8.435H63.055a2.748,2.748,0,0,1,2.909,2.909V54.356A2.915,2.915,0,0,1,63.055,57.265Z" transform="translate(0.191 0)" fill="#dfffbb"/>
+      <path id="Path_11" data-name="Path 11" d="M63.246,51.448H55.1a3.2,3.2,0,1,1,0-6.4h4.945V11.6H7.4v33.45H47.248a3.2,3.2,0,1,1,0,6.4H4.2a3.228,3.228,0,0,1-3.2-3.2V8.4A3.228,3.228,0,0,1,4.2,5.2H63.246a3.3,3.3,0,0,1,2.327.873A3.3,3.3,0,0,1,66.445,8.4V48.248A3.228,3.228,0,0,1,63.246,51.448Z" transform="translate(0.291 6.253)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_6)">
+      <path id="Rectangle_6-2" data-name="Rectangle 6" d="M0,0H329a46,46,0,0,1,46,46V853a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(0 220)" fill="#fff"/>
+    </g>
+    <text id="First_Name" data-name="First Name" transform="translate(30 264)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">First Name</tspan></text>
+    <text id="Last_Name" data-name="Last Name" transform="translate(30 360)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Last Name</tspan></text>
+    <text id="Username" transform="translate(30 697)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Username</tspan></text>
+    <text id="Email" transform="translate(30 793)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Email</tspan></text>
+    <text id="NIC" transform="translate(30 889)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">NIC</tspan></text>
+    <text id="Mobile" transform="translate(30 552)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Mobile</tspan></text>
+    <text id="Age" transform="translate(30 456)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Age</tspan></text>
+    <text id="Gender" transform="translate(193 456)" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.3"><tspan x="0" y="0">Gender</tspan></text>
+    <rect id="Rectangle_7" data-name="Rectangle 7" width="315" height="48" rx="8" transform="translate(30 278)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_8" data-name="Rectangle 8" width="315" height="48" rx="8" transform="translate(30 374)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="315" height="48" rx="8" transform="translate(30 711)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_15" data-name="Rectangle 15" width="315" height="48" rx="8" transform="translate(30 807)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_16" data-name="Rectangle 16" width="315" height="48" rx="8" transform="translate(30 903)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_11" data-name="Rectangle 11" width="230" height="48" rx="8" transform="translate(115 566)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_12" data-name="Rectangle 12" width="80" height="48" rx="8" transform="translate(30 566)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_9" data-name="Rectangle 9" width="152.5" height="48" rx="8" transform="translate(30 470)" fill="#f76d28" opacity="0.05"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="152.5" height="48" rx="8" transform="translate(192.5 470)" fill="#f76d28" opacity="0.05"/>
+    <text id="Enter_First_Name" data-name="Enter First Name" transform="translate(45 307)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter First Name</tspan></text>
+    <text id="Enter_Last_Name" data-name="Enter Last Name" transform="translate(45 403)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter Last Name</tspan></text>
+    <text id="Enter_Username" data-name="Enter Username" transform="translate(45 740)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter Username</tspan></text>
+    <text id="Enter_Username-2" data-name="Enter Username" transform="translate(45 836)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter Username</tspan></text>
+    <text id="Enter_NIC_Number" data-name="Enter NIC Number" transform="translate(45 932)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter NIC Number</tspan></text>
+    <text id="Enter_Number" data-name="Enter Number" transform="translate(130 595)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Enter Number</tspan></text>
+    <text id="Code" transform="translate(35 595)" font-size="10" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" opacity="0.2"><tspan x="0" y="0">Code</tspan></text>
+    <text id="_1" data-name="+1" transform="translate(67 595)" fill="#f76d28" font-size="14" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="0" y="0">+1</tspan></text>
+    <text id="Select" transform="translate(45 499)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Select</tspan></text>
+    <text id="Male" transform="translate(208 499)" fill="#f76d28" font-size="14" font-family="Montserrat-Medium, Montserrat" font-weight="500" opacity="0.5"><tspan x="0" y="0">Male</tspan></text>
+    <path id="_2-Friends" data-name="2-Friends" d="M7.286,11.755c3.951,0,7.286.628,7.286,3.056s-3.356,3.033-7.286,3.033H7.017C3.185,17.814,0,17.161,0,14.788,0,12.362,3.356,11.755,7.286,11.755ZM7.286,0a4.755,4.755,0,0,1,4.821,4.721A4.755,4.755,0,0,1,7.286,9.442,4.755,4.755,0,0,1,2.465,4.721,4.755,4.755,0,0,1,7.286,0Z" transform="translate(314.398 293.156)" fill="#f76d28" opacity="0.7"/>
+    <path id="_2-Friends-2" data-name="2-Friends" d="M7.286,11.755c3.951,0,7.286.628,7.286,3.056s-3.356,3.033-7.286,3.033H7.017C3.185,17.814,0,17.161,0,14.788,0,12.362,3.356,11.755,7.286,11.755ZM7.286,0a4.755,4.755,0,0,1,4.821,4.721A4.755,4.755,0,0,1,7.286,9.442,4.755,4.755,0,0,1,2.465,4.721,4.755,4.755,0,0,1,7.286,0Z" transform="translate(314.398 389.156)" fill="#f76d28" opacity="0.7"/>
+    <path id="_2-Friends-3" data-name="2-Friends" d="M7.286,11.755c3.951,0,7.286.628,7.286,3.056s-3.356,3.033-7.286,3.033H7.017C3.185,17.814,0,17.161,0,14.788,0,12.362,3.356,11.755,7.286,11.755ZM7.286,0a4.755,4.755,0,0,1,4.821,4.721A4.755,4.755,0,0,1,7.286,9.442,4.755,4.755,0,0,1,2.465,4.721,4.755,4.755,0,0,1,7.286,0Z" transform="translate(314.679 726.156)" fill="#f76d28" opacity="0.7"/>
+    <g id="Iconly_Light_Arrow---Left-2" data-name="Iconly/Light/Arrow---Left-2" transform="translate(157.181 497.66) rotate(-90)">
+      <g id="Arrow---Left-2" transform="translate(5.319 0) rotate(90)">
+        <path id="Stroke-1" d="M10.638,0,5.319,5.319,0,0" fill="none" stroke="#f76d28" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <g id="Iconly_Light_Arrow---Left-2-2" data-name="Iconly/Light/Arrow---Left-2" transform="translate(96.518 592.491) rotate(-90)">
+      <g id="Arrow---Left-2-2" data-name="Arrow---Left-2" transform="translate(3.982 0) rotate(90)">
+        <path id="Stroke-1-2" data-name="Stroke-1" d="M7.963,0,3.982,3.982,0,0" fill="none" stroke="#f76d28" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <g id="Iconly_Light_Arrow---Left-2-3" data-name="Iconly/Light/Arrow---Left-2" transform="translate(318.964 497.66) rotate(-90)">
+      <g id="Arrow---Left-2-3" data-name="Arrow---Left-2" transform="translate(5.319 0) rotate(90)">
+        <path id="Stroke-1-3" data-name="Stroke-1" d="M10.638,0,5.319,5.319,0,0" fill="none" stroke="#f76d28" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <path id="call" d="M42.945,45.549a5.7,5.7,0,0,1-2.66-.907,17.293,17.293,0,0,1-4.177-3.125,15.852,15.852,0,0,1-3.137-4.176c-1.113-2.025-.924-3.086-.711-3.54a2.826,2.826,0,0,1,1.108-1.188,5.328,5.328,0,0,1,.866-.459l.083-.037a.809.809,0,0,1,.663-.06,1.943,1.943,0,0,1,.63.484,10.479,10.479,0,0,1,1.576,2.34,2.331,2.331,0,0,1,.309.958,1.515,1.515,0,0,1-.385.9c-.04.054-.079.106-.117.156-.23.3-.28.39-.247.546a5.733,5.733,0,0,0,1.4,2.071,5.5,5.5,0,0,0,2.047,1.362c.163.035.252-.018.564-.256l.139-.1a1.523,1.523,0,0,1,.915-.409h0a2.19,2.19,0,0,1,.963.338A11.545,11.545,0,0,1,45.1,42.007a1.943,1.943,0,0,1,.485.629.815.815,0,0,1-.06.665l-.037.083a5.334,5.334,0,0,1-.462.864,2.826,2.826,0,0,1-1.19,1.106A2.038,2.038,0,0,1,42.945,45.549Z" transform="translate(283.807 551.221)" fill="#f76d28" opacity="0.7"/>
+    <text id="Optional" transform="translate(30 659)" font-size="16" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" opacity="0.3"><tspan x="0" y="0">Optional</tspan></text>
+    <path id="card" d="M32,94.242a2.694,2.694,0,0,0,2.694,2.694H50.861a2.694,2.694,0,0,0,2.694-2.694v-7.41H32Zm3.176-3.657a1.443,1.443,0,0,1,1.443-1.443h2.31a1.443,1.443,0,0,1,1.443,1.443v.962a1.443,1.443,0,0,1-1.443,1.443h-2.31a1.443,1.443,0,0,1-1.443-1.443ZM50.861,80H34.694A2.694,2.694,0,0,0,32,82.694v1.251H53.556V82.694A2.694,2.694,0,0,0,50.861,80Z" transform="translate(276.222 838.532)" fill="#f76d28" opacity="0.7"/>
+    <path id="mail" d="M47.591,80H34.227A2.23,2.23,0,0,0,32,82.227v9.546A2.23,2.23,0,0,0,34.227,94H47.591a2.23,2.23,0,0,0,2.227-2.227V82.227A2.23,2.23,0,0,0,47.591,80Zm-.564,3.684L41.3,88.139a.636.636,0,0,1-.781,0l-5.727-4.455a.636.636,0,1,1,.781-1l5.337,4.151,5.337-4.151a.636.636,0,1,1,.781,1Z" transform="translate(279.77 744.078)" fill="#f76d28" opacity="0.7"/>
+    <g id="Iconly_Broken_Arrow---Left" data-name="Iconly/Broken/Arrow---Left" transform="translate(87.924 73.721)">
+      <g id="Arrow---Left" transform="translate(-58 -23.5)">
+        <path id="Path_12" data-name="Path 12" d="M7.778,18.669a.857.857,0,0,1-.854-.742l-.007-.106V.849A.848.848,0,0,1,7.45.064.87.87,0,0,1,8.3.175L8.388.25,15.306,7.1a.84.84,0,0,1,0,1.2.872.872,0,0,1-1.13.074l-.088-.076L8.64,2.9V17.82A.855.855,0,0,1,7.778,18.669ZM1.471,8.292a.871.871,0,0,1-1.218,0A.841.841,0,0,1,.174,7.181l.077-.087L4.066,3.32a.87.87,0,0,1,1.218,0A.837.837,0,0,1,5.364,4.43l-.077.087Z" transform="translate(0 15.557) rotate(-90)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_18" data-name="Group 18">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_4)">
+        <rect id="Rectangle_4-2" data-name="Rectangle 4" width="315" height="48" rx="7" transform="translate(30 981)" fill="#ffa071"/>
+      </g>
+      <text id="Submit" transform="translate(158 1011)" fill="#fff" font-size="16" font-family="Montserrat-SemiBold, Montserrat" font-weight="600"><tspan x="0" y="0">Submit</tspan></text>
+    </g>
+  </g>
+</svg>
