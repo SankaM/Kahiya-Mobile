@@ -15,6 +15,8 @@ class Routes {
 
   static const String page_inventory = '/inventory';
 
+  static const String page_medical_record = '/medical-record';
+
   Routes._();
 }
 
@@ -42,6 +44,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoInventoryPage() {
     return _goto(Routes.page_inventory, forgetBefore: true);
+  }
+
+  static Future<dynamic> gotoMedicalRecordPage() {
+    return _goto(Routes.page_medical_record, forgetBefore: true);
   }
 
   // -------------------------------------------------------------------- helper

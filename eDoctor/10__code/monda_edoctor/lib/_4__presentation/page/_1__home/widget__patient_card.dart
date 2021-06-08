@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 
@@ -32,7 +33,7 @@ class PatientCard extends StatelessWidget {
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: InkWell(
         onTap: () {
-          log('=========================================== doctorCard clicked');
+          RouteNavigator.gotoMedicalRecordPage();
         },
         child:Card(
           elevation: 5,

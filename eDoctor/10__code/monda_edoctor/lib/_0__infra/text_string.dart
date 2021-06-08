@@ -23,6 +23,8 @@ class TextString {
 
   static const String page_title__inventory = 'Inventory';
 
+  static const String page_title__medical_record = 'Medical Record';
+
   // ===================================================================== Label
   static const String label__edoctor = 'eDoctor';
 
@@ -43,6 +45,30 @@ class TextString {
   static const String label__patients = 'Patients';
 
   static const String label__welcome = 'Welcome,';
+
+  static const String label__my_medical = 'My Medical';
+
+  static const String label__record = 'Records';
+
+  static const String label__lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+  static const String label__medical_description = 'Medical Description';
+
+  static const String label__past_diagnostic = 'Past Diagnostics';
+
+  static const String label__current_prescriptions = 'Current Prescriptions';
+
+  static const String label__prescribed_for = 'Prescribed For';
+
+  static const String label__prescribed_drug = 'Prescribed Drug';
+
+  static const String label__dosage = 'Dosage';
+
+  static const String label__prescribed_by = 'Prescribed By';
+
+  static const String label__prescribed = 'Prescribed';
+
+  static const String label__not_prescribed = 'Not Prescribed';
 
   // ============================================================ TemplateString
 
