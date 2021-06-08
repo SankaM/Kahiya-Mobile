@@ -1,6 +1,8 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
@@ -31,8 +33,9 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   PreferredSize _contentCustomAppBar(BuildContext context) {
     return CustomAppBarBuilder.build(
       context: context,
-      firstLineLabel: Text(TextString.label__my_medical, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
-      secondLineLabel: Text(TextString.label__record, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL)),
+      preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(22.5)),
+      firstLineLabel: Text('Linda\'s', style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
+      secondLineLabel: Text(TextString.label__medical_record, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL)),
     );
   }
 
@@ -61,6 +64,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
           _medicalDescriptionSection(context),
           _currentPrescriptionSection(context),
           _pastHistorySection(context),
+          _addPrescriptionButton(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
       ),
@@ -69,17 +73,17 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _firstRowProfile(BuildContext context) {
     return Container(
-      height: ScreenUtil.heightInPercent(10),
+      height: ScreenUtil.heightInPercent(15),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             margin: EdgeInsets.all(ScreenUtil.widthInPercent(1.5)),
-            height: ScreenUtil.heightInPercent(10),
-            width: ScreenUtil.heightInPercent(10),
+            height: ScreenUtil.heightInPercent(12.5),
+            width: ScreenUtil.heightInPercent(12.5),
             child: GFAvatar(
-              backgroundImage: AssetImage(Asset.png__patient01),
+              backgroundImage: AssetImage(Asset.png_face02),
               shape: GFAvatarShape.square,
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
@@ -88,10 +92,20 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
             margin: EdgeInsets.fromLTRB(ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1), ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1.5)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('Steve Elliot', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
-                Text('Male, 26 yrs', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
+                Text('Linda William', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
+                SizedBox(height: ScreenUtil.heightInPercent(1),),
+                Text('Female, 23 yrs', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
+                SizedBox(height: ScreenUtil.heightInPercent(1),),
+                Text('+1 486 448 589', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
+                Spacer(),
+                Row(
+                  children: [
+                    Image.asset(Asset.png_prescription02, width: Style.iconSize_Default, height: Style.iconSize_Default,),
+                    SizedBox(width: ScreenUtil.widthInPercent(1.5),),
+                    Text('Flu, Fever, Cough', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                  ],
+                )
               ],
             ),
           ),
@@ -124,9 +138,9 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__current_prescriptions, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '3 days', severity: 2, severityNotes: 'Medium',  prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '2 days', severity: 3, severityNotes: 'Above 100',prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
+        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '2 days', severity: 2, severityNotes: 'Medium',prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
       ],
     );
   }
@@ -145,10 +159,26 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       ],
     );
   }
+
+  Widget _addPrescriptionButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5), left: ScreenUtil.widthInPercent(2), right: ScreenUtil.widthInPercent(2)),
+      child: GFButton(
+        color: Style.colorPrimary,
+        size: ScreenUtil.heightInPercent(6),
+        elevation: 3,
+        onPressed: () {
+        },
+        child: Text(TextString.label__add_prescription, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
+      ),
+    );
+  }
 }
 
 class _CurrentPrescriptionItem extends StatelessWidget {
   final String prescribedFor;
+
+  final String prescribedLength;
 
   final String prescribedDrug;
 
@@ -160,13 +190,20 @@ class _CurrentPrescriptionItem extends StatelessWidget {
 
   final String prescribedBy;
 
-  _CurrentPrescriptionItem(
-      {required this.prescribedFor,
-      required this.prescribedDrug,
-      required this.prescribedDrugCount,
-      required this.dosage,
-      required this.dosageCount,
-      required this.prescribedBy});
+  final int severity;
+
+  final String severityNotes;
+
+  _CurrentPrescriptionItem({
+    required this.prescribedFor,
+    required this.prescribedLength,
+    required this.prescribedDrug,
+    required this.prescribedDrugCount,
+    required this.dosage,
+    required this.dosageCount,
+    required this.prescribedBy,
+    required this.severity,
+    required this.severityNotes});
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +214,7 @@ class _CurrentPrescriptionItem extends StatelessWidget {
         border: Border.all(
           color: Colors.grey,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(40)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.white,
       ),
       child: Padding(
@@ -186,9 +223,38 @@ class _CurrentPrescriptionItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //-----
-            Text(TextString.label__prescribed_for, style: Style.defaultTextStyle(color: Colors.grey),),
+            Row(
+              children: [
+                Text(prescribedFor, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),
+                Spacer(),
+                Icon(Icons.calendar_today_rounded, color: Style.colorPrimary,),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(prescribedLength, style: Style.defaultTextStyle(color: Colors.grey),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+
+            //-----
+            Text(TextString.label__severity, style: Style.defaultTextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(0.5),),
-            Text(prescribedFor, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),
+            Row(
+              children: [
+                DotsIndicator(
+                  dotsCount: 3,
+                  position: severity - 1,
+                  decorator: DotsDecorator(
+                    size: const Size(18.0, 9.0),
+                    activeSize: const Size(18.0, 9.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    color: Style.colorPrimary.withOpacity(0.5),
+                    activeColor: Style.colorPrimary
+                  ),
+                ),
+                Spacer(),
+                Text(severityNotes, style: Style.defaultTextStyle(color: Colors.black, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+              ],
+            ),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
 
             //-----
@@ -228,7 +294,7 @@ class _CurrentPrescriptionItem extends StatelessWidget {
                   height: ScreenUtil.heightInPercent(6),
                   width: ScreenUtil.heightInPercent(6),
                   child: GFAvatar(
-                    backgroundImage: AssetImage(Asset.png__patient01),
+                    backgroundImage: AssetImage(Asset.png_face_doctor),
                     shape: GFAvatarShape.square,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),

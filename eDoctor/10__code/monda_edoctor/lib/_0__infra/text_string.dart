@@ -46,9 +46,7 @@ class TextString {
 
   static const String label__welcome = 'Welcome,';
 
-  static const String label__my_medical = 'My Medical';
-
-  static const String label__record = 'Records';
+  static const String label__medical_record = 'Medical Record';
 
   static const String label__lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
@@ -60,6 +58,8 @@ class TextString {
 
   static const String label__prescribed_for = 'Prescribed For';
 
+  static const String label__severity = 'Severity';
+
   static const String label__prescribed_drug = 'Prescribed Drug';
 
   static const String label__dosage = 'Dosage';
@@ -69,6 +69,8 @@ class TextString {
   static const String label__prescribed = 'Prescribed';
 
   static const String label__not_prescribed = 'Not Prescribed';
+
+  static const String label__add_prescription = 'Add Prescription';
 
   // ============================================================ TemplateString
 

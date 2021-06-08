@@ -98,7 +98,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
             decoration:  BoxDecoration(
                 borderRadius: new BorderRadius.circular(15.0),
                 boxShadow: [
-                  BoxShadow(color: Style.colorPrimary, blurRadius: 10.0, spreadRadius: 0.1)
+                  BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
                 ]
             ),
             child: FilterButton(labels: ['Name', 'Username', 'Email', 'Phone'],),

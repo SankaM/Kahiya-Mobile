@@ -47,7 +47,7 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoMedicalRecordPage() {
-    return _goto(Routes.page_medical_record, forgetBefore: true);
+    return _goto(Routes.page_medical_record, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper
