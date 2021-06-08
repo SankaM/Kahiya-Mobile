@@ -40,7 +40,7 @@ class TextString {
 
   static const String label__login = 'LOGIN';
 
-  static const String label__doctors = 'Doctors';
+  static const String label__patients = 'Patients';
 
   static const String label__welcome = 'Welcome,';
 

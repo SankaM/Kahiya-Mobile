@@ -129,7 +129,7 @@ class MyScaffold extends StatelessWidget {
   }
 
   Widget _defaultBottomNavigationBar() {
-    var itemIconList = [Icons.notifications, Icons.notes];
+    var itemIconList = [Icons.notes, Icons.store];
     var itemLabelList = [
       TextString.page_title__invoice,
       TextString.page_title__inventory

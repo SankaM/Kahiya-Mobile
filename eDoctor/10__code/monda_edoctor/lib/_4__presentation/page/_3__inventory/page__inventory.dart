@@ -11,7 +11,7 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
-import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__doctor_card.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 
 class InventoryPage extends AbstractPageWithBackgroundAndContent {

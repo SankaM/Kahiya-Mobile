@@ -10,7 +10,7 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
-import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__doctor_card.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 
 class HomePage extends AbstractPageWithBackgroundAndContent {
@@ -30,54 +30,32 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: ScreenUtil.heightInPercent(2.5),),
-        _welcomeAccountRow(context),
+        _accountProfilePicture(context),
         _searchBar(context),
         _scrollableSection(context),
       ],
     );
   }
 
-  Widget _welcomeAccountRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
+  Widget _accountProfilePicture(BuildContext context) {
+    return Container(
+      height: ScreenUtil.heightInPercent(17),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2)),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _welcomeText(context),
-            _patientNameText(context),
+            GFAvatar(
+              backgroundImage: AssetImage(Asset.png_face01),
+              shape: GFAvatarShape.square,
+              size: ScreenUtil.widthInPercent(8),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
+            Text(TextString.label__welcome, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default,color: Style.textColorPrimary),),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            Text('Dr. Elizabeth', style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
           ],
-        ),
-        Spacer(),
-        _accountProfilePicture(context),
-      ],
-    );
-  }
-
-  Widget _accountProfilePicture(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: GFAvatar(
-        backgroundImage: AssetImage(Asset.png__patient01),
-        shape: GFAvatarShape.square,
-        size: ScreenUtil.widthInPercent(7),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      )
-    );
-  }
-
-  Widget _welcomeText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Text(TextString.label__welcome, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Style.textColorPrimary),),
-    );
-  }
-
-  Widget _patientNameText(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(8)),
-      child: Text('Steve,', style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
+        )
     );
   }
 
@@ -90,6 +68,12 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           Container(
             width: ScreenUtil.widthInPercent(60),
             height: ScreenUtil.heightInPercent(8),
+            decoration:  BoxDecoration(
+              borderRadius: new BorderRadius.circular(15.0),
+              boxShadow: [
+                  BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
+              ]
+            ),
             child: TextFormField(
               style: TextStyle(color: Style.colorPrimary),
               cursorColor: Style.colorPrimary,
@@ -111,7 +95,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           Container(
             width: ScreenUtil.heightInPercent(8),
             height: ScreenUtil.heightInPercent(8),
-            child: FilterButton(labels: ['Name', 'Phone', 'Past History'],),
+            child: FilterButton(labels: ['Name', 'Username', 'Email', 'Phone'],),
           )
         ],
       ),
@@ -120,29 +104,30 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   Widget _scrollableSection(BuildContext context) {
     var width = ScreenUtil.widthInPercent(80);
-    var height = ScreenUtil.heightInPercent(17);
+    var height = ScreenUtil.heightInPercent(15);
 
-    return Padding(
+    return Container(
+      height: ScreenUtil.heightInPercent(73),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Container(
-        height: ScreenUtil.heightInPercent(70),
-        child: ListView(
-          children: [
-            _doctorsTextLabel(context),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Dr. Carl Johnson', secondLineText: 'Skin Care Specialist', thirdLineText: '10:00 AM - 5:00 PM', assetIcon: Asset.png_time01,),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Dr. Melinda Margot', secondLineText: 'ENT Specialist / Surgeon', thirdLineText: '9:00 AM - 6:00 PM', assetIcon: Asset.png_time02,),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Dr. William Martin', secondLineText: 'Gynecologist', thirdLineText: '10:00 AM - 7:00 PM', assetIcon: Asset.png_time03,),
-            SizedBox(height: ScreenUtil.heightInPercent(10),),
-          ],
-        ),
+      child: ListView(
+        children: [
+          _patientsTextLabel(context),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_time01,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_time02,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_time03,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_time01,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_time02,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_time03,),
+          SizedBox(height: ScreenUtil.heightInPercent(15),),
+        ],
       ),
     );
   }
 
-  Widget _doctorsTextLabel(BuildContext context) {
+  Widget _patientsTextLabel(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(3), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(3)),
-      child: Text(TextString.label__doctors, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w700, color: Colors.grey[500],),),
+      child: Text(TextString.label__patients, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w700, color: Colors.grey[500],),),
     );
   }
 }

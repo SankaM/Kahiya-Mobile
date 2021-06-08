@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 
-class DoctorCard extends StatelessWidget {
+class PatientCard extends StatelessWidget {
   final String assetImage;
 
   final String firstLineText;
@@ -22,7 +22,7 @@ class DoctorCard extends StatelessWidget {
 
   final double height;
 
-  DoctorCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width, required this.height});
+  PatientCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
