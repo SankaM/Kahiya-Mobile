@@ -15,11 +15,13 @@ class Asset {
 
   static const png_face03 = 'assets/face03.png';
 
-  static const png_time01 = 'assets/time01.png';
+  static const png_face_doctor = 'assets/face_doctor.png';
 
-  static const png_time02 = 'assets/time02.png';
+  static const png_prescription01 = 'assets/prescription_01.png';
 
-  static const png_time03 = 'assets/time03.png';
+  static const png_prescription02 = 'assets/prescription_02.png';
+
+  static const png_prescription03 = 'assets/prescription_03.png';
 
   Asset._();
 }

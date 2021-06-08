@@ -45,7 +45,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GFAvatar(
-              backgroundImage: AssetImage(Asset.png_face01),
+              backgroundImage: AssetImage(Asset.png_face_doctor),
               shape: GFAvatarShape.square,
               size: ScreenUtil.widthInPercent(8),
               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -95,6 +95,12 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           Container(
             width: ScreenUtil.heightInPercent(8),
             height: ScreenUtil.heightInPercent(8),
+            decoration:  BoxDecoration(
+                borderRadius: new BorderRadius.circular(15.0),
+                boxShadow: [
+                  BoxShadow(color: Style.colorPrimary, blurRadius: 10.0, spreadRadius: 0.1)
+                ]
+            ),
             child: FilterButton(labels: ['Name', 'Username', 'Email', 'Phone'],),
           )
         ],
@@ -112,12 +118,12 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
       child: ListView(
         children: [
           _patientsTextLabel(context),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_time01,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_time02,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_time03,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_time01,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_time02,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_time03,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_prescription01,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_prescription02,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_prescription03,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_prescription01,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_prescription02,),
+          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_prescription03,),
           SizedBox(height: ScreenUtil.heightInPercent(15),),
         ],
       ),
