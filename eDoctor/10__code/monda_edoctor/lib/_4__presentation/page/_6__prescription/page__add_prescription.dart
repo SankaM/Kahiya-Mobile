@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/button/gf_button.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
@@ -97,7 +96,7 @@ class _AddPrescriptionForm extends StatelessWidget {
           SizedBox(height: ScreenUtil.heightInPercent(5),),
 
           // ----- Add Notes
-          Text('Add Notes', style: TextStyle(color: Colors.grey[500]),),
+          Text(TextString.label__add_notes, style: TextStyle(color: Colors.grey[500]),),
           SizedBox(height: ScreenUtil.heightInPercent(3),),
           TextFormField(
             minLines: 5,
@@ -120,7 +119,7 @@ class _AddPrescriptionForm extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Attach Files', style: TextStyle(color: Colors.grey),),
+                  Text(TextString.label__attach_files, style: TextStyle(color: Colors.grey),),
                   SizedBox(width: ScreenUtil.widthInPercent(3),),
                   Icon(Icons.attach_file, color: Style.colorPrimary,),
                 ],
@@ -221,7 +220,7 @@ class _AddSinglePrescriptionBox extends StatelessWidget {
               style: ElevatedButton.styleFrom(primary: Style.colorPrimary,),
               child: Row(
                 children: [
-                  Text('Add'),
+                  Text(TextString.label__add),
                   SizedBox(width: ScreenUtil.widthInPercent(3),),
                   Icon(
                     Icons.done,
@@ -250,7 +249,7 @@ class _AddSinglePrescriptionBox extends StatelessWidget {
 
   Widget _drugDropdown(BuildContext context) {
     return DropdownButtonFormField<int>(
-      hint: Text('Drug'),
+      hint: Text(TextString.label__drug),
       items: [
         DropdownMenuItem<int>(value: 1, child: Text('Drug 1')),
         DropdownMenuItem<int>(value: 2, child: Text('Drug 2')),
@@ -265,7 +264,7 @@ class _AddSinglePrescriptionBox extends StatelessWidget {
 
   Widget _daysDropdown(BuildContext context) {
     return DropdownButtonFormField<int>(
-      hint: Text('Days'),
+      hint: Text(TextString.label__days),
       items: [
         DropdownMenuItem<int>(value: 1, child: Text('Day 1')),
         DropdownMenuItem<int>(value: 2, child: Text('Day 2')),
@@ -280,7 +279,7 @@ class _AddSinglePrescriptionBox extends StatelessWidget {
 
   Widget _doseDropdown(BuildContext context) {
     return DropdownButtonFormField<int>(
-      hint: Text('Dose'),
+      hint: Text(TextString.label__dose),
       items: [
         DropdownMenuItem<int>(value: 1, child: Text('Dose 1')),
         DropdownMenuItem<int>(value: 2, child: Text('Dose 2')),
@@ -295,7 +294,7 @@ class _AddSinglePrescriptionBox extends StatelessWidget {
 
   Widget _numberOfTimesDropdown(BuildContext context) {
     return DropdownButtonFormField<int>(
-      hint: Text('No. of Times'),
+      hint: Text(TextString.label__no_of_times),
       items: [
         DropdownMenuItem<int>(value: 1, child: Text('1')),
         DropdownMenuItem<int>(value: 2, child: Text('2')),

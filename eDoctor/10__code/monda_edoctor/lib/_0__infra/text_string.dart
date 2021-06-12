@@ -124,6 +124,18 @@ class TextString {
 
   static const String label__treatment = 'Treatment';
 
+  static const String label__add_notes = 'Add Notes';
+
+  static const String label__attach_files = 'Attach Files';
+
+  static const String label__drug = 'Drug';
+
+  static const String label__days = 'Days';
+
+  static const String label__dose = 'Dose';
+
+  static const String label__no_of_times = 'No. of Times';
+
   // ============================================================ TemplateString
 
 }
