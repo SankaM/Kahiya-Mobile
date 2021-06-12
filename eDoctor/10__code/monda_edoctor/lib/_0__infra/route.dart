@@ -19,6 +19,8 @@ class Routes {
 
   static const String page_patient_register = '/patient/register';
 
+  static const String page_add_prescription = '/add-prescription';
+
   Routes._();
 }
 
@@ -54,6 +56,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoRegisterPatientPage() {
     return _goto(Routes.page_patient_register, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoAddPrescriptionPage() {
+    return _goto(Routes.page_add_prescription, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

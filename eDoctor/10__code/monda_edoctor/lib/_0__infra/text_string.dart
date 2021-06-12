@@ -27,6 +27,8 @@ class TextString {
 
   static const String page_title__register_patient = 'Register Patient';
 
+  static const String page_title__add_prescription = 'Add Prescription';
+
   // ===================================================================== Label
   static const String label__edoctor = 'eDoctor';
 
@@ -72,6 +74,8 @@ class TextString {
 
   static const String label__not_prescribed = 'Not Prescribed';
 
+  static const String label__prescribe = 'Prescribe';
+
   static const String label__add_prescription = 'Add Prescription';
 
   static const String label__register = 'Register';
@@ -109,6 +113,16 @@ class TextString {
   static const String label__submit = 'Submit';
 
   static const String label__email = 'Email';
+
+  static const String label__add = 'Add';
+
+  static const String label__prescription = 'Prescription';
+
+  static const String label__patients_name = 'Patient\'s Name';
+
+  static const String label__diagnosis = 'Diagnosis';
+
+  static const String label__treatment = 'Treatment';
 
   // ============================================================ TemplateString
 

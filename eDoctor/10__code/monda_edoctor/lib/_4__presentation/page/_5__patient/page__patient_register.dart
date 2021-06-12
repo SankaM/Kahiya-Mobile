@@ -7,6 +7,7 @@ import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
@@ -252,23 +253,13 @@ class _PatientRegistrationForm extends StatelessWidget {
   }
 
   Widget _submitButton(BuildContext context) {
-    return Container(
+    return FocusButton(
       height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
-      child: InkWell(
-        onTap: () {
-        },
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Style.colorPrimary,
-            border: Border.all(color: Style.colorPrimary,),
-            borderRadius: BorderRadius.all(Radius.circular(10),),
-          ),
-          child: Center(child: Text(TextString.label__submit, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),),
-        ),
-      ),
+      onTap: () {
+        log('=================================== submit button clicked');
+      },
+      label: TextString.label__submit,
     );
   }
 }

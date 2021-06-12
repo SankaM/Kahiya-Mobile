@@ -14,12 +14,14 @@ import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventor
 import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/page__medical_record.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/page__patient_register.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__prescription/controller__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__prescription/page__add_prescription.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return runApp(
       Phoenix(
         child: MondaEPatientApp(),
@@ -32,6 +34,7 @@ class MondaEPatientApp extends StatelessWidget {
   Future<void> _onInit() async {
     // Initialize all controller
     Get.put(PatientRegisterController());
+    Get.put(AddPrescriptionController());
   }
 
   @override
@@ -68,6 +71,9 @@ class MondaEPatientApp extends StatelessWidget {
 
         // ---------------------------------------------------------- 5. Patient
         GetPage(name: Routes.page_patient_register, page: () => RegisterPatientPage(),),
+
+        // ------------------------------------------------- 6. Add Prescription
+        GetPage(name: Routes.page_add_prescription, page: () => AddPrescriptionPage(),),
       ],
     );
   }

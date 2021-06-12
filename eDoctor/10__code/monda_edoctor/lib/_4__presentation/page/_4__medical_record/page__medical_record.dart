@@ -4,6 +4,7 @@ import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
@@ -168,6 +169,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         size: ScreenUtil.heightInPercent(6),
         elevation: 3,
         onPressed: () {
+          RouteNavigator.gotoAddPrescriptionPage();
         },
         child: Text(TextString.label__add_prescription, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),
