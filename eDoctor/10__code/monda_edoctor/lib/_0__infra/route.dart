@@ -17,6 +17,8 @@ class Routes {
 
   static const String page_medical_record = '/medical-record';
 
+  static const String page_patient_register = '/patient/register';
+
   Routes._();
 }
 
@@ -39,15 +41,19 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoInvoicePage() {
-    return _goto(Routes.page_invoice, forgetBefore: true);
+    return _goto(Routes.page_invoice, forgetBefore: false);
   }
 
   static Future<dynamic> gotoInventoryPage() {
-    return _goto(Routes.page_inventory, forgetBefore: true);
+    return _goto(Routes.page_inventory, forgetBefore: false);
   }
 
   static Future<dynamic> gotoMedicalRecordPage() {
     return _goto(Routes.page_medical_record, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoRegisterPatientPage() {
+    return _goto(Routes.page_patient_register, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

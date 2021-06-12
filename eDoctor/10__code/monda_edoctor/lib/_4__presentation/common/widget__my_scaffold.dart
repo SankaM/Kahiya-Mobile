@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -115,14 +114,14 @@ class MyScaffold extends StatelessWidget {
       margin: EdgeInsets.all(margin.toDouble()),
       child: FloatingActionButton(
         child: Icon(
-          Icons.home,
+          Icons.person_add,
           color: Colors.white,
           size: ScreenUtil.widthInPercent(7),
         ),
         backgroundColor: Style.colorPalettes[900],
         elevation: 0,
         onPressed: () {
-          RouteNavigator.gotoHomePage();
+          RouteNavigator.gotoRegisterPatientPage();
         },
       ),
     );

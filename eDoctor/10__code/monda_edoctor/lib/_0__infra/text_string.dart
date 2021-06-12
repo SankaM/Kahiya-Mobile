@@ -25,6 +25,8 @@ class TextString {
 
   static const String page_title__medical_record = 'Medical Record';
 
+  static const String page_title__register_patient = 'Register Patient';
+
   // ===================================================================== Label
   static const String label__edoctor = 'eDoctor';
 
@@ -71,6 +73,42 @@ class TextString {
   static const String label__not_prescribed = 'Not Prescribed';
 
   static const String label__add_prescription = 'Add Prescription';
+
+  static const String label__register = 'Register';
+
+  static const String label__patient = 'Patient';
+
+  static const String label__first_name = 'First Name';
+
+  static const String label__last_name = 'Last Name';
+
+  static const String label__age = 'Age';
+
+  static const String label__gender = 'Gender';
+
+  static const String label__mobile = 'Mobile';
+
+  static const String label__code = 'Code   ';
+
+  static const String label__optional = 'Optional';
+
+  static const String label__required = 'Required';
+
+  static const String label__enter_first_name = 'Enter First Name';
+
+  static const String label__enter_last_name = 'Enter Last Name';
+
+  static const String label__enter_number = 'Enter Number';
+
+  static const String label__enter_email = 'Enter Email';
+
+  static const String label__enter_nic_number = 'Enter NIC Number';
+
+  static const String label__nic = 'NIC';
+
+  static const String label__submit = 'Submit';
+
+  static const String label__email = 'Email';
 
   // ============================================================ TemplateString
 
