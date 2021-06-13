@@ -7,7 +7,7 @@ class Asset {
 
   static const png__background03 = 'assets/background03.png';
 
-  // static const png__patient01 = 'assets/patient01.png';
+  static const png__background04 = 'assets/background04.png';
 
   static const png_filter_button = 'assets/filter_button.png';
 
@@ -24,6 +24,12 @@ class Asset {
   static const png_prescription02 = 'assets/prescription_02.png';
 
   static const png_prescription03 = 'assets/prescription_03.png';
+
+  static const png_drug01 = 'assets/drug01.png';
+
+  static const png_drug02 = 'assets/drug02.png';
+
+  static const png_drug03 = 'assets/drug03.png';
 
   Asset._();
 }

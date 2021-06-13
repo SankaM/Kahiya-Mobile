@@ -15,7 +15,7 @@ import 'package:monda_edoctor/_4__presentation/page/_2__invoice/controller__invo
 class InvoicePage extends AbstractPageWithBackgroundAndContent {
   InvoicePage() : super(
     title: TextString.page_title__invoice,
-    backgroundAsset: Asset.png__background02,
+    backgroundAsset: Asset.png__background04,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: true,
@@ -38,7 +38,8 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(17.5)),
-      firstLineLabel: Text(TextString.label__invoice, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL),),
+      firstLineLabel: Text(TextString.label__invoice, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
+      backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary, size: Style.iconSize_2XL,),
     );
   }
 
@@ -52,14 +53,6 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
             color: Colors.white,
           ),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Style.colorPrimary.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: Offset(0, 10), // changes position of shadow
-            ),
-          ],
         ),
         child: _InvoiceForm(),
     );
@@ -142,11 +135,11 @@ class _DrugSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_face_doctor, drugName: 'iBuprofen', drugWeight: '250mg', drugPricePerItem: 1.25, drugCount: 2),
+        _drugItem(imageAssetName: Asset.png_drug01, drugName: 'iBuprofen', drugWeight: '250mg', drugPricePerItem: 1.25, drugCount: 2),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_face_doctor, drugName: 'iBuprofen', drugWeight: '250mg', drugPricePerItem: 1.25, drugCount: 2),
+        _drugItem(imageAssetName: Asset.png_drug02, drugName: 'Paracetamol', drugWeight: '500mg', drugPricePerItem: 1.75, drugCount: 2),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_face_doctor, drugName: 'iBuprofen', drugWeight: '250mg', drugPricePerItem: 1.25, drugCount: 2),
+        _drugItem(imageAssetName: Asset.png_drug03, drugName: 'RObitussin', drugWeight: '200mg', drugPricePerItem: 1.5, drugCount: 2),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
         Row(
           children: [
@@ -165,7 +158,37 @@ class _DrugSection extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Image.asset(imageAssetName, width: ScreenUtil.widthInPercent(20), height: ScreenUtil.widthInPercent(20),),
+            Stack(
+              fit: StackFit.passthrough,
+              children: [
+                Container(
+                  width: ScreenUtil.widthInPercent(20),
+                  height: ScreenUtil.widthInPercent(20),
+                ),
+                Positioned(
+                  child: Image.asset(
+                    imageAssetName,
+                    width: ScreenUtil.widthInPercent(18),
+                    height: ScreenUtil.widthInPercent(18),
+                  ),
+                  top: 5,
+                  right: 5,
+                ),
+                Positioned(
+                  child: Container(
+                    padding: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Style.colorPrimary,
+                    ),
+                    child: Text('$drugCount', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w700),),
+                  ),
+                  right: 0,
+                  top: 0,
+
+                )
+              ],
+            ),
             SizedBox(width: ScreenUtil.widthInPercent(5),),
             Container(
               height: ScreenUtil.widthInPercent(20),
