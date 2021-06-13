@@ -136,6 +136,22 @@ class TextString {
 
   static const String label__no_of_times = 'No. of Times';
 
+  static const String label__invoice = 'Invoice';
+
+  static const String label__drugs = 'Drugs';
+
+  static const String label__price = 'Price';
+
+  static const String label__drugs_total = 'Drugs Total';
+
+  static const String label__treatment_total = 'Treatment Total';
+
+  static const String label__subtotal = 'Subtotal';
+
+  static const String label__total = 'Total';
+
+  static const String label__send_to_patient = 'Send to Patient';
+
   // ============================================================ TemplateString
 
 }

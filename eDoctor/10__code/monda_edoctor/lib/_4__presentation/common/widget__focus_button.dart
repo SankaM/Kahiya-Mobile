@@ -26,6 +26,14 @@ class FocusButton extends StatelessWidget {
             color: Style.colorPrimary,
             border: Border.all(color: Style.colorPrimary,),
             borderRadius: BorderRadius.all(Radius.circular(10),),
+            boxShadow: [
+              BoxShadow(
+                color: Style.colorPrimary.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ]
           ),
           child: Center(child: Text(label, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),),
         ),

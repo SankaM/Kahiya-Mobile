@@ -9,6 +9,7 @@ import 'package:monda_edoctor/_4__presentation/page/_0__login/page__blank_before
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__signin.dart';
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__splash.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__invoice/controller__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__invoice/page__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/page__medical_record.dart';
@@ -35,6 +36,7 @@ class MondaEPatientApp extends StatelessWidget {
     // Initialize all controller
     Get.put(PatientRegisterController());
     Get.put(AddPrescriptionController());
+    Get.put(InvoiceController());
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
 
 class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
@@ -74,7 +75,7 @@ class _AddPrescriptionForm extends StatelessWidget {
           // ----- Patient Name
           Text(TextString.label__patients_name, style: TextStyle(color: Colors.grey[500]),),
           SizedBox(height: ScreenUtil.heightInPercent(3),),
-          _PatientNameSection(patientName: 'Linda Williams'),
+          PatientNameSection(patientName: 'Linda Williams'),
           SizedBox(height: ScreenUtil.heightInPercent(5),),
 
           // ----- Diagnosis
@@ -142,29 +143,7 @@ class _AddPrescriptionForm extends StatelessWidget {
   }
 }
 
-class _PatientNameSection extends StatelessWidget {
-  final String patientName;
 
-  _PatientNameSection({required this.patientName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil.heightInPercent(7),
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.widthInPercent(5)),
-      child: Row(
-        children: [
-          Expanded(child: Text(patientName, style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),),
-          Icon(Icons.person, color: Style.colorPrimary,),
-        ],
-      ),
-      decoration: BoxDecoration(
-        color: Style.colorPrimary.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(10)
-      ),
-    );
-  }
-}
 
 class _DiagnosisDropdown extends StatelessWidget {
   final int selectedValue;
