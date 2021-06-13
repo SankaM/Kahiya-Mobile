@@ -139,7 +139,7 @@ class _DrugSection extends StatelessWidget {
         SizedBox(height: ScreenUtil.heightInPercent(3),),
         _drugItem(imageAssetName: Asset.png_drug02, drugName: 'Paracetamol', drugWeight: '500mg', drugPricePerItem: 1.75, drugCount: 2),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_drug03, drugName: 'RObitussin', drugWeight: '200mg', drugPricePerItem: 1.5, drugCount: 2),
+        _drugItem(imageAssetName: Asset.png_drug03, drugName: 'Robitussin', drugWeight: '200mg', drugPricePerItem: 1.5, drugCount: 2),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
         Row(
           children: [
