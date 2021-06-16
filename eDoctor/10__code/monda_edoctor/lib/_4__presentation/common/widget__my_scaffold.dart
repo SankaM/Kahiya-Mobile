@@ -108,8 +108,6 @@ class MyScaffold extends StatelessWidget {
   }
 
   Widget _fab() {
-    if(floatingActionButton != null) return floatingActionButton!;
-
     var sideSize = ScreenUtil.widthInPercent(14).floor();
     var margin = ScreenUtil.widthInPercent(1).floor();
 
@@ -117,7 +115,7 @@ class MyScaffold extends StatelessWidget {
       width: sideSize.toDouble(),
       height: sideSize.toDouble(),
       margin: EdgeInsets.all(margin.toDouble()),
-      child: FloatingActionButton(
+      child: floatingActionButton == null ? FloatingActionButton(
         child: Icon(
           Icons.person_add,
           color: Colors.white,
@@ -128,7 +126,7 @@ class MyScaffold extends StatelessWidget {
         onPressed: () {
           RouteNavigator.gotoRegisterPatientPage();
         },
-      ),
+      ) : floatingActionButton,
     );
   }
 

@@ -19,18 +19,17 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
     showFloatingActionButton: true,
     showBottomNavigationBar: true,
     selectedIndexOfBottomNavigationBar: -1,
-    // floatingActionButton: Container(
-    //   height: ScreenUtil.widthInPercent(14),
-    //   margin: EdgeInsets.all(ScreenUtil.widthInPercent(1)),
-    //   child: FloatingActionButton(
-    //     child: FaIcon(FontAwesomeIcons.pills, size: Style.iconSize_S, color: Colors.white,),
-    //     backgroundColor: Style.colorPalettes[900],
-    //     elevation: 0,
-    //     onPressed: () {
-    //     },
-    //   ),
-    // )
-  );
+    floatingActionButton: FloatingActionButton(
+            child: FaIcon(
+              FontAwesomeIcons.pills,
+              size: Style.iconSize_S,
+              color: Colors.white,
+            ),
+            backgroundColor: Style.colorPalettes[900],
+            elevation: 0,
+            onPressed: () {},
+          ),
+        );
 
   @override
   Widget constructContent(BuildContext context) {
