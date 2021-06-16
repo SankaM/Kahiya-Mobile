@@ -15,13 +15,17 @@ abstract class AbstractPage extends StatelessWidget {
   
   final int selectedIndexOfBottomNavigationBar;
 
+  final Widget? floatingActionButton;
+
   AbstractPage({
     this.title = TextString.page_title__default,
     this.usingSafeArea = true,
     this.showAppBar = false,
     this.showFloatingActionButton = false,
     this.showBottomNavigationBar = false,
-    this.selectedIndexOfBottomNavigationBar = -1});
+    this.selectedIndexOfBottomNavigationBar = -1,
+    this.floatingActionButton
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +39,7 @@ abstract class AbstractPage extends StatelessWidget {
       appBar: constructAppBar(context),
       body: constructBody(context),
       bottomNavigationBar: constructBottomNavigationBar(context),
+      floatingActionButton: floatingActionButton,
     );
   }
 

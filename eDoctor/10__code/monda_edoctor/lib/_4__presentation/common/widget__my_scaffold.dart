@@ -32,6 +32,8 @@ class MyScaffold extends StatelessWidget {
 
   final Widget? bottomNavigationBar;
 
+  final Widget? floatingActionButton;
+
   MyScaffold(
     this.title, {
     this.usingSafeArea = false,
@@ -42,6 +44,7 @@ class MyScaffold extends StatelessWidget {
     this.appBar,
     this.body,
     this.bottomNavigationBar,
+    this.floatingActionButton,
   });
 
   @override
@@ -105,6 +108,8 @@ class MyScaffold extends StatelessWidget {
   }
 
   Widget _fab() {
+    if(floatingActionButton != null) return floatingActionButton!;
+
     var sideSize = ScreenUtil.widthInPercent(14).floor();
     var margin = ScreenUtil.widthInPercent(1).floor();
 

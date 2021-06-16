@@ -77,6 +77,8 @@ class Style {
     return ScreenUtil.fontSize(4);
   }
 
+  static const double iconSize_2XS = 10;
+
   static const double iconSize_XS = 12;
 
   static const double iconSize_S = 16;

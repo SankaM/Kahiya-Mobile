@@ -152,6 +152,12 @@ class TextString {
 
   static const String label__send_to_patient = 'Send to Patient';
 
+  static const String label__inventory = 'Inventory';
+
+  static const String label__qty = 'Qty';
+
+  static const String label__expiry = 'Expiry';
+
   // ============================================================ TemplateString
 
 }

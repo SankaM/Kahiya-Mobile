@@ -13,7 +13,8 @@ abstract class AbstractPageWithBackgroundAndContent extends AbstractPage {
     bool showAppBar = false,
     bool showFloatingActionButton = false,
     bool showBottomNavigationBar = false,
-    int selectedIndexOfBottomNavigationBar = -1})
+    int selectedIndexOfBottomNavigationBar = -1,
+    Widget? floatingActionButton})
     : super(
         title: title,
         usingSafeArea: usingSafeArea,
@@ -21,6 +22,7 @@ abstract class AbstractPageWithBackgroundAndContent extends AbstractPage {
         showFloatingActionButton: showFloatingActionButton,
         showBottomNavigationBar: showBottomNavigationBar,
         selectedIndexOfBottomNavigationBar: selectedIndexOfBottomNavigationBar,
+        floatingActionButton: floatingActionButton
   );
 
   Widget constructBody(BuildContext context) {
