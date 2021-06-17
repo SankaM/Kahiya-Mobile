@@ -12,7 +12,9 @@ import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__invoice/controller__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__invoice/page__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_add.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory_add.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/page__medical_record.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/page__patient_register.dart';
@@ -39,6 +41,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(AddPrescriptionController());
     Get.put(InvoiceController());
     Get.put(InventoryController());
+    Get.put(AddInventoryController());
   }
 
   @override
@@ -69,6 +72,7 @@ class MondaEPatientApp extends StatelessWidget {
 
         // -------------------------------------------------------- 3. Inventory
         GetPage(name: Routes.page_inventory, page: () => InventoryPage(),),
+        GetPage(name: Routes.page_add_inventory, page: () => AddInventoryPage(),),
 
         // --------------------------------------------------- 4. Medical Record
         GetPage(name: Routes.page_medical_record, page: () => MedicalRecordPage(),),

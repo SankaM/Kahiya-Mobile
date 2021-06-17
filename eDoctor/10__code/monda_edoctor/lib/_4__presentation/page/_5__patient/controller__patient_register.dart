@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class PatientRegisterController extends GetxController {
+class PatientRegisterController extends AbstractController {
   static PatientRegisterController get instance => Get.find();
 
   final patientRegistrationForm = FormGroup({
@@ -18,6 +19,7 @@ class PatientRegisterController extends GetxController {
 
   bool progressDialogShow = false;
 
+  @override
   void reset() {
     this.patientRegistrationForm.reset(value: {
       'firstName': '',

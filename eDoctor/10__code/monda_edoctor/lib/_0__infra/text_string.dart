@@ -1,6 +1,8 @@
 
 
 class TextString {
+  TextString._();
+
   // ================================================================== App Name
   static const String app_name = 'MONDA';
 
@@ -28,6 +30,8 @@ class TextString {
   static const String page_title__register_patient = 'Register Patient';
 
   static const String page_title__add_prescription = 'Add Prescription';
+
+  static const String page_title__add_drug = 'Add Drug';
 
   // ===================================================================== Label
   static const String label__edoctor = 'eDoctor';
@@ -157,6 +161,24 @@ class TextString {
   static const String label__qty = 'Qty';
 
   static const String label__expiry = 'Expiry';
+
+  static const String label__name_of_drug = 'Name of Drug';
+
+  static const String label__enter_name = 'Enter Name';
+
+  static const String label__type = 'Type';
+
+  static const String label__mass = 'Mass';
+
+  static const String label__expiry_drug = 'Expiry Drug';
+
+  static const String label__drug_count = 'Drug Count';
+
+  static const String label__add_image = 'Add Image';
+
+  static const String label__select_file = 'Select File';
+
+  static const String label__add_drug = 'Add Drug';
 
   // ============================================================ TemplateString
 

@@ -21,6 +21,8 @@ class Routes {
 
   static const String page_add_prescription = '/add-prescription';
 
+  static const String page_add_inventory = '/add-drug';
+
   Routes._();
 }
 
@@ -60,6 +62,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoAddPrescriptionPage() {
     return _goto(Routes.page_add_prescription, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoAddInventoryPage() {
+    return _goto(Routes.page_add_inventory, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

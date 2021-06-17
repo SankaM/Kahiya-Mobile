@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
@@ -27,7 +28,9 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
             ),
             backgroundColor: Style.colorPalettes[900],
             elevation: 0,
-            onPressed: () {},
+            onPressed: () {
+              RouteNavigator.gotoAddInventoryPage();
+            },
           ),
         );
 
