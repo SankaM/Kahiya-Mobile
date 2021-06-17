@@ -200,50 +200,54 @@ class _InventoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
-      padding: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(color: Colors.grey[100]!, blurRadius: 4, spreadRadius: 1)
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(inventoryImageAsset,),
-          SizedBox(height: ScreenUtil.heightInPercent(1.5),),
-          Text(drugName, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Colors.black),),
-          Text(drugWeight, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey, fontWeight: FontWeight.w500),),
-          SizedBox(height: ScreenUtil.heightInPercent(1.5),),
-          Row(
-            children: [
-              FaIcon(FontAwesomeIcons.pills, size: Style.iconSize_S, color: Colors.purple,),
-              SizedBox(width: ScreenUtil.widthInPercent(1),),
-              Text(drugType, style: Style.defaultTextStyle(color: Colors.purple),),
-            ],
-          ),
-          SizedBox(height: ScreenUtil.heightInPercent(1),),
-          Row(
-            children: [
-              Text(TextString.label__qty, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
-              SizedBox(width: ScreenUtil.widthInPercent(1),),
-              Text(drugQty.toString(), style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
-            ],
-          ),
-          SizedBox(height: ScreenUtil.heightInPercent(1),),
-          Row(
-            children: [
-              Text(TextString.label__expiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
-              SizedBox(width: ScreenUtil.widthInPercent(1),),
-              Text(drugExpiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
-            ],
-          ),
-        ],
+    return InkWell(
+      onTap: () {
+        RouteNavigator.gotoUpdateInventoryPage();
+      },
+      child: Container(
+        margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
+        padding: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(color: Colors.grey[100]!, blurRadius: 4, spreadRadius: 1)
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(inventoryImageAsset,),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+            Text(drugName, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Colors.black),),
+            Text(drugWeight, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey, fontWeight: FontWeight.w500),),
+            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+            Row(
+              children: [
+                FaIcon(FontAwesomeIcons.pills, size: Style.iconSize_S, color: Colors.purple,),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(drugType, style: Style.defaultTextStyle(color: Colors.purple),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            Row(
+              children: [
+                Text(TextString.label__qty, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(drugQty.toString(), style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
+              ],
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            Row(
+              children: [
+                Text(TextString.label__expiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
+                SizedBox(width: ScreenUtil.widthInPercent(1),),
+                Text(drugExpiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
+              ],
+            ),
+          ],
+        ),
       ),
     );
-
   }
 }

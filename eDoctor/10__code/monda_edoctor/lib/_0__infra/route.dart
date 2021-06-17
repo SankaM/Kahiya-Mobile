@@ -15,13 +15,15 @@ class Routes {
 
   static const String page_inventory = '/inventory';
 
+  static const String page_add_inventory = '/inventory/add';
+
+  static const String page_update_inventory = '/inventory/update';
+
   static const String page_medical_record = '/medical-record';
 
   static const String page_patient_register = '/patient/register';
 
   static const String page_add_prescription = '/add-prescription';
-
-  static const String page_add_inventory = '/add-drug';
 
   Routes._();
 }
@@ -66,6 +68,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoAddInventoryPage() {
     return _goto(Routes.page_add_inventory, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoUpdateInventoryPage() {
+    return _goto(Routes.page_update_inventory, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

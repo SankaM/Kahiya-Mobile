@@ -10,10 +10,29 @@ class FocusButton extends StatelessWidget {
 
   final String label;
 
-  FocusButton({required this.height, required this.width, required this.onTap, required this.label});
+  final Color backgroundColor;
+
+  final Color borderColor;
+
+  final Color? shadowColor;
+
+  final Color textColor;
+
+  FocusButton({
+    required this.height,
+    required this.width,
+    required this.onTap,
+    required this.label,
+    this.backgroundColor: Style.colorPrimary,
+    this.borderColor: Style.colorPrimary,
+    this.shadowColor,
+    this.textColor: Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {
+    Color _shadowColor = ((shadowColor == null) ? Style.colorPrimary.withOpacity(0.2) : shadowColor)!;
+
     return Container(
       height: height,
       width: width,
@@ -23,19 +42,25 @@ class FocusButton extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Style.colorPrimary,
-            border: Border.all(color: Style.colorPrimary,),
+            color: backgroundColor,
+            border: Border.all(color: borderColor,),
             borderRadius: BorderRadius.all(Radius.circular(10),),
             boxShadow: [
               BoxShadow(
-                color: Style.colorPrimary.withOpacity(0.2),
+                color: _shadowColor,
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: Offset(0, 3), // changes position of shadow
               ),
             ]
           ),
-          child: Center(child: Text(label, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),),
+          child: Center(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: Style.defaultTextStyle(fontWeight: FontWeight.w500, fontSize: Style.fontSize_L, color: textColor),
+            ),
+          ),
         ),
       ),
     );

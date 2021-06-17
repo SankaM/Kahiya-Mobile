@@ -31,7 +31,9 @@ class TextString {
 
   static const String page_title__add_prescription = 'Add Prescription';
 
-  static const String page_title__add_drug = 'Add Drug';
+  static const String page_title__add_inventory = 'Add Drug';
+
+  static const String page_title__update_inventory = 'Update Drug';
 
   // ===================================================================== Label
   static const String label__edoctor = 'eDoctor';
@@ -179,6 +181,12 @@ class TextString {
   static const String label__select_file = 'Select File';
 
   static const String label__add_drug = 'Add Drug';
+
+  static const String label__update_drug = 'Update Drug';
+
+  static const String label__delete_drug = 'Delete Drug';
+
+  static const String label__update = 'Update';
 
   // ============================================================ TemplateString
 

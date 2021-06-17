@@ -14,11 +14,12 @@ import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart'
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_add.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_update.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class AddInventoryPage extends AbstractPageWithBackgroundAndContent {
-  AddInventoryPage() : super(
-    title: TextString.page_title__add_inventory,
+class UpdateInventoryPage extends AbstractPageWithBackgroundAndContent {
+  UpdateInventoryPage() : super(
+    title: TextString.page_title__update_inventory,
     backgroundAsset: Asset.png__background03,
     usingSafeArea: true,
     showAppBar: false,
@@ -42,7 +43,7 @@ class AddInventoryPage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(22.5)),
-      firstLineLabel: Text(TextString.label__add, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL),),
+      firstLineLabel: Text(TextString.label__update, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL),),
       secondLineLabel: Text(TextString.label__drug, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL),),
     );
   }
@@ -59,16 +60,16 @@ class AddInventoryPage extends AbstractPageWithBackgroundAndContent {
           borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
           color: Colors.white,
         ),
-        child: _AddInventoryForm(),
+        child: _UpdateInventoryForm(),
     );
   }
 }
 
-class _AddInventoryForm extends StatelessWidget {
+class _UpdateInventoryForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReactiveForm(
-      formGroup: AddInventoryController.instance.addInventoryForm,
+      formGroup: UpdateInventoryController.instance.updateInventoryForm,
       child: Container(
         height: ScreenUtil.heightInPercent(80),
         width: ScreenUtil.widthInPercent(80),
@@ -231,7 +232,25 @@ class _AddInventoryForm extends StatelessWidget {
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 
             // -----
-            FocusButton(height: ScreenUtil.heightInPercent(7), width: double.infinity, onTap: () {}, label: TextString.label__add_drug),
+            FocusButton(
+              height: ScreenUtil.heightInPercent(7),
+              width: double.infinity,
+              onTap: () {},
+              label: TextString.label__update_drug,
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(3),),
+
+            // -----
+            FocusButton(
+              height: ScreenUtil.heightInPercent(7),
+              width: double.infinity,
+              onTap: () {},
+              label: TextString.label__delete_drug,
+              backgroundColor: Colors.white,
+              borderColor: Colors.grey[300]!,
+              shadowColor: Colors.white,
+              textColor: Colors.grey,
+            ),
 
             // -----
             SizedBox(height: ScreenUtil.heightInPercent(20),),
