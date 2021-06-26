@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:flash/flash.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
@@ -33,8 +31,8 @@ class SignInController extends AbstractController {
   void reset({bool doUpdate = true}) {
     this.progressDialogShow = false;
     this.loginForm.reset(value: {
-      'username':'',
-      'password':''
+      'username':'sachini410',
+      'password':'123456789'
     });
 
     if(doUpdate) update();

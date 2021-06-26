@@ -8,4 +8,6 @@ class User {
   String? location;
 
   String? imageUrl;
+
+  User({this.id, this.name, this.userName, this.location, this.imageUrl});
 }

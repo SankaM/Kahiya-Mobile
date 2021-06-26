@@ -9,9 +9,11 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/User.dart';
+import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
-import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
 
 class HomePage extends AbstractPageWithBackgroundAndContent {
   HomePage() : super(
@@ -38,6 +40,9 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _accountProfilePicture(BuildContext context) {
+    User? user = UserSecureStorage.instance.user;
+    String doctorName = user != null ? user.name != null ? user.name! : '' : '';
+    String? imageUrl = user != null ? user.imageUrl != null ? user.imageUrl! : null : null;
     return Container(
       height: ScreenUtil.heightInPercent(17),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2)),
@@ -45,7 +50,8 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GFAvatar(
-              backgroundImage: AssetImage(Asset.png_face_doctor),
+              // backgroundImage: AssetImage(Asset.png_face_doctor),
+              backgroundImage: imageUrl != null ? NetworkImage(imageUrl, scale: 1.0) : null,
               shape: GFAvatarShape.square,
               size: ScreenUtil.widthInPercent(8),
               borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -53,7 +59,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
             SizedBox(height: ScreenUtil.heightInPercent(2),),
             Text(TextString.label__welcome, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default,color: Style.textColorPrimary),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
-            Text('Dr. Elizabeth', style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
+            Text(doctorName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
           ],
         )
     );
