@@ -188,6 +188,16 @@ class TextString {
 
   static const String label__update = 'Update';
 
+  static const String label__sign_in_process = 'Sign in process';
+
+  static const String label__cannot_empty = 'Cannot empty';
+
+  static const String label__please_correct_above_data = 'Please correct above data';
+
+  static const String label__error = 'Error';
+
+  static const String label__dismiss = 'Dismiss';
+
   // ============================================================ TemplateString
 
 }

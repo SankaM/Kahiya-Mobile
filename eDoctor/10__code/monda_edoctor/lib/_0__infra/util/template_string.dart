@@ -1,40 +1,21 @@
 class TemplateString {
-  final List<String> fixedComponents;
+  final String stringWithParams;
 
-  final Map<int, String> genericComponents;
+  final Map<String, String>? params;
 
-  int totalComponents;
+  TemplateString({required this.stringWithParams, this.params});
 
-  TemplateString(String template) : fixedComponents = <String>[], genericComponents = <int, String>{}, totalComponents = 0 {
-    final List<String> components = template.split('{');
+  @override
+  String toString() {
+    String result = stringWithParams;
 
-    for (String component in components) {
-      if (component == '') continue; // If the template starts with "{", skip the first element.
+    if(params != null) {
+      params!.forEach((key, value) {
+        String willBeReplaced = '{' + key + '}';
+        String replacement = value;
 
-      final split = component.split('}');
-
-      if (split.length != 1) {
-        genericComponents[totalComponents] = split.first;
-        totalComponents++;
-      }
-
-      if (split.last != '') {
-        fixedComponents.add(split.last);
-        totalComponents++;
-      }
-    }
-  }
-
-  String format(Map<String, dynamic> params) {
-    String result = '';
-
-    int fixedComponent = 0;
-    for (int i = 0; i < totalComponents; i++) {
-      if (genericComponents.containsKey(i)) {
-        result += '${params[genericComponents[i]]}';
-        continue;
-      }
-      result += fixedComponents[fixedComponent++];
+        result = result.replaceAll(willBeReplaced, replacement);
+      });
     }
 
     return result;
