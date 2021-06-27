@@ -198,6 +198,8 @@ class TextString {
 
   static const String label__dismiss = 'Dismiss';
 
+  static const String label__retrieving_patient_list = 'Retrieving patient list';
+
   // ============================================================ TemplateString
 
 }

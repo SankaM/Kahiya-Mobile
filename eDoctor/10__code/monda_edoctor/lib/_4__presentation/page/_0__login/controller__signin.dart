@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
@@ -6,6 +5,7 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/abstract_controller.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
+import 'package:monda_edoctor/_1__model/User.dart';
 import 'package:monda_edoctor/_3__service/service__account.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -44,26 +44,23 @@ class SignInController extends AbstractController {
 
     _changeProgressBarShow(true);
 
-    StatusWrapper<LoginStatus> statusWrapper = await AccountService.instance.login(username: username, password: password);
+    StatusWrapper<LoginStatus, User, String> statusWrapper = await AccountService.instance.login(username: username, password: password);
 
     switch (statusWrapper.status) {
       case LoginStatus.SUCCESS:
         {
-          log('===============================login success');
           _changeProgressBarShow(false);
           RouteNavigator.gotoHomePage();
           break;
         }
       case LoginStatus.ERROR:
         {
-          log('===============================login error');
-          AlertUtil.showMessage(statusWrapper.data != null ? statusWrapper.data.toString() : TextString.label__error);
+          AlertUtil.showMessage(statusWrapper.data != null ? statusWrapper.error.toString() : TextString.label__error);
           _changeProgressBarShow(false);
           break;
         }
       default:
         {
-          log('===============================i dont know');
           _changeProgressBarShow(false);
           break;
         }

@@ -1,7 +1,9 @@
-class StatusWrapper<T> {
-  T status;
+class StatusWrapper<S, D, E> {
+  S status;
 
-  Object? data;
+  D? data;
 
-  StatusWrapper({required this.status, this.data});
+  E? error;
+
+  StatusWrapper({required this.status, this.data, this.error});
 }

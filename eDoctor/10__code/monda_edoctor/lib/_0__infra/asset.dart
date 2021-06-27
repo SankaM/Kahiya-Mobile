@@ -31,5 +31,7 @@ class Asset {
 
   static const png_drug03 = 'assets/drug03.png';
 
+  static const png__no_image_available = 'assets/no_image_available.png';
+
   Asset._();
 }

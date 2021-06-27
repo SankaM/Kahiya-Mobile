@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 
 class PatientCard extends StatelessWidget {
-  final String assetImage;
+  final ImageProvider? patientImage;
 
   final String firstLineText;
 
@@ -16,13 +17,13 @@ class PatientCard extends StatelessWidget {
 
   final String thirdLineText;
 
-  final String assetIcon;
+  final Widget? drugImage;
 
   final double width;
 
   final double height;
 
-  PatientCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width, required this.height});
+  PatientCard({this.patientImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, this.drugImage, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +47,11 @@ class PatientCard extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
                   height: double.infinity,
-                  child: GFAvatar(
-                    backgroundImage: AssetImage(assetImage),
+                  child: patientImage != null ? GFAvatar(
+                    backgroundImage: patientImage,
                     shape: GFAvatarShape.square,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
+                  ) : Image.asset(Asset.png__no_image_available),
                 ),
               ),
               Expanded(
@@ -66,8 +67,8 @@ class PatientCard extends StatelessWidget {
                       Spacer(),
                       Row(
                         children: [
-                          Image.asset(assetIcon, width: Style.iconSize_Default, height: Style.iconSize_Default,),
-                          SizedBox(width: ScreenUtil.widthInPercent(1.5),),
+                          if(drugImage != null) drugImage!,
+                          if(drugImage != null) SizedBox(width: ScreenUtil.widthInPercent(1.5),),
                           Text(thirdLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                         ],
                       )

@@ -11,16 +11,15 @@ class AccountService {
 
   static AccountService get instance => Get.find();
 
-  Future<StatusWrapper<LoginStatus>> login({required String username, required String password}) {
-    var completer = Completer<StatusWrapper<LoginStatus>>();
+  Future<StatusWrapper<LoginStatus, User, String>> login({required String username, required String password}) {
+    var completer = Completer<StatusWrapper<LoginStatus, User, String>>();
 
     AccountApi.instance.login(username: username, password: password).then((LoginResult loginResult) {
       if(loginResult.success) {
-        User user = User(id: loginResult.doctorId, userName: loginResult.userName, name: loginResult.doctorName, location: loginResult.location, imageUrl: loginResult.imageUrl);
-        UserSecureStorage.instance.user = user;
-        completer.complete(StatusWrapper(status: LoginStatus.SUCCESS, data: user));
+        UserSecureStorage.instance.user = loginResult.user;
+        completer.complete(StatusWrapper(status: LoginStatus.SUCCESS, data: loginResult.user));
       } else {
-        completer.complete(StatusWrapper(status: LoginStatus.ERROR, data: loginResult.errorMessage),);
+        completer.complete(StatusWrapper(status: LoginStatus.ERROR, error: loginResult.errorMessage),);
       }
     });
 

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -12,6 +12,8 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_1__model/User.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
 
@@ -28,13 +30,30 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    HomeController.instance.init();
+
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        _accountProfilePicture(context),
-        _searchBar(context),
-        _scrollableSection(context),
+        Positioned(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _accountProfilePicture(context),
+              _searchBar(context),
+              _scrollableSection(context),
+            ],
+          ),
+        ),
+        GetBuilder<HomeController>(
+          builder: (c) {
+            return Visibility(
+              child: ProgressIndicatorOverlay(text: TextString.label__retrieving_patient_list,),
+              visible: c.progressDialogShow,
+            );
+          },
+        ),
       ],
     );
   }
@@ -115,25 +134,61 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _scrollableSection(BuildContext context) {
-    var width = ScreenUtil.widthInPercent(80);
-    var height = ScreenUtil.heightInPercent(15);
-
     return Container(
       height: ScreenUtil.heightInPercent(73),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: ListView(
-        children: [
-          _patientsTextLabel(context),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_prescription01,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_prescription02,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_prescription03,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Cavey Scott', secondLineText: 'Male, 24 yrs', thirdLineText: 'Flu, Cough', assetIcon: Asset.png_prescription01,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Linda Williams', secondLineText: 'Female, 23 yrs', thirdLineText: 'Flu, Fever, Cough', assetIcon: Asset.png_prescription02,),
-          PatientCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Steve Elliot', secondLineText: 'Male, 26 yrs', thirdLineText: 'Fever, Sore throat', assetIcon: Asset.png_prescription03,),
-          SizedBox(height: ScreenUtil.heightInPercent(15),),
-        ],
-      ),
+      child: _patientList(context),
     );
+  }
+
+  Widget _patientList(BuildContext context) {
+    return GetBuilder<HomeController>(builder: (c) {
+      var width = ScreenUtil.widthInPercent(80);
+      var height = ScreenUtil.heightInPercent(15);
+
+      List<Widget> children = [];
+      children.add(_patientsTextLabel(context));
+
+      HomeController.instance.patientList.forEach((patient) {
+        // First line text
+        String patientName = patient.name != null ? patient.name! : '';
+
+        // Second line text
+        String? gender = patient.gender != null ? patient.gender! : null;
+        int? age = patient.age;
+        String secondLineText = '';
+        if(gender != null) {
+          secondLineText += gender;
+        }
+        if(gender != null && age != null) {
+          secondLineText += ', ';
+        }
+        if(age != null) {
+          secondLineText += '$age yrs';
+        }
+
+        // Third line text
+        String thirdLineText = 'Flu, Cough';
+
+        // Patient Image
+        ImageProvider? patientImage = patient.imageUrl != null ? NetworkImage(patient.imageUrl!) : null;
+
+        PatientCard patientCard = PatientCard(
+          width: width,
+          height: height,
+          patientImage: patientImage,
+          firstLineText: patientName,
+          secondLineText: secondLineText,
+          thirdLineText: thirdLineText,
+        );
+
+        children.add(patientCard);
+      });
+
+      children.add(SizedBox(height: ScreenUtil.heightInPercent(15),));
+
+      return ListView(children: children);
+    });
   }
 
   Widget _patientsTextLabel(BuildContext context) {

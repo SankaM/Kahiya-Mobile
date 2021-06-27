@@ -6,12 +6,15 @@ import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__account.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_3__service/service__account.dart';
+import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_4__presentation/page/_0__login/controller__signin.dart';
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__blank_before_splash.dart';
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__signin.dart';
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__splash.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__invoice/controller__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__invoice/page__invoice.dart';
@@ -44,6 +47,7 @@ class MondaEPatientApp extends StatelessWidget {
   Future<void> _onInit() async {
     // API
     Get.put(AccountApi.newInstance());
+    Get.put(PatientApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());
@@ -51,9 +55,11 @@ class MondaEPatientApp extends StatelessWidget {
 
     // Service
     Get.put(AccountService.newInstance());
+    Get.put(PatientService.newInstance());
 
     // Controller
     Get.put(SignInController.newInstance());
+    Get.put(HomeController.newInstance());
     Get.put(PatientRegisterController());
     Get.put(AddPrescriptionController());
     Get.put(InvoiceController());
