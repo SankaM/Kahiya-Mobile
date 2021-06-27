@@ -200,6 +200,8 @@ class TextString {
 
   static const String label__retrieving_patient_list = 'Retrieving patient list';
 
+  static const String label__retrieving_patient_data = 'Retrieving patient data';
+
   // ============================================================ TemplateString
 
 }

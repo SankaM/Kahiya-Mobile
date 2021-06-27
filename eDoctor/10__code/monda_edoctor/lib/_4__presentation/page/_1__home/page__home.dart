@@ -186,6 +186,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
         ImageProvider? patientImage = patient.imageUrl != null ? NetworkImage(patient.imageUrl!) : null;
 
         PatientCard patientCard = PatientCard(
+          patientId: patient.patientId,
           width: width,
           height: height,
           patientImage: patientImage,

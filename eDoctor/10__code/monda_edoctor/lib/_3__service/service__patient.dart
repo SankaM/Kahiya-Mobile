@@ -38,6 +38,20 @@ class PatientService {
 
     return completer.future;
   }
+
+  Future<StatusWrapper<GetPatientStatus, Patient, String>> getPatient({required String patientId}) {
+    var completer = Completer<StatusWrapper<GetPatientStatus, Patient, String>>();
+
+    PatientApi.instance.getPatient(doctorId: UserSecureStorage.instance.user!.id!, patientId: patientId).then((PatientResult patientResult) {
+      if(patientResult.success) {
+        completer.complete(StatusWrapper(status: GetPatientStatus.SUCCESS, data: patientResult.patient));
+      } else {
+        completer.complete(StatusWrapper(status: GetPatientStatus.ERROR, error: patientResult.errorMessage),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum GetPatientSummaryStatus {
@@ -46,6 +60,11 @@ enum GetPatientSummaryStatus {
 }
 
 enum GetSearchPatientStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum GetPatientStatus {
   SUCCESS,
   ERROR,
 }

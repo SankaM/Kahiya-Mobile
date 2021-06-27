@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +9,11 @@ import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/Patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/controller__medical_record.dart';
 
 class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   MedicalRecordPage() : super(
@@ -24,10 +28,34 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: _contentCustomAppBar(context),
-      body: _contentBody(context),
+    String patientId = Get.arguments;
+
+    MedicalRecordController.instance.retrievePatient(patientId: patientId);
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        GetBuilder<MedicalRecordController>(
+          builder: (c) {
+            return Visibility(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: _contentCustomAppBar(context),
+                body: _contentBody(context),
+              ),
+              visible: !c.progressDialogShow,
+            );
+          },
+        ),
+        GetBuilder<MedicalRecordController>(
+          builder: (c) {
+            return Visibility(
+              child: ProgressIndicatorOverlay(text: TextString.label__retrieving_patient_data,),
+              visible: c.progressDialogShow,
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -35,7 +63,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(22.5)),
-      firstLineLabel: Text('Linda\'s', style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
+      firstLineLabel: Text('${MedicalRecordController.instance.patient!.name}\'s', style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
       secondLineLabel: Text(TextString.label__medical_record, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL)),
     );
   }
@@ -73,6 +101,25 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _firstRowProfile(BuildContext context) {
+    String _generateSecondLine() {
+      Patient patient = MedicalRecordController.instance.patient!;
+      
+      // Second line text
+      String? gender = patient.gender != null ? patient.gender! : null;
+      int? age = patient.age;
+      String secondLineText = '';
+      if(gender != null) {
+        secondLineText += gender;
+      }
+      if(gender != null && age != null) {
+        secondLineText += ', ';
+      }
+      if(age != null) {
+        secondLineText += '$age yrs';
+      }
+      
+      return secondLineText;
+    }
     return Container(
       height: ScreenUtil.heightInPercent(15),
       child: Row(
@@ -83,28 +130,28 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
             margin: EdgeInsets.all(ScreenUtil.widthInPercent(1.5)),
             height: ScreenUtil.heightInPercent(12.5),
             width: ScreenUtil.heightInPercent(12.5),
-            child: GFAvatar(
-              backgroundImage: AssetImage(Asset.png_face02),
+            child: MedicalRecordController.instance.patient!.imageUrl != null ? GFAvatar(
+              backgroundImage: NetworkImage(MedicalRecordController.instance.patient!.imageUrl!),
               shape: GFAvatarShape.square,
               borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
+            ) : Image.asset(Asset.png__no_image_available),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1), ScreenUtil.widthInPercent(2), ScreenUtil.heightInPercent(1.5)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Linda William', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
+                Text('${MedicalRecordController.instance.patient!.name}', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
-                Text('Female, 23 yrs', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
+                Text('${_generateSecondLine()}', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
-                Text('+1 486 448 589', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
-                Spacer(),
-                Row(
+                Text('${MedicalRecordController.instance.patient!.mobile}', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
+                if(MedicalRecordController.instance.patient!.healthProfile != null) Spacer(),
+                if(MedicalRecordController.instance.patient!.healthProfile != null) Row(
                   children: [
                     Image.asset(Asset.png_prescription02, width: Style.iconSize_Default, height: Style.iconSize_Default,),
                     SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                    Text('Flu, Fever, Cough', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                    Text('${MedicalRecordController.instance.patient!.healthProfile!}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                   ],
                 )
               ],

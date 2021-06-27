@@ -9,6 +9,8 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 
 class PatientCard extends StatelessWidget {
+  final String? patientId;
+
   final ImageProvider? patientImage;
 
   final String firstLineText;
@@ -23,7 +25,7 @@ class PatientCard extends StatelessWidget {
 
   final double height;
 
-  PatientCard({this.patientImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, this.drugImage, required this.width, required this.height});
+  PatientCard({this.patientId, this.patientImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, this.drugImage, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,9 @@ class PatientCard extends StatelessWidget {
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoMedicalRecordPage();
+          if(patientId != null) {
+            RouteNavigator.gotoMedicalRecordPage(patientId: patientId!);
+          }
         },
         child:Card(
           elevation: 5,

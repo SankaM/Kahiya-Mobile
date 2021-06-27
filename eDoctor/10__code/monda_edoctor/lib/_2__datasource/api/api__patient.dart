@@ -50,6 +50,25 @@ class PatientApi extends ApiDatasource {
       return PatientListResult.error();
     }
   }
+
+  Future<PatientResult> getPatient({required String doctorId, required String patientId}) async {
+    var res;
+    try {
+      String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_DETAIL, params: {'doctorId': doctorId, 'patientId': patientId}).toString();
+      res = await ApiUtil.dio.get(url, options: await ApiUtil.generateDioOptions());
+    } catch (e) {
+      DioError de = e as DioError;
+      String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
+
+      return PatientResult.error(errorMessage: errorMessage);
+    }
+
+    if(res.statusCode == 200 || res.statusCode == 201) {
+      return PatientResult.fromJson(res.data);
+    } else {
+      return PatientResult.error();
+    }
+  }
 }
 
 // =============================================================================
@@ -72,4 +91,28 @@ class PatientListResult extends AbstractResult {
                 imageUrl: patientJson['imageUrl']))
             .toList(),
       );
+}
+
+class PatientResult extends AbstractResult {
+  late Patient? patient;
+
+  PatientResult.success({Patient? patient}) : this.patient = patient, super.success();
+
+  PatientResult.error({String? errorMessage}) : this.patient = null, super.error(errorMessage: errorMessage);
+
+  factory PatientResult.fromJson(Map<String, dynamic> json) => PatientResult.success(
+    patient: Patient(
+      patientId: json['patientId'],
+      name: json['name'],
+      age: json['age'],
+      userName: json['userName'],
+      birthDate: json['birthDate'],
+      email: json['email'],
+      mobile: json['mobile'],
+      healthProfile: json['healthProfile'],
+      doctorId: json['doctorId'],
+      isActive: json['isActive'],
+      imageUrl: json['imageUrl'],
+      gender: json['gender'],
+    ));
 }
