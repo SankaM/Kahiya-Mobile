@@ -16,6 +16,7 @@ import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator
 import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__patient_card.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class HomePage extends AbstractPageWithBackgroundAndContent {
   HomePage() : super(
@@ -87,48 +88,59 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   Widget _searchBar(BuildContext context) {
     return Container(
       height: ScreenUtil.heightInPercent(10),
+      width: ScreenUtil.widthInPercent(100),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Row(
-        children: [
-          Container(
-            width: ScreenUtil.widthInPercent(60),
-            height: ScreenUtil.heightInPercent(8),
-            decoration:  BoxDecoration(
-              borderRadius: new BorderRadius.circular(15.0),
-              boxShadow: [
-                  BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
-              ]
-            ),
-            child: TextFormField(
-              style: TextStyle(color: Style.colorPrimary),
-              cursorColor: Style.colorPrimary,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
-                prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
-                hintText: TextString.label__search,
-                hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
+      child: ReactiveForm(
+        formGroup: HomeController.instance.searchForm,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: ScreenUtil.widthInPercent(60),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
+                  ]
+              ),
+              child: ReactiveTextField(
+                formControlName: 'queryValue',
+                style: TextStyle(color: Style.colorPrimary),
+                cursorColor: Style.colorPrimary,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
+                  prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
+                  hintText: TextString.label__search,
+                  hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
-          Spacer(),
-          Container(
-            width: ScreenUtil.heightInPercent(8),
-            height: ScreenUtil.heightInPercent(8),
-            decoration:  BoxDecoration(
-                borderRadius: new BorderRadius.circular(15.0),
-                boxShadow: [
-                  BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
-                ]
+            Spacer(),
+            Container(
+              width: ScreenUtil.heightInPercent(8),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
+                  ]
+              ),
+              child: FilterButton(
+                labels: ['Name', 'Username', 'Email', 'Phone'],
+                onTap: () {
+                  HomeController.instance.getSearchPatient();
+                },
+              ),
             ),
-            child: FilterButton(labels: ['Name', 'Username', 'Email', 'Phone'],),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

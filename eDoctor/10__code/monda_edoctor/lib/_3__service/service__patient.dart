@@ -24,9 +24,28 @@ class PatientService {
 
     return completer.future;
   }
+
+  Future<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>> getSearchPatient({required String queryValue}) {
+    var completer = Completer<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>>();
+
+    PatientApi.instance.getSearchPatient(queryValue: queryValue).then((PatientListResult patientListResult) {
+      if(patientListResult.success) {
+        completer.complete(StatusWrapper(status: GetSearchPatientStatus.SUCCESS, data: patientListResult.patientList));
+      } else {
+        completer.complete(StatusWrapper(status: GetSearchPatientStatus.ERROR, error: patientListResult.errorMessage),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum GetPatientSummaryStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum GetSearchPatientStatus {
   SUCCESS,
   ERROR,
 }

@@ -31,6 +31,25 @@ class PatientApi extends ApiDatasource {
       return PatientListResult.error();
     }
   }
+
+  Future<PatientListResult> getSearchPatient({required String queryValue}) async {
+    var res;
+    try {
+      String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_SEARCH, params: {'queryValue': queryValue}).toString();
+      res = await ApiUtil.dio.get(url, options: await ApiUtil.generateDioOptions());
+    } catch (e) {
+      DioError de = e as DioError;
+      String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
+
+      return PatientListResult.error(errorMessage: errorMessage);
+    }
+
+    if(res.statusCode == 200 || res.statusCode == 201) {
+      return PatientListResult.fromJson(res.data);
+    } else {
+      return PatientListResult.error();
+    }
+  }
 }
 
 // =============================================================================

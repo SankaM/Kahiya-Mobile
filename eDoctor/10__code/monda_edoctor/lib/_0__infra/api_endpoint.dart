@@ -6,4 +6,6 @@ class ApiEndPoint {
   static const String LOGIN = PREFIX + '/doctor/login';
 
   static const String PATIENT_SUMMARY = PREFIX + '/doctors/{doctorId}/patients/summary';
+
+  static const String PATIENT_SEARCH = PREFIX + '/patients/search?query={queryValue}';
 }

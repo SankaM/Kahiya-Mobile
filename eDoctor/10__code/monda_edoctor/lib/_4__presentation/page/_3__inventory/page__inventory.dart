@@ -108,7 +108,10 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
                   BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
                 ]
             ),
-            child: FilterButton(labels: ['Name', 'Type', 'Mass'],),
+            child: FilterButton(
+              labels: ['Name', 'Type', 'Mass'],
+              onTap: () {},
+            ),
           )
         ],
       ),

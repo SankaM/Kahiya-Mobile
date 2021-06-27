@@ -22,7 +22,7 @@ class SignInController extends AbstractController {
   bool progressDialogShow = false;
 
   @override
-  void onInit() {
+  void init() {
     super.onInit();
     reset(doUpdate: false);
   }

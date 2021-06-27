@@ -8,7 +8,9 @@ import 'package:monda_edoctor/_9__modify/flutter/custom_popup_menu_item.dart';
 class FilterButton extends StatefulWidget {
   final List<String> labels;
 
-  FilterButton({required this.labels});
+  final Function onTap;
+
+  FilterButton({required this.labels, required this.onTap});
 
   @override
   State<StatefulWidget> createState() {
@@ -27,6 +29,7 @@ class _FilterButtonState extends State<FilterButton> {
       padding: EdgeInsets.zero,
       onSelected: (menuItemLabel) {
         selectedIndex = widget.labels.indexOf(menuItemLabel.toString());
+        widget.onTap();
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       itemBuilder: (context) {
