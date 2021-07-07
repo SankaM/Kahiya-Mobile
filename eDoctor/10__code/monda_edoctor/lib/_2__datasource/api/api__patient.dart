@@ -98,6 +98,7 @@ class PatientListResult extends AbstractResult {
                 userName: patientJson['userName'],
                 isActive: patientJson['isActive'],
                 email: patientJson['email'],
+                currentDiagnosis: patientJson['currentDiagnosis'],
               ),
             )
             .toList(),
@@ -127,6 +128,7 @@ class PatientResult extends AbstractResult {
           userName: json['userName'],
           isActive: json['isActive'],
           email: json['email'],
+          currentDiagnosis: json['currentDiagnosis'],
         ),
       );
 }

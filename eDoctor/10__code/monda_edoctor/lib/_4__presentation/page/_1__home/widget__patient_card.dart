@@ -73,7 +73,9 @@ class PatientCard extends StatelessWidget {
                         children: [
                           if(drugImage != null) drugImage!,
                           if(drugImage != null) SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                          Text('$thirdLineText', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                          Container(
+                            child: Text('$thirdLineText', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                          ),
                         ],
                       )
                     ],

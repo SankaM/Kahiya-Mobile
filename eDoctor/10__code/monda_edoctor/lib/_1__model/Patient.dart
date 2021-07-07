@@ -25,6 +25,8 @@ class Patient {
 
   String? email;
 
+  String? currentDiagnosis;
+
   int? get age {
     if(birthDate != null) {
       var now = DateTime.now();
@@ -49,5 +51,6 @@ class Patient {
       this.imageUrl,
       this.userName,
       this.isActive,
-      this.email});
+      this.email,
+      this.currentDiagnosis});
 }

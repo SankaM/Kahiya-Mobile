@@ -74,7 +74,6 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GFAvatar(
-              // backgroundImage: AssetImage(Asset.png_face_doctor),
               backgroundImage: imageUrl != null ? NetworkImage(imageUrl, scale: 1.0) : null,
               shape: GFAvatarShape.square,
               size: ScreenUtil.widthInPercent(8),
@@ -139,7 +138,6 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
               child: FilterButton(
                 labels: ['Name', 'Username', 'Email', 'Phone'],
                 onTap: (menuItemLabel) {
-                  log('====================================== menuItemLabel: $menuItemLabel');
                   if(menuItemLabel == 'Name') {
                     HomeController.instance.getSearchPatient(field: SearchPatientField.NAME);
                   } else if(menuItemLabel == 'Username') {
@@ -193,7 +191,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
         }
 
         // Third line text
-        String? thirdLineText = patient.healthProfile;
+        String? thirdLineText = patient.currentDiagnosis;
 
         // Patient Image
         ImageProvider? patientImage = patient.imageUrl != null ? NetworkImage(patient.imageUrl!) : null;
