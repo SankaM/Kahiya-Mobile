@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -12,6 +14,7 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/User.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
+import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
@@ -135,8 +138,17 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
               ),
               child: FilterButton(
                 labels: ['Name', 'Username', 'Email', 'Phone'],
-                onTap: () {
-                  HomeController.instance.getSearchPatient();
+                onTap: (menuItemLabel) {
+                  log('====================================== menuItemLabel: $menuItemLabel');
+                  if(menuItemLabel == 'Name') {
+                    HomeController.instance.getSearchPatient(field: SearchPatientField.NAME);
+                  } else if(menuItemLabel == 'Username') {
+                    HomeController.instance.getSearchPatient(field: SearchPatientField.USERNAME);
+                  } else if(menuItemLabel == 'Email') {
+                    HomeController.instance.getSearchPatient(field: SearchPatientField.EMAIL);
+                  } else if(menuItemLabel == 'Phone') {
+                    HomeController.instance.getSearchPatient(field: SearchPatientField.MOBILE_PHONE);
+                  }
                 },
               ),
             ),
@@ -171,7 +183,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
         String? birthDate = patient.birthDate != null ? patient.birthDate! : null;
         String secondLineText = '';
         if(gender != null) {
-          secondLineText += StringUtil.capitalize(gender!)!;
+          secondLineText += StringUtil.capitalize(gender)!;
         }
         if(gender != null && birthDate != null) {
           secondLineText += ', ';

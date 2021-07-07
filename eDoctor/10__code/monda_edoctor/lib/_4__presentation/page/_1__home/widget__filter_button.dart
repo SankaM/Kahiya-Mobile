@@ -29,7 +29,7 @@ class _FilterButtonState extends State<FilterButton> {
       padding: EdgeInsets.zero,
       onSelected: (menuItemLabel) {
         selectedIndex = widget.labels.indexOf(menuItemLabel.toString());
-        widget.onTap();
+        widget.onTap(menuItemLabel);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       itemBuilder: (context) {

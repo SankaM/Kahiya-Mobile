@@ -61,7 +61,7 @@ class HomeController extends AbstractController {
     }
   }
 
-  void getSearchPatient() async {
+  void getSearchPatient({required SearchPatientField field}) async {
     String? queryValue = searchForm.control('queryValue').value;
     if(queryValue == null || queryValue.isEmpty) {
       getPatientSummary();
@@ -71,7 +71,7 @@ class HomeController extends AbstractController {
     _changeProgressBarShow(true);
 
 
-    StatusWrapper<GetSearchPatientStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getSearchPatient(queryValue: queryValue);
+    StatusWrapper<GetSearchPatientStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getSearchPatient(queryValue: queryValue, field: field);
     switch (statusWrapper.status) {
       case GetSearchPatientStatus.SUCCESS:
         {

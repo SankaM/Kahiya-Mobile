@@ -32,10 +32,10 @@ class PatientApi extends ApiDatasource {
     }
   }
 
-  Future<PatientListResult> getSearchPatient({required String queryValue}) async {
+  Future<PatientListResult> getSearchPatient({required String queryValue, required String field}) async {
     var res;
     try {
-      String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_SEARCH, params: {'queryValue': queryValue}).toString();
+      String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_SEARCH, params: {'queryValue': queryValue, 'field': field}).toString();
       res = await ApiUtil.dio.get(url, options: await ApiUtil.generateDioOptions());
     } catch (e) {
       DioError de = e as DioError;

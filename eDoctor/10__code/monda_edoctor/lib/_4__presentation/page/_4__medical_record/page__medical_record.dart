@@ -110,7 +110,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       String? birthDate = patient.birthDate != null ? patient.birthDate! : null;
       String secondLineText = '';
       if(gender != null) {
-        secondLineText += StringUtil.capitalize(gender!)!;
+        secondLineText += StringUtil.capitalize(gender)!;
       }
       if(gender != null && birthDate != null) {
         secondLineText += ', ';

@@ -25,10 +25,38 @@ class PatientService {
     return completer.future;
   }
 
-  Future<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>> getSearchPatient({required String queryValue}) {
+  Future<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>> getSearchPatient({required String queryValue, required SearchPatientField field}) {
+    String fieldAsString = '';
+    switch(field) {
+      case SearchPatientField.NAME:
+        {
+          fieldAsString = 'name';
+          break;
+        }
+      case SearchPatientField.EMAIL:
+        {
+          fieldAsString = 'email';
+          break;
+        }
+      case SearchPatientField.MOBILE_PHONE:
+        {
+          fieldAsString = 'mobilePhone';
+          break;
+        }
+      case SearchPatientField.USERNAME:
+        {
+          fieldAsString = 'username';
+          break;
+        }
+      default:
+        {
+          fieldAsString = '';
+        }
+    }
+
     var completer = Completer<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>>();
 
-    PatientApi.instance.getSearchPatient(queryValue: queryValue).then((PatientListResult patientListResult) {
+    PatientApi.instance.getSearchPatient(queryValue: queryValue, field: fieldAsString).then((PatientListResult patientListResult,) {
       if(patientListResult.success) {
         completer.complete(StatusWrapper(status: GetSearchPatientStatus.SUCCESS, data: patientListResult.patientList));
       } else {
@@ -52,6 +80,10 @@ class PatientService {
 
     return completer.future;
   }
+}
+
+enum SearchPatientField {
+  NAME, USERNAME, EMAIL, MOBILE_PHONE
 }
 
 enum GetPatientSummaryStatus {
