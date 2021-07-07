@@ -13,11 +13,11 @@ class PatientCard extends StatelessWidget {
 
   final ImageProvider? patientImage;
 
-  final String firstLineText;
+  final String? firstLineText;
 
-  final String secondLineText;
+  final String? secondLineText;
 
-  final String thirdLineText;
+  final String? thirdLineText;
 
   final Widget? drugImage;
 
@@ -65,15 +65,15 @@ class PatientCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(firstLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                      Text('$firstLineText', style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
-                      Text(secondLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
+                      Text('$secondLineText', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                       Spacer(),
                       Row(
                         children: [
                           if(drugImage != null) drugImage!,
                           if(drugImage != null) SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                          Text(thirdLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                          Text('$thirdLineText', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                         ],
                       )
                     ],

@@ -83,12 +83,23 @@ class PatientListResult extends AbstractResult {
 
   factory PatientListResult.fromJson(dynamic json) => PatientListResult.success(
     patientList: (json as List)
-            .map((patientJson) => Patient(
-                patientId: patientJson['patientId'],
-                name: patientJson['name'],
-                age: patientJson['age'],
-                mobile: patientJson['mobile'],
-                imageUrl: patientJson['imageUrl']))
+        .map((patientJson) =>
+        Patient(
+                patientId: patientJson['id'],
+                doctorId: patientJson['doctorId'],
+                firstName: patientJson['firstName'],
+                lastName: patientJson['lastName'],
+                birthDate: patientJson['birthDate'],
+                gender: patientJson['gender'],
+                mobilePhone: patientJson['mobilePhone'],
+                healthProfile: patientJson['healthProfile'],
+                nic: patientJson['nic'],
+                imageUrl: patientJson['imageUrl'],
+                userName: patientJson['userName'],
+                isActive: patientJson['isActive'],
+                email: patientJson['email'],
+              ),
+            )
             .toList(),
       );
 }
@@ -100,19 +111,22 @@ class PatientResult extends AbstractResult {
 
   PatientResult.error({String? errorMessage}) : this.patient = null, super.error(errorMessage: errorMessage);
 
-  factory PatientResult.fromJson(Map<String, dynamic> json) => PatientResult.success(
-    patient: Patient(
-      patientId: json['patientId'],
-      name: json['name'],
-      age: json['age'],
-      userName: json['userName'],
-      birthDate: json['birthDate'],
-      email: json['email'],
-      mobile: json['mobile'],
-      healthProfile: json['healthProfile'],
-      doctorId: json['doctorId'],
-      isActive: json['isActive'],
-      imageUrl: json['imageUrl'],
-      gender: json['gender'],
-    ));
+  factory PatientResult.fromJson(Map<String, dynamic> json) =>
+      PatientResult.success(
+        patient: Patient(
+          patientId: json['id'],
+          doctorId: json['doctorId'],
+          firstName: json['firstName'],
+          lastName: json['lastName'],
+          birthDate: json['birthDate'],
+          gender: json['gender'],
+          mobilePhone: json['mobilePhone'],
+          healthProfile: json['healthProfile'],
+          nic: json['nic'],
+          imageUrl: json['imageUrl'],
+          userName: json['userName'],
+          isActive: json['isActive'],
+          email: json['email'],
+        ),
+      );
 }

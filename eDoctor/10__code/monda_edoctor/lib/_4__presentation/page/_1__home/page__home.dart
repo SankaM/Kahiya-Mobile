@@ -9,6 +9,7 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/User.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -163,24 +164,24 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
       HomeController.instance.patientList.forEach((patient) {
         // First line text
-        String patientName = patient.name != null ? patient.name! : '';
+        String patientName = '${patient.firstName} ${patient.lastName}';
 
         // Second line text
         String? gender = patient.gender != null ? patient.gender! : null;
-        int? age = patient.age;
+        String? birthDate = patient.birthDate != null ? patient.birthDate! : null;
         String secondLineText = '';
         if(gender != null) {
-          secondLineText += gender;
+          secondLineText += StringUtil.capitalize(gender!)!;
         }
-        if(gender != null && age != null) {
+        if(gender != null && birthDate != null) {
           secondLineText += ', ';
         }
-        if(age != null) {
-          secondLineText += '$age yrs';
+        if(birthDate != null) {
+          secondLineText += '${patient.age} yrs';
         }
 
         // Third line text
-        String thirdLineText = 'Flu, Cough';
+        String? thirdLineText = patient.healthProfile;
 
         // Patient Image
         ImageProvider? patientImage = patient.imageUrl != null ? NetworkImage(patient.imageUrl!) : null;

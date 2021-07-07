@@ -1,0 +1,11 @@
+class StringUtil {
+  StringUtil._();
+
+  static String? capitalize(String? s) {
+    if(s != null && s.length > 0) {
+      return (s[0] + s.substring(1).toLowerCase());
+    }
+
+    return null;
+  }
+}

@@ -9,6 +9,7 @@ import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/Patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
@@ -63,7 +64,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
     return CustomAppBarBuilder.build(
       context: context,
       preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(22.5)),
-      firstLineLabel: Text('${MedicalRecordController.instance.patient!.name}\'s', style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
+      firstLineLabel: Text('${MedicalRecordController.instance.patient!.firstName} ${MedicalRecordController.instance.patient!.lastName}\'s', style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w500),),
       secondLineLabel: Text(TextString.label__medical_record, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL)),
     );
   }
@@ -106,20 +107,21 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       
       // Second line text
       String? gender = patient.gender != null ? patient.gender! : null;
-      int? age = patient.age;
+      String? birthDate = patient.birthDate != null ? patient.birthDate! : null;
       String secondLineText = '';
       if(gender != null) {
-        secondLineText += gender;
+        secondLineText += StringUtil.capitalize(gender!)!;
       }
-      if(gender != null && age != null) {
+      if(gender != null && birthDate != null) {
         secondLineText += ', ';
       }
-      if(age != null) {
-        secondLineText += '$age yrs';
+      if(birthDate != null) {
+        secondLineText += '${patient.age} yrs';
       }
       
       return secondLineText;
     }
+
     return Container(
       height: ScreenUtil.heightInPercent(15),
       child: Row(
@@ -141,11 +143,11 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${MedicalRecordController.instance.patient!.name}', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
+                Text('${MedicalRecordController.instance.patient!.firstName} ${MedicalRecordController.instance.patient!.lastName}', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
                 Text('${_generateSecondLine()}', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
-                Text('${MedicalRecordController.instance.patient!.mobile}', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
+                Text('${MedicalRecordController.instance.patient!.mobilePhone}', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
                 if(MedicalRecordController.instance.patient!.healthProfile != null) Spacer(),
                 if(MedicalRecordController.instance.patient!.healthProfile != null) Row(
                   children: [
