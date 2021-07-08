@@ -147,13 +147,13 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
                 Text('${_generateSecondLine()}', style: Style.defaultTextStyle(color: Colors.grey[500]!),),
                 SizedBox(height: ScreenUtil.heightInPercent(1),),
-                Text('${MedicalRecordController.instance.patient!.mobilePhone}', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
-                if(MedicalRecordController.instance.patient!.healthProfile != null) Spacer(),
-                if(MedicalRecordController.instance.patient!.healthProfile != null) Row(
+                Text('${MedicalRecordController.instance.patient!.mobilePhone ?? TextString.label__no_phone_info}', style: Style.defaultTextStyle(color: Colors.grey[600]!),),
+                if(MedicalRecordController.instance.patient!.currentDiagnosis != null) Spacer(),
+                if(MedicalRecordController.instance.patient!.currentDiagnosis != null) Row(
                   children: [
                     Image.asset(Asset.png_prescription02, width: Style.iconSize_Default, height: Style.iconSize_Default,),
                     SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                    Text('${MedicalRecordController.instance.patient!.healthProfile!}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                    Text('${MedicalRecordController.instance.patient!.currentDiagnosis!}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                   ],
                 )
               ],
@@ -174,7 +174,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         ),
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
-          child: Text(TextString.label__lorem_ipsum, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
+          child: Text('${MedicalRecordController.instance.patient!.healthProfile}', style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
         )
       ],
     );

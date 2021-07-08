@@ -202,6 +202,8 @@ class TextString {
 
   static const String label__retrieving_patient_data = 'Retrieving patient data';
 
+  static const String label__no_phone_info = 'No phone info';
+
   // ============================================================ TemplateString
 
 }
