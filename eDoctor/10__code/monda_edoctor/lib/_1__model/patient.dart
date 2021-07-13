@@ -1,7 +1,7 @@
 import 'package:monda_edoctor/_1__model/doctor.dart';
 
 class Patient {
-  String patientId;
+  String id;
 
   Doctor? doctor;
 
@@ -41,7 +41,7 @@ class Patient {
   }
 
   Patient({
-    required this.patientId,
+    required this.id,
     this.doctor,
     this.firstName,
     this.lastName,
@@ -58,7 +58,7 @@ class Patient {
   });
 
   factory Patient.buildDetail(Map<String, dynamic> json) => Patient(
-    patientId: json['id'],
+    id: json['id'],
     doctor: json['doctor'] != null ? Doctor.buildDetail(json['doctor']) : null,
     firstName: json['firstName'],
     lastName: json['lastName'],

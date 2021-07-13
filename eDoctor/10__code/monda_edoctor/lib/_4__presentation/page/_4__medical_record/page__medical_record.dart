@@ -31,7 +31,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   Widget constructContent(BuildContext context) {
     String patientId = Get.arguments;
 
-    MedicalRecordController.instance.retrievePatient(patientId: patientId);
+    MedicalRecordController.instance.retrieveData(patientId: patientId);
 
     return Stack(
       fit: StackFit.expand,

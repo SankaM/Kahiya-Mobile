@@ -39,25 +39,13 @@ class HomeController extends AbstractController {
     _changeProgressBarShow(true);
 
     StatusWrapper<GetPatientSummaryStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getPatientSummary();
-    switch (statusWrapper.status) {
-      case GetPatientSummaryStatus.SUCCESS:
-        {
-          this.patientList = statusWrapper.data!;
-          _changeProgressBarShow(false);
-          break;
-        }
-      case GetPatientSummaryStatus.ERROR:
-        {
-          this.patientList = [];
-          _changeProgressBarShow(false);
-          break;
-        }
-      default:
-        {
-          this.patientList = [];
-          _changeProgressBarShow(false);
-          break;
-        }
+
+    if(statusWrapper.status == GetPatientSummaryStatus.SUCCESS) {
+      this.patientList = statusWrapper.data!;
+      _changeProgressBarShow(false);
+    } else {
+      this.patientList = [];
+      _changeProgressBarShow(false);
     }
   }
 
@@ -70,27 +58,14 @@ class HomeController extends AbstractController {
 
     _changeProgressBarShow(true);
 
-
     StatusWrapper<GetSearchPatientStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getSearchPatient(queryValue: queryValue, field: field);
-    switch (statusWrapper.status) {
-      case GetSearchPatientStatus.SUCCESS:
-        {
-          this.patientList = statusWrapper.data!;
-          _changeProgressBarShow(false);
-          break;
-        }
-      case GetSearchPatientStatus.ERROR:
-        {
-          this.patientList = [];
-          _changeProgressBarShow(false);
-          break;
-        }
-      default:
-        {
-          this.patientList = [];
-          _changeProgressBarShow(false);
-          break;
-        }
+
+    if(statusWrapper.status == GetSearchPatientStatus.SUCCESS) {
+      this.patientList = statusWrapper.data!;
+      _changeProgressBarShow(false);
+    } else {
+      this.patientList = [];
+      _changeProgressBarShow(false);
     }
   }
 

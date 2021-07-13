@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
+import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
@@ -53,6 +54,20 @@ class PatientService {
 
     return completer.future;
   }
+
+  Future<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>> getPrescription({required String patientId}) {
+    var completer = Completer<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>>();
+
+    PatientApi.instance.getPrescription(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: GetPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetPrescriptionStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum SearchPatientField {
@@ -70,6 +85,11 @@ enum GetSearchPatientStatus {
 }
 
 enum GetPatientStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum GetPrescriptionStatus {
   SUCCESS,
   ERROR,
 }
