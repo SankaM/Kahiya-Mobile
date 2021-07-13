@@ -17,6 +17,7 @@ dependencies:
   dio: ^4.0.0
   pretty_dio_logger: ^1.1.1
   flutter_secure_storage: ^4.2.0
+  intl: ^0.17.0
 
   # UI related dependencies
   cupertino_icons: ^1.0.2
