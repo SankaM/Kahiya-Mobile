@@ -10,7 +10,7 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
-import 'package:monda_edoctor/_1__model/Patient.dart';
+import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
@@ -39,11 +39,11 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         GetBuilder<MedicalRecordController>(
           builder: (c) {
             return Visibility(
-              child: Scaffold(
+              child: c.patient != null ? Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: _contentCustomAppBar(context),
                 body: _contentBody(context),
-              ),
+              ) : Container(),
               visible: !c.progressDialogShow,
             );
           },

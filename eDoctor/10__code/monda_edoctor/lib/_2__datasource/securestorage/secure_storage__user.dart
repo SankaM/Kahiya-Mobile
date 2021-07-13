@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:monda_edoctor/_1__model/User.dart';
+import 'package:monda_edoctor/_1__model/user.dart';
 
 class UserSecureStorage {
   // =============================================================== Boilerplate
@@ -43,7 +43,7 @@ class UserSecureStorage {
     Map<String, String> _allValues = await _storage.readAll();
     if(_allValues['User__id'] != null) {
       user = User(
-        id: _allValues['User__id'],
+        id: _allValues['User__id']!,
         userName: _allValues['User__userName'],
         name: _allValues['User__name'],
         location: _allValues['User__location'],

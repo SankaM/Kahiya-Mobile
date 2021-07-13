@@ -5,7 +5,7 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/abstract_controller.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
-import 'package:monda_edoctor/_1__model/User.dart';
+import 'package:monda_edoctor/_1__model/user.dart';
 import 'package:monda_edoctor/_3__service/service__account.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 

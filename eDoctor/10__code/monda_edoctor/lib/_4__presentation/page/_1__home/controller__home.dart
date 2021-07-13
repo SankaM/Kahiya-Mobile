@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/abstract_controller.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
-import 'package:monda_edoctor/_1__model/Patient.dart';
+import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 

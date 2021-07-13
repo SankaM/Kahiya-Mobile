@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+typedef ResponseWrapper<T> ResponseDataBuilder<T>(Map<String, dynamic> json);
 
 class ApiUtil {
   static Dio? _dio;
@@ -26,5 +29,41 @@ class ApiUtil {
 
   static Future<Options> generateDioOptions() async {
     return Options();
+  }
+
+  static Future<ResponseWrapper<T>> post<T>({required String url, Map<String, dynamic>? postData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
+    var res;
+    try {
+      res = await ApiUtil.dio.post(url, options: options, data: postData);
+    } catch (e) {
+      DioError de = e as DioError;
+      String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
+
+      return ResponseWrapper<T>.error(message: errorMessage);
+    }
+
+    if(res.statusCode == 200 || res.statusCode == 201) {
+      return responseDataBuilder(res.data);
+    } else {
+      return ResponseWrapper<T>.error();
+    }
+  }
+
+  static Future<ResponseWrapper<T>> get<T>({required String url, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
+    var res;
+    try {
+      res = await ApiUtil.dio.get(url, options: options,);
+    } catch (e) {
+      DioError de = e as DioError;
+      String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
+
+      return ResponseWrapper<T>.error(message: errorMessage);
+    }
+
+    if(res.statusCode == 200 || res.statusCode == 201) {
+      return responseDataBuilder(res.data);
+    } else {
+      return ResponseWrapper<T>.error();
+    }
   }
 }

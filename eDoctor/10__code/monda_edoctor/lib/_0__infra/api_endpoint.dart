@@ -12,4 +12,6 @@ class ApiEndPoint {
   static const String PATIENT_SEARCH = PREFIX + '/patients/search?query={queryValue}&field={field}';
 
   static const String PATIENT_DETAIL = PREFIX + '/doctors/{doctorId}/patients/{patientId}/details';
+
+  static const String PATIENT_HISTORY = PREFIX + '/patients/{patientId}/history';
 }
