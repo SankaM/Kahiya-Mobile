@@ -1,3 +1,4 @@
+import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/drug.dart';
 
 class Dosage {
@@ -24,6 +25,12 @@ class Dosage {
     this.dosageCount,
     this.drugCost,
   });
+
+  String get normalizeDosageRule {
+    if(dosageRule == null) return '';
+
+    return StringUtil.capitalize(dosageRule!.replaceAll(RegExp('_'), ' '))!;
+  }
 
   factory Dosage.buildDetail(Map<String, dynamic> json) => Dosage(
         id: json['id'],

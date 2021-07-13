@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
+import 'package:monda_edoctor/_1__model/dosage.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
+import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
@@ -181,32 +184,43 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _currentPrescriptionSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    List<Widget> children = [];
+
+    children.add(
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__current_prescriptions, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+        )
+    );
+
+    if(MedicalRecordController.instance.prescriptionList == null || MedicalRecordController.instance.prescriptionList!.isEmpty) {
+      children.add(
+        Padding(
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
+          child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
         ),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '3 days', severity: 2, severityNotes: 'Medium',  prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '2 days', severity: 3, severityNotes: 'Above 100',prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
-        _CurrentPrescriptionItem(prescribedFor: 'Flu', prescribedLength: '2 days', severity: 2, severityNotes: 'Medium',prescribedDrug: 'Relenza', prescribedDrugCount: '1 Tablet', dosage: '3 Days', dosageCount: '2 Times', prescribedBy: 'Dr. Carl',),
-      ],
+      );
+    } else {
+      children.addAll(MedicalRecordController.instance.prescriptionList!.map((e) => _CurrentPrescriptionItem(prescription: e)).toList());
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children
     );
   }
 
   Widget _pastHistorySection(BuildContext context) {
+    List<Widget> children = [];
+    
+    children.add(Padding(
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
+      child: Text(TextString.label__past_diagnostic, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+    ));
+    children.addAll(MedicalRecordController.instance.prescriptionList!.map((e) => _PastDiagnosticItem(prescription: e)).toList());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
-          child: Text(TextString.label__past_diagnostic, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
-        ),
-        _PastDiagnosticItem(diagnosticLabel: 'Sore Throat', dateLabel: '21 April, 2021', prescribed: true,),
-        _PastDiagnosticItem(diagnosticLabel: 'Stomach Ache', dateLabel: '18 Marc, 2021', prescribed: true,),
-        _PastDiagnosticItem(diagnosticLabel: 'Dry Cough', dateLabel: '2 Mar, 2021', prescribed: false,),
-      ],
+      children: children
     );
   }
 
@@ -227,34 +241,19 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
 }
 
 class _CurrentPrescriptionItem extends StatelessWidget {
-  final String prescribedFor;
+  final Prescription prescription;
 
-  final String prescribedLength;
+  final String prescribedLength = '111';
 
-  final String prescribedDrug;
+  final String prescribedDrug = '222';
 
-  final String prescribedDrugCount;
+  final String prescribedDrugCount = '333';
 
-  final String dosage;
+  final String dosage = '444';
 
-  final String dosageCount;
+  final String dosageCount = '555';
 
-  final String prescribedBy;
-
-  final int severity;
-
-  final String severityNotes;
-
-  _CurrentPrescriptionItem({
-    required this.prescribedFor,
-    required this.prescribedLength,
-    required this.prescribedDrug,
-    required this.prescribedDrugCount,
-    required this.dosage,
-    required this.dosageCount,
-    required this.prescribedBy,
-    required this.severity,
-    required this.severityNotes});
+  _CurrentPrescriptionItem({required this.prescription});
 
   @override
   Widget build(BuildContext context) {
@@ -276,11 +275,11 @@ class _CurrentPrescriptionItem extends StatelessWidget {
             //-----
             Row(
               children: [
-                Text(prescribedFor, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),
+                Text(prescription.diagnosis!.name!, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: Style.fontSize_L),),
                 Spacer(),
                 Icon(Icons.calendar_today_rounded, color: Style.colorPrimary,),
                 SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(prescribedLength, style: Style.defaultTextStyle(color: Colors.grey),),
+                Text('${prescription.prescriptionDate != null ? DateFormat('MMM dd, yyyy').format(prescription.prescriptionDate!) : ''}', style: Style.defaultTextStyle(color: Colors.grey),),
               ],
             ),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
@@ -288,53 +287,30 @@ class _CurrentPrescriptionItem extends StatelessWidget {
             //-----
             Text(TextString.label__severity, style: Style.defaultTextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(0.5),),
-            Row(
-              children: [
-                DotsIndicator(
-                  dotsCount: 3,
-                  position: severity - 1,
-                  decorator: DotsDecorator(
-                    size: const Size(18.0, 9.0),
-                    activeSize: const Size(18.0, 9.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                    activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                    color: Style.colorPrimary.withOpacity(0.5),
-                    activeColor: Style.colorPrimary
-                  ),
-                ),
-                Spacer(),
-                Text(severityNotes, style: Style.defaultTextStyle(color: Colors.black, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
-              ],
+            DotsIndicator(
+              dotsCount: 3,
+              position: (prescription.illnessSeverityAsInteger - 1).toDouble(),
+              decorator: DotsDecorator(
+                  size: const Size(18.0, 9.0),
+                  activeSize: const Size(18.0, 9.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                  activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                  color: Style.colorPrimary.withOpacity(0.5),
+                  activeColor: Style.colorPrimary
+              ),
             ),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
 
-            //-----
-            Text(TextString.label__prescribed_drug, style: Style.defaultTextStyle(color: Colors.grey),),
-            SizedBox(height: ScreenUtil.heightInPercent(0.5),),
-            Row(
-              children: [
-                Text(prescribedDrug, style: Style.defaultTextStyle(color: Colors.black),),
-                Spacer(),
-                Icon(Icons.mediation, color: Colors.purple, size: Style.iconSize_S,),
-                SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(prescribedDrugCount, style: Style.defaultTextStyle(color: Colors.purple, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
-              ],
+            //----
+            Text(TextString.label__notes, style: Style.defaultTextStyle(color: Colors.grey),),
+            Padding(
+              padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(0.5)),
+              child: Text('${prescription.notes}', style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
             ),
-            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+            SizedBox(height: ScreenUtil.heightInPercent(2.5),),
 
-            //-----
-            Text(TextString.label__dosage, style: Style.defaultTextStyle(color: Colors.grey),),
-            SizedBox(height: ScreenUtil.heightInPercent(0.5),),
-            Row(
-              children: [
-                Text(dosage, style: Style.defaultTextStyle(color: Colors.black),),
-                Spacer(),
-                Icon(Icons.watch_later, color: Colors.green, size: Style.iconSize_S,),
-                SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(dosageCount, style: Style.defaultTextStyle(color: Colors.green, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
-              ],
-            ),
-            SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+            Column(children: prescription.dosageList!.map((e) => _dosageItem(context, e)).toList(),),
+            SizedBox(height: ScreenUtil.heightInPercent(2.5),),
 
             //-----
             Row(
@@ -345,7 +321,7 @@ class _CurrentPrescriptionItem extends StatelessWidget {
                   height: ScreenUtil.heightInPercent(6),
                   width: ScreenUtil.heightInPercent(6),
                   child: GFAvatar(
-                    backgroundImage: AssetImage(Asset.png_face_doctor),
+                    backgroundImage: NetworkImage(prescription.doctor!.imageUrl!),
                     shape: GFAvatarShape.square,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
@@ -358,7 +334,7 @@ class _CurrentPrescriptionItem extends StatelessWidget {
                     children: [
                       Text(TextString.label__prescribed_by, style: Style.defaultTextStyle(color: Colors.grey[500]!),),
                       SizedBox(height: ScreenUtil.heightInPercent(0.5),),
-                      Text(prescribedBy, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_Default),),
+                      Text('${prescription.doctor!.name!}', style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_Default),),
                     ],
                   ),
                 ),
@@ -369,20 +345,52 @@ class _CurrentPrescriptionItem extends StatelessWidget {
       ),
     );
   }
+
+  Column _dosageItem(BuildContext context, Dosage dosage) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        //-----
+        Text(TextString.label__prescribed_drug, style: Style.defaultTextStyle(color: Colors.grey),),
+        SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+        Row(
+          children: [
+            Text('${dosage.drug!.completeName}', style: Style.defaultTextStyle(color: Colors.black),),
+            Spacer(),
+            Icon(Icons.mediation, color: Colors.purple, size: Style.iconSize_S,),
+            SizedBox(width: ScreenUtil.widthInPercent(1),),
+            Text('${dosage.dosageCount!.toInt().toString()}', style: Style.defaultTextStyle(color: Colors.purple, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+          ],
+        ),
+        SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+
+        //-----
+        Text(TextString.label__dosage, style: Style.defaultTextStyle(color: Colors.grey),),
+        SizedBox(height: ScreenUtil.heightInPercent(0.5),),
+        Row(
+          children: [
+            Text('${dosage.treatmentDays} ${TextString.label__days}', style: Style.defaultTextStyle(color: Colors.black),),
+            Spacer(),
+            Icon(Icons.watch_later, color: Colors.green, size: Style.iconSize_S,),
+            SizedBox(width: ScreenUtil.widthInPercent(1),),
+            Text('${dosage.timesPerDay} ${TextString.label__times} ${dosage.normalizeDosageRule}', style: Style.defaultTextStyle(color: Colors.green, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+          ],
+        ),
+        SizedBox(height: ScreenUtil.heightInPercent(2),),
+        Divider(),
+      ],
+    );
+  }
 }
 
 class _PastDiagnosticItem extends StatelessWidget {
-  final String diagnosticLabel;
+  final Prescription prescription;
 
-  final String dateLabel;
-
-  final bool prescribed;
-
-  _PastDiagnosticItem({required this.diagnosticLabel, required this.dateLabel, this.prescribed = false});
+  _PastDiagnosticItem({required this.prescription});
 
   @override
   Widget build(BuildContext context) {
-    Color prescribedColor = prescribed ? Style.colorPrimary : Style.colorPrimary.withOpacity(0.4);
+    Color prescribedColor = prescription.isPrescribed ? Style.colorPrimary : Style.colorPrimary.withOpacity(0.4);
 
     return Container(
       margin: EdgeInsets.only(left: ScreenUtil.widthInPercent(1.5), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(1.5), bottom: ScreenUtil.heightInPercent(1.5)),
@@ -395,9 +403,9 @@ class _PastDiagnosticItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(diagnosticLabel, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, letterSpacing: 0.5, fontSize: Style.fontSize_XL),),
+              Text(prescription.diagnosis!.name!, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, letterSpacing: 0.5, fontSize: Style.fontSize_XL),),
               Spacer(),
-              Text(dateLabel, style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+              Text('${prescription.prescriptionDate != null ? DateFormat('MMM dd, yyyy').format(prescription.prescriptionDate!) : ''}', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
             ],
           ),
           SizedBox(height: ScreenUtil.heightInPercent(2),),
@@ -406,7 +414,7 @@ class _PastDiagnosticItem extends StatelessWidget {
             children: [
               Icon(Icons.speaker_notes_rounded, color: prescribedColor, size: Style.iconSize_Default,),
               SizedBox(width: ScreenUtil.widthInPercent(3),),
-              Text(prescribed ? TextString.label__prescribed : TextString.label__not_prescribed, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: prescribedColor),),
+              Text(prescription.isPrescribed ? TextString.label__prescribed : TextString.label__not_prescribed, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: prescribedColor),),
             ],
           )
         ],

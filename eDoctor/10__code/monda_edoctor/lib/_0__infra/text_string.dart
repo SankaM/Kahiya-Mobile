@@ -132,11 +132,15 @@ class TextString {
 
   static const String label__add_notes = 'Add Notes';
 
+  static const String label__notes = 'Notes';
+
   static const String label__attach_files = 'Attach Files';
 
   static const String label__drug = 'Drug';
 
   static const String label__days = 'Days';
+
+  static const String label__times = 'Times';
 
   static const String label__dose = 'Dose';
 
@@ -203,6 +207,8 @@ class TextString {
   static const String label__retrieving_patient_data = 'Retrieving patient data';
 
   static const String label__no_phone_info = 'No phone info';
+
+  static const String label__no_data = 'No data';
 
   // ============================================================ TemplateString
 

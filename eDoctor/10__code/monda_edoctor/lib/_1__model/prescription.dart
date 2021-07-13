@@ -15,7 +15,7 @@ class Prescription {
 
   final String? illnessSeverity;
 
-  final String? prescriptionDate;
+  final DateTime? prescriptionDate;
 
   final String? notes;
 
@@ -28,6 +28,26 @@ class Prescription {
   final double? totalCost;
 
   final List<Dosage>? dosageList;
+
+  int get illnessSeverityAsInteger {
+    int returnValue = 1;
+
+    if(illnessSeverity == null) {
+      returnValue = 1;
+    } else if(illnessSeverity == 'LOW') {
+      returnValue = 1;
+    } else if(illnessSeverity == 'MEDIUM') {
+      returnValue = 2;
+    } else if(illnessSeverity == 'HIGH') {
+      returnValue = 3;
+    }
+
+    return returnValue;
+  }
+
+  bool get isPrescribed {
+    return dosageList != null && dosageList!.isNotEmpty;
+  }
 
   Prescription({
     required this.id,
@@ -50,7 +70,7 @@ class Prescription {
       patient: json['patient'] != null ? Patient.buildDetail(json['patient']) : null,
       diagnosis: json['diagnosis'] != null ? Diagnosis.buildDetail(json['diagnosis']) : null,
       illnessSeverity: json['illnessSeverity'],
-      prescriptionDate: json['prescriptionDate'],
+      prescriptionDate: json['prescriptionDate'] != null ? DateTime.parse(json['prescriptionDate']) : null,
       notes: json['notes'],
       attachmentUrl: json['attachmentUrl'],
       doctorCost: json['doctorCost'],

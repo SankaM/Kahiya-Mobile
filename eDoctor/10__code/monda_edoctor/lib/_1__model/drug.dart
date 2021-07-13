@@ -23,6 +23,10 @@ class Drug {
     this.imageUrl,
   });
 
+  String get completeName {
+    return name! + ' ' + measurement!.toString() + ' ' + measurementUnit!.toLowerCase();
+  }
+
   factory Drug.buildDetail(Map<String, dynamic> json) => Drug(
     id: json['id'],
     name: json['name'],

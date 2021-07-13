@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/api_endpoint.dart';
 import 'package:monda_edoctor/_0__infra/util/api_datasource.dart';
