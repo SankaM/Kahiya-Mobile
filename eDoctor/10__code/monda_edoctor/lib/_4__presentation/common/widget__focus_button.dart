@@ -6,7 +6,7 @@ class FocusButton extends StatelessWidget {
 
   final double width;
 
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   final String label;
 
@@ -42,12 +42,12 @@ class FocusButton extends StatelessWidget {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: backgroundColor,
-            border: Border.all(color: borderColor,),
+            color: onTap != null ? backgroundColor : Colors.grey[400],
+            border: Border.all(color: onTap != null ? borderColor : Colors.grey[400]!,),
             borderRadius: BorderRadius.all(Radius.circular(10),),
             boxShadow: [
               BoxShadow(
-                color: _shadowColor,
+                color: onTap != null ? _shadowColor : Colors.grey[100]!,
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: Offset(0, 3), // changes position of shadow

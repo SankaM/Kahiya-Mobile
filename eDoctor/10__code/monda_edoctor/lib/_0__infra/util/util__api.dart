@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
+import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 typedef ResponseWrapper<T> ResponseDataBuilder<T>(Map<String, dynamic> json);
@@ -43,7 +44,13 @@ class ApiUtil {
     }
 
     if(res.statusCode == 200 || res.statusCode == 201) {
-      return responseDataBuilder(res.data);
+      log('=========================================================== res: $res');
+      var data;
+      if(res != null && res.data != null) {
+        data = res.data;
+      }
+
+      return responseDataBuilder(data);
     } else {
       return ResponseWrapper<T>.error();
     }

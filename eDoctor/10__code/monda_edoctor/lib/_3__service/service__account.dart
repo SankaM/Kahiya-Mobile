@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_1__model/user.dart';
-import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
+import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__account.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 
@@ -19,8 +19,6 @@ class AccountService {
     AccountApi.instance.login(username: username, password: password).then((ResponseWrapper<User> res) {
       if(res.isSuccess) {
         UserSecureStorage.instance.user = res.data;
-        log('================================================= user: ${UserSecureStorage.instance.user}');
-        log('================================================= user.id: ${UserSecureStorage.instance.user!.id}');
         completer.complete(StatusWrapper(status: LoginStatus.SUCCESS, data: res.data));
       } else {
         completer.complete(StatusWrapper(status: LoginStatus.ERROR, error: res.message),);

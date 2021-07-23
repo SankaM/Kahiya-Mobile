@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_1__model/prescription.dart';
-import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
+
+import '../_0__infra/util/status_wrapper.dart';
+import '../_2__datasource/api/api__patient.dart';
+import '../_2__datasource/securestorage/secure_storage__user.dart';
 
 class PatientService {
   PatientService.newInstance();
@@ -68,6 +72,21 @@ class PatientService {
 
     return completer.future;
   }
+
+  Future<StatusWrapper<PatientRegistrationStatus, void, String>> registerPatient({required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email}) {
+    var completer = Completer<StatusWrapper<PatientRegistrationStatus, void, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    PatientApi.instance.registerPatient(doctorId: doctorId, firstName: firstName, lastName: lastName, birthDate: birthDate, gender: gender, mobilePhone: mobilePhone, nic: nic, username: username, email: email).then((responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: PatientRegistrationStatus.SUCCESS));
+      } else {
+        completer.complete(StatusWrapper(status: PatientRegistrationStatus.ERROR, error: responseWrapper.message));
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum SearchPatientField {
@@ -92,4 +111,9 @@ enum GetPatientStatus {
 enum GetPrescriptionStatus {
   SUCCESS,
   ERROR,
+}
+
+enum PatientRegistrationStatus {
+  SUCCESS,
+  ERROR
 }

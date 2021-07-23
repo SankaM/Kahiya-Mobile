@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monda_edoctor/_0__infra/style.dart';
 
 class MyCircularProgressIndicator extends StatelessWidget {
   final double width;
@@ -15,6 +16,7 @@ class MyCircularProgressIndicator extends StatelessWidget {
     return Container(
       width: _width,
       height: _height,
+      color: Colors.transparent,
       margin: EdgeInsets.all(20),
       child: Center(
         child: CircularProgressIndicator(),

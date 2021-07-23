@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/api_endpoint.dart';
+import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/api_datasource.dart';
 import 'package:monda_edoctor/_0__infra/util/template_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__api.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_1__model/prescription.dart';
-import 'package:monda_edoctor/_2__datasource/api/ResponseWrapper.dart';
 
-class PatientApi extends ApiDatasource {
+class PatientApi extends ApiDataSource {
   PatientApi.newInstance();
 
   static PatientApi get instance => Get.find();
@@ -46,18 +46,29 @@ class PatientApi extends ApiDatasource {
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_HISTORY, params: {'patientId': patientId}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
-      // (json['data'] as List).forEach((element) {
-      //   log('======================================= $element');
-      // });
       return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());
-      // return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) {
-      //   // log('===================================================== e: $e');
-      //   log('===================================================== e: ${e.runtimeType}');
-      //   return Prescription.buildDetail(e);
-      //   // return Prescription(id: '123');
-      // }).toList());
     };
 
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
+
+  Future<ResponseWrapper> registerPatient({required String doctorId, required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_REGISTRATION, params: {'doctorId': doctorId}).toString();
+    var data = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "birthDate": birthDate,
+      "gender": gender,
+      "mobilePhone": mobilePhone,
+      "nic": nic,
+      "userName": username,
+      "email": email
+    };
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper.success();
+    };
+
+    return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
 }

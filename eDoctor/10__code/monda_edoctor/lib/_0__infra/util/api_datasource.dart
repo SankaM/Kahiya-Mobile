@@ -1,2 +1,2 @@
-abstract class ApiDatasource {
+abstract class ApiDataSource {
 }

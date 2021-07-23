@@ -104,7 +104,7 @@ class Style {
     900:Color.fromRGBO(255, 160, 113, 1),
   };
 
-  static const MaterialColor appMaterialColor = MaterialColor(0xFF880E4F, colorPalettes);
+  static const MaterialColor appMaterialColor = MaterialColor(0xFFFFA071, colorPalettes);
 
   static TextStyle defaultTextStyle({double? fontSize, Color color = Style.textColorPrimary, FontWeight fontWeight = FontWeight.w400, double letterSpacing = 0, double height = 1.0}) {
     if(fontSize == null) fontSize = Style.fontSize_Default;

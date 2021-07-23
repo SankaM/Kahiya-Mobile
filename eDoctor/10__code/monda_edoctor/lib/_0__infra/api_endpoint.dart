@@ -14,4 +14,6 @@ class ApiEndPoint {
   static const String PATIENT_DETAIL = PREFIX + '/doctors/{doctorId}/patients/{patientId}/details';
 
   static const String PATIENT_HISTORY = PREFIX + '/patients/{patientId}/history';
+
+  static const String PATIENT_REGISTRATION = PREFIX + '/doctors/{doctorId}/patients/register';
 }

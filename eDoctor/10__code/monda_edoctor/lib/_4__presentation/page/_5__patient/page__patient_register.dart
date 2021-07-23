@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
@@ -8,10 +7,14 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_date_picker_container.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+
+import 'controller__patient_register.dart';
 
 class RegisterPatientPage extends AbstractPageWithBackgroundAndContent {
   RegisterPatientPage() : super(
@@ -45,25 +48,39 @@ class RegisterPatientPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _contentBody(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Style.colorPrimary.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 10,
-            offset: Offset(0, 10), // changes position of shadow
-          ),
+    return GetBuilder<PatientRegisterController>(builder: (c) {
+      return Stack(
+        children: [
+          _mainLayer(context),
+          Visibility(
+            visible: c.progressDialogShow,
+            child: MyCircularProgressIndicator(),
+          )
         ],
-      ),
-      child: _PatientRegistrationForm()
+      );
+    });
+  }
+
+  Widget _mainLayer(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Style.colorPrimary.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 10,
+              offset: Offset(0, 10), // changes position of shadow
+            ),
+          ],
+        ),
+        child: _PatientRegistrationForm()
     );
   }
 }
@@ -115,21 +132,12 @@ class _PatientRegistrationForm extends StatelessWidget {
                       Text(TextString.label__age, style: TextStyle(color: Colors.grey),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
                       Container(
-                        width: ScreenUtil.widthInPercent(40),
-                        child: MyReactiveDropdownField(
-                          formControlName: 'age',
-                          items: [
-                            DropdownMenuItem<int>(value: -1, child: Text('Select'),),
-                            DropdownMenuItem<int>(value: 10, child: Text('10'),),
-                            DropdownMenuItem<int>(value: 11, child: Text('11'),),
-                            DropdownMenuItem<int>(value: 12, child: Text('12'),),
-                            DropdownMenuItem<int>(value: 13, child: Text('13'),),
-                          ],
-                          validationMessages: (control) => {
-                            'required': TextString.label__required,
-                          },
-                        ),
-                      ),
+                            width: ScreenUtil.widthInPercent(40),
+                            child: MyReactiveDatePickerContainer(
+                              formControlName: 'dateOfBirth',
+                              fieldLabelText: 'Tanggal Lahir',
+                            ),
+                          ),
                     ],
                   )
                 ),
@@ -143,11 +151,11 @@ class _PatientRegistrationForm extends StatelessWidget {
                         SizedBox(height: ScreenUtil.heightInPercent(1),),
                         Container(
                           width: ScreenUtil.widthInPercent(40),
-                          child: MyReactiveDropdownField(
+                          child: MyReactiveDropdownField<String>(
                             formControlName: 'gender',
                             items: [
-                              DropdownMenuItem<String>(value: 'M', child: Text('Male'),),
-                              DropdownMenuItem<String>(value: 'F', child: Text('Female'),),
+                              DropdownMenuItem<String>(value: 'MALE', child: Text('Male'),),
+                              DropdownMenuItem<String>(value: 'FEMALE', child: Text('Female'),),
                             ],
                             validationMessages: (control) => {
                               'required': TextString.label__required,
@@ -171,12 +179,11 @@ class _PatientRegistrationForm extends StatelessWidget {
                   children: [
                     Container(
                       width: ScreenUtil.widthInPercent(30),
-                      child: MyReactiveDropdownField(
+                      child: MyReactiveDropdownField<String>(
                         formControlName: 'phoneCountryCode',
                         prefixText: TextString.label__code,
                         items: [
-                          DropdownMenuItem<String>(value: '+1', child: Text('+1'),),
-                          DropdownMenuItem<String>(value: '+62', child: Text('+62'),),
+                          DropdownMenuItem<String>(value: '+65', child: Text('+65'),),
                         ],
                         validationMessages: (control) => {
                           'required': TextString.label__required,
@@ -190,6 +197,7 @@ class _PatientRegistrationForm extends StatelessWidget {
                         formControlName: 'phoneNumber',
                         hintText: TextString.label__enter_number,
                         iconData: Icons.phone,
+                        keyboardType: TextInputType.number,
                         validationMessages: (control) => {
                           'required': TextString.label__required,
                         },
@@ -253,13 +261,17 @@ class _PatientRegistrationForm extends StatelessWidget {
   }
 
   Widget _submitButton(BuildContext context) {
-    return FocusButton(
-      height: ScreenUtil.heightInPercent(7),
-      width: double.infinity,
-      onTap: () {
-        log('=================================== submit button clicked');
-      },
-      label: TextString.label__submit,
+    submit() {
+      PatientRegisterController.instance.register();
+    }
+
+    return ReactiveFormConsumer(
+      builder: (context, form, child) => FocusButton(
+        height: ScreenUtil.heightInPercent(7),
+        width: double.infinity,
+        onTap: form.valid ? submit : null,
+        label: TextString.label__submit,
+      ),
     );
   }
 }
