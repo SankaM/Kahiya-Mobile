@@ -51,6 +51,8 @@ class InventoryController extends AbstractController {
   }
 
   void retrieveInventory() async {
+    this.queryValue = null;
+    this.searchDrugField = null;
     _changeProgressBarShow(true);
 
     var wrapperStatus = await InventoryService.instance.getSearchInventory(page: page, itemPerPage: ITEM_PER_PAGE);

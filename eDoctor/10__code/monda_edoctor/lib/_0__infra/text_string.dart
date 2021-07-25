@@ -208,6 +208,8 @@ class TextString {
 
   static const String label__retrieving_patient_data = 'Retrieving patient data';
 
+  static const String label__date_of_birth = "Date of birth";
+
   static const String label__no_phone_info = 'No phone info';
 
   static const String label__no_data = 'No data';

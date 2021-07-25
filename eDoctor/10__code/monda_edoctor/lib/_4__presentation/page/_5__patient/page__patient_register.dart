@@ -129,13 +129,13 @@ class _PatientRegistrationForm extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(TextString.label__age, style: TextStyle(color: Colors.grey),),
+                      Text(TextString.label__date_of_birth, style: TextStyle(color: Colors.grey),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
                       Container(
                             width: ScreenUtil.widthInPercent(40),
                             child: MyReactiveDatePickerContainer(
                               formControlName: 'dateOfBirth',
-                              fieldLabelText: 'Tanggal Lahir',
+                              fieldLabelText: TextString.label__date_of_birth,
                             ),
                           ),
                     ],
