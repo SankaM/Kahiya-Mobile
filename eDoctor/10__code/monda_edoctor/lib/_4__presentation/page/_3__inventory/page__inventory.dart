@@ -8,11 +8,13 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
+import 'package:monda_edoctor/_3__service/service__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class InventoryPage extends AbstractPageWithBackgroundAndContent {
   InventoryPage() : super(
@@ -86,50 +88,62 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
     return Container(
       height: ScreenUtil.heightInPercent(10),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Row(
-        children: [
-          Container(
-            width: ScreenUtil.widthInPercent(60),
-            height: ScreenUtil.heightInPercent(8),
-            decoration:  BoxDecoration(
-                borderRadius: new BorderRadius.circular(15.0),
-                boxShadow: [
-                  BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
-                ]
-            ),
-            child: TextFormField(
-              style: TextStyle(color: Style.colorPrimary),
-              cursorColor: Style.colorPrimary,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
-                prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
-                hintText: TextString.label__search,
-                hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
+      child: ReactiveForm(
+        formGroup: InventoryController.instance.searchForm,
+        child: Row(
+          children: [
+            Container(
+              width: ScreenUtil.widthInPercent(60),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
+                  ]
+              ),
+              child: ReactiveTextField(
+                formControlName: 'queryValue',
+                style: TextStyle(color: Style.colorPrimary),
+                cursorColor: Style.colorPrimary,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
+                  prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
+                  hintText: TextString.label__search,
+                  hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
-          Spacer(),
-          Container(
-            width: ScreenUtil.heightInPercent(8),
-            height: ScreenUtil.heightInPercent(8),
-            decoration:  BoxDecoration(
-                borderRadius: new BorderRadius.circular(15.0),
-                boxShadow: [
-                  BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
-                ]
-            ),
-            child: FilterButton(
-              labels: ['Name', 'Type', 'Mass'],
-              onTap: () {},
-            ),
-          )
-        ],
+            Spacer(),
+            Container(
+              width: ScreenUtil.heightInPercent(8),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
+                  ]
+              ),
+              child: FilterButton(
+                labels: ['Name', 'Type', 'Mass'],
+                onTap: (menuItemLabel) {
+                  if(menuItemLabel == 'Name') {
+                    InventoryController.instance.search(field: SearchDrugField.NAME);
+                  } else if(menuItemLabel == 'Type') {
+                    InventoryController.instance.search(field: SearchDrugField.TYPE);
+                  } else if(menuItemLabel == 'Mass') {
+                    InventoryController.instance.search(field: SearchDrugField.MEASUREMENT);
+                  }
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -150,7 +164,7 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
                 InkWell(
                   child: Icon(Icons.arrow_left, size: Style.iconSize_2XL, color: Style.colorPrimary,),
                   onTap: () {
-                    InventoryController.instance.prevInventory();
+                    InventoryController.instance.prevPage();
                   },
                 ),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
@@ -159,7 +173,7 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
                 InkWell(
                   child: Icon(Icons.arrow_right, size: Style.iconSize_2XL, color: Style.colorPrimary,),
                   onTap: () {
-                    InventoryController.instance.nextInventory();
+                    InventoryController.instance.nextPage();
                   },
                 ),
               ],
