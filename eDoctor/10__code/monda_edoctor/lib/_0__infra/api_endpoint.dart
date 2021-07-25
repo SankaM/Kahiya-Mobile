@@ -7,6 +7,7 @@ class ApiEndPoint {
 
   static const String LOGIN = PREFIX + '/doctor/login';
 
+  // Patient
   static const String PATIENT_SUMMARY = PREFIX + '/doctors/{doctorId}/patients/summary';
 
   static const String PATIENT_SEARCH = PREFIX + '/patients/search?query={queryValue}&field={field}';
@@ -16,4 +17,9 @@ class ApiEndPoint {
   static const String PATIENT_HISTORY = PREFIX + '/patients/{patientId}/history';
 
   static const String PATIENT_REGISTRATION = PREFIX + '/doctors/{doctorId}/patients/register';
+
+  // Inventory
+  static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
+
+  static const String INVENTORY_SEARCH = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}&query={queryValue}&field={field}';
 }

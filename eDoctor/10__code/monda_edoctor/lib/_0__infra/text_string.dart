@@ -204,6 +204,8 @@ class TextString {
 
   static const String label__retrieving_patient_list = 'Retrieving patient list';
 
+  static const String label__retrieving_inventory_list = 'Retrieving inventory list';
+
   static const String label__retrieving_patient_data = 'Retrieving patient data';
 
   static const String label__no_phone_info = 'No phone info';

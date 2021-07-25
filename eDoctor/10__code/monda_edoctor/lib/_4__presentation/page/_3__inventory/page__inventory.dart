@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory.dart';
 
@@ -36,13 +39,26 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    InventoryController.instance.reset();
+    InventoryController.instance.init();
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: _contentCustomAppBar(context),
-      body: _contentBody(context),
-    );
+    return GetBuilder<InventoryController>(builder: (c) {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: _contentCustomAppBar(context),
+                body: _contentBody(context),
+              )
+          ),
+          Visibility(
+            child: ProgressIndicatorOverlay(text: TextString.label__retrieving_inventory_list,),
+            visible: c.progressDialogShow,
+          )
+        ],
+      );
+    });
   }
 
   PreferredSize _contentCustomAppBar(BuildContext context) {
@@ -133,14 +149,18 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
               children: [
                 InkWell(
                   child: Icon(Icons.arrow_left, size: Style.iconSize_2XL, color: Style.colorPrimary,),
-                  onTap: () {},
+                  onTap: () {
+                    InventoryController.instance.prevInventory();
+                  },
                 ),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
                 Text('|', style: TextStyle(color: Style.colorPrimary),),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
                 InkWell(
                   child: Icon(Icons.arrow_right, size: Style.iconSize_2XL, color: Style.colorPrimary,),
-                  onTap: () {},
+                  onTap: () {
+                    InventoryController.instance.nextInventory();
+                  },
                 ),
               ],
             ),
@@ -151,55 +171,39 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _scrollableSection(BuildContext context) {
+    if(InventoryController.instance.inventoryList.length == 0) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(10),),
+          child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
+        ),
+      );
+    }
+
+    List<Widget> children = [];
+    children.addAll(InventoryController.instance.inventoryList.map((e) => _InventoryItem(inventory: e)).toList());
+    children.addAll([SizedBox(height: ScreenUtil.heightInPercent(20),), SizedBox(height: ScreenUtil.heightInPercent(20),)]);
+
+    List<StaggeredTile> staggeredTileList = [];
+    staggeredTileList.addAll(InventoryController.instance.inventoryList.map((e) => StaggeredTile.fit(1)).toList());
+    staggeredTileList.addAll([StaggeredTile.fit(1), StaggeredTile.fit(1),]);
+
     return Container(
       height: ScreenUtil.heightInPercent(60),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: StaggeredGridView.count(
         crossAxisCount: 2,
-        children: [
-          _InventoryItem(inventoryImageAsset: Asset.png_drug01, drugName: 'Paracetamol', drugWeight: '500mg', drugType: 'Tablets', drugQty: 50, drugExpiry: '25 Nov, 2022',),
-          _InventoryItem(inventoryImageAsset: Asset.png_drug02, drugName: 'Paracetamol', drugWeight: '500mg', drugType: 'Tablets', drugQty: 50, drugExpiry: '25 Nov, 2022',),
-          _InventoryItem(inventoryImageAsset: Asset.png_drug03, drugName: 'Paracetamol', drugWeight: '500mg', drugType: 'Tablets', drugQty: 50, drugExpiry: '25 Nov, 2022',),
-          _InventoryItem(inventoryImageAsset: Asset.png_drug01, drugName: 'Paracetamol', drugWeight: '500mg', drugType: 'Tablets', drugQty: 50, drugExpiry: '25 Nov, 2022',),
-          _InventoryItem(inventoryImageAsset: Asset.png_drug02, drugName: 'Paracetamol', drugWeight: '500mg', drugType: 'Tablets', drugQty: 50, drugExpiry: '25 Nov, 2022',),
-          SizedBox(height: ScreenUtil.heightInPercent(20),),
-          SizedBox(height: ScreenUtil.heightInPercent(20),),
-        ],
-        staggeredTiles: [
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-          StaggeredTile.fit(1),
-        ],
+        children: children,
+        staggeredTiles: staggeredTileList,
       ),
     );
   }
 }
 
 class _InventoryItem extends StatelessWidget {
-  final String inventoryImageAsset;
+  final Inventory inventory;
 
-  final String drugName;
-
-  final String drugWeight;
-
-  final String drugType;
-
-  final int drugQty;
-
-  final String drugExpiry;
-
-  _InventoryItem({
-    required this.inventoryImageAsset,
-    required this.drugName,
-    required this.drugWeight,
-    required this.drugType,
-    required this.drugQty,
-    required this.drugExpiry,
-  });
+  _InventoryItem({required this.inventory,});
 
   @override
   Widget build(BuildContext context) {
@@ -214,38 +218,30 @@ class _InventoryItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
           boxShadow: [
-            BoxShadow(color: Colors.grey[100]!, blurRadius: 4, spreadRadius: 1)
+            BoxShadow(color: Colors.grey[200]!, blurRadius: 4, spreadRadius: 2)
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(inventoryImageAsset,),
+            ClipRRect(borderRadius: BorderRadius.all(Radius.circular(10)), child: Image.network(inventory.drug!.imageUrl!),),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
-            Text(drugName, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Colors.black),),
-            Text(drugWeight, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey, fontWeight: FontWeight.w500),),
+            Text('${inventory.drug!.name}', overflow: TextOverflow.ellipsis, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Colors.black),),
+            Text('${inventory.drug!.measurement} ${inventory.drug!.measurementUnit}' , style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey, fontWeight: FontWeight.w500),),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Row(
               children: [
                 FaIcon(FontAwesomeIcons.pills, size: Style.iconSize_S, color: Colors.purple,),
                 SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(drugType, style: Style.defaultTextStyle(color: Colors.purple),),
+                Text('${inventory.drug!.type!.toLowerCase()}', style: Style.defaultTextStyle(color: Colors.purple),),
               ],
             ),
-            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
             Row(
               children: [
                 Text(TextString.label__qty, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
                 SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(drugQty.toString(), style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
-              ],
-            ),
-            SizedBox(height: ScreenUtil.heightInPercent(1),),
-            Row(
-              children: [
-                Text(TextString.label__expiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.grey),),
-                SizedBox(width: ScreenUtil.widthInPercent(1),),
-                Text(drugExpiry, style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
+                Text('${inventory.availableUnits}', style: Style.defaultTextStyle(fontSize: Style.iconSize_2XS, color: Colors.black),),
               ],
             ),
           ],
