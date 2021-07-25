@@ -22,4 +22,9 @@ class ApiEndPoint {
   static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
 
   static const String INVENTORY_SEARCH = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}&query={queryValue}&field={field}';
+
+  static const String INVENTORY_NEW_BATCH = PREFIX + '/doctors/{doctorId}/inventory/batch';
+
+  // Drug
+  static const String DRUG_SEARCH = PREFIX + '/drug?name={name}';
 }

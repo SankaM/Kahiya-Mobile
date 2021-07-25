@@ -6,6 +6,7 @@ import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__account.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__drug.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__inventory.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
@@ -52,6 +53,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(AccountApi.newInstance());
     Get.put(PatientApi.newInstance());
     Get.put(InventoryApi.newInstance());
+    Get.put(DrugApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());

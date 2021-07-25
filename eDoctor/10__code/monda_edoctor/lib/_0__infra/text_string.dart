@@ -214,6 +214,18 @@ class TextString {
 
   static const String label__no_data = 'No data';
 
+  static const String label__sell_price = 'Sell Price';
+
+  static const String label__buy_price = 'Buy Price';
+
+  static const String label__enter_price = 'Enter Price';
+
+  static const String label__batch_date = 'Batch Date';
+
+  static const String label__expiry_date = 'Expiry Date';
+
+  static const String label__add_inventory = 'Add Inventory';
+
   // ============================================================ TemplateString
 
 }

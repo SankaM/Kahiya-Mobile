@@ -75,7 +75,6 @@ class PatientRegisterController extends AbstractController {
     if(wrapper.status == PatientRegistrationStatus.SUCCESS) {
       AlertUtil.showMessage('Patient registration success',);
       reset();
-
     } else {
       AlertUtil.showMessage('${wrapper.error}',);
       progressDialogShow = false;

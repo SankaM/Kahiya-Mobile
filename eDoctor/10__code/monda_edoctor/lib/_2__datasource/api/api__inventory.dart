@@ -35,4 +35,34 @@ class InventoryApi {
 
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
+
+  Future<ResponseWrapper> newBatchInventory(
+      {required String doctorId,
+      required String drugId,
+      required double unitSellPrice,
+      required String unitSellCurrency,
+      required double unitBuyPrice,
+      required String unitBuyCurrency,
+      required double unitCount,
+      required String batchDate,
+      required String expiryDate}) async {
+
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_NEW_BATCH, params: {'doctorId': doctorId}).toString();
+    var data = {
+      'drugId': drugId,
+      'unitSellPrice': unitSellPrice,
+      'unitSellCurrency': unitSellCurrency,
+      'unitBuyPrice': unitBuyPrice,
+      'unitBuyCurrency': unitBuyCurrency,
+      'unitCount': unitCount,
+      'batchDate': batchDate,
+      'expiryDate': expiryDate,
+    };
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper.success();
+    };
+
+    return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }

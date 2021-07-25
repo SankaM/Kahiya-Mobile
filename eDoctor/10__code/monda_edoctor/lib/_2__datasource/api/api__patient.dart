@@ -52,7 +52,17 @@ class PatientApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
-  Future<ResponseWrapper> registerPatient({required String doctorId, required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email}) async {
+  Future<ResponseWrapper> registerPatient(
+      {required String doctorId,
+      required String firstName,
+      required String lastName,
+      required String birthDate,
+      required String gender,
+      required mobilePhone,
+      String? nic,
+      String? username,
+      String? email}) async {
+
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_REGISTRATION, params: {'doctorId': doctorId}).toString();
     var data = {
       "firstName": firstName,

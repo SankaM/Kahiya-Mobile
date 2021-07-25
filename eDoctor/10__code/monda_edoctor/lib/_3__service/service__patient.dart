@@ -17,6 +17,7 @@ class PatientService {
 
   static PatientService get instance => Get.find();
 
+  // ===========================================================================
   Future<StatusWrapper<GetPatientSummaryStatus, List<Patient>, String>> getPatientSummary() {
     var completer = Completer<StatusWrapper<GetPatientSummaryStatus, List<Patient>, String>>();
 
@@ -31,6 +32,7 @@ class PatientService {
     return completer.future;
   }
 
+  // ===========================================================================
   Future<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>> getSearchPatient({required String queryValue, required SearchPatientField field}) {
     var completer = Completer<StatusWrapper<GetSearchPatientStatus, List<Patient>, String>>();
 
@@ -45,6 +47,7 @@ class PatientService {
     return completer.future;
   }
 
+  // ===========================================================================
   Future<StatusWrapper<GetPatientStatus, Patient, String>> getPatient({required String patientId}) {
     var completer = Completer<StatusWrapper<GetPatientStatus, Patient, String>>();
 
@@ -59,6 +62,7 @@ class PatientService {
     return completer.future;
   }
 
+  // ===========================================================================
   Future<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>> getPrescription({required String patientId}) {
     var completer = Completer<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>>();
 
@@ -73,6 +77,7 @@ class PatientService {
     return completer.future;
   }
 
+  // ===========================================================================
   Future<StatusWrapper<PatientRegistrationStatus, void, String>> registerPatient({required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email}) {
     var completer = Completer<StatusWrapper<PatientRegistrationStatus, void, String>>();
 

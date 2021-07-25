@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 
+typedef void OnCounterValueChanged(int newValue);
+
 class StepCounter extends StatefulWidget {
   final StepCounterController controller;
 
@@ -18,6 +20,8 @@ class StepCounter extends StatefulWidget {
 
   final double gap;
 
+  final OnCounterValueChanged onCounterValueChanged;
+
   StepCounter(
       {required this.controller,
       required this.width,
@@ -26,7 +30,8 @@ class StepCounter extends StatefulWidget {
       required this.buttonHeight,
       required this.gap,
       required this.buttonTextStyle,
-      required this.valueTextStyle});
+      required this.valueTextStyle,
+      required this.onCounterValueChanged});
 
   createState() => StepCounterState();
 }
@@ -84,15 +89,15 @@ class StepCounterState extends State<StepCounter> {
       child: InkWell(
         onTap: () {
           setState(() {
-            setState(() {
-              if(widget.controller.minValue == null) {
+            if (widget.controller.minValue == null) {
+              widget.controller.value--;
+            } else {
+              if (widget.controller.value > widget.controller.minValue!) {
                 widget.controller.value--;
-              } else {
-                if(widget.controller.value > widget.controller.minValue!) {
-                  widget.controller.value--;
-                }
               }
-            });
+            }
+
+            widget.onCounterValueChanged(widget.controller.value);
           });
         },
         child: Center(
@@ -126,6 +131,8 @@ class StepCounterState extends State<StepCounter> {
                 widget.controller.value++;
               }
             }
+
+            widget.onCounterValueChanged(widget.controller.value);
           });
         },
         child: Center(

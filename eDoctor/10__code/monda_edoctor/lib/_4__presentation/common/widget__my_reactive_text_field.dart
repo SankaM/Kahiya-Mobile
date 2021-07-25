@@ -13,7 +13,11 @@ class MyReactiveTextField extends StatelessWidget {
 
   final TextInputType? keyboardType;
 
-  MyReactiveTextField({required this.formControlName, required this.hintText, required this.iconData, required this.validationMessages, this.keyboardType});
+  final TextStyle? style;
+
+  final EdgeInsetsGeometry? contentPadding;
+
+  MyReactiveTextField({required this.formControlName, required this.hintText, required this.iconData, required this.validationMessages, this.keyboardType, this.style, this.contentPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,9 @@ class MyReactiveTextField extends StatelessWidget {
       formControlName: formControlName,
       validationMessages: validationMessages,
       keyboardType: keyboardType,
+      style: style,
       decoration: InputDecoration(
+        contentPadding: contentPadding,
         suffixIcon: Icon(iconData, color: Style.colorPrimary,),
         hintText: hintText,
         filled: true,

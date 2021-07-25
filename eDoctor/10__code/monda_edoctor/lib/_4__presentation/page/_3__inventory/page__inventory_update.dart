@@ -198,6 +198,9 @@ class _UpdateInventoryForm extends StatelessWidget {
               gap: ScreenUtil.widthInPercent(10),
               buttonTextStyle: Style.defaultTextStyle(fontSize: Style.iconSize_L, color: Style.colorPrimary),
               valueTextStyle: Style.defaultTextStyle(fontSize: Style.iconSize_Default, color: Style.colorPrimary),
+              onCounterValueChanged: (newValue) {
+
+              },
             ),
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 

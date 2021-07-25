@@ -95,7 +95,9 @@ class _PatientRegistrationForm extends StatelessWidget {
         width: ScreenUtil.widthInPercent(80),
         child: ListView(
           children: [
-            // -----
+            // ----------
+            // First Name
+            // ----------
             Text(TextString.label__first_name, style: TextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             MyReactiveTextField(
@@ -108,7 +110,9 @@ class _PatientRegistrationForm extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
 
-            // -----
+            // ----------
+            // Last Name
+            // ----------
             Text(TextString.label__last_name, style: TextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             MyReactiveTextField(
@@ -121,7 +125,9 @@ class _PatientRegistrationForm extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
 
-            // -----
+            // ----------
+            // DOB & Gender
+            // ----------
             Row(
               children: [
                 Container(
@@ -168,7 +174,9 @@ class _PatientRegistrationForm extends StatelessWidget {
               ],
             ),
 
-            // -----
+            // ----------
+            // Mobile Phone
+            // ----------
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -213,7 +221,9 @@ class _PatientRegistrationForm extends StatelessWidget {
             Text(TextString.label__optional, style: TextStyle(color: Colors.grey, fontSize: Style.fontSize_XL),),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
 
-            // -----
+            // ----------
+            // Username
+            // ----------
             Text(TextString.label__username, style: TextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             MyReactiveTextField(
@@ -225,7 +235,9 @@ class _PatientRegistrationForm extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
 
-            // -----
+            // ----------
+            // Password
+            // ----------
             Text(TextString.label__email, style: TextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             MyReactiveTextField(
@@ -237,7 +249,9 @@ class _PatientRegistrationForm extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
 
-            // -----
+            // ----------
+            // NIC
+            // ----------
             Text(TextString.label__nic, style: TextStyle(color: Colors.grey),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
             MyReactiveTextField(

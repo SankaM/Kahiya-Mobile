@@ -8,16 +8,23 @@ class MyReactiveDatePickerContainer extends StatelessWidget {
   final String formControlName;
   
   final String fieldLabelText;
+
+  final DateTime? firstDate;
+
+  final DateTime? lastDate;
   
-  MyReactiveDatePickerContainer({required this.formControlName, required this.fieldLabelText});
+  MyReactiveDatePickerContainer({required this.formControlName, required this.fieldLabelText, this.firstDate, this.lastDate});
   
   @override
   Widget build(BuildContext context) {
+    var _firstDate = firstDate == null ? DateTime.utc(1960) : firstDate;
+    var _lastDate = lastDate == null ? DateTime.now() : lastDate;
+
     return ReactiveDatePicker(
       formControlName: formControlName,
       fieldLabelText: fieldLabelText,
-      firstDate: DateTime.utc(1960),
-      lastDate: DateTime.now(),
+      firstDate: _firstDate!,
+      lastDate: _lastDate!,
       builder: (context, picker, child) {
         return GestureDetector(
           onTap: picker.showPicker,
