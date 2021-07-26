@@ -223,7 +223,7 @@ class _InventoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        RouteNavigator.gotoUpdateInventoryPage();
+        RouteNavigator.gotoDetailInventoryPage(inventoryId: inventory.id);
       },
       child: Container(
         margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),

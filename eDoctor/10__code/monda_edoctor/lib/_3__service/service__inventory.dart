@@ -33,6 +33,23 @@ class InventoryService {
   }
 
   // ===========================================================================
+  Future<StatusWrapper<GetInventoryDetailStatus, Inventory, String>> getInventoryDetail({required String inventoryId}) {
+    var completer = Completer<StatusWrapper<GetInventoryDetailStatus, Inventory, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+
+    InventoryApi.instance.getInventory(doctorId: doctorId, inventoryId: inventoryId).then((ResponseWrapper<Inventory> responseWrapper,) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: GetInventoryDetailStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetInventoryDetailStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
   Future<StatusWrapper<GetSearchDrugStatus, List<Drug>, String>> getSearchDrug({required String name}) {
     var completer = Completer<StatusWrapper<GetSearchDrugStatus, List<Drug>, String>>();
 
@@ -90,4 +107,9 @@ enum GetSearchDrugStatus {
 enum NewBatchInventoryStatus {
   SUCCESS,
   ERROR
+}
+
+enum GetInventoryDetailStatus {
+  SUCCESS,
+  ERROR,
 }

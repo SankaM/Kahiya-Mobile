@@ -25,6 +25,8 @@ class ApiEndPoint {
 
   static const String INVENTORY_NEW_BATCH = PREFIX + '/doctors/{doctorId}/inventory/batch';
 
+  static const String INVENTORY_DETAIL = PREFIX + '/doctors/{doctorId}/inventory/{inventoryId}';
+
   // Drug
   static const String DRUG_SEARCH = PREFIX + '/drug?name={name}';
 }

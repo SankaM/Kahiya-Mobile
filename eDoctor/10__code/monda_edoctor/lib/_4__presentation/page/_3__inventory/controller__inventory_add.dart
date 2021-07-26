@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';

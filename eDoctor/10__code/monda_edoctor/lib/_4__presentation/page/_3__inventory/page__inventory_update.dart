@@ -13,7 +13,6 @@ import 'package:monda_edoctor/_4__presentation/common/widget__counter.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_add.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_update.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -30,7 +29,7 @@ class UpdateInventoryPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    AddInventoryController.instance.reset();
+    UpdateInventoryController.instance.reset();
 
     return Scaffold(
       backgroundColor: Colors.transparent,

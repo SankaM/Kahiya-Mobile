@@ -12,6 +12,7 @@ class AccountService {
 
   static AccountService get instance => Get.find();
 
+  // ===========================================================================
   Future<StatusWrapper<LoginStatus, User, String>> login({required String username, required String password}) {
     var completer = Completer<StatusWrapper<LoginStatus, User, String>>();
 

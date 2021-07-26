@@ -152,6 +152,8 @@ class TextString {
 
   static const String label__price = 'Price';
 
+  static const String label__sell_price = 'Sell Price';
+
   static const String label__drugs_total = 'Drugs Total';
 
   static const String label__treatment_total = 'Treatment Total';
@@ -192,6 +194,8 @@ class TextString {
 
   static const String label__update = 'Update';
 
+  static const String label__detail = 'Detail';
+
   static const String label__sign_in_process = 'Sign in process';
 
   static const String label__cannot_empty = 'Cannot empty';
@@ -214,8 +218,6 @@ class TextString {
 
   static const String label__no_data = 'No data';
 
-  static const String label__sell_price = 'Sell Price';
-
   static const String label__buy_price = 'Buy Price';
 
   static const String label__enter_price = 'Enter Price';
@@ -225,6 +227,16 @@ class TextString {
   static const String label__expiry_date = 'Expiry Date';
 
   static const String label__add_inventory = 'Add Inventory';
+
+  static const String label__error_retrieving_inventory_data = 'Error retrieving inventory data';
+
+  static const String label__description = 'Description';
+
+  static const String label__available_units = 'Available Units';
+
+  static const String label__batches = 'Batches';
+
+  static const String label__unit_count = 'Unit Count';
 
   // ============================================================ TemplateString
 

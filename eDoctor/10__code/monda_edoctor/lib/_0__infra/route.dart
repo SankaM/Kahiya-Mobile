@@ -17,6 +17,8 @@ class Routes {
 
   static const String page_add_inventory = '/inventory/add';
 
+  static const String page_detail_inventory = '/inventory/detail';
+
   static const String page_update_inventory = '/inventory/update';
 
   static const String page_medical_record = '/medical-record';
@@ -68,6 +70,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoAddInventoryPage() {
     return _goto(Routes.page_add_inventory, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoDetailInventoryPage({required String inventoryId}) {
+    return _goto(Routes.page_detail_inventory, forgetBefore: false, arguments: inventoryId);
   }
 
   static Future<dynamic> gotoUpdateInventoryPage() {

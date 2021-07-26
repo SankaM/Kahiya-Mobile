@@ -1,4 +1,5 @@
 import 'package:monda_edoctor/_1__model/drug.dart';
+import 'package:monda_edoctor/_1__model/inventoryBatch.dart';
 
 class Inventory {
   final String id;
@@ -13,6 +14,8 @@ class Inventory {
 
   final bool? isAvailable;
 
+  final List<InventoryBatch>? inventoryBatchList;
+
   Inventory({
     required this.id,
     this.drug,
@@ -20,6 +23,7 @@ class Inventory {
     this.unitSellPrice,
     this.unitPriceCurrency,
     this.isAvailable,
+    this.inventoryBatchList,
   });
 
   factory Inventory.build(Map<String, dynamic> json) => Inventory(
@@ -29,5 +33,6 @@ class Inventory {
     unitSellPrice: json['unitSellPrice'],
     unitPriceCurrency: json['unitPriceCurrency'],
     isAvailable: json['isAvailable'],
+    inventoryBatchList: json['inventoryBatchList'] != null ? (json['inventoryBatchList'] as List).map((e) => InventoryBatch.build(e)).toList() : null,
   );
 }

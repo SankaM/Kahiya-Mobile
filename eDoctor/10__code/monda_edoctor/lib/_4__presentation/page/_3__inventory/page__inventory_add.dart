@@ -1,5 +1,3 @@
-
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -256,7 +254,6 @@ class _AddInventoryForm extends StatelessWidget {
             ),
 
             // -----
-            // FocusButton(height: ScreenUtil.heightInPercent(7), width: double.infinity, onTap: () {}, label: TextString.label__add_inventory),
             _submitButton(context),
 
             // -----
