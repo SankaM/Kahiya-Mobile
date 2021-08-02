@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
 import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
@@ -78,8 +79,8 @@ class AddPrescriptionController extends AbstractController {
     update();
   }
 
-  void updateTreatmentItemDrugId(int key, String drugId) {
-    this.treatmentItemMap[key]!.drugId = drugId;
+  void updateTreatmentItemDrugId(int key, Inventory inventory) {
+    this.treatmentItemMap[key]!.inventory = inventory;
   }
 
   void updateTreatmentItemTreatmentDays(int key, int treatmentDays) {
@@ -147,11 +148,15 @@ class AddPrescriptionController extends AbstractController {
     this.treatmentItemMap.forEach((key, value) {
       log('\t================================================ treatmentItem : $value');
     });
+
+    RouteNavigator.gotoInvoicePage();
   }
 }
 
 class TreatmentItem {
   String? drugId;
+
+  Inventory? inventory;
 
   int? treatmentDays;
 
@@ -163,6 +168,6 @@ class TreatmentItem {
 
   @override
   String toString() {
-    return 'TreatmentItem{drugId: $drugId, treatmentDays: $treatmentDays, timesPerDay: $timesPerDay, dosageRule: $dosageRule, dosageCount: $dosageCount}';
+    return 'TreatmentItem{drugId: ${inventory!.drug!.completeName}, treatmentDays: $treatmentDays, timesPerDay: $timesPerDay, dosageRule: $dosageRule, dosageCount: $dosageCount}';
   }
 }

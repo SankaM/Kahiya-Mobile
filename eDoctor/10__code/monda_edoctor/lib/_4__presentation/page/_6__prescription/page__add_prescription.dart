@@ -5,6 +5,7 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
@@ -25,8 +26,10 @@ class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    Patient patient = Get.arguments;
-    AddPrescriptionController.instance.initData(patient: patient);
+    if(Get.arguments != null && Get.arguments is Patient) {
+      Patient patient = Get.arguments;
+      AddPrescriptionController.instance.initData(patient: patient);
+    }
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -202,8 +205,8 @@ class _TreatmentItemWidget extends StatelessWidget {
         Row(
           children: [
             if(AddPrescriptionController.instance.isLastTreatmentItem(keyOfTreatmentItemMap)) _addTreatmentItem(),
-            if(!AddPrescriptionController.instance.isFirstTreatmentItem(keyOfTreatmentItemMap)) Spacer(),
-            if(!AddPrescriptionController.instance.isFirstTreatmentItem(keyOfTreatmentItemMap)) _removeTreatmentItem(),
+            if(AddPrescriptionController.instance.treatmentItemMap.length > 1) Spacer(),
+            if(AddPrescriptionController.instance.treatmentItemMap.length > 1) _removeTreatmentItem(),
           ],
         )
       ],
@@ -237,16 +240,16 @@ class _TreatmentItemWidget extends StatelessWidget {
           return Center(child: Text('No Drug Data'),);
         }
 
-        List<DropdownMenuItem<String>> items = [];
-        items.addAll(c.inventoryList.map((inventory) => DropdownMenuItem<String>(value: inventory.drug!.id, child: Text(inventory.drug!.completeName))).toList());
+        List<DropdownMenuItem<Inventory>> items = [];
+        items.addAll(c.inventoryList.map((inventory) => DropdownMenuItem<Inventory>(value: inventory, child: Text(inventory.drug!.completeName))).toList());
 
-        return DropdownButtonFormField<String>(
+        return DropdownButtonFormField<Inventory>(
           hint: Text(TextString.label__drug),
-          value: AddPrescriptionController.instance.treatmentItemMap[keyOfTreatmentItemMap]!.drugId,
+          value: AddPrescriptionController.instance.treatmentItemMap[keyOfTreatmentItemMap]!.inventory,
           items: items,
-          onChanged: (drugId) {
-            if(drugId != null) {
-              AddPrescriptionController.instance.updateTreatmentItemDrugId(keyOfTreatmentItemMap, drugId);
+          onChanged: (inventory) {
+            if(inventory != null) {
+              AddPrescriptionController.instance.updateTreatmentItemDrugId(keyOfTreatmentItemMap, inventory);
             }
           },
           decoration: InputDecoration(
