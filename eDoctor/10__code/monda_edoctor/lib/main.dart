@@ -21,22 +21,22 @@ import 'package:monda_edoctor/_4__presentation/page/_0__login/page__signin.dart'
 import 'package:monda_edoctor/_4__presentation/page/_0__login/page__splash.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__invoice/controller__invoice.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__invoice/page__invoice.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_add.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_detail.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_update.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory_add.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory_detail.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/page__inventory_update.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/controller__medical_record.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/page__medical_record.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__patient/page__patient_register.dart';
-import 'package:monda_edoctor/_4__presentation/page/_6__prescription/controller__add_prescription.dart';
-import 'package:monda_edoctor/_4__presentation/page/_6__prescription/page__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_add.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_detail.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_add.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_detail.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__patient_register.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__medical_record.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__patient_register.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

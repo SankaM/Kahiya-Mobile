@@ -17,7 +17,7 @@ import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__medical_record/controller__medical_record.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
 
 class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   MedicalRecordPage() : super(

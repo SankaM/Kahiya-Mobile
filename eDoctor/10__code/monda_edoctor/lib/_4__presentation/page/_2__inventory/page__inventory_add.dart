@@ -17,7 +17,7 @@ import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progre
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_date_picker_container.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_add.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_add.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class AddInventoryPage extends AbstractPageWithBackgroundAndContent {

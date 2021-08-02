@@ -11,7 +11,7 @@ import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progre
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_date_picker_container.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_dropdown_field.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_reactive_text_field.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__patient/controller__patient_register.dart';
+import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__patient_register.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'controller__patient_register.dart';

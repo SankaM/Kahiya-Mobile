@@ -12,7 +12,7 @@ import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory_detail.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_detail.dart';
 
 class DetailInventoryPage extends AbstractPageWithBackgroundAndContent {
   DetailInventoryPage() : super(

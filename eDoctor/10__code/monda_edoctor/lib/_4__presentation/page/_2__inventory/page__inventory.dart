@@ -13,7 +13,7 @@ import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_backgro
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/widget__filter_button.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__inventory/controller__inventory.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class InventoryPage extends AbstractPageWithBackgroundAndContent {
