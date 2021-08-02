@@ -13,7 +13,7 @@ class InventoryApi {
   Future<ResponseWrapper<List<Inventory>>> getSearchInventory({required String doctorId, required int page, required int itemPerPage, String? queryValue, String? field,}) async {
     String url;
     if(queryValue == null) {
-      url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_ALL, params: {
+      url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_ALL_PER_PAGE, params: {
         'doctorId': doctorId,
         'page': page.toString(),
         'itemPerPage': itemPerPage.toString(),
@@ -27,6 +27,17 @@ class InventoryApi {
             'queryValue': queryValue,
           }).toString();
     }
+
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<List<Inventory>>.success(data: (json['data'] as List).map((e) => Inventory.build(e)).toList());
+    };
+
+    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
+
+  Future<ResponseWrapper<List<Inventory>>> getAllInventory({required String doctorId,}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_ALL, params: {'doctorId': doctorId,}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {

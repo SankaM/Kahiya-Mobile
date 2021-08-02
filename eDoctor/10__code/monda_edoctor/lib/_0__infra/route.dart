@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_1__model/patient.dart';
 
 class Routes {
   static const String page_blank_before_splash = '/blank-before-splash';
@@ -64,8 +65,8 @@ class RouteNavigator {
     return _goto(Routes.page_patient_register, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoAddPrescriptionPage() {
-    return _goto(Routes.page_add_prescription, forgetBefore: false);
+  static Future<dynamic> gotoAddPrescriptionPage({required Patient patient}) {
+    return _goto(Routes.page_add_prescription, forgetBefore: false, arguments: patient);
   }
 
   static Future<dynamic> gotoAddInventoryPage() {

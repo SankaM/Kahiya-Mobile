@@ -4,7 +4,6 @@ import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_snackbar.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 class DetailInventoryController extends AbstractController {
   static DetailInventoryController get instance => Get.find();

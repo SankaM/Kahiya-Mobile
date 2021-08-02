@@ -32,9 +32,10 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    String patientId = Get.arguments;
-
-    MedicalRecordController.instance.retrieveData(patientId: patientId);
+    if(Get.arguments is String) {
+      String patientId = Get.arguments;
+      MedicalRecordController.instance.retrieveData(patientId: patientId);
+    }
 
     return Stack(
       fit: StackFit.expand,
@@ -232,7 +233,9 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         size: ScreenUtil.heightInPercent(6),
         elevation: 3,
         onPressed: () {
-          RouteNavigator.gotoAddPrescriptionPage();
+          if(MedicalRecordController.instance.patient != null) {
+            RouteNavigator.gotoAddPrescriptionPage(patient: MedicalRecordController.instance.patient!);
+          }
         },
         child: Text(TextString.label__add_prescription, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),

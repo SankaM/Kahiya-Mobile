@@ -40,6 +40,13 @@ class Patient {
     return null;
   }
 
+  String get name {
+    String name = (this.firstName != null ? (this.firstName! + ' ') : '');
+    name += (this.lastName != null ? this.lastName! : '');
+
+    return name;
+  }
+
   Patient({
     required this.id,
     this.doctor,

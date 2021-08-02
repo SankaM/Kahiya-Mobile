@@ -1,7 +1,7 @@
 class ApiEndPoint {
   ApiEndPoint._();
 
-  //static const String PREFIX = 'http://ec2-3-14-87-205.us-east-2.compute.amazonaws.com:3005/v1';
+  // static const String PREFIX = 'http://ec2-3-14-87-205.us-east-2.compute.amazonaws.com:3005/v1';
 
   static const String PREFIX = 'http://192.168.0.8:3005/v1';
 
@@ -19,7 +19,9 @@ class ApiEndPoint {
   static const String PATIENT_REGISTRATION = PREFIX + '/doctors/{doctorId}/patients/register';
 
   // Inventory
-  static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
+  static const String INVENTORY_ALL_PER_PAGE = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
+
+  static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory/all';
 
   static const String INVENTORY_SEARCH = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}&query={queryValue}&field={field}';
 
@@ -29,4 +31,7 @@ class ApiEndPoint {
 
   // Drug
   static const String DRUG_SEARCH = PREFIX + '/drug?name={name}';
+
+  // Diagnosis
+  static const String DIAGNOSIS_LIST = PREFIX + '/diagnosis';
 }
