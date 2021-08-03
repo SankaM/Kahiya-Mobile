@@ -10,6 +10,7 @@ import 'package:monda_edoctor/_2__datasource/api/api__diagnosis.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__drug.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__inventory.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__prescription.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_3__service/service__account.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
@@ -59,6 +60,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(InventoryApi.newInstance());
     Get.put(DrugApi.newInstance());
     Get.put(DiagnosisApi.newInstance());
+    Get.put(PrescriptionApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());

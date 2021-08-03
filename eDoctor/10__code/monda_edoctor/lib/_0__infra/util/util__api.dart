@@ -56,6 +56,30 @@ class ApiUtil {
     }
   }
 
+  static Future<ResponseWrapper<T>> postWithFormData<T>({required String url, required FormData formData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
+    var res;
+    try {
+      res = await ApiUtil.dio.post(url, options: options, data: formData);
+    } catch (e) {
+      DioError de = e as DioError;
+      String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
+
+      return ResponseWrapper<T>.error(message: errorMessage);
+    }
+
+    if(res.statusCode == 200 || res.statusCode == 201) {
+      log('=========================================================== res: $res');
+      var data;
+      if(res != null && res.data != null) {
+        data = res.data;
+      }
+
+      return responseDataBuilder(data);
+    } else {
+      return ResponseWrapper<T>.error();
+    }
+  }
+
   static Future<ResponseWrapper<T>> get<T>({required String url, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
     var res;
     try {

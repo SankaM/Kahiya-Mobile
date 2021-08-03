@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -9,6 +8,7 @@ import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
+import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_snackbar.dart';
@@ -29,8 +29,9 @@ class AddPrescriptionController extends AbstractController {
   // Form
   Patient? patient;
 
-  //String? selectedDiagnosisId;
   Diagnosis? selectedDiagnosis;
+
+  String? illnessSeverity;
 
   Map<int, TreatmentItem> treatmentItemMap = {};
 
@@ -117,19 +118,6 @@ class AddPrescriptionController extends AbstractController {
     }
   }
 
-  bool isFirstTreatmentItem(int key) {
-    if(treatmentItemMap.isEmpty) {
-      return false;
-    }
-
-    var keyList = treatmentItemMap.keys.toList();
-    if(keyList[0] == key) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   void attachFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -146,19 +134,34 @@ class AddPrescriptionController extends AbstractController {
     update();
   }
 
-  void nextPage() {
+  void nextPage() async {
     if(!isDataValid()) {
       return;
     }
 
-    log('================================================ patientId   : ${patient!.id}');
-    log('================================================ diagnosisId : ${selectedDiagnosis!.id}');
-    log('================================================ notes       : $notes');
-    this.treatmentItemMap.forEach((key, value) {
-      log('\t================================================ treatmentItem : $value');
-    });
+    this.progressDialogShow = true;
+    update();
 
-    RouteNavigator.gotoInvoicePage();
+    var wrapper = await PatientService.instance.newPrescription(
+        patientId: patient!.id,
+        diagnosisId: selectedDiagnosis!.id,
+        illnessSeverity: illnessSeverity!,
+        notes: notes!,
+        treatmentItemList: treatmentItemMap.entries.map((entry) => entry.value,).toList(),
+        attachmentFile: attachment,
+    );
+
+    if(wrapper.status == NewPrescriptionStatus.SUCCESS) {
+      AlertUtil.showMessage('New prescription successfully created',);
+      progressDialogShow = false;
+      update();
+
+      RouteNavigator.gotoInvoicePage(prescriptionId: wrapper.data!.id);
+    } else {
+      AlertUtil.showMessage('${wrapper.error}',);
+      progressDialogShow = false;
+      update();
+    }
   }
 
   bool isDataValid() {
@@ -171,6 +174,12 @@ class AddPrescriptionController extends AbstractController {
     // --- Check selected diagnosis
     if(selectedDiagnosis == null) {
       MySnackBar.show(Get.context!, 'Diagnosis is empty');
+      return false;
+    }
+
+    // --- Check illness severity
+    if(illnessSeverity == null) {
+      MySnackBar.show(Get.context!, 'Illness severity is empty');
       return false;
     }
 
@@ -222,4 +231,12 @@ class TreatmentItem {
   String toString() {
     return 'TreatmentItem{drugId: ${inventory!.drug!.completeName}, treatmentDays: $treatmentDays, timesPerDay: $timesPerDay, dosageRule: $dosageRule, dosageCount: $dosageCount}';
   }
+
+  Map toJson() => {
+    'inventoryId': inventory!.id,
+    'treatmentDays': treatmentDays,
+    'timesPerDay': timesPerDay,
+    'dosageRule': dosageRule,
+    'dosageCount': dosageCount,
+  };
 }

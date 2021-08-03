@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
@@ -6,7 +7,9 @@ import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__prescription.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
 
 import '../_0__infra/util/status_wrapper.dart';
 import '../_2__datasource/api/api__patient.dart';
@@ -63,14 +66,45 @@ class PatientService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>> getPrescription({required String patientId}) {
+  Future<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>> getPrescriptionByPatient({required String patientId}) {
     var completer = Completer<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>>();
 
-    PatientApi.instance.getPrescription(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
+    PrescriptionApi.instance.getPrescriptionByPatient(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: GetPrescriptionStatus.SUCCESS, data: responseWrapper.data));
       } else {
         completer.complete(StatusWrapper(status: GetPrescriptionStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
+  Future<StatusWrapper<GetPrescriptionStatus, Prescription, String>> getPrescriptionById({required String prescriptionId}) {
+    var completer = Completer<StatusWrapper<GetPrescriptionStatus, Prescription, String>>();
+
+    PrescriptionApi.instance.getPrescriptionById(prescriptionId: prescriptionId).then((ResponseWrapper<Prescription> responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: GetPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetPrescriptionStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
+  Future<StatusWrapper<NewPrescriptionStatus, Prescription, String>> newPrescription({required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile}) {
+    var completer = Completer<StatusWrapper<NewPrescriptionStatus, Prescription, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    PrescriptionApi.instance.newPrescription(doctorId: doctorId, patientId: patientId, diagnosisId: diagnosisId, illnessSeverity: illnessSeverity, notes: notes, treatmentItemList: treatmentItemList, attachmentFile: attachmentFile).then((responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: NewPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: NewPrescriptionStatus.ERROR, error: responseWrapper.message));
       }
     });
 
@@ -119,6 +153,11 @@ enum GetPrescriptionStatus {
 }
 
 enum PatientRegistrationStatus {
+  SUCCESS,
+  ERROR
+}
+
+enum NewPrescriptionStatus {
   SUCCESS,
   ERROR
 }

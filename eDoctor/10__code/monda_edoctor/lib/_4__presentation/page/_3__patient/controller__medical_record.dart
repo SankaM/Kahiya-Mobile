@@ -44,7 +44,7 @@ class MedicalRecordController extends AbstractController {
   }
 
   Future<void> _retrievePrescription({required String patientId}) async {
-    StatusWrapper<GetPrescriptionStatus, List<Prescription>, String> statusWrapper = await PatientService.instance.getPrescription(patientId: patientId);
+    StatusWrapper<GetPrescriptionStatus, List<Prescription>, String> statusWrapper = await PatientService.instance.getPrescriptionByPatient(patientId: patientId);
 
     if(statusWrapper.status == GetPrescriptionStatus.SUCCESS) {
       this.prescriptionList = statusWrapper.data;

@@ -49,8 +49,8 @@ class RouteNavigator {
     return _goto(Routes.page_home, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoInvoicePage() {
-    return _goto(Routes.page_invoice, forgetBefore: false);
+  static Future<dynamic> gotoInvoicePage({required String prescriptionId}) {
+    return _goto(Routes.page_invoice, forgetBefore: false, arguments: prescriptionId);
   }
 
   static Future<dynamic> gotoInventoryPage() {

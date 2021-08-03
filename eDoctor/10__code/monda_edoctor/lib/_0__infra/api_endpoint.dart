@@ -14,8 +14,6 @@ class ApiEndPoint {
 
   static const String PATIENT_DETAIL = PREFIX + '/doctors/{doctorId}/patients/{patientId}/details';
 
-  static const String PATIENT_HISTORY = PREFIX + '/patients/{patientId}/history';
-
   static const String PATIENT_REGISTRATION = PREFIX + '/doctors/{doctorId}/patients/register';
 
   // Inventory
@@ -34,4 +32,11 @@ class ApiEndPoint {
 
   // Diagnosis
   static const String DIAGNOSIS_LIST = PREFIX + '/diagnosis';
+
+  // Prescription
+  static const String NEW_PRESCRIPTION = PREFIX + '/doctors/{doctorId}/patients/{patientId}/prescription';
+
+  static const String PRESCRIPTION_BY_ID = PREFIX + '/prescription/{prescriptionId}';
+
+  static const String PRESCRIPTION_BY_PATIENT = PREFIX + '/patients/{patientId}/history';
 }

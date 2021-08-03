@@ -1,7 +1,10 @@
 
+import 'dart:developer';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
@@ -11,7 +14,6 @@ import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.da
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
 
 class InvoicePage extends AbstractPageWithBackgroundAndContent {
   InvoicePage() : super(
@@ -26,7 +28,7 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    InvoiceController.instance.reset();
+    log('============================================ argument (prescriptionId) : ${Get.arguments}');
 
     return Scaffold(
       backgroundColor: Colors.transparent,

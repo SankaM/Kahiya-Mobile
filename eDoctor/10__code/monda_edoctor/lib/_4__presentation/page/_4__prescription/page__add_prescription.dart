@@ -11,6 +11,7 @@ import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
 
@@ -49,6 +50,20 @@ class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _contentBody(BuildContext context) {
+    return GetBuilder<AddPrescriptionController>(builder: (c) {
+      return Stack(
+        children: [
+          _mainLayer(context),
+          Visibility(
+            visible: c.progressDialogShow,
+            child: MyCircularProgressIndicator(),
+          )
+        ],
+      );
+    });
+  }
+
+  Widget _mainLayer(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
@@ -67,11 +82,11 @@ class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
           ),
         ],
       ),
-        child: GetBuilder<AddPrescriptionController>(
-          builder: (c) {
-            return _AddPrescriptionForm();
-          },
-        ),
+      child: GetBuilder<AddPrescriptionController>(
+        builder: (c) {
+          return _AddPrescriptionForm();
+        },
+      ),
     );
   }
 }
@@ -93,6 +108,12 @@ class _AddPrescriptionForm extends StatelessWidget {
     children.add(Text(TextString.label__diagnosis, style: TextStyle(color: Colors.grey[500]),),);
     children.add(SizedBox(height: ScreenUtil.heightInPercent(3),),);
     children.add(_DiagnosisDropdown(),);
+    children.add(SizedBox(height: ScreenUtil.heightInPercent(5),),);
+
+    // ----- Illness Severity
+    children.add(Text('Illness Severity', style: TextStyle(color: Colors.grey[500]),),);
+    children.add(SizedBox(height: ScreenUtil.heightInPercent(3),),);
+    children.add(_IllnessSeverityDropdown(),);
     children.add(SizedBox(height: ScreenUtil.heightInPercent(5),),);
 
     // ----- Treatment
@@ -170,6 +191,29 @@ class _DiagnosisDropdown extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _IllnessSeverityDropdown extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField<String>(
+      hint: Text('Illness Severity'),
+      value: AddPrescriptionController.instance.illnessSeverity,
+      items: [
+        DropdownMenuItem<String>(value: 'LOW', child: Text('Low')),
+        DropdownMenuItem<String>(value: 'MEDIUM', child: Text('Medium')),
+        DropdownMenuItem<String>(value: 'HIGH', child: Text('High')),
+      ],
+      onChanged: (illnessSeverity) {
+        if(illnessSeverity != null) {
+          AddPrescriptionController.instance.illnessSeverity = illnessSeverity;
+        }
+      },
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(10)),
+      ),
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:monda_edoctor/_0__infra/util/api_datasource.dart';
 import 'package:monda_edoctor/_0__infra/util/template_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__api.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
-import 'package:monda_edoctor/_1__model/prescription.dart';
 
 class PatientApi extends ApiDataSource {
   PatientApi.newInstance();
@@ -37,16 +36,6 @@ class PatientApi extends ApiDataSource {
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
       return ResponseWrapper<Patient>.success(data: Patient.buildDetail(json['data']));
-    };
-
-    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
-  }
-
-  Future<ResponseWrapper<List<Prescription>>> getPrescription({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_HISTORY, params: {'patientId': patientId}).toString();
-    var options = await ApiUtil.generateDioOptions();
-    var responseDataBuilder = (Map<String, dynamic> json) {
-      return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());
     };
 
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
