@@ -27,7 +27,10 @@ class DetailInventoryPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    DetailInventoryController.instance.retrieveInventory(Get.arguments);
+    if(Get.arguments != null && Get.arguments['inventoryId'] != null) {
+      String inventoryId = Get.arguments['inventoryId'];
+      DetailInventoryController.instance.retrieveInventory(inventoryId: inventoryId);
+    }
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -60,6 +63,10 @@ class DetailInventoryPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _mainLayer(BuildContext context) {
+    if(DetailInventoryController.instance.inventory == null) {
+      return Container();
+    }
+
     return Container(
       width: double.infinity,
       height: ScreenUtil.heightInPercent(77.5),

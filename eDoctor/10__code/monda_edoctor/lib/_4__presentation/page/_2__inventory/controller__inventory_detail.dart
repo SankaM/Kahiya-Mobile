@@ -26,7 +26,7 @@ class DetailInventoryController extends AbstractController {
     this.progressDialogShow = false;
   }
 
-  void retrieveInventory(String inventoryId) {
+  void retrieveInventory({required String inventoryId}) {
     this.progressDialogShow = true;
 
     InventoryService.instance.getInventoryDetail(inventoryId: inventoryId).then((statusWrapper) {
