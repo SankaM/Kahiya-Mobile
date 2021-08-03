@@ -1,5 +1,9 @@
+import 'package:intl/intl.dart';
+
 class StringUtil {
   StringUtil._();
+
+  static final _numberFormat = new NumberFormat("#,##0.00");
 
   static String? capitalize(String? s) {
     if(s != null && s.length > 0) {
@@ -7,5 +11,9 @@ class StringUtil {
     }
 
     return null;
+  }
+
+  static String formatDouble(double d) {
+    return _numberFormat.format(d);
   }
 }

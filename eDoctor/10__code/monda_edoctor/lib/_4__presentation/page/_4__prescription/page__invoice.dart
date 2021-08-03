@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,11 +6,15 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_0__infra/util/util__string.dart';
+import 'package:monda_edoctor/_1__model/dosage.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
 
 class InvoicePage extends AbstractPageWithBackgroundAndContent {
   InvoicePage() : super(
@@ -28,7 +29,10 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    log('============================================ argument (prescriptionId) : ${Get.arguments}');
+    if(Get.arguments != null && Get.arguments['prescriptionId'] != null) {
+      String prescriptionId = Get.arguments['prescriptionId'];
+      InvoiceController.instance.initData(prescriptionId: prescriptionId);
+    }
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -43,21 +47,36 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
       preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(17.5)),
       firstLineLabel: Text(TextString.label__invoice, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
       backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary, size: Style.iconSize_2XL,),
+      showBackButton: true,
     );
   }
 
   Widget _contentBody(BuildContext context) {
+    return GetBuilder<InvoiceController>(builder: (c) {
+      return Stack(
+        children: [
+          _mainLayer(context),
+          Visibility(
+            visible: c.progressDialogShow,
+            child: MyCircularProgressIndicator(),
+          )
+        ],
+      );
+    });
+  }
+
+  Widget _mainLayer(BuildContext context) {
     return Container(
-        width: double.infinity,
-        height: ScreenUtil.heightInPercent(82.5),
-        padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-          ),
+      width: double.infinity,
+      height: ScreenUtil.heightInPercent(82.5),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
+      decoration: BoxDecoration(
+        border: Border.all(
           color: Colors.white,
         ),
-        child: _InvoiceForm(),
+        color: Colors.white,
+      ),
+      child: _InvoiceForm(),
     );
   }
 }
@@ -65,6 +84,10 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
 class _InvoiceForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    if(InvoiceController.instance.prescription == null) {
+      return Container();
+    }
+
     return ListView(
       children: [
         // ----- Patient Name
@@ -84,20 +107,20 @@ class _InvoiceForm extends StatelessWidget {
         SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // ----- Subtotal
-        _Subtotal(subtotal: 20.75),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
+        // _Subtotal(subtotal: 20.75),
+        // SizedBox(height: ScreenUtil.heightInPercent(3),),
         
         // ----- Total
-        _Total(total: 20.75),
+        _Total(total: InvoiceController.instance.prescription!.totalCost!),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // ----- LinkBox
-        _LinkBox(url: 'http://loremipsumdolorsita'),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
+        // _LinkBox(url: 'http://loremipsumdolorsita'),
+        // SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // ----- Send To Patient Button
-        _SendToPatientButton(),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
+        // _SendToPatientButton(),
+        // SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // -----
         SizedBox(height: ScreenUtil.heightInPercent(25),),
@@ -128,34 +151,33 @@ class _PatientNameSection extends StatelessWidget {
 class _DrugSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    List<Widget> children = [];
+
+    children.add(Row(
       children: [
-        Row(
-          children: [
-            Text(TextString.label__drugs, style: TextStyle(color: Colors.grey[500], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
-            SizedBox(width: ScreenUtil.widthInPercent(3),),
-            FaIcon(FontAwesomeIcons.capsules, color: Colors.grey[500], size: Style.iconSize_Default,),
-          ],
-        ),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_drug01, drugName: 'iBuprofen', drugWeight: '250mg', drugPricePerItem: 1.25, drugCount: 2),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_drug02, drugName: 'Paracetamol', drugWeight: '500mg', drugPricePerItem: 1.75, drugCount: 2),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        _drugItem(imageAssetName: Asset.png_drug03, drugName: 'Robitussin', drugWeight: '200mg', drugPricePerItem: 1.5, drugCount: 2),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        Row(
-          children: [
-            Text(TextString.label__drugs_total, style: TextStyle(color: Colors.grey[500]),),
-            Spacer(),
-            Text('\$ 8.75', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
-          ],
-        ),
+        Text(TextString.label__drugs, style: TextStyle(color: Colors.grey[500], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
+        SizedBox(width: ScreenUtil.widthInPercent(3),),
+        FaIcon(FontAwesomeIcons.capsules, color: Colors.grey[500], size: Style.iconSize_Default,),
       ],
-    );
+    ),);
+    children.add(SizedBox(height: ScreenUtil.heightInPercent(3),),);
+
+    InvoiceController.instance.prescription!.dosageList!.forEach((dosage) {
+      children.add(_drugItem(dosage: dosage));
+      children.add(SizedBox(height: ScreenUtil.heightInPercent(3),));
+    });
+    children.add(Row(
+      children: [
+        Text(TextString.label__drugs_total, style: TextStyle(color: Colors.grey[500]),),
+        Spacer(),
+        Text('\$ ${StringUtil.formatDouble(InvoiceController.instance.prescription!.drugCost!)}', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
+      ],
+    ),);
+
+    return Column(children: children,);
   }
 
-  Widget _drugItem({required String imageAssetName, required String drugName, required String drugWeight, required double drugPricePerItem, required int drugCount}) {
+  Widget _drugItem({required Dosage dosage}) {
     return Column(
       children: [
         Row(
@@ -169,8 +191,8 @@ class _DrugSection extends StatelessWidget {
                   height: ScreenUtil.widthInPercent(20),
                 ),
                 Positioned(
-                  child: Image.asset(
-                    imageAssetName,
+                  child: Image.network(
+                    dosage.drug!.imageUrl!,
                     width: ScreenUtil.widthInPercent(18),
                     height: ScreenUtil.widthInPercent(18),
                   ),
@@ -184,7 +206,7 @@ class _DrugSection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       color: Style.colorPrimary,
                     ),
-                    child: Text('$drugCount', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w700),),
+                    child: Text('${dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w700),),
                   ),
                   right: 0,
                   top: 0,
@@ -200,15 +222,15 @@ class _DrugSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(drugName, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
+                  Text(dosage.drug!.name!, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text(drugWeight),
+                  Text('${dosage.drug!.measurement!} ${dosage.drug!.measurementUnit!}'),
                   Spacer(),
                   Row(
                     children: [
                       Text(TextString.label__price, style: Style.defaultTextStyle(color: Colors.grey),),
                       SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('\$ $drugPricePerItem x $drugCount', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black),),
+                      Text('\$ ${StringUtil.formatDouble(dosage.drugCost! / (dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!))} x ${(dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!)}', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black),),
                     ],
                   )
                 ],
@@ -220,7 +242,7 @@ class _DrugSection extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 padding: EdgeInsets.all(ScreenUtil.widthInPercent(3)),
-                child: Text('\$ ${drugPricePerItem * drugCount}', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
+                child: Text('\$ ${dosage.drugCost}', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
                 decoration: BoxDecoration(
                   color: Style.colorPrimary.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(10),
@@ -249,17 +271,15 @@ class _TreatmentSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        treatmentItem(illnessName: 'Cough', treatmentName: 'Diagnosed and Prescribed', treatmentCost: 7.0, iconData: FontAwesomeIcons.checkCircle),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        treatmentItem(illnessName: 'Fever', treatmentName: 'Diagnosed and Prescribed', treatmentCost: 5.0, iconData: FontAwesomeIcons.checkCircle),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        Row(
-          children: [
-            Text(TextString.label__treatment_total, style: TextStyle(color: Colors.grey[500]),),
-            Spacer(),
-            Text('\$ 8.75', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
-          ],
-        ),
+        treatmentItem(illnessName: '${InvoiceController.instance.prescription!.diagnosis!.name}', treatmentName: 'Doctor Cost', treatmentCost: InvoiceController.instance.prescription!.doctorCost!, iconData: FontAwesomeIcons.checkCircle),
+        // SizedBox(height: ScreenUtil.heightInPercent(3),),
+        // Row(
+        //   children: [
+        //     Text(TextString.label__treatment_total, style: TextStyle(color: Colors.grey[500]),),
+        //     Spacer(),
+        //     Text('\$ 8.75', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
+        //   ],
+        // ),
       ],
     );
   }
@@ -325,7 +345,7 @@ class _Total extends StatelessWidget {
         children: [
           Text(TextString.label__total, style: TextStyle(color: Colors.grey[700], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
           Spacer(),
-          Text('\$ $total', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
+          Text('\$ ${StringUtil.formatDouble(total)}', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
         ],
       ),
     );

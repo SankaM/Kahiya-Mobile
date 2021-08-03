@@ -50,7 +50,10 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoInvoicePage({required String prescriptionId}) {
-    return _goto(Routes.page_invoice, forgetBefore: false, arguments: prescriptionId);
+    var arguments = {
+      'prescriptionId': prescriptionId,
+    };
+    return _goto(Routes.page_invoice, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoInventoryPage() {
@@ -58,7 +61,10 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoMedicalRecordPage({required String patientId}) {
-    return _goto(Routes.page_medical_record, forgetBefore: false, arguments: patientId);
+    var arguments = {
+      'patientId': patientId,
+    };
+    return _goto(Routes.page_medical_record, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoRegisterPatientPage() {
@@ -66,7 +72,10 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoAddPrescriptionPage({required Patient patient}) {
-    return _goto(Routes.page_add_prescription, forgetBefore: false, arguments: patient);
+    var arguments = {
+      'patient': patient,
+    };
+    return _goto(Routes.page_add_prescription, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoAddInventoryPage() {
@@ -74,7 +83,10 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoDetailInventoryPage({required String inventoryId}) {
-    return _goto(Routes.page_detail_inventory, forgetBefore: false, arguments: inventoryId);
+    var arguments = {
+      'inventoryId': inventoryId,
+    };
+    return _goto(Routes.page_detail_inventory, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoUpdateInventoryPage() {

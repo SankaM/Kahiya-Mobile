@@ -28,8 +28,8 @@ class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    if(Get.arguments != null && Get.arguments is Patient) {
-      Patient patient = Get.arguments;
+    if(Get.arguments != null && Get.arguments['patient'] != null) {
+      Patient patient = Get.arguments['patient'];
       AddPrescriptionController.instance.initData(patient: patient);
     }
 

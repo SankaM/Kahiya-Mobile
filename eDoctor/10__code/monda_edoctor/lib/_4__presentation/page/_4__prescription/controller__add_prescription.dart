@@ -46,6 +46,7 @@ class AddPrescriptionController extends AbstractController {
     this.patient = patient;
     this.progressDialogShow = true;
     this.selectedDiagnosis = null;
+    this.illnessSeverity = null;
     this.treatmentItemMap = {};
     this.treatmentItemMap[DateTime.now().millisecondsSinceEpoch] = TreatmentItem();
     this.notes = '';

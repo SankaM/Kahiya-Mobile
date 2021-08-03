@@ -32,8 +32,8 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    if(Get.arguments != null && Get.arguments is String) {
-      String patientId = Get.arguments;
+    if(Get.arguments != null && Get.arguments['patientId'] != null) {
+      String patientId = Get.arguments['patientId'];
       MedicalRecordController.instance.retrieveData(patientId: patientId);
     }
 
