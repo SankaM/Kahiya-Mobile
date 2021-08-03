@@ -10,6 +10,7 @@ import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_backgro
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
 
 class InvoicePage extends AbstractPageWithBackgroundAndContent {
@@ -116,7 +117,7 @@ class _PatientNameSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: ScreenUtil.heightInPercent(3),),
-        PatientNameSection(patientName: 'Linda Williams', showIcon: false,),
+        PatientNameSection(patientName: '${AddPrescriptionController.instance.patient!.name}', showIcon: false,),
       ],
     );
   }

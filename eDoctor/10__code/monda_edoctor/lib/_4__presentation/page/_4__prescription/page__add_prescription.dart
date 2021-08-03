@@ -5,6 +5,7 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
@@ -99,7 +100,7 @@ class _AddPrescriptionForm extends StatelessWidget {
     children.add(SizedBox(height: ScreenUtil.heightInPercent(3),),);
     AddPrescriptionController.instance.treatmentItemMap.forEach((key, treatmentItem) {
       children.add(_TreatmentItemWidget(keyOfTreatmentItemMap: key, treatmentItem: treatmentItem));
-      children.add(Divider());
+      children.add(SizedBox(height: ScreenUtil.heightInPercent(5),));
     });
     children.add(SizedBox(height: ScreenUtil.heightInPercent(5),),);
 
@@ -129,7 +130,7 @@ class _AddPrescriptionForm extends StatelessWidget {
       height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
       onTap: () {
-        AddPrescriptionController.instance.submit();
+        AddPrescriptionController.instance.nextPage();
       },
       label: TextString.label__prescribe,
     ),);
@@ -155,14 +156,14 @@ class _DiagnosisDropdown extends StatelessWidget {
           return Center(child: Text('No Diagnosis Data !'),);
         }
 
-        List<DropdownMenuItem<String>> items = [];
-        items.addAll(c.diagnosisList.map((diagnosis) => DropdownMenuItem<String>(value: diagnosis.id, child: Text(diagnosis.name!))).toList());
+        List<DropdownMenuItem<Diagnosis>> items = [];
+        items.addAll(c.diagnosisList.map((diagnosis) => DropdownMenuItem<Diagnosis>(value: diagnosis, child: Text(diagnosis.name!))).toList());
 
-        return DropdownButtonFormField<String>(
+        return DropdownButtonFormField<Diagnosis>(
           hint: Text(TextString.label__diagnosis),
           items: items,
-          onChanged: (diagnosisId) {
-            c.selectedDiagnosisId = diagnosisId;
+          onChanged: (diagnosis) {
+            c.selectedDiagnosis = diagnosis;
           },
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(10)),
@@ -249,7 +250,7 @@ class _TreatmentItemWidget extends StatelessWidget {
           items: items,
           onChanged: (inventory) {
             if(inventory != null) {
-              AddPrescriptionController.instance.updateTreatmentItemDrugId(keyOfTreatmentItemMap, inventory);
+              AddPrescriptionController.instance.updateTreatmentItemInventory(keyOfTreatmentItemMap, inventory);
             }
           },
           decoration: InputDecoration(

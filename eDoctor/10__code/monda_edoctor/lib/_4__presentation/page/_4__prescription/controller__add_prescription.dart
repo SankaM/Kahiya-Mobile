@@ -11,12 +11,15 @@ import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
 import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__my_snackbar.dart';
 
 class AddPrescriptionController extends AbstractController {
   static AddPrescriptionController get instance => Get.find();
 
   // View
   bool progressDialogShow = true;
+
+  String errorMessage = '';
 
   // Reff Data
   List<Diagnosis> diagnosisList = [];
@@ -26,7 +29,8 @@ class AddPrescriptionController extends AbstractController {
   // Form
   Patient? patient;
 
-  String? selectedDiagnosisId;
+  //String? selectedDiagnosisId;
+  Diagnosis? selectedDiagnosis;
 
   Map<int, TreatmentItem> treatmentItemMap = {};
 
@@ -37,9 +41,10 @@ class AddPrescriptionController extends AbstractController {
   String? fileName;
 
   void initData({required Patient patient}) async {
+    this.errorMessage = '';
     this.patient = patient;
     this.progressDialogShow = true;
-    this.selectedDiagnosisId = null;
+    this.selectedDiagnosis = null;
     this.treatmentItemMap = {};
     this.treatmentItemMap[DateTime.now().millisecondsSinceEpoch] = TreatmentItem();
     this.notes = '';
@@ -79,7 +84,7 @@ class AddPrescriptionController extends AbstractController {
     update();
   }
 
-  void updateTreatmentItemDrugId(int key, Inventory inventory) {
+  void updateTreatmentItemInventory(int key, Inventory inventory) {
     this.treatmentItemMap[key]!.inventory = inventory;
   }
 
@@ -141,9 +146,13 @@ class AddPrescriptionController extends AbstractController {
     update();
   }
 
-  void submit() {
+  void nextPage() {
+    if(!isDataValid()) {
+      return;
+    }
+
     log('================================================ patientId   : ${patient!.id}');
-    log('================================================ diagnosisId : $selectedDiagnosisId');
+    log('================================================ diagnosisId : ${selectedDiagnosis!.id}');
     log('================================================ notes       : $notes');
     this.treatmentItemMap.forEach((key, value) {
       log('\t================================================ treatmentItem : $value');
@@ -151,11 +160,46 @@ class AddPrescriptionController extends AbstractController {
 
     RouteNavigator.gotoInvoicePage();
   }
+
+  bool isDataValid() {
+    // --- Check patient
+    if(patient == null) {
+      MySnackBar.show(Get.context!, 'Patient is empty');
+      return false;
+    }
+
+    // --- Check selected diagnosis
+    if(selectedDiagnosis == null) {
+      MySnackBar.show(Get.context!, 'Diagnosis is empty');
+      return false;
+    }
+
+    // --- Check treatment items
+    bool errorOnTreatmentItem = false;
+    this.treatmentItemMap.forEach((key, value) {
+      if(!value.isValid()) {
+        errorOnTreatmentItem = true;
+      }
+    });
+    if(errorOnTreatmentItem) {
+      MySnackBar.show(Get.context!, 'Please fix treatment item data');
+      return false;
+    }
+
+    // --- Check notes
+    if(notes == null || notes!.isEmpty) {
+      MySnackBar.show(Get.context!, 'Notes is empty');
+      return false;
+    }
+
+    // No Error at all
+    this.errorMessage = '';
+    update();
+    return true;
+  }
 }
 
 class TreatmentItem {
-  String? drugId;
-
   Inventory? inventory;
 
   int? treatmentDays;
@@ -165,6 +209,14 @@ class TreatmentItem {
   String? dosageRule;
 
   int? dosageCount;
+
+  bool isValid() {
+    if(inventory != null && treatmentDays != null && timesPerDay != null && dosageRule != null && dosageCount != null) {
+      return true;
+    }
+
+    return false;
+  }
 
   @override
   String toString() {
