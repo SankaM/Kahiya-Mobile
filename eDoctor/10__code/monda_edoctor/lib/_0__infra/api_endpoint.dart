@@ -19,9 +19,9 @@ class ApiEndPoint {
   // Inventory
   static const String INVENTORY_ALL_PER_PAGE = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
 
-  static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory/all';
-
   static const String INVENTORY_SEARCH = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}&query={queryValue}&field={field}';
+
+  static const String INVENTORY_ALL = PREFIX + '/doctors/{doctorId}/inventory/all';
 
   static const String INVENTORY_NEW_BATCH = PREFIX + '/doctors/{doctorId}/inventory/batch';
 
@@ -39,4 +39,8 @@ class ApiEndPoint {
   static const String PRESCRIPTION_BY_ID = PREFIX + '/prescription/{prescriptionId}';
 
   static const String PRESCRIPTION_BY_PATIENT = PREFIX + '/patients/{patientId}/history';
+
+  static const String PRESCRIPTION_ALL_PER_PAGE = PREFIX + '/doctors/{doctorId}/prescription?page={page}&itemPerPage={itemPerPage}';
+
+  static const String PRESCRIPTION_SEARCH = PREFIX + '/doctors/{doctorId}/prescription?page={page}&itemPerPage={itemPerPage}&query={queryValue}';
 }

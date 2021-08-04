@@ -24,7 +24,7 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
     showAppBar: false,
     showFloatingActionButton: true,
     showBottomNavigationBar: true,
-    selectedIndexOfBottomNavigationBar: -1,
+    selectedIndexOfBottomNavigationBar: 1,
     floatingActionButton: FloatingActionButton(
             child: FaIcon(
               FontAwesomeIcons.pills,

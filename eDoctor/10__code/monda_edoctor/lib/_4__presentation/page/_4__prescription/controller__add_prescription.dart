@@ -157,7 +157,7 @@ class AddPrescriptionController extends AbstractController {
       progressDialogShow = false;
       update();
 
-      RouteNavigator.gotoInvoicePage(prescriptionId: wrapper.data!.id);
+      RouteNavigator.gotoInvoiceDetailPage(prescriptionId: wrapper.data!.id);
     } else {
       AlertUtil.showMessage('${wrapper.error}',);
       progressDialogShow = false;

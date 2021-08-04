@@ -36,8 +36,10 @@ import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__medical_re
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__patient_register.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__add_prescription.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice.dart';
+import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice_detail.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,11 +81,12 @@ class MondaEPatientApp extends StatelessWidget {
 
     Get.put(PatientRegisterController());
     Get.put(AddPrescriptionController());
-    Get.put(InvoiceController());
+    Get.put(InvoiceDetailController());
     Get.put(InventoryController());
     Get.put(AddInventoryController());
     Get.put(UpdateInventoryController());
     Get.put(DetailInventoryController());
+    Get.put(InvoiceController());
   }
 
   @override
@@ -110,7 +113,9 @@ class MondaEPatientApp extends StatelessWidget {
         GetPage(name: Routes.page_home, page: () => HomePage(),),
 
         // ---------------------------------------------------------- 2. Invoice
-        GetPage(name: Routes.page_invoice, page: () => InvoicePage(),),
+        GetPage(name: Routes.page_invoice_list, page: () => InvoicePage(),),
+
+        GetPage(name: Routes.page_invoice_detail, page: () => InvoiceDetailPage(),),
 
         // -------------------------------------------------------- 3. Inventory
         GetPage(name: Routes.page_inventory, page: () => InventoryPage(),),

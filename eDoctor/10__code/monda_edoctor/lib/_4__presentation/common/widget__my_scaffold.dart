@@ -185,7 +185,7 @@ class MyScaffold extends StatelessWidget {
           switch (i) {
             case 0:
               {
-                RouteNavigator.gotoInvoicePage(prescriptionId: '');
+                RouteNavigator.gotoInvoiceListPage();
                 break;
               }
             case 1:

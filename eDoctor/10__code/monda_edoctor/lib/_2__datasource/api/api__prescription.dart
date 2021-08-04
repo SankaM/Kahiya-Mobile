@@ -57,4 +57,29 @@ class PrescriptionApi extends ApiDataSource {
 
     return ApiUtil.postWithFormData(url: url, responseDataBuilder: responseDataBuilder, options: options, formData: formData);
   }
+
+  Future<ResponseWrapper<List<Prescription>>> getSearchPrescription({required String doctorId, required int page, required int itemPerPage, String? queryValue,}) async {
+    String url;
+    if(queryValue == null) {
+      url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_ALL_PER_PAGE, params: {
+        'doctorId': doctorId,
+        'page': page.toString(),
+        'itemPerPage': itemPerPage.toString(),
+      }).toString();
+    } else {
+      url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_SEARCH, params: {
+        'doctorId': doctorId,
+        'page': page.toString(),
+        'itemPerPage': itemPerPage.toString(),
+        'queryValue': queryValue,
+      }).toString();
+    }
+
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());
+    };
+
+    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }

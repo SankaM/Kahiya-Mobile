@@ -96,6 +96,23 @@ class PatientService {
   }
 
   // ===========================================================================
+  Future<StatusWrapper<GetSearchPrescriptionStatus, List<Prescription>, String>> getSearchPrescription({required int page, required int itemPerPage, String? queryValue,}) {
+    var completer = Completer<StatusWrapper<GetSearchPrescriptionStatus, List<Prescription>, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+
+    PrescriptionApi.instance.getSearchPrescription(doctorId: doctorId, page: page, itemPerPage: itemPerPage, queryValue: queryValue,).then((ResponseWrapper<List<Prescription>> responseWrapper,) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: GetSearchPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetSearchPrescriptionStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
   Future<StatusWrapper<NewPrescriptionStatus, Prescription, String>> newPrescription({required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile}) {
     var completer = Completer<StatusWrapper<NewPrescriptionStatus, Prescription, String>>();
 
@@ -158,6 +175,11 @@ enum PatientRegistrationStatus {
 }
 
 enum NewPrescriptionStatus {
+  SUCCESS,
+  ERROR
+}
+
+enum GetSearchPrescriptionStatus {
   SUCCESS,
   ERROR
 }

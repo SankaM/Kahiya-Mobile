@@ -12,7 +12,9 @@ class Routes {
 
   static const String page_home = '/home';
 
-  static const String page_invoice = '/invoice';
+  static const String page_invoice_detail = '/invoice-detail';
+
+  static const String page_invoice_list = '/invoice-list';
 
   static const String page_inventory = '/inventory';
 
@@ -49,11 +51,15 @@ class RouteNavigator {
     return _goto(Routes.page_home, forgetBefore: true);
   }
 
-  static Future<dynamic> gotoInvoicePage({required String prescriptionId}) {
+  static Future<dynamic> gotoInvoiceListPage() {
+    return _goto(Routes.page_invoice_list, forgetBefore: false,);
+  }
+
+  static Future<dynamic> gotoInvoiceDetailPage({required String prescriptionId}) {
     var arguments = {
       'prescriptionId': prescriptionId,
     };
-    return _goto(Routes.page_invoice, forgetBefore: false, arguments: arguments);
+    return _goto(Routes.page_invoice_detail, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoInventoryPage() {

@@ -1,389 +1,263 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/components/avatar/gf_avatar.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
-import 'package:monda_edoctor/_1__model/dosage.dart';
+import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
-import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
-import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
-import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class InvoicePage extends AbstractPageWithBackgroundAndContent {
   InvoicePage() : super(
     title: TextString.page_title__invoice,
-    backgroundAsset: Asset.png__background04,
+    backgroundAsset: Asset.png__background02,
     usingSafeArea: true,
     showAppBar: false,
-    showFloatingActionButton: true,
+    showFloatingActionButton: false,
     showBottomNavigationBar: true,
-    selectedIndexOfBottomNavigationBar: -1,
-  );
+    selectedIndexOfBottomNavigationBar: 0,
+        );
 
   @override
   Widget constructContent(BuildContext context) {
-    if(Get.arguments != null && Get.arguments['prescriptionId'] != null) {
-      String prescriptionId = Get.arguments['prescriptionId'];
-      InvoiceController.instance.initData(prescriptionId: prescriptionId);
-    }
+    InvoiceController.instance.init();
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: _contentCustomAppBar(context),
-      body: _contentBody(context),
-    );
-  }
-
-  PreferredSize _contentCustomAppBar(BuildContext context) {
-    return CustomAppBarBuilder.build(
-      context: context,
-      preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(17.5)),
-      firstLineLabel: Text(TextString.label__invoice, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, color: Colors.black),),
-      backButtonIcon: Icon(Icons.arrow_back, color: Style.colorPrimary, size: Style.iconSize_2XL,),
-      showBackButton: true,
-    );
-  }
-
-  Widget _contentBody(BuildContext context) {
     return GetBuilder<InvoiceController>(builder: (c) {
       return Stack(
+        fit: StackFit.expand,
         children: [
-          _mainLayer(context),
+          Positioned(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: _contentCustomAppBar(context),
+                body: _contentBody(context),
+              )
+          ),
           Visibility(
+            child: ProgressIndicatorOverlay(text: TextString.label__retrieving_inventory_list,),
             visible: c.progressDialogShow,
-            child: MyCircularProgressIndicator(),
           )
         ],
       );
     });
   }
 
-  Widget _mainLayer(BuildContext context) {
+  PreferredSize _contentCustomAppBar(BuildContext context) {
+    return CustomAppBarBuilder.build(
+      context: context,
+      preferredSize: Size.fromHeight(ScreenUtil.heightInPercent(17.5)),
+      firstLineLabel: Text(TextString.label__invoice, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL),),
+      backButtonIcon: Icon(Icons.arrow_back, color: Colors.white, size: Style.iconSize_2XL,),
+    );
+  }
+
+  Widget _contentBody(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _searchBar(context),
+        _pagingSection(context),
+        _scrollableSection(context),
+      ],
+    );
+  }
+
+  Widget _searchBar(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: ScreenUtil.heightInPercent(82.5),
-      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white,
-        ),
-        color: Colors.white,
-      ),
-      child: _InvoiceForm(),
-    );
-  }
-}
-
-class _InvoiceForm extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    if(InvoiceController.instance.prescription == null) {
-      return Container();
-    }
-
-    return ListView(
-      children: [
-        // ----- Patient Name
-        _PatientNameSection(),
-        SizedBox(height: ScreenUtil.heightInPercent(5),),
-
-        // ----- Drugs
-        _DrugSection(),
-        SizedBox(height: ScreenUtil.heightInPercent(5),),
-
-        // ----- Treatment
-        _TreatmentSection(),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-        // -----
-        Divider(),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-        // ----- Subtotal
-        // _Subtotal(subtotal: 20.75),
-        // SizedBox(height: ScreenUtil.heightInPercent(3),),
-        
-        // ----- Total
-        _Total(total: InvoiceController.instance.prescription!.totalCost!),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-        // ----- LinkBox
-        // _LinkBox(url: 'http://loremipsumdolorsita'),
-        // SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-        // ----- Send To Patient Button
-        // _SendToPatientButton(),
-        // SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-        // -----
-        SizedBox(height: ScreenUtil.heightInPercent(25),),
-      ],
-    );
-  }
-}
-
-class _PatientNameSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+      height: ScreenUtil.heightInPercent(10),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
+      child: ReactiveForm(
+        formGroup: InvoiceController.instance.searchForm,
+        child: Row(
           children: [
-            Text(TextString.label__patients_name, style: TextStyle(color: Colors.grey[500], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
-            SizedBox(width: ScreenUtil.widthInPercent(3),),
-            Icon(Icons.person, color: Colors.grey[500], size: Style.iconSize_Default,),
-          ],
-        ),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        PatientNameSection(patientName: '${AddPrescriptionController.instance.patient!.name}', showIcon: false,),
-      ],
-    );
-  }
-}
-
-class _DrugSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> children = [];
-
-    children.add(Row(
-      children: [
-        Text(TextString.label__drugs, style: TextStyle(color: Colors.grey[500], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
-        SizedBox(width: ScreenUtil.widthInPercent(3),),
-        FaIcon(FontAwesomeIcons.capsules, color: Colors.grey[500], size: Style.iconSize_Default,),
-      ],
-    ),);
-    children.add(SizedBox(height: ScreenUtil.heightInPercent(3),),);
-
-    InvoiceController.instance.prescription!.dosageList!.forEach((dosage) {
-      children.add(_drugItem(dosage: dosage));
-      children.add(SizedBox(height: ScreenUtil.heightInPercent(3),));
-    });
-    children.add(Row(
-      children: [
-        Text(TextString.label__drugs_total, style: TextStyle(color: Colors.grey[500]),),
-        Spacer(),
-        Text('\$ ${StringUtil.formatDouble(InvoiceController.instance.prescription!.drugCost!)}', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
-      ],
-    ),);
-
-    return Column(children: children,);
-  }
-
-  Widget _drugItem({required Dosage dosage}) {
-    return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Stack(
-              fit: StackFit.passthrough,
-              children: [
-                Container(
-                  width: ScreenUtil.widthInPercent(20),
-                  height: ScreenUtil.widthInPercent(20),
-                ),
-                Positioned(
-                  child: Image.network(
-                    dosage.drug!.imageUrl!,
-                    width: ScreenUtil.widthInPercent(18),
-                    height: ScreenUtil.widthInPercent(18),
-                  ),
-                  top: 5,
-                  right: 5,
-                ),
-                Positioned(
-                  child: Container(
-                    padding: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Style.colorPrimary,
-                    ),
-                    child: Text('${dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w700),),
-                  ),
-                  right: 0,
-                  top: 0,
-
-                )
-              ],
-            ),
-            SizedBox(width: ScreenUtil.widthInPercent(5),),
             Container(
-              height: ScreenUtil.widthInPercent(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(dosage.drug!.name!, style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
-                  SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text('${dosage.drug!.measurement!} ${dosage.drug!.measurementUnit!}'),
-                  Spacer(),
-                  Row(
-                    children: [
-                      Text(TextString.label__price, style: Style.defaultTextStyle(color: Colors.grey),),
-                      SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('\$ ${StringUtil.formatDouble(dosage.drugCost! / (dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!))} x ${(dosage.treatmentDays! * dosage.timesPerDay! * dosage.dosageCount!)}', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black),),
-                    ],
-                  )
-                ],
+              width: ScreenUtil.widthInPercent(60),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey[100]!, blurRadius: 10.0, spreadRadius: 0.1)
+                  ]
+              ),
+              child: ReactiveTextField(
+                formControlName: 'queryValue',
+                style: TextStyle(color: Style.colorPrimary),
+                cursorColor: Style.colorPrimary,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
+                  prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
+                  hintText: 'Search by patient name...',
+                  hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
               ),
             ),
             Spacer(),
             Container(
-              height: ScreenUtil.widthInPercent(20),
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: EdgeInsets.all(ScreenUtil.widthInPercent(3)),
-                child: Text('\$ ${dosage.drugCost}', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
-                decoration: BoxDecoration(
-                  color: Style.colorPrimary.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
+              width: ScreenUtil.heightInPercent(8),
+              height: ScreenUtil.heightInPercent(8),
+              decoration:  BoxDecoration(
+                  borderRadius: new BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(color: Style.colorPrimary, blurRadius: ScreenUtil.widthInPercent(10), spreadRadius: 0.1)
+                  ]
+              ),
+              child: InkWell(
+                onTap: () {
+                  InvoiceController.instance.search();
+                },
+                child: Container(
+                  width: ScreenUtil.widthInPercent(17),
+                  child: Icon(Icons.search, color: Colors.white,),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Style.colorPrimary,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[400]!,
+                        offset: Offset(0.5, 0.5), //(x,y)
+                        blurRadius: 0.5,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            )
           ],
         ),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        DottedLine(direction: Axis.horizontal, lineLength: double.infinity, dashColor: Colors.grey,),
-      ],
-    );
-  }
-}
-
-class _TreatmentSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(TextString.label__treatment, style: TextStyle(color: Colors.grey[500], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
-            SizedBox(width: ScreenUtil.widthInPercent(3),),
-            FaIcon(FontAwesomeIcons.stethoscope, color: Colors.grey[500], size: Style.iconSize_Default,),
-          ],
-        ),
-        SizedBox(height: ScreenUtil.heightInPercent(3),),
-        treatmentItem(illnessName: '${InvoiceController.instance.prescription!.diagnosis!.name}', treatmentName: 'Doctor Cost', treatmentCost: InvoiceController.instance.prescription!.doctorCost!, iconData: FontAwesomeIcons.checkCircle),
-        // SizedBox(height: ScreenUtil.heightInPercent(3),),
-        // Row(
-        //   children: [
-        //     Text(TextString.label__treatment_total, style: TextStyle(color: Colors.grey[500]),),
-        //     Spacer(),
-        //     Text('\$ 8.75', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w500),),
-        //   ],
-        // ),
-      ],
-    );
-  }
-
-  Widget treatmentItem({required String illnessName, required treatmentName, required double treatmentCost, required IconData iconData}) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.widthInPercent(3), vertical: ScreenUtil.heightInPercent(3)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[300]!)
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    );
+  }
+
+  Widget _pagingSection(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
+      child: Row(
         children: [
-          Text(illnessName, style: Style.defaultTextStyle(color: Colors.black),),
-          SizedBox(height: ScreenUtil.heightInPercent(1),),
-          Row(
-            children: [
-              Text(treatmentName, style: Style.defaultTextStyle(color: Colors.grey),),
-              SizedBox(width: ScreenUtil.widthInPercent(3),),
-              Icon(iconData, size: Style.iconSize_XS, color: Colors.grey,),
-              Spacer(),
-              Text('\$ $treatmentCost', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
-            ],
+          Spacer(),
+          Container(
+            decoration: BoxDecoration(
+              color: Style.colorPrimary.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                InkWell(
+                  child: Icon(Icons.arrow_left, size: Style.iconSize_2XL, color: Style.colorPrimary,),
+                  onTap: () {
+                    InvoiceController.instance.prevPage();
+                  },
+                ),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
+                Text('|', style: TextStyle(color: Style.colorPrimary),),
+                SizedBox(width: ScreenUtil.widthInPercent(2),),
+                InkWell(
+                  child: Icon(Icons.arrow_right, size: Style.iconSize_2XL, color: Style.colorPrimary,),
+                  onTap: () {
+                    InvoiceController.instance.nextPage();
+                  },
+                ),
+              ],
+            ),
           )
         ],
       ),
     );
   }
-}
 
-class _Subtotal extends StatelessWidget {
-  final double subtotal;
+  Widget _scrollableSection(BuildContext context) {
+    if(InvoiceController.instance.prescriptionList.length == 0) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(10),),
+          child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
+        ),
+      );
+    }
 
-  _Subtotal({required this.subtotal});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(TextString.label__subtotal, style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w500),),
-        Spacer(),
-        Text('\$ $subtotal', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w700),),
-      ],
+    return Container(
+      height: ScreenUtil.heightInPercent(60),
+      padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
+      child: ListView(children: InvoiceController.instance.prescriptionList.map((e) => _PrescriptionItem(prescription: e)).toList(),),
     );
   }
 }
 
-class _Total extends StatelessWidget {
-  final double total;
+class _PrescriptionItem extends StatelessWidget {
+  final Prescription prescription;
 
-  _Total({required this.total});
+  _PrescriptionItem({required this.prescription,});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Style.colorPrimary.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      padding: EdgeInsets.all(ScreenUtil.widthInPercent(3)),
-      child: Row(
-        children: [
-          Text(TextString.label__total, style: TextStyle(color: Colors.grey[700], fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500),),
-          Spacer(),
-          Text('\$ ${StringUtil.formatDouble(total)}', style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w700),),
-        ],
-      ),
-    );
-  }
-}
-
-class _LinkBox extends StatelessWidget {
-  final String url;
-
-  _LinkBox({required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Colors.grey[300]!),
-      ),
-      padding: EdgeInsets.all(15),
-      child: Row(
-        children: [
-          Text(url, style: Style.defaultTextStyle(color: Colors.grey),),
-          Spacer(),
-          FaIcon(FontAwesomeIcons.link, color: Style.colorPrimary, size: Style.iconSize_S,),
-        ]
-      ),
-    );
-  }
-}
-
-class _SendToPatientButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FocusButton(
-      height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
-      onTap: () {},
-      label: TextString.label__send_to_patient,
+      height: ScreenUtil.heightInPercent(15),
+      margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
+      child: InkWell(
+        onTap: () {
+          RouteNavigator.gotoInvoiceDetailPage(prescriptionId: prescription.id);
+        },
+        child:Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
+                  height: double.infinity,
+                  child: prescription.patient!.imageUrl != null ? GFAvatar(
+                    backgroundImage: NetworkImage(prescription.patient!.imageUrl!),
+                    shape: GFAvatarShape.square,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ) : Image.asset(Asset.png__no_image_available),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.only(left: ScreenUtil.widthInPercent(1.5), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(1.5), bottom: ScreenUtil.heightInPercent(1.5)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${prescription.patient!.name}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                      SizedBox(height: ScreenUtil.heightInPercent(1),),
+                      Text('${DateFormat.yMMMd().format(prescription.prescriptionDate!)}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
+                      Spacer(),
+                      Row(
+                        children: [
+                          Text('Total Cost: ', style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700],),),
+                          Text('${StringUtil.formatDouble(prescription.totalCost!)}', style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w500),),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
