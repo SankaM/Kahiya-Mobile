@@ -30,6 +30,8 @@ class Routes {
 
   static const String page_add_prescription = '/add-prescription';
 
+  static const String page_account = '/account';
+
   Routes._();
 }
 
@@ -97,6 +99,10 @@ class RouteNavigator {
 
   static Future<dynamic> gotoUpdateInventoryPage() {
     return _goto(Routes.page_update_inventory, forgetBefore: false);
+  }
+
+  static Future<dynamic> gotoAccountPage() {
+    return _goto(Routes.page_account, forgetBefore: false);
   }
 
   // -------------------------------------------------------------------- helper

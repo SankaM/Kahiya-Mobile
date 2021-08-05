@@ -7,12 +7,14 @@ import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__account.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__diagnosis.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__doctor.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__drug.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__inventory.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__patient.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__prescription.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_edoctor/_3__service/service__account.dart';
+import 'package:monda_edoctor/_3__service/service__doctor.dart';
 import 'package:monda_edoctor/_3__service/service__inventory.dart';
 import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_3__service/service__prescription.dart';
@@ -40,6 +42,8 @@ import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller_
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__add_prescription.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice_detail.dart';
+import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
+import 'package:monda_edoctor/_4__presentation/page/_5__account/page__account.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,13 +52,13 @@ void main() {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return runApp(
       Phoenix(
-        child: MondaEPatientApp(),
+        child: MondaEDoctorApp(),
       ),
     );
   });
 }
 
-class MondaEPatientApp extends StatelessWidget {
+class MondaEDoctorApp extends StatelessWidget {
   Future<void> _onInit() async {
     // API
     Get.put(AccountApi.newInstance());
@@ -63,6 +67,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(DrugApi.newInstance());
     Get.put(DiagnosisApi.newInstance());
     Get.put(PrescriptionApi.newInstance());
+    Get.put(DoctorApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());
@@ -73,6 +78,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(PatientService.newInstance());
     Get.put(InventoryService.newInstance());
     Get.put(PrescriptionService.newInstance());
+    Get.put(DoctorService.newInstance());
 
     // Controller
     Get.put(SignInController.newInstance());
@@ -87,6 +93,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(UpdateInventoryController());
     Get.put(DetailInventoryController());
     Get.put(InvoiceController());
+    Get.put(AccountController());
   }
 
   @override
@@ -131,6 +138,8 @@ class MondaEPatientApp extends StatelessWidget {
 
         // ------------------------------------------------- 6. Add Prescription
         GetPage(name: Routes.page_add_prescription, page: () => AddPrescriptionPage(),),
+
+        GetPage(name: Routes.page_account, page: () => AccountPage(),),
       ],
     );
   }

@@ -55,7 +55,7 @@ class SignInController extends AbstractController {
         }
       case LoginStatus.ERROR:
         {
-          AlertUtil.showMessage(statusWrapper.data != null ? statusWrapper.error.toString() : TextString.label__error);
+          AlertUtil.showMessage(statusWrapper.error != null ? statusWrapper.error.toString() : TextString.label__error);
           _changeProgressBarShow(false);
           break;
         }

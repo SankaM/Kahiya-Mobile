@@ -27,9 +27,30 @@ class AccountService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<ChangePasswordStatus, void, String>> changePassword({required String oldPassword, required String newPassword}) {
+    var completer = Completer<StatusWrapper<ChangePasswordStatus, void, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    AccountApi.instance.changePassword(doctorId: doctorId, oldPassword: oldPassword, newPassword: newPassword).then((ResponseWrapper<void> res) {
+      if(res.isSuccess) {
+        completer.complete(StatusWrapper(status: ChangePasswordStatus.SUCCESS));
+      } else {
+        completer.complete(StatusWrapper(status: ChangePasswordStatus.ERROR, error: res.message),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum LoginStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum ChangePasswordStatus {
   SUCCESS,
   ERROR,
 }

@@ -21,4 +21,15 @@ class AccountApi extends ApiDataSource {
 
     return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
+
+  Future<ResponseWrapper<void>> changePassword({required String doctorId, required String oldPassword, required String newPassword}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.CHANGE_PASSWORD, params: {'doctorId': doctorId}).toString();
+    var data = {'oldPassword': oldPassword, 'newPassword': newPassword};
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<void>.success();
+    };
+
+    return ApiUtil.put(url: url, putData: data, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }

@@ -7,6 +7,7 @@ import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
@@ -72,11 +73,16 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GFAvatar(
-              backgroundImage: imageUrl != null ? NetworkImage(imageUrl, scale: 1.0) : null,
-              shape: GFAvatarShape.square,
-              size: ScreenUtil.widthInPercent(8),
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+            InkWell(
+              onTap: () {
+                RouteNavigator.gotoAccountPage();
+              },
+              child: GFAvatar(
+                backgroundImage: imageUrl != null ? NetworkImage(imageUrl, scale: 1.0) : null,
+                shape: GFAvatarShape.square,
+                size: ScreenUtil.widthInPercent(8),
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+              )
             ),
             SizedBox(height: ScreenUtil.heightInPercent(2),),
             Text(TextString.label__welcome, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default,color: Style.textColorPrimary),),
