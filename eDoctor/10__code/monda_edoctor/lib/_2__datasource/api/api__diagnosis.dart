@@ -10,6 +10,7 @@ class DiagnosisApi {
 
   DiagnosisApi.newInstance();
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Diagnosis>>> getDiagnosisList() async {
     String url = TemplateString(stringWithParams: ApiEndPoint.DIAGNOSIS_LIST,).toString();
     var options = await ApiUtil.generateDioOptions();

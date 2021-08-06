@@ -12,6 +12,7 @@ class DoctorApi extends ApiDataSource {
 
   static DoctorApi get instance => Get.find();
 
+  // ===========================================================================
   Future<ResponseWrapper<Doctor>> getProfile({required String doctorId,}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.DOCTOR_PROFILE, params: {'doctorId': doctorId}).toString();
     var options = await ApiUtil.generateDioOptions();
@@ -22,6 +23,7 @@ class DoctorApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<Doctor>> updateProfile({required String doctorId, required String name, required double doctorCost}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.DOCTOR_PROFILE, params: {'doctorId': doctorId}).toString();
     var data = {'doctorId': doctorId, 'name': name, 'doctorCost': doctorCost};

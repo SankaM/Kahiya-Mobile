@@ -11,6 +11,7 @@ class PatientApi extends ApiDataSource {
 
   static PatientApi get instance => Get.find();
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Patient>>> getPatientSummary({required String doctorId}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_SUMMARY, params: {'doctorId': doctorId}).toString();
     var options = await ApiUtil.generateDioOptions();
@@ -21,6 +22,7 @@ class PatientApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Patient>>> getSearchPatient({required String queryValue, required String field}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_SEARCH, params: {'queryValue': queryValue, 'field': field}).toString();
     var options = await ApiUtil.generateDioOptions();
@@ -31,6 +33,7 @@ class PatientApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<Patient>> getPatient({required String doctorId, required String patientId}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_DETAIL, params: {'doctorId': doctorId, 'patientId': patientId}).toString();
     var options = await ApiUtil.generateDioOptions();
@@ -41,6 +44,7 @@ class PatientApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper> registerPatient(
       {required String doctorId,
       required String firstName,

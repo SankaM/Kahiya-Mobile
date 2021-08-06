@@ -10,10 +10,11 @@ class InventoryApi {
 
   InventoryApi.newInstance();
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Inventory>>> getSearchInventory({required String doctorId, required int page, required int itemPerPage, String? queryValue, String? field,}) async {
     String url;
     if(queryValue == null) {
-      url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_ALL_PER_PAGE, params: {
+      url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_LIST_PER_PAGE, params: {
         'doctorId': doctorId,
         'page': page.toString(),
         'itemPerPage': itemPerPage.toString(),
@@ -36,8 +37,9 @@ class InventoryApi {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Inventory>>> getAllInventory({required String doctorId,}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_ALL, params: {'doctorId': doctorId,}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_LIST_ALL, params: {'doctorId': doctorId,}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class InventoryApi {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<Inventory>> getInventory({required String doctorId, required String inventoryId,}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_DETAIL, params: {
       'doctorId': doctorId,
@@ -61,6 +64,7 @@ class InventoryApi {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper> newBatchInventory(
       {required String doctorId,
       required String drugId,
@@ -72,7 +76,7 @@ class InventoryApi {
       required String batchDate,
       required String expiryDate}) async {
 
-    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_NEW_BATCH, params: {'doctorId': doctorId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_BATCH_NEW, params: {'doctorId': doctorId}).toString();
     var data = {
       'drugId': drugId,
       'unitSellPrice': unitSellPrice,
@@ -89,5 +93,35 @@ class InventoryApi {
     };
 
     return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
+  }
+
+  // ===========================================================================
+  Future<ResponseWrapper> updateBatchInventory(
+      {required String doctorId,
+        required String inventoryBatchId,
+        required double unitSellPrice,
+        required String unitSellCurrency,
+        required double unitBuyPrice,
+        required String unitBuyCurrency,
+        required double unitCount,
+        required String batchDate,
+        required String expiryDate}) async {
+
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_BATCH_UPDATE, params: {'doctorId': doctorId, 'inventoryBatchId': inventoryBatchId}).toString();
+    var data = {
+      'unitSellPrice': unitSellPrice,
+      'unitSellCurrency': unitSellCurrency,
+      'unitBuyPrice': unitBuyPrice,
+      'unitBuyCurrency': unitBuyCurrency,
+      'unitCount': unitCount,
+      'batchDate': batchDate,
+      'expiryDate': expiryDate,
+    };
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper.success();
+    };
+
+    return ApiUtil.put(url: url, putData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
 }

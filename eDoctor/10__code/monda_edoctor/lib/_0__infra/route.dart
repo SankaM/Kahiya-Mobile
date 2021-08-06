@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_1__model/inventory.dart';
+import 'package:monda_edoctor/_1__model/inventoryBatch.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 
 class Routes {
@@ -22,7 +24,7 @@ class Routes {
 
   static const String page_detail_inventory = '/inventory/detail';
 
-  static const String page_update_inventory = '/inventory/update';
+  static const String page_update_inventory_batch = '/inventory/batch/update';
 
   static const String page_medical_record = '/medical-record';
 
@@ -97,8 +99,12 @@ class RouteNavigator {
     return _goto(Routes.page_detail_inventory, forgetBefore: false, arguments: arguments);
   }
 
-  static Future<dynamic> gotoUpdateInventoryPage() {
-    return _goto(Routes.page_update_inventory, forgetBefore: false);
+  static Future<dynamic> gotoUpdateInventoryBatchPage({required Inventory inventory, required InventoryBatch inventoryBatch}) {
+    var arguments = {
+      'inventory': inventory,
+      'inventoryBatch': inventoryBatch,
+    };
+    return _goto(Routes.page_update_inventory_batch, forgetBefore: false, arguments: arguments);
   }
 
   static Future<dynamic> gotoAccountPage() {

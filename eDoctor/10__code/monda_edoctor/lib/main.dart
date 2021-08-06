@@ -27,11 +27,11 @@ import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_add.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_detail.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_batch_update.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_add.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_detail.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_batch_update.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__patient_register.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__medical_record.dart';
@@ -90,7 +90,7 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(InvoiceDetailController());
     Get.put(InventoryController());
     Get.put(AddInventoryController());
-    Get.put(UpdateInventoryController());
+    Get.put(InventoryBatchUpdateController());
     Get.put(DetailInventoryController());
     Get.put(InvoiceController());
     Get.put(AccountController());
@@ -128,7 +128,7 @@ class MondaEDoctorApp extends StatelessWidget {
         GetPage(name: Routes.page_inventory, page: () => InventoryPage(),),
         GetPage(name: Routes.page_add_inventory, page: () => AddInventoryPage(),),
         GetPage(name: Routes.page_detail_inventory, page: () => DetailInventoryPage(),),
-        GetPage(name: Routes.page_update_inventory, page: () => UpdateInventoryPage(),),
+        GetPage(name: Routes.page_update_inventory_batch, page: () => InventoryBatchUpdatePage(),),
 
         // --------------------------------------------------- 4. Medical Record
         GetPage(name: Routes.page_medical_record, page: () => MedicalRecordPage(),),

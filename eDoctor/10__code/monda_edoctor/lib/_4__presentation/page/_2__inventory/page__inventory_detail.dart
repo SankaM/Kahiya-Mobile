@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/drug.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
+import 'package:monda_edoctor/_1__model/inventoryBatch.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
@@ -100,7 +102,7 @@ class _InventoryDetail extends StatelessWidget {
         SizedBox(height: ScreenUtil.heightInPercent(3),),
         _inventoryInfo(context),
         SizedBox(height: ScreenUtil.heightInPercent(6),),
-        _batchesInfo(context),
+        _BatchInfo(inventory: inventory),
         SizedBox(height: ScreenUtil.heightInPercent(20),),
       ],
     );
@@ -189,14 +191,6 @@ class _InventoryDetail extends StatelessWidget {
       ],
     );
   }
-
-  Widget _batchesInfo(BuildContext context) {
-    return Container(
-      width: ScreenUtil.widthInPercent(90),
-      height: ScreenUtil.heightInPercent(50),
-      child: _BatchInfo(inventory: inventory),
-    );
-  }
 }
 
 class _MyTextContainer extends StatelessWidget {
@@ -247,71 +241,80 @@ class _BatchInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDataTable(
-      itemCount: inventory.inventoryBatchList!.length,
-      leftHandSideColumnWidth: ScreenUtil.widthInPercent(25),
-      rightHandSideColumnWidth: ScreenUtil.widthInPercent(80),
-      leftSideItemBuilder: _batchInfoFirstColumn,
-      rightSideItemBuilder: _batchInfoRightHandSideColumnRow,
-      headerWidgets: _generateTitleWidget(),
-      isFixedHeader: true,
-      rowSeparatorWidget: Divider(),
-    );
+    List<Widget> children = [];
+    children.add(Text('Batches', style: TextStyle(color: Colors.grey),),);
+    children.add(SizedBox(height: ScreenUtil.heightInPercent(1),),);
+    children.addAll(inventory.inventoryBatchList!.map((inventoryBatch) => _item(inventoryBatch)).toList());
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: children,);
   }
 
-  List<Widget> _generateTitleWidget() {
-    return [
-      Container(
-        width: ScreenUtil.widthInPercent(25),
-        child: Text(TextString.label__batch_date, style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),
-      ),
-      Container(
-          width: ScreenUtil.widthInPercent(25),
-        padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(4)),
-          child: Text(TextString.label__unit_count, textAlign: TextAlign.right, style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),
-      ),
-      Container(
-          width: ScreenUtil.widthInPercent(25),
-        padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(4)),
-          child: Text(TextString.label__buy_price, textAlign: TextAlign.right, style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),
-      ),
-      Container(
-          width: ScreenUtil.widthInPercent(30),
-        padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(4)),
-          child: Text(TextString.label__expiry_date, textAlign: TextAlign.right, style: Style.defaultTextStyle(color: Style.colorPrimary, fontWeight: FontWeight.w500),),
-      ),
-    ];
-  }
-
-  Widget _batchInfoFirstColumn(BuildContext context, int index) {
-    return Text('${dateFormat.format(DateTime.parse(inventory.inventoryBatchList![index].batchDate!))}',
-      style: Style.defaultTextStyle(color: Colors.grey),);
-  }
-
-  Widget _batchInfoRightHandSideColumnRow(BuildContext context, int index) {
-    return Row(
-      children: [
-        Container(
-          width: ScreenUtil.widthInPercent(25),
-          padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(4)),
-          child: Text('${inventory.inventoryBatchList![index].unitCounts.toString()}',
-            textAlign: TextAlign.right,
-            style: Style.defaultTextStyle(color: Colors.grey),),
+  Widget _item(InventoryBatch inventoryBatch) {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: ScreenUtil.heightInPercent(1)),
+        width: ScreenUtil.widthInPercent(85),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey[300]!),
         ),
-        Container(
-          width: ScreenUtil.widthInPercent(25),
-          padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(4)),
-          child: Text('${inventory.inventoryBatchList![index].unitPriceCurrency!} ${inventory.inventoryBatchList![index].unitBuyPrice!}',
-            textAlign: TextAlign.right,
-            style: Style.defaultTextStyle(color: Colors.grey),),
+        child: Column(
+          children: [
+            Container(
+              width: ScreenUtil.widthInPercent(80),
+              height: ScreenUtil.heightInPercent(10),
+              child: Row(
+                children: [
+                  Container(
+                    width: ScreenUtil.widthInPercent(35),
+                    child: ListTile(subtitle: Text('Batch Date', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[400]!),),
+                                    title: Text('${dateFormat.format(DateTime.parse(inventoryBatch.batchDate!))}', style: Style.defaultTextStyle(color: Colors.grey),),),
+                  ),
+                  Container(
+                    width: ScreenUtil.widthInPercent(35),
+                    child: ListTile(subtitle: Text('Unit Count', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[400]!),),
+                                    title: Text('${inventoryBatch.unitCounts.toString()}', style: Style.defaultTextStyle(color: Colors.grey)),),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: ScreenUtil.widthInPercent(80),
+              height: ScreenUtil.heightInPercent(10),
+              child: Row(
+                children: [
+                  Container(
+                    width: ScreenUtil.widthInPercent(35),
+                    child: ListTile(subtitle: Text('Buy Price', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[400]!),),
+                                    title: Text('${inventoryBatch.unitPriceCurrency} ${inventoryBatch.unitBuyPrice}', style: Style.defaultTextStyle(color: Colors.grey)),),
+                  ),
+                  Container(
+                    width: ScreenUtil.widthInPercent(35),
+                    child: ListTile(subtitle: Text('Expiry Date', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[400]!),),
+                                    title: Text('${dateFormat.format(DateTime.parse(inventoryBatch.expiryDate!))}', style: Style.defaultTextStyle(color: Colors.grey),),),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(2)),
+                child: TextButton(
+                  onPressed: () {
+                    RouteNavigator.gotoUpdateInventoryBatchPage(inventory: inventory, inventoryBatch: inventoryBatch);
+                  },
+                  child: Text(
+                    'Update',
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ),
+            )
+          ]
         ),
-        Container(
-          width: ScreenUtil.widthInPercent(30),
-          child: Text('${dateFormat.format(DateTime.parse(inventory.inventoryBatchList![index].expiryDate!))}',
-            textAlign: TextAlign.right,
-            style: Style.defaultTextStyle(color: Colors.grey),),
-        ),
-      ],
     );
   }
 }

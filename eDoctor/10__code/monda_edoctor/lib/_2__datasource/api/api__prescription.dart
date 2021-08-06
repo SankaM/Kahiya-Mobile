@@ -17,8 +17,9 @@ class PrescriptionApi extends ApiDataSource {
 
   PrescriptionApi.newInstance();
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Prescription>>> getPrescriptionByPatient({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_BY_PATIENT, params: {'patientId': patientId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_SEARCH_BY_PATIENT, params: {'patientId': patientId}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
       return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());
@@ -27,8 +28,9 @@ class PrescriptionApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<Prescription>> getPrescriptionById({required String prescriptionId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_BY_ID, params: {'prescriptionId': prescriptionId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_SEARCH_BY_ID, params: {'prescriptionId': prescriptionId}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
       return ResponseWrapper<Prescription>.success(data: Prescription.buildDetail(json['data']));
@@ -37,8 +39,9 @@ class PrescriptionApi extends ApiDataSource {
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<Prescription>> newPrescription({required String doctorId, required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.NEW_PRESCRIPTION, params: {'doctorId': doctorId, 'patientId': patientId, }).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_NEW, params: {'doctorId': doctorId, 'patientId': patientId, }).toString();
     var data = {
       'diagnosisId': diagnosisId,
       'illnessSeverity': illnessSeverity,
@@ -46,6 +49,7 @@ class PrescriptionApi extends ApiDataSource {
       'treatmentItemList': treatmentItemList,
     };
 
+    // ===========================================================================
     FormData formData = FormData.fromMap({
       'data': MultipartFile.fromString(jsonEncode(data), contentType: MediaType('application', 'json')),
       if(attachmentFile != null) 'fileAttachment': await MultipartFile.fromFile(attachmentFile.path),
@@ -58,10 +62,11 @@ class PrescriptionApi extends ApiDataSource {
     return ApiUtil.postWithFormData(url: url, responseDataBuilder: responseDataBuilder, options: options, formData: formData);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Prescription>>> getSearchPrescription({required String doctorId, required int page, required int itemPerPage, String? queryValue,}) async {
     String url;
     if(queryValue == null) {
-      url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_ALL_PER_PAGE, params: {
+      url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_LIST, params: {
         'doctorId': doctorId,
         'page': page.toString(),
         'itemPerPage': itemPerPage.toString(),

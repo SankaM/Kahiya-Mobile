@@ -105,6 +105,41 @@ class InventoryService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<UpdateBatchInventoryStatus, void, String>> updateBatchInventory({
+    required String inventoryBatchId,
+    required double unitSellPrice,
+    required String unitSellCurrency,
+    required double unitBuyPrice,
+    required String unitBuyCurrency,
+    required double unitCount,
+    required String batchDate,
+    required String expiryDate,}) {
+
+    var completer = Completer<StatusWrapper<UpdateBatchInventoryStatus, void, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    InventoryApi.instance.updateBatchInventory(
+            doctorId: doctorId,
+            inventoryBatchId: inventoryBatchId,
+            unitSellPrice: unitSellPrice,
+            unitSellCurrency: unitSellCurrency,
+            unitBuyPrice: unitBuyPrice,
+            unitBuyCurrency: unitBuyCurrency,
+            unitCount: unitCount,
+            batchDate: batchDate,
+            expiryDate: expiryDate)
+        .then((responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: UpdateBatchInventoryStatus.SUCCESS));
+      } else {
+        completer.complete(StatusWrapper(status: UpdateBatchInventoryStatus.ERROR, error: responseWrapper.message));
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum SearchDrugField {
@@ -127,6 +162,11 @@ enum GetSearchDrugStatus {
 }
 
 enum NewBatchInventoryStatus {
+  SUCCESS,
+  ERROR
+}
+
+enum UpdateBatchInventoryStatus {
   SUCCESS,
   ERROR
 }

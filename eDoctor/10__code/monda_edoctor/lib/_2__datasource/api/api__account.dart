@@ -11,6 +11,7 @@ class AccountApi extends ApiDataSource {
 
   static AccountApi get instance => Get.find();
 
+  // ===========================================================================
   Future<ResponseWrapper<User>> login({required String username, required String password}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.LOGIN).toString();
     var data = {'userName': username, 'password': password};
@@ -22,6 +23,7 @@ class AccountApi extends ApiDataSource {
     return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
 
+  // ===========================================================================
   Future<ResponseWrapper<void>> changePassword({required String doctorId, required String oldPassword, required String newPassword}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.CHANGE_PASSWORD, params: {'doctorId': doctorId}).toString();
     var data = {'oldPassword': oldPassword, 'newPassword': newPassword};

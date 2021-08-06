@@ -10,6 +10,7 @@ class DrugApi {
 
   DrugApi.newInstance();
 
+  // ===========================================================================
   Future<ResponseWrapper<List<Drug>>> getSearchDrug({required String name}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.DRUG_SEARCH, params: {
       'name': name
