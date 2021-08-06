@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
 import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class PatientRegisterController extends AbstractController {
@@ -75,6 +76,8 @@ class PatientRegisterController extends AbstractController {
     if(wrapper.status == PatientRegistrationStatus.SUCCESS) {
       AlertUtil.showMessage('Patient registration success',);
       reset();
+      HomeController.instance.init();
+      Get.back();
     } else {
       AlertUtil.showMessage('${wrapper.error}',);
       progressDialogShow = false;
