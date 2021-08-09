@@ -31,8 +31,10 @@ class SignInController extends AbstractController {
   void reset({bool doUpdate = true}) {
     this.progressDialogShow = false;
     this.loginForm.reset(value: {
-      'username':'sachini410',
-      'password':'123456789'
+      // 'username':'sachini410',
+      // 'password':'123456789'
+      'username':'',
+      'password':''
     });
 
     if(doUpdate) update();

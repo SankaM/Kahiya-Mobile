@@ -24,7 +24,7 @@ class SignInPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    SignInController.instance.reset();
+    SignInController.instance.reset(doUpdate: false);
 
     return Stack(
       fit: StackFit.expand,
