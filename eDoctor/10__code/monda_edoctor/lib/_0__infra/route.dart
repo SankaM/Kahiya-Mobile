@@ -70,11 +70,11 @@ class RouteNavigator {
     return _goto(Routes.page_inventory, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoMedicalRecordPage({required String patientId}) {
+  static Future<dynamic> gotoMedicalRecordPage({required String patientId, bool forgetBefore = false}) {
     var arguments = {
       'patientId': patientId,
     };
-    return _goto(Routes.page_medical_record, forgetBefore: false, arguments: arguments);
+    return _goto(Routes.page_medical_record, forgetBefore: forgetBefore, arguments: arguments);
   }
 
   static Future<dynamic> gotoRegisterPatientPage() {

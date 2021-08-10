@@ -12,6 +12,7 @@ import 'package:monda_edoctor/_3__service/service__patient.dart';
 import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_snackbar.dart';
+import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
 
 class AddPrescriptionController extends AbstractController {
   static AddPrescriptionController get instance => Get.find();
@@ -24,7 +25,7 @@ class AddPrescriptionController extends AbstractController {
   // Reff Data
   List<Diagnosis> diagnosisList = [];
 
-  List<Inventory> inventoryList = [];
+  List<Inventory> availableInventoryList = [];
 
   // Form
   Patient? patient;
@@ -63,10 +64,10 @@ class AddPrescriptionController extends AbstractController {
       update();
     }
 
-    var inventoryWrapper = await InventoryService.instance.getAllInventory();
+    var inventoryWrapper = await InventoryService.instance.getAllAvailableInventory();
     if(inventoryWrapper.status == GetAllInventoryStatus.SUCCESS) {
-      inventoryList.clear();
-      inventoryList.addAll(inventoryWrapper.data!);
+      availableInventoryList.clear();
+      availableInventoryList.addAll(inventoryWrapper.data!);
       this.progressDialogShow = false;
       update();
     } else {
@@ -135,7 +136,7 @@ class AddPrescriptionController extends AbstractController {
     update();
   }
 
-  void nextPage() async {
+  void prescribe() async {
     if(!isDataValid()) {
       return;
     }
@@ -157,7 +158,8 @@ class AddPrescriptionController extends AbstractController {
       progressDialogShow = false;
       update();
 
-      RouteNavigator.gotoInvoiceDetailPage(prescriptionId: wrapper.data!.id);
+      HomeController.instance.init();
+      RouteNavigator.gotoHomePage();
     } else {
       AlertUtil.showMessage('${wrapper.error}',);
       progressDialogShow = false;

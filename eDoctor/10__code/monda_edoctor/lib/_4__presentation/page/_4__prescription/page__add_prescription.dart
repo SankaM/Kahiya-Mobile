@@ -151,7 +151,7 @@ class _AddPrescriptionForm extends StatelessWidget {
       height: ScreenUtil.heightInPercent(7),
       width: double.infinity,
       onTap: () {
-        AddPrescriptionController.instance.nextPage();
+        AddPrescriptionController.instance.prescribe();
       },
       label: TextString.label__prescribe,
     ),);
@@ -281,12 +281,12 @@ class _TreatmentItemWidget extends StatelessWidget {
   Widget _drugDropdown(BuildContext context) {
     return GetBuilder<AddPrescriptionController>(
       builder: (c) {
-        if(c.inventoryList.length == 0) {
+        if(c.availableInventoryList.length == 0) {
           return Center(child: Text('No Drug Data'),);
         }
 
         List<DropdownMenuItem<Inventory>> items = [];
-        items.addAll(c.inventoryList.map((inventory) => DropdownMenuItem<Inventory>(value: inventory, child: Text(inventory.drug!.completeName))).toList());
+        items.addAll(c.availableInventoryList.map((inventory) => DropdownMenuItem<Inventory>(value: inventory, child: Text(inventory.drug!.completeName))).toList());
 
         return DropdownButtonFormField<Inventory>(
           hint: Text(TextString.label__drug),

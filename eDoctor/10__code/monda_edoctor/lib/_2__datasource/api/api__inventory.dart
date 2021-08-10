@@ -38,8 +38,8 @@ class InventoryApi {
   }
 
   // ===========================================================================
-  Future<ResponseWrapper<List<Inventory>>> getAllInventory({required String doctorId,}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_LIST_ALL, params: {'doctorId': doctorId,}).toString();
+  Future<ResponseWrapper<List<Inventory>>> getAllAvailableInventory({required String doctorId,}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_LIST_AVAILABLE, params: {'doctorId': doctorId,}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {

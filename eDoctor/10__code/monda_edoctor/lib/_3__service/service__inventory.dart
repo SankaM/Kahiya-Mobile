@@ -33,12 +33,12 @@ class InventoryService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<GetAllInventoryStatus, List<Inventory>, String>> getAllInventory() {
+  Future<StatusWrapper<GetAllInventoryStatus, List<Inventory>, String>> getAllAvailableInventory() {
     var completer = Completer<StatusWrapper<GetAllInventoryStatus, List<Inventory>, String>>();
 
     var doctorId = UserSecureStorage.instance.user!.id;
 
-    InventoryApi.instance.getAllInventory(doctorId: doctorId,).then((ResponseWrapper<List<Inventory>> responseWrapper,) {
+    InventoryApi.instance.getAllAvailableInventory(doctorId: doctorId,).then((ResponseWrapper<List<Inventory>> responseWrapper,) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: GetAllInventoryStatus.SUCCESS, data: responseWrapper.data));
       } else {

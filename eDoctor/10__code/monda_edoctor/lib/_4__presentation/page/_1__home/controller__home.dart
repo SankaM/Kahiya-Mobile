@@ -35,17 +35,17 @@ class HomeController extends AbstractController {
     if(doUpdate) update();
   }
 
-  void getPatientSummary() async {
-    _changeProgressBarShow(true);
+  void getPatientSummary({bool doUpdate = true}) async {
+    _changeProgressBarShow(true, doUpdate: doUpdate);
 
     StatusWrapper<GetPatientSummaryStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getPatientSummary();
 
     if(statusWrapper.status == GetPatientSummaryStatus.SUCCESS) {
       this.patientList = statusWrapper.data!;
-      _changeProgressBarShow(false);
+      _changeProgressBarShow(false, doUpdate: doUpdate);
     } else {
       this.patientList = [];
-      _changeProgressBarShow(false);
+      _changeProgressBarShow(false, doUpdate: doUpdate);
     }
   }
 
@@ -69,8 +69,8 @@ class HomeController extends AbstractController {
     }
   }
 
-  void _changeProgressBarShow(bool progressDialogShow) {
+  void _changeProgressBarShow(bool progressDialogShow, {bool doUpdate = true}) {
     this.progressDialogShow = progressDialogShow;
-    update();
+    if(doUpdate) update();
   }
 }

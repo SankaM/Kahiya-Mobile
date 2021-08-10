@@ -40,24 +40,5 @@ class SplashPage extends AbstractPageWithBackgroundAndContent {
         ],
       ),
     );
-
-    // return InkWell(
-    //   onTap: () {
-    //     RouteNavigator.gotoSignInPage();
-    //   },
-    //   child: Align(
-    //     alignment: Alignment.center,
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         MondaLogo(sideLength: ScreenUtil.heightInPercent(22.5),),
-    //         SizedBox(height: ScreenUtil.heightInPercent(1),),
-    //         Text(TextString.app_name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_8XL, fontWeight: FontWeight.w400, color: Color.fromRGBO(129, 188, 60, 1), letterSpacing: 12),),
-    //         SizedBox(height: 5,),
-    //         Text(TextString.label__edoctor, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w400, color: Style.colorPrimary,),),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
