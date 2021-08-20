@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/api_endpoint.dart';
+import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/api_datasource.dart';
 import 'package:monda_edoctor/_0__infra/util/template_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__api.dart';
 import 'package:monda_edoctor/_1__model/doctor.dart';
-import 'package:monda_edoctor/_1__model/user.dart';
-import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 
 class DoctorApi extends ApiDataSource {
   DoctorApi.newInstance();

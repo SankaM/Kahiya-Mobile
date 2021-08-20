@@ -29,10 +29,9 @@ class HomeController extends AbstractController {
   void reset({bool doUpdate = true}) {
     this.field = SearchPatientField.NAME;
     this.progressDialogShow = false;
-    this.searchForm.reset(value: {
-      'queryValue':'',
-    });
+    this.searchForm.reset(value: {'queryValue':'',});
     patientList = [];
+
     getPatientSummary();
     if(doUpdate) update();
   }
@@ -51,7 +50,7 @@ class HomeController extends AbstractController {
 
   void getSearchPatient() async {
     String? queryValue = searchForm.control('queryValue').value;
-    if(queryValue == null || queryValue.length < 3) {
+    if(queryValue == null || queryValue.length == 0) {
       getPatientSummary();
       return;
     }

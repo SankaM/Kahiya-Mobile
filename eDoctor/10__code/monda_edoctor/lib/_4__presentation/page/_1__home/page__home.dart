@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -144,16 +146,12 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
                 labels: ['Name', 'Username', 'Email', 'Phone'],
                 onTap: (menuItemLabel) {
                   if(menuItemLabel == 'Name') {
-                    // HomeController.instance.getSearchPatient(field: SearchPatientField.NAME);
                     HomeController.instance.field = SearchPatientField.NAME;
                   } else if(menuItemLabel == 'Username') {
-                    // HomeController.instance.getSearchPatient(field: SearchPatientField.USERNAME);
                     HomeController.instance.field = SearchPatientField.USERNAME;
                   } else if(menuItemLabel == 'Email') {
-                    // HomeController.instance.getSearchPatient(field: SearchPatientField.EMAIL);
                     HomeController.instance.field = SearchPatientField.EMAIL;
                   } else if(menuItemLabel == 'Phone') {
-                    // HomeController.instance.getSearchPatient(field: SearchPatientField.MOBILE_PHONE);
                     HomeController.instance.field = SearchPatientField.MOBILE_PHONE;
                   }
                 },
@@ -161,6 +159,7 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
             ),
             ReactiveFormConsumer(
                 builder: (context, form, child) {
+                  log('===========================================reactiveFormConsumer - inventory');
                   HomeController.instance.getSearchPatient();
                   return Container();
                 }

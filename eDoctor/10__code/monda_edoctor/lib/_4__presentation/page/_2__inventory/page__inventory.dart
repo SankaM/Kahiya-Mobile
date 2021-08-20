@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,24 +45,25 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
   Widget constructContent(BuildContext context) {
     InventoryController.instance.init();
 
-    return GetBuilder<InventoryController>(builder: (c) {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned(
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: _contentCustomAppBar(context),
-                body: _contentBody(context),
-              )
-          ),
-          Visibility(
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Positioned(
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: _contentCustomAppBar(context),
+              body: _contentBody(context),
+            )
+        ),
+        GetBuilder<InventoryController>(builder: (c) {
+          return Visibility(
             child: ProgressIndicatorOverlay(text: TextString.label__retrieving_inventory_list,),
             visible: c.progressDialogShow,
-          )
-        ],
-      );
-    });
+          );
+        })
+      ],
+    );
+
   }
 
   PreferredSize _contentCustomAppBar(BuildContext context) {
@@ -133,14 +136,21 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
                 labels: ['Name', 'Type', 'Mass'],
                 onTap: (menuItemLabel) {
                   if(menuItemLabel == 'Name') {
-                    InventoryController.instance.search(field: SearchDrugField.NAME);
+                    InventoryController.instance.searchDrugField = SearchDrugField.NAME;
                   } else if(menuItemLabel == 'Type') {
-                    InventoryController.instance.search(field: SearchDrugField.TYPE);
+                    InventoryController.instance.searchDrugField = SearchDrugField.TYPE;
                   } else if(menuItemLabel == 'Mass') {
-                    InventoryController.instance.search(field: SearchDrugField.MEASUREMENT);
+                    InventoryController.instance.searchDrugField = SearchDrugField.MEASUREMENT;
                   }
                 },
               ),
+            ),
+            ReactiveFormConsumer(
+                builder: (context, form, child) {
+                  log('===========================================reactiveFormConsumer - inventory');
+                  InventoryController.instance.search(resetPage: true);
+                  return Container();
+                }
             )
           ],
         ),
@@ -185,31 +195,36 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _scrollableSection(BuildContext context) {
-    if(InventoryController.instance.inventoryList.length == 0) {
-      return Center(
-        child: Padding(
-          padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(10),),
-          child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
-        ),
-      );
-    }
 
-    List<Widget> children = [];
-    children.addAll(InventoryController.instance.inventoryList.map((e) => _InventoryItem(inventory: e)).toList());
-    children.addAll([SizedBox(height: ScreenUtil.heightInPercent(20),), SizedBox(height: ScreenUtil.heightInPercent(20),)]);
 
-    List<StaggeredTile> staggeredTileList = [];
-    staggeredTileList.addAll(InventoryController.instance.inventoryList.map((e) => StaggeredTile.fit(1)).toList());
-    staggeredTileList.addAll([StaggeredTile.fit(1), StaggeredTile.fit(1),]);
+
 
     return Container(
       height: ScreenUtil.heightInPercent(60),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: StaggeredGridView.count(
-        crossAxisCount: 2,
-        children: children,
-        staggeredTiles: staggeredTileList,
-      ),
+      child: GetBuilder<InventoryController>(builder: (_) {
+        if(InventoryController.instance.inventoryList.length == 0) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(10),),
+              child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
+            ),
+          );
+        }
+
+        List<Widget> children = [];
+        children.addAll(InventoryController.instance.inventoryList.map((e) => _InventoryItem(inventory: e)).toList());
+        children.addAll([SizedBox(height: ScreenUtil.heightInPercent(20),), SizedBox(height: ScreenUtil.heightInPercent(20),)]);
+
+        List<StaggeredTile> staggeredTileList = [];
+        staggeredTileList.addAll(InventoryController.instance.inventoryList.map((e) => StaggeredTile.fit(1)).toList());
+        staggeredTileList.addAll([StaggeredTile.fit(1), StaggeredTile.fit(1),]);
+        return StaggeredGridView.count(
+          crossAxisCount: 2,
+          children: children,
+          staggeredTiles: staggeredTileList,
+        );
+      })
     );
   }
 }

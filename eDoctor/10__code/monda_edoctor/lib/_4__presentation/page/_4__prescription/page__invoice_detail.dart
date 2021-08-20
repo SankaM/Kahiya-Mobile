@@ -13,7 +13,6 @@ import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.da
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
-import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice_detail.dart';
 
 class InvoiceDetailPage extends AbstractPageWithBackgroundAndContent {
