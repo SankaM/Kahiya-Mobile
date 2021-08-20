@@ -32,10 +32,10 @@ class ApiUtil {
     return Options();
   }
 
-  static Future<ResponseWrapper<T>> post<T>({required String url, Map<String, dynamic>? postData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
+  static Future<ResponseWrapper<T>> postWithFormData<T>({required String url, required FormData formData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
     var res;
     try {
-      res = await ApiUtil.dio.post(url, options: options, data: postData);
+      res = await ApiUtil.dio.post(url, options: options, data: formData);
     } catch (e) {
       DioError de = e as DioError;
       String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';
@@ -56,10 +56,10 @@ class ApiUtil {
     }
   }
 
-  static Future<ResponseWrapper<T>> postWithFormData<T>({required String url, required FormData formData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
+  static Future<ResponseWrapper<T>> post<T>({required String url, Map<String, dynamic>? postData, Options? options, required ResponseDataBuilder<T> responseDataBuilder}) async {
     var res;
     try {
-      res = await ApiUtil.dio.post(url, options: options, data: formData);
+      res = await ApiUtil.dio.post(url, options: options, data: postData);
     } catch (e) {
       DioError de = e as DioError;
       String errorMessage = de.response != null ? de.response!.data != null ? de.response!.data['message'] : 'Error' : 'Error';

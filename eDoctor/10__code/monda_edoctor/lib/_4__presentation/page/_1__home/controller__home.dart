@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/abstract_controller.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
@@ -15,6 +14,8 @@ class HomeController extends AbstractController {
 
   bool progressDialogShow = false;
 
+  SearchPatientField field = SearchPatientField.NAME;
+
   final searchForm = FormGroup({
     'queryValue': FormControl(),
   });
@@ -26,6 +27,7 @@ class HomeController extends AbstractController {
 
   @override
   void reset({bool doUpdate = true}) {
+    this.field = SearchPatientField.NAME;
     this.progressDialogShow = false;
     this.searchForm.reset(value: {
       'queryValue':'',
@@ -35,42 +37,33 @@ class HomeController extends AbstractController {
     if(doUpdate) update();
   }
 
-  void getPatientSummary({bool doUpdate = true}) async {
-    _changeProgressBarShow(true, doUpdate: doUpdate);
-
+  void getPatientSummary() async {
     StatusWrapper<GetPatientSummaryStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getPatientSummary();
 
     if(statusWrapper.status == GetPatientSummaryStatus.SUCCESS) {
       this.patientList = statusWrapper.data!;
-      _changeProgressBarShow(false, doUpdate: doUpdate);
+      update();
     } else {
       this.patientList = [];
-      _changeProgressBarShow(false, doUpdate: doUpdate);
+      update();
     }
   }
 
-  void getSearchPatient({required SearchPatientField field}) async {
+  void getSearchPatient() async {
     String? queryValue = searchForm.control('queryValue').value;
-    if(queryValue == null || queryValue.isEmpty) {
+    if(queryValue == null || queryValue.length < 3) {
       getPatientSummary();
       return;
     }
-
-    _changeProgressBarShow(true);
 
     StatusWrapper<GetSearchPatientStatus, List<Patient>, String> statusWrapper = await PatientService.instance.getSearchPatient(queryValue: queryValue, field: field);
 
     if(statusWrapper.status == GetSearchPatientStatus.SUCCESS) {
       this.patientList = statusWrapper.data!;
-      _changeProgressBarShow(false);
+      update();
     } else {
       this.patientList = [];
-      _changeProgressBarShow(false);
+      update();
     }
-  }
-
-  void _changeProgressBarShow(bool progressDialogShow, {bool doUpdate = true}) {
-    this.progressDialogShow = progressDialogShow;
-    if(doUpdate) update();
   }
 }
