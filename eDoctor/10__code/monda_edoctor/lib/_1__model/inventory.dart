@@ -8,6 +8,8 @@ class Inventory {
 
   final double? availableUnits;
 
+  final double? unitThresholdWarning;
+
   final double? unitSellPrice;
 
   final String? unitPriceCurrency;
@@ -20,6 +22,7 @@ class Inventory {
     required this.id,
     this.drug,
     this.availableUnits,
+    this.unitThresholdWarning,
     this.unitSellPrice,
     this.unitPriceCurrency,
     this.isAvailable,
@@ -30,6 +33,7 @@ class Inventory {
     id: json['id'],
     drug: json['drug'] != null ? Drug.buildDetail(json['drug']) : null,
     availableUnits: json['availableUnits'],
+    unitThresholdWarning: json['unitThresholdWarning'],
     unitSellPrice: json['unitSellPrice'],
     unitPriceCurrency: json['unitPriceCurrency'],
     isAvailable: json['isAvailable'],

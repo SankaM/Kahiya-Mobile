@@ -89,13 +89,26 @@ class InventoryService {
         required double unitBuyPrice,
         required String unitBuyCurrency,
         required double unitCount,
+        required double unitThresholdWarning,
         required String batchDate,
         required String expiryDate,}) {
 
     var completer = Completer<StatusWrapper<NewBatchInventoryStatus, void, String>>();
 
     var doctorId = UserSecureStorage.instance.user!.id;
-    InventoryApi.instance.newBatchInventory(doctorId: doctorId, drugId: drugId, unitSellPrice: unitSellPrice, unitSellCurrency: unitSellCurrency, unitBuyPrice: unitBuyPrice, unitBuyCurrency: unitBuyCurrency, unitCount: unitCount, batchDate: batchDate, expiryDate: expiryDate).then((responseWrapper) {
+    InventoryApi.instance
+        .newBatchInventory(
+            doctorId: doctorId,
+            drugId: drugId,
+            unitSellPrice: unitSellPrice,
+            unitSellCurrency: unitSellCurrency,
+            unitBuyPrice: unitBuyPrice,
+            unitBuyCurrency: unitBuyCurrency,
+            unitCount: unitCount,
+            unitThresholdWarning: unitThresholdWarning,
+            batchDate: batchDate,
+            expiryDate: expiryDate)
+        .then((responseWrapper) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: NewBatchInventoryStatus.SUCCESS));
       } else {

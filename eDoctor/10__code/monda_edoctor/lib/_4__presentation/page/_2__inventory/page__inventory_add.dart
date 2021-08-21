@@ -101,50 +101,6 @@ class _AddInventoryForm extends StatelessWidget {
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 
             // ----------
-            // Buy Price & Currency
-            // ----------
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(TextString.label__buy_price, style: TextStyle(color: Colors.grey),),
-                SizedBox(height: ScreenUtil.heightInPercent(1),),
-                Row(
-                  children: [
-                    Container(
-                      width: ScreenUtil.widthInPercent(30),
-                      child: MyReactiveDropdownField<String>(
-                        formControlName: 'unitBuyCurrency',
-                        items: [
-                          DropdownMenuItem<String>(value: 'SGD', child: Text('SGD'),),
-                        ],
-                        validationMessages: (control) => {
-                          'required': TextString.label__required,
-                        },
-                      ),
-                    ),
-                    SizedBox(width: ScreenUtil.widthInPercent(1),),
-                    Container(
-                      width: ScreenUtil.widthInPercent(50),
-                      child: MyReactiveTextField(
-                        formControlName: 'unitBuyPrice',
-                        style: Style.defaultTextStyle(color: Style.colorPrimary),
-                        contentPadding: EdgeInsets.symmetric(vertical: ScreenUtil.heightInPercent(3.5), horizontal: ScreenUtil.widthInPercent(4)),
-                        hintText: TextString.label__enter_price,
-                        iconData: Icons.monetization_on_outlined,
-                        keyboardType: TextInputType.number,
-                        validationMessages: (control) => {
-                          'required': TextString.label__required,
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: ScreenUtil.heightInPercent(3),),
-
-            // ----------
             // Sell Price & Currency
             // ----------
             Column(
@@ -189,6 +145,28 @@ class _AddInventoryForm extends StatelessWidget {
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 
             // ----------
+            // Threshold Warning
+            // ----------
+            Text('Threshold Warning', style: TextStyle(color: Colors.grey),),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            StepCounter(
+              controller: StepCounterController(value: 0, minValue: 0),
+              width: double.infinity,
+              height: ScreenUtil.heightInPercent(7),
+              buttonWidth: ScreenUtil.widthInPercent(10),
+              buttonHeight: ScreenUtil.heightInPercent(5),
+              gap: ScreenUtil.widthInPercent(3),
+              buttonTextStyle: Style.defaultTextStyle(fontSize: Style.iconSize_L, color: Style.colorPrimary),
+              valueTextStyle: Style.defaultTextStyle(fontSize: Style.iconSize_S, color: Style.colorPrimary),
+              onCounterValueChanged: (newValue) {
+                AddInventoryController.instance.changeUnitThresholdWarning(newValue);
+              },
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(3),),
+            Divider(),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
+
+            // ----------
             // Drug Count
             // ----------
             Text(TextString.label__drug_count, style: TextStyle(color: Colors.grey),),
@@ -205,6 +183,50 @@ class _AddInventoryForm extends StatelessWidget {
               onCounterValueChanged: (newValue) {
                 AddInventoryController.instance.changeUnitCount(newValue);
               },
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(3),),
+
+            // ----------
+            // Buy Price & Currency
+            // ----------
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(TextString.label__buy_price, style: TextStyle(color: Colors.grey),),
+                SizedBox(height: ScreenUtil.heightInPercent(1),),
+                Row(
+                  children: [
+                    Container(
+                      width: ScreenUtil.widthInPercent(30),
+                      child: MyReactiveDropdownField<String>(
+                        formControlName: 'unitBuyCurrency',
+                        items: [
+                          DropdownMenuItem<String>(value: 'SGD', child: Text('SGD'),),
+                        ],
+                        validationMessages: (control) => {
+                          'required': TextString.label__required,
+                        },
+                      ),
+                    ),
+                    SizedBox(width: ScreenUtil.widthInPercent(1),),
+                    Container(
+                      width: ScreenUtil.widthInPercent(50),
+                      child: MyReactiveTextField(
+                        formControlName: 'unitBuyPrice',
+                        style: Style.defaultTextStyle(color: Style.colorPrimary),
+                        contentPadding: EdgeInsets.symmetric(vertical: ScreenUtil.heightInPercent(3.5), horizontal: ScreenUtil.widthInPercent(4)),
+                        hintText: TextString.label__enter_price,
+                        iconData: Icons.monetization_on_outlined,
+                        keyboardType: TextInputType.number,
+                        validationMessages: (control) => {
+                          'required': TextString.label__required,
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 

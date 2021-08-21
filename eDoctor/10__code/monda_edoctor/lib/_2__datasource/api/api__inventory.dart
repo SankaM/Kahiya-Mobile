@@ -65,16 +65,17 @@ class InventoryApi {
   }
 
   // ===========================================================================
-  Future<ResponseWrapper> newBatchInventory(
-      {required String doctorId,
-      required String drugId,
-      required double unitSellPrice,
-      required String unitSellCurrency,
-      required double unitBuyPrice,
-      required String unitBuyCurrency,
-      required double unitCount,
-      required String batchDate,
-      required String expiryDate}) async {
+  Future<ResponseWrapper> newBatchInventory({
+    required String doctorId,
+    required String drugId,
+    required double unitSellPrice,
+    required String unitSellCurrency,
+    required double unitBuyPrice,
+    required String unitBuyCurrency,
+    required double unitCount,
+    required double unitThresholdWarning,
+    required String batchDate,
+    required String expiryDate}) async {
 
     String url = TemplateString(stringWithParams: ApiEndPoint.INVENTORY_BATCH_NEW, params: {'doctorId': doctorId}).toString();
     var data = {
@@ -84,6 +85,7 @@ class InventoryApi {
       'unitBuyPrice': unitBuyPrice,
       'unitBuyCurrency': unitBuyCurrency,
       'unitCount': unitCount,
+      'unitThresholdWarning': unitThresholdWarning,
       'batchDate': batchDate,
       'expiryDate': expiryDate,
     };

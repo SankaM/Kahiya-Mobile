@@ -147,7 +147,6 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
             ),
             ReactiveFormConsumer(
                 builder: (context, form, child) {
-                  log('===========================================reactiveFormConsumer - inventory');
                   InventoryController.instance.search(resetPage: true);
                   return Container();
                 }
@@ -195,10 +194,6 @@ class InventoryPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _scrollableSection(BuildContext context) {
-
-
-
-
     return Container(
       height: ScreenUtil.heightInPercent(60),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
@@ -236,6 +231,14 @@ class _InventoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color cardColor = Colors.white;
+    if(inventory.availableUnits! <= inventory.unitThresholdWarning!) {
+      cardColor = Colors.yellow.withOpacity(0.2);
+    }
+    if(inventory.availableUnits == 0.0) {
+      cardColor = Colors.red.withOpacity(0.1);
+    }
+
     return InkWell(
       onTap: () {
         RouteNavigator.gotoDetailInventoryPage(inventoryId: inventory.id);
@@ -245,7 +248,7 @@ class _InventoryItem extends StatelessWidget {
         padding: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
+          color: cardColor,
           boxShadow: [
             BoxShadow(color: Colors.grey[200]!, blurRadius: 4, spreadRadius: 2)
           ],
