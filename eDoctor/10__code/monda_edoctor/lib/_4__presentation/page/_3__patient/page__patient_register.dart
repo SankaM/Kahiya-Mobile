@@ -217,6 +217,22 @@ class _PatientRegistrationForm extends StatelessWidget {
             ),
             SizedBox(height: ScreenUtil.heightInPercent(3),),
 
+            // ----------
+            // Health Profile
+            // ----------
+            Text('Health Profile', style: TextStyle(color: Colors.grey),),
+            SizedBox(height: ScreenUtil.heightInPercent(1),),
+            MyReactiveTextField(
+              formControlName: 'healthProfile',
+              hintText: 'Health Profile',
+              iconData: Icons.person,
+              lineCount: 5,
+              validationMessages: (control) => {
+                'required': TextString.label__required,
+              },
+            ),
+            SizedBox(height: ScreenUtil.heightInPercent(2),),
+
             // -----
             Text(TextString.label__optional, style: TextStyle(color: Colors.grey, fontSize: Style.fontSize_XL),),
             SizedBox(height: ScreenUtil.heightInPercent(2),),

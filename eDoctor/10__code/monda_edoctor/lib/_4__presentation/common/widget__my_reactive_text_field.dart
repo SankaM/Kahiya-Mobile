@@ -17,7 +17,9 @@ class MyReactiveTextField extends StatelessWidget {
 
   final EdgeInsetsGeometry? contentPadding;
 
-  MyReactiveTextField({required this.formControlName, required this.hintText, required this.iconData, required this.validationMessages, this.keyboardType, this.style, this.contentPadding});
+  final int lineCount;
+
+  MyReactiveTextField({required this.formControlName, required this.hintText, required this.iconData, required this.validationMessages, this.keyboardType, this.style, this.contentPadding, this.lineCount = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,8 @@ class MyReactiveTextField extends StatelessWidget {
       validationMessages: validationMessages,
       keyboardType: keyboardType,
       style: style,
+      minLines: lineCount,
+      maxLines: lineCount,
       decoration: InputDecoration(
         contentPadding: contentPadding,
         suffixIcon: Icon(iconData, color: Style.colorPrimary,),

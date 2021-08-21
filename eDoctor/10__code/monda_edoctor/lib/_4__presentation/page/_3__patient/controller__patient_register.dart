@@ -20,7 +20,7 @@ class PatientRegisterController extends AbstractController {
     'username': FormControl<String>(value: '', validators: []),
     'email': FormControl<String>(value: '', validators: [Validators.email]),
     'nic': FormControl<String>(value: '', validators: []),
-
+    'healthProfile': FormControl<String>(value: '', validators: []),
   });
 
   bool progressDialogShow = false;
@@ -37,7 +37,7 @@ class PatientRegisterController extends AbstractController {
       'username': '',
       'email': '',
       'nic': '',
-
+      'healthProfile': '',
     });
 
     progressDialogShow = false;
@@ -57,6 +57,7 @@ class PatientRegisterController extends AbstractController {
     String? username = patientRegistrationForm.control('username').value;
     String? email = patientRegistrationForm.control('email').value;
     String? nic = patientRegistrationForm.control('nic').value;
+    String? healthProfile = patientRegistrationForm.control('healthProfile').value;
 
     username = username!.isEmpty ? null : username;
     email = email!.isEmpty ? null : email;
@@ -71,6 +72,7 @@ class PatientRegisterController extends AbstractController {
       username: username,
       nic: nic,
       email: email,
+      healthProfile: healthProfile,
     );
 
     if(wrapper.status == PatientRegistrationStatus.SUCCESS) {

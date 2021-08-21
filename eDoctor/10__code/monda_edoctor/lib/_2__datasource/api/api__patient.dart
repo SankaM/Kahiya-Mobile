@@ -54,18 +54,20 @@ class PatientApi extends ApiDataSource {
       required mobilePhone,
       String? nic,
       String? username,
-      String? email}) async {
+      String? email,
+      String? healthProfile}) async {
 
     String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_REGISTRATION, params: {'doctorId': doctorId}).toString();
     var data = {
-      "firstName": firstName,
-      "lastName": lastName,
-      "birthDate": birthDate,
-      "gender": gender,
-      "mobilePhone": mobilePhone,
-      "nic": nic,
-      "userName": username,
-      "email": email
+      'firstName': firstName,
+      'lastName': lastName,
+      'birthDate': birthDate,
+      'gender': gender,
+      'mobilePhone': mobilePhone,
+      'nic': nic,
+      'userName': username,
+      'email': email,
+      'healthProfile': healthProfile,
     };
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {

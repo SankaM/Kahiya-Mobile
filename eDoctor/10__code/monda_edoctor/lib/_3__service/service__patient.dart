@@ -129,11 +129,11 @@ class PatientService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<PatientRegistrationStatus, void, String>> registerPatient({required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email}) {
+  Future<StatusWrapper<PatientRegistrationStatus, void, String>> registerPatient({required String firstName, required String lastName, required String birthDate, required String gender, required mobilePhone, String? nic, String? username, String? email, String? healthProfile}) {
     var completer = Completer<StatusWrapper<PatientRegistrationStatus, void, String>>();
 
     var doctorId = UserSecureStorage.instance.user!.id;
-    PatientApi.instance.registerPatient(doctorId: doctorId, firstName: firstName, lastName: lastName, birthDate: birthDate, gender: gender, mobilePhone: mobilePhone, nic: nic, username: username, email: email).then((responseWrapper) {
+    PatientApi.instance.registerPatient(doctorId: doctorId, firstName: firstName, lastName: lastName, birthDate: birthDate, gender: gender, mobilePhone: mobilePhone, nic: nic, username: username, email: email, healthProfile: healthProfile).then((responseWrapper) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: PatientRegistrationStatus.SUCCESS));
       } else {
