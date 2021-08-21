@@ -10,7 +10,6 @@ import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/dosage.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
-import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__invoice_detail.dart';
@@ -310,22 +309,22 @@ class _TreatmentSection extends StatelessWidget {
   }
 }
 
-class _Subtotal extends StatelessWidget {
-  final double subtotal;
-
-  _Subtotal({required this.subtotal});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(TextString.label__subtotal, style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w500),),
-        Spacer(),
-        Text('\$ $subtotal', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w700),),
-      ],
-    );
-  }
-}
+// class _Subtotal extends StatelessWidget {
+//   final double subtotal;
+//
+//   _Subtotal({required this.subtotal});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Text(TextString.label__subtotal, style: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.w500),),
+//         Spacer(),
+//         Text('\$ $subtotal', style: Style.defaultTextStyle(color: Colors.black, fontWeight: FontWeight.w700),),
+//       ],
+//     );
+//   }
+// }
 
 class _Total extends StatelessWidget {
   final double total;
@@ -351,38 +350,38 @@ class _Total extends StatelessWidget {
   }
 }
 
-class _LinkBox extends StatelessWidget {
-  final String url;
+// class _LinkBox extends StatelessWidget {
+//   final String url;
+//
+//   _LinkBox({required this.url});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(5),
+//         border: Border.all(color: Colors.grey[300]!),
+//       ),
+//       padding: EdgeInsets.all(15),
+//       child: Row(
+//         children: [
+//           Text(url, style: Style.defaultTextStyle(color: Colors.grey),),
+//           Spacer(),
+//           FaIcon(FontAwesomeIcons.link, color: Style.colorPrimary, size: Style.iconSize_S,),
+//         ]
+//       ),
+//     );
+//   }
+// }
 
-  _LinkBox({required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Colors.grey[300]!),
-      ),
-      padding: EdgeInsets.all(15),
-      child: Row(
-        children: [
-          Text(url, style: Style.defaultTextStyle(color: Colors.grey),),
-          Spacer(),
-          FaIcon(FontAwesomeIcons.link, color: Style.colorPrimary, size: Style.iconSize_S,),
-        ]
-      ),
-    );
-  }
-}
-
-class _SendToPatientButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FocusButton(
-      height: ScreenUtil.heightInPercent(7),
-      width: double.infinity,
-      onTap: () {},
-      label: TextString.label__send_to_patient,
-    );
-  }
-}
+// class _SendToPatientButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return FocusButton(
+//       height: ScreenUtil.heightInPercent(7),
+//       width: double.infinity,
+//       onTap: () {},
+//       label: TextString.label__send_to_patient,
+//     );
+//   }
+// }

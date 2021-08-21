@@ -1,4 +1,5 @@
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
@@ -8,12 +9,14 @@ import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
+import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/controller__add_prescription.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
   AddPrescriptionPage() : super(
@@ -165,32 +168,132 @@ class _AddPrescriptionForm extends StatelessWidget {
 }
 
 class _DiagnosisDropdown extends StatelessWidget {
-  final String? selectedValue;
-
-  _DiagnosisDropdown({this.selectedValue});
-
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AddPrescriptionController>(
-      builder: (c) {
-        if(c.diagnosisList.length == 0) {
-          return Center(child: Text('No Diagnosis Data !'),);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GetBuilder<AddPrescriptionController>(builder: (_) {
+          return _dropDown(context);
+        }),
+        TextButton(
+          onPressed: () {
+            showNewDiagnosisDialog(context);
+          },
+          child: Text('New diagnosis'),
+        ),
+      ],
+    );
+  }
+
+  Widget _dropDown(BuildContext context) {
+    return DropdownSearch<Diagnosis>(
+      selectedItem: AddPrescriptionController.instance.selectedDiagnosis,
+      showSearchBox: true,
+      mode: Mode.MENU,
+      autoFocusSearchBox: true,
+      isFilteredOnline: true,
+      dialogMaxWidth: ScreenUtil.heightInPercent(50),
+      maxHeight: ScreenUtil.heightInPercent(50),
+      popupShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      dropdownSearchDecoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: ScreenUtil.widthInPercent(3), vertical: ScreenUtil.heightInPercent(1),),
+        hintText: TextString.label__enter_name,
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(10)),
+      ),
+      searchBoxDecoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: ScreenUtil.widthInPercent(3), vertical: ScreenUtil.heightInPercent(1),),
+        border: OutlineInputBorder(borderSide: BorderSide(color: Style.colorPrimary.withOpacity(0.2)), borderRadius: BorderRadius.circular(10)),
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(10)),
+      ),
+      dropdownBuilder: (BuildContext context, Diagnosis? diagnosis, String s) {
+        if(diagnosis != null) {
+          return Text('${diagnosis.name}');
+        } else {
+          return Text(TextString.label__enter_name,);
+        }
+      },
+      onFind: (String filter) async {
+        if(filter.length >= 3) {
+          var result = await PrescriptionService.instance.getDiagnosis(name: filter);
+          return result.data!;
         }
 
-        List<DropdownMenuItem<Diagnosis>> items = [];
-        items.addAll(c.diagnosisList.map((diagnosis) => DropdownMenuItem<Diagnosis>(value: diagnosis, child: Text(diagnosis.name!))).toList());
-
-        return DropdownButtonFormField<Diagnosis>(
-          hint: Text(TextString.label__diagnosis),
-          items: items,
-          onChanged: (diagnosis) {
-            c.selectedDiagnosis = diagnosis;
-          },
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[300]!), borderRadius: BorderRadius.circular(10)),
-          ),
-        );
+        return [];
       },
+      itemAsString: (diagnosis) {
+        return '${diagnosis.name}';
+      },
+      onChanged: (Diagnosis? diagnosis) {
+        if(diagnosis != null) {
+          AddPrescriptionController.instance.changeDiagnosis(diagnosis);
+        }
+      },
+    );
+  }
+  
+  void showNewDiagnosisDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return _NewDiagnosisDialog();
+      },
+    );
+  }
+}
+
+class _NewDiagnosisDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    AddPrescriptionController.instance.resetNewDiagnosisForm();
+    
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget changeButton = TextButton(
+      child: Text("Create"),
+      onPressed:  () {
+        AddPrescriptionController.instance.createAndSelectDiagnosis();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog logoutDialog = AlertDialog(
+      title: Text("New Diagnosis", style: Style.defaultTextStyle(color: Style.colorPrimary, fontSize: Style.fontSize_L),),
+      content: _form(context),
+      actions: [
+        cancelButton,
+        changeButton,
+      ],
+    );
+
+    return logoutDialog;
+  }
+
+  Widget _form(BuildContext context) {
+    return Container(
+      height: ScreenUtil.heightInPercent(10),
+      child: ReactiveForm(
+        formGroup: AddPrescriptionController.instance.newDiagnosisForm,
+        child: ReactiveTextField(
+          formControlName: 'name',
+          validationMessages: (control) => {
+            'required': TextString.label__cannot_empty,
+          },
+          style: Style.defaultTextStyle(color: Style.colorPrimary, height: 1.25),
+          decoration: InputDecoration(
+            hintText: 'Diagnosis',
+            hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPrimary, fontWeight: FontWeight.w400),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: Style.colorPrimary)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5),),
+          ),
+        ),
+      ),
     );
   }
 }

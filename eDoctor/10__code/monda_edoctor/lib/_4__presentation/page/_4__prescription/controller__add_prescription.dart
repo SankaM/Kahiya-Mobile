@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
@@ -13,6 +14,7 @@ import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_controller.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_snackbar.dart';
 import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AddPrescriptionController extends AbstractController {
   static AddPrescriptionController get instance => Get.find();
@@ -42,6 +44,11 @@ class AddPrescriptionController extends AbstractController {
 
   String? fileName;
 
+  // New Diagnosis Form
+  final newDiagnosisForm = FormGroup({
+    'name': FormControl<String>(value: '', validators: [Validators.required]),
+  });
+
   void initData({required Patient patient}) async {
     this.errorMessage = '';
     this.patient = patient;
@@ -54,16 +61,6 @@ class AddPrescriptionController extends AbstractController {
     this.attachment = null;
     this.fileName = null;
 
-    var diagnosisWrapper = await PrescriptionService.instance.getDiagnosis();
-    if(diagnosisWrapper.status == GetDiagnosisStatus.SUCCESS) {
-      diagnosisList.clear();
-      diagnosisList.addAll(diagnosisWrapper.data!);
-      update();
-    } else {
-      AlertUtil.showMessage('${diagnosisWrapper.error}',);
-      update();
-    }
-
     var inventoryWrapper = await InventoryService.instance.getAllAvailableInventory();
     if(inventoryWrapper.status == GetAllInventoryStatus.SUCCESS) {
       availableInventoryList.clear();
@@ -74,6 +71,28 @@ class AddPrescriptionController extends AbstractController {
       AlertUtil.showMessage('${inventoryWrapper.error}',);
       progressDialogShow = false;
       update();
+    }
+  }
+
+  void changeDiagnosis(Diagnosis diagnosis) {
+    this.selectedDiagnosis = diagnosis;
+    update();
+  }
+
+  void resetNewDiagnosisForm() {
+    this.newDiagnosisForm.reset(value: {'name': ''});
+  }
+
+  void createAndSelectDiagnosis() async {
+    String diagnosisName = newDiagnosisForm.control('name').value;
+
+    var wrapper = await PrescriptionService.instance.createDiagnosis(name: diagnosisName);
+    if(wrapper.status == GetDiagnosisStatus.SUCCESS) {
+      changeDiagnosis(wrapper.data!);
+      Navigator.pop(Get.context!);
+    } else {
+      AlertUtil.showMessage('${wrapper.error}',);
+      Navigator.pop(Get.context!);
     }
   }
 

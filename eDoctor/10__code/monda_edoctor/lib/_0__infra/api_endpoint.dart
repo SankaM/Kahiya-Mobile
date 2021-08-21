@@ -38,7 +38,7 @@ class ApiEndPoint {
   static const String DRUG_SEARCH = PREFIX + '/drug?name={name}';
 
   // ================================================================= Diagnosis
-  static const String DIAGNOSIS_LIST = PREFIX + '/diagnosis';
+  static const String DIAGNOSIS_LIST = PREFIX + '/diagnosis?name={name}';
 
   // ============================================================== Prescription
   static const String PRESCRIPTION_NEW = PREFIX + '/doctors/{doctorId}/patients/{patientId}/prescription';
