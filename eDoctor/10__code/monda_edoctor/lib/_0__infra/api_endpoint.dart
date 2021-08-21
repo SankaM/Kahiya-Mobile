@@ -19,6 +19,8 @@ class ApiEndPoint {
 
   static const String PATIENT_REGISTRATION = PREFIX + '/doctors/{doctorId}/patients/register';
 
+  static const String PATIENT_UPDATE_HEALTH_PROFILE = PREFIX + '/patients/update-profile-health';
+
   // ================================================================= Inventory
   static const String INVENTORY_LIST_PER_PAGE = PREFIX + '/doctors/{doctorId}/inventory?page={page}&itemPerPage={itemPerPage}';
 

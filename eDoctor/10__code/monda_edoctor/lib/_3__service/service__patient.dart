@@ -143,6 +143,21 @@ class PatientService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<PatientUpdateProfileHealthStatus, void, String>> updatePatientProfileHealth({required String patientId, required String healthProfile}) {
+    var completer = Completer<StatusWrapper<PatientUpdateProfileHealthStatus, void, String>>();
+
+    PatientApi.instance.updatePatientProfileHealth(patientId: patientId, healthProfile: healthProfile).then((responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: PatientUpdateProfileHealthStatus.SUCCESS));
+      } else {
+        completer.complete(StatusWrapper(status: PatientUpdateProfileHealthStatus.ERROR, error: responseWrapper.message));
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum SearchPatientField {
@@ -170,6 +185,11 @@ enum GetPrescriptionStatus {
 }
 
 enum PatientRegistrationStatus {
+  SUCCESS,
+  ERROR
+}
+
+enum PatientUpdateProfileHealthStatus {
   SUCCESS,
   ERROR
 }

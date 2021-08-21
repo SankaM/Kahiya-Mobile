@@ -1,3 +1,4 @@
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_backgro
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   MedicalRecordPage() : super(
@@ -169,18 +171,34 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _medicalDescriptionSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
-          child: Text(TextString.label__medical_description, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
-          child: Text('${MedicalRecordController.instance.patient!.healthProfile}', style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
-        )
-      ],
+    return InkWell(
+      onDoubleTap: () {
+        _showProfileHealthUpdateDialog(context);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
+            child: Row(
+              children: [
+                Text(TextString.label__medical_description, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+                Spacer(),
+                TextButton(
+                  onPressed: () {
+                    _showProfileHealthUpdateDialog(context);
+                  },
+                  child: Text('Update'),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
+            child: Text('${MedicalRecordController.instance.patient!.healthProfile}', style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
+          )
+        ],
+      ),
     );
   }
 
@@ -241,20 +259,29 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       ),
     );
   }
+
+  void _showProfileHealthUpdateDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return _UpdateHealthProfileDialog();
+      },
+    );
+  }
 }
 
 class _CurrentPrescriptionItem extends StatelessWidget {
   final Prescription prescription;
 
-  final String prescribedLength = '111';
+  final String prescribedLength = '';
 
-  final String prescribedDrug = '222';
+  final String prescribedDrug = '';
 
-  final String prescribedDrugCount = '333';
+  final String prescribedDrugCount = '';
 
-  final String dosage = '444';
+  final String dosage = '';
 
-  final String dosageCount = '555';
+  final String dosageCount = '';
 
   _CurrentPrescriptionItem({required this.prescription});
 
@@ -422,6 +449,62 @@ class _PastDiagnosticItem extends StatelessWidget {
           )
         ],
       )
+    );
+  }
+}
+
+class _UpdateHealthProfileDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    Widget changeButton = TextButton(
+      child: Text("Update"),
+      onPressed:  () {
+        MedicalRecordController.instance.updateHealthProfile();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog logoutDialog = AlertDialog(
+      title: Text("Update Health Profile", style: Style.defaultTextStyle(color: Style.colorPrimary, fontSize: Style.fontSize_L),),
+      content: _form(context),
+      actions: [
+        cancelButton,
+        changeButton,
+      ],
+    );
+
+    return logoutDialog;
+  }
+
+  Widget _form(BuildContext context) {
+    return Container(
+      height: ScreenUtil.heightInPercent(40),
+      child: ReactiveForm(
+        formGroup: MedicalRecordController.instance.updateHealthProfileForm,
+        child: ReactiveTextField(
+          formControlName: 'healthProfile',
+          validationMessages: (control) => {
+            'required': TextString.label__cannot_empty,
+          },
+          minLines: 20,
+          maxLines: 20,
+          style: Style.defaultTextStyle(color: Style.colorPrimary, height: 1.25),
+          decoration: InputDecoration(
+            hintText: 'Medical Description',
+            hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPrimary, fontWeight: FontWeight.w400),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: Style.colorPrimary)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5),),
+          ),
+        ),
+      ),
     );
   }
 }

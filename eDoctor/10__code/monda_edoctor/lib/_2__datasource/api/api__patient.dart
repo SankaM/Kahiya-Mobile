@@ -76,4 +76,20 @@ class PatientApi extends ApiDataSource {
 
     return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
+
+  // ===========================================================================
+  Future<ResponseWrapper> updatePatientProfileHealth({required String patientId, required String healthProfile}) async {
+
+    String url = TemplateString(stringWithParams: ApiEndPoint.PATIENT_UPDATE_HEALTH_PROFILE).toString();
+    var data = {
+      'patientId': patientId,
+      'healthProfile': healthProfile,
+    };
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper.success();
+    };
+
+    return ApiUtil.put(url: url, putData: data, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }
