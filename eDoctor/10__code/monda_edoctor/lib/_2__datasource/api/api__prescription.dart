@@ -18,8 +18,19 @@ class PrescriptionApi extends ApiDataSource {
   PrescriptionApi.newInstance();
 
   // ===========================================================================
-  Future<ResponseWrapper<List<Prescription>>> getPrescriptionByPatient({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_SEARCH_BY_PATIENT, params: {'patientId': patientId}).toString();
+  Future<ResponseWrapper<List<Prescription>>> getLastPrescriptionByPatient({required String patientId}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.LAST_PRESCRIPTION_PATIENT, params: {'patientId': patientId}).toString();
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());
+    };
+
+    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
+
+  // ===========================================================================
+  Future<ResponseWrapper<List<Prescription>>> getCurrentPrescriptionByPatient({required String patientId}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.CURRENT_PRESCRIPTION_PATIENT, params: {'patientId': patientId}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
       return ResponseWrapper<List<Prescription>>.success(data: (json['data'] as List).map((e) => Prescription.buildDetail(e)).toList());

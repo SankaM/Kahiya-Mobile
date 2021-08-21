@@ -45,7 +45,9 @@ class ApiEndPoint {
 
   static const String PRESCRIPTION_SEARCH_BY_ID = PREFIX + '/prescription/{prescriptionId}';
 
-  static const String PRESCRIPTION_SEARCH_BY_PATIENT = PREFIX + '/patients/{patientId}/history';
+  static const String LAST_PRESCRIPTION_PATIENT = PREFIX + '/patients/{patientId}/last-prescription';
+
+  static const String CURRENT_PRESCRIPTION_PATIENT = PREFIX + '/patients/{patientId}/current-prescription';
 
   static const String PRESCRIPTION_LIST = PREFIX + '/doctors/{doctorId}/prescription?page={page}&itemPerPage={itemPerPage}';
 

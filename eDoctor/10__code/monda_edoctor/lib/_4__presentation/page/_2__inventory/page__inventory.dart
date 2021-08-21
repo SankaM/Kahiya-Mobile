@@ -233,7 +233,7 @@ class _InventoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Color cardColor = Colors.white;
     if(inventory.availableUnits! <= inventory.unitThresholdWarning!) {
-      cardColor = Colors.yellow.withOpacity(0.2);
+      cardColor = Colors.yellowAccent.withOpacity(0.2);
     }
     if(inventory.availableUnits == 0.0) {
       cardColor = Colors.red.withOpacity(0.1);

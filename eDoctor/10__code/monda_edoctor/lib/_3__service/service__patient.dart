@@ -66,14 +66,14 @@ class PatientService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>> getPrescriptionByPatient({required String patientId}) {
-    var completer = Completer<StatusWrapper<GetPrescriptionStatus, List<Prescription>, String>>();
+  Future<StatusWrapper<GetPrescriptionListStatus, List<Prescription>, String>> getLastPrescriptionByPatient({required String patientId}) {
+    var completer = Completer<StatusWrapper<GetPrescriptionListStatus, List<Prescription>, String>>();
 
-    PrescriptionApi.instance.getPrescriptionByPatient(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
+    PrescriptionApi.instance.getLastPrescriptionByPatient(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
       if(responseWrapper.isSuccess) {
-        completer.complete(StatusWrapper(status: GetPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.SUCCESS, data: responseWrapper.data));
       } else {
-        completer.complete(StatusWrapper(status: GetPrescriptionStatus.ERROR, error: responseWrapper.message),);
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.ERROR, error: responseWrapper.message),);
       }
     });
 
@@ -81,14 +81,29 @@ class PatientService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<GetPrescriptionStatus, Prescription, String>> getPrescriptionById({required String prescriptionId}) {
-    var completer = Completer<StatusWrapper<GetPrescriptionStatus, Prescription, String>>();
+  Future<StatusWrapper<GetPrescriptionListStatus, List<Prescription>, String>> getCurrentPrescriptionByPatient({required String patientId}) {
+    var completer = Completer<StatusWrapper<GetPrescriptionListStatus, List<Prescription>, String>>();
+
+    PrescriptionApi.instance.getCurrentPrescriptionByPatient(patientId: patientId).then((ResponseWrapper<List<Prescription>> responseWrapper) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
+  Future<StatusWrapper<GetPrescriptionListStatus, Prescription, String>> getPrescriptionById({required String prescriptionId}) {
+    var completer = Completer<StatusWrapper<GetPrescriptionListStatus, Prescription, String>>();
 
     PrescriptionApi.instance.getPrescriptionById(prescriptionId: prescriptionId).then((ResponseWrapper<Prescription> responseWrapper) {
       if(responseWrapper.isSuccess) {
-        completer.complete(StatusWrapper(status: GetPrescriptionStatus.SUCCESS, data: responseWrapper.data));
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.SUCCESS, data: responseWrapper.data));
       } else {
-        completer.complete(StatusWrapper(status: GetPrescriptionStatus.ERROR, error: responseWrapper.message),);
+        completer.complete(StatusWrapper(status: GetPrescriptionListStatus.ERROR, error: responseWrapper.message),);
       }
     });
 
@@ -179,7 +194,7 @@ enum GetPatientStatus {
   ERROR,
 }
 
-enum GetPrescriptionStatus {
+enum GetPrescriptionListStatus {
   SUCCESS,
   ERROR,
 }

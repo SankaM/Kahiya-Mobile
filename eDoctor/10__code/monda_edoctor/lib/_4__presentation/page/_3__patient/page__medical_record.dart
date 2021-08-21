@@ -98,7 +98,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         children: [
           _firstRowProfile(context),
           _medicalDescriptionSection(context),
-          _currentPrescriptionSection(context),
+          _prescriptionSection(context),
           _pastHistorySection(context),
           _addPrescriptionButton(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
@@ -202,13 +202,13 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
-  Widget _currentPrescriptionSection(BuildContext context) {
+  Widget _prescriptionSection(BuildContext context) {
     List<Widget> children = [];
 
     children.add(
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
-          child: Text(TextString.label__current_prescriptions, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+          child: Text(MedicalRecordController.instance.prescriptionLabel, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         )
     );
 

@@ -20,6 +20,8 @@ class MedicalRecordController extends AbstractController {
 
   Patient? patient;
 
+  String prescriptionLabel = 'Prescription';
+
   List<Prescription>? prescriptionList;
 
   final updateHealthProfileForm = FormGroup({
@@ -36,7 +38,7 @@ class MedicalRecordController extends AbstractController {
     _changeProgressBarShow(true);
 
     await _retrievePatient(patientId: patientId);
-    await _retrievePrescription(patientId: patientId);
+    await _retrieveCurrentPrescription(patientId: patientId);
 
     _changeProgressBarShow(false);
   }
@@ -52,13 +54,29 @@ class MedicalRecordController extends AbstractController {
     }
   }
 
-  Future<void> _retrievePrescription({required String patientId}) async {
-    StatusWrapper<GetPrescriptionStatus, List<Prescription>, String> statusWrapper = await PatientService.instance.getPrescriptionByPatient(patientId: patientId);
+  Future<void> _retrieveCurrentPrescription({required String patientId}) async {
+    var wrapperCurrentPrescription = await PatientService.instance.getCurrentPrescriptionByPatient(patientId: patientId);
 
-    if(statusWrapper.status == GetPrescriptionStatus.SUCCESS) {
-      this.prescriptionList = statusWrapper.data;
+    if(wrapperCurrentPrescription.status == GetPrescriptionListStatus.SUCCESS) {
+      this.prescriptionList = wrapperCurrentPrescription.data;
+      this.prescriptionLabel = 'Current Prescription';
+
+      if(wrapperCurrentPrescription.data == null || wrapperCurrentPrescription.data!.length == 0) {
+        await _retrieveLastPrescription(patientId: patientId);
+      }
     } else {
-      AlertUtil.showMessage(statusWrapper.data != null ? statusWrapper.error.toString() : TextString.label__error);
+      AlertUtil.showMessage(wrapperCurrentPrescription.data != null ? wrapperCurrentPrescription.error.toString() : TextString.label__error);
+    }
+  }
+
+  Future<void> _retrieveLastPrescription({required String patientId}) async {
+    var wrapperLastPrescription = await PatientService.instance.getLastPrescriptionByPatient(patientId: patientId);
+
+    if(wrapperLastPrescription.status == GetPrescriptionListStatus.SUCCESS) {
+      this.prescriptionList = wrapperLastPrescription.data;
+      this.prescriptionLabel = 'Last Prescription';
+    } else {
+      AlertUtil.showMessage(wrapperLastPrescription.data != null ? wrapperLastPrescription.error.toString() : TextString.label__error);
     }
   }
 

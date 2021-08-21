@@ -18,7 +18,7 @@ class InvoiceDetailController extends AbstractController {
     this.progressDialogShow = true;
 
     var wrapper = await PatientService.instance.getPrescriptionById(prescriptionId: prescriptionId);
-    if(wrapper.status == GetPrescriptionStatus.SUCCESS) {
+    if(wrapper.status == GetPrescriptionListStatus.SUCCESS) {
       this.progressDialogShow = false;
       this.prescription = wrapper.data;
       update();
