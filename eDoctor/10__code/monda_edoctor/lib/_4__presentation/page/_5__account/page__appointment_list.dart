@@ -5,13 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
-import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
-import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 
 class AppointmentListPage extends AbstractPageWithBackgroundAndContent {

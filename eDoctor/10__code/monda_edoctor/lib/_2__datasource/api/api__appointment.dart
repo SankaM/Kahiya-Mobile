@@ -4,7 +4,6 @@ import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/template_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__api.dart';
 import 'package:monda_edoctor/_1__model/appointment.dart';
-import 'package:monda_edoctor/_1__model/diagnosis.dart';
 
 class AppointmentApi {
   static AppointmentApi get instance => Get.find();

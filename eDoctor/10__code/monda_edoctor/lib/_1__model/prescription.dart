@@ -19,7 +19,7 @@ class Prescription {
 
   final String? notes;
 
-  final String? attachmentUrl;
+  final String? attachmentId;
 
   final double? doctorCost;
 
@@ -57,7 +57,7 @@ class Prescription {
     this.illnessSeverity,
     this.prescriptionDate,
     this.notes,
-    this.attachmentUrl,
+    this.attachmentId,
     this.doctorCost,
     this.drugCost,
     this.totalCost,
@@ -72,7 +72,7 @@ class Prescription {
       illnessSeverity: json['illnessSeverity'],
       prescriptionDate: json['prescriptionDate'] != null ? DateTime.parse(json['prescriptionDate']) : null,
       notes: json['notes'],
-      attachmentUrl: json['attachmentUrl'],
+      attachmentId: json['attachmentId'],
       doctorCost: json['doctorCost'],
       drugCost: json['drugCost'],
       totalCost: json['totalCost'],
