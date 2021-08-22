@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/util/ResponseWrapper.dart';
 import 'package:monda_edoctor/_0__infra/util/status_wrapper.dart';
+import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_1__model/doctor.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__appointment.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__doctor.dart';
 import 'package:monda_edoctor/_2__datasource/securestorage/secure_storage__user.dart';
 
@@ -43,6 +45,38 @@ class DoctorService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>> retrievePastAppointment() {
+    var completer = Completer<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    AppointmentApi.instance.getPastAppointment(doctorId: doctorId).then((ResponseWrapper<List<Appointment>> res) {
+      if(res.isSuccess) {
+        completer.complete(StatusWrapper(status: GetAppointmentListStatus.SUCCESS, data: res.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetAppointmentListStatus.ERROR, error: res.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
+  Future<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>> retrieveFutureAppointment() {
+    var completer = Completer<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    AppointmentApi.instance.getFutureAppointment(doctorId: doctorId).then((ResponseWrapper<List<Appointment>> res) {
+      if(res.isSuccess) {
+        completer.complete(StatusWrapper(status: GetAppointmentListStatus.SUCCESS, data: res.data));
+      } else {
+        completer.complete(StatusWrapper(status: GetAppointmentListStatus.ERROR, error: res.message),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum GetDoctorProfileStatus {
@@ -51,6 +85,11 @@ enum GetDoctorProfileStatus {
 }
 
 enum UpdateDoctorProfileStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum GetAppointmentListStatus {
   SUCCESS,
   ERROR,
 }

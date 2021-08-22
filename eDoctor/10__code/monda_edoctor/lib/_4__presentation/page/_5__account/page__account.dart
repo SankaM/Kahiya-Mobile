@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/config.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
@@ -11,6 +12,7 @@ import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_backgro
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
+import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class AccountPage extends AbstractPageWithBackgroundAndContent {
@@ -73,15 +75,23 @@ class AccountPage extends AbstractPageWithBackgroundAndContent {
           Text('${UserSecureStorage.instance.user!.name}', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500), ),
           if(UserSecureStorage.instance.user!.location != null) SizedBox(height: ScreenUtil.heightInPercent(2),),
           if(UserSecureStorage.instance.user!.location != null) Text('${UserSecureStorage.instance.user!.location}', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontSize: Style.fontSize_Default), ),
-          SizedBox(height: ScreenUtil.heightInPercent(4),),
+          SizedBox(height: ScreenUtil.heightInPercent(5),),
+          _item(context, label: 'Upcoming Appointment', icon: Icons.people_alt_outlined, onTap: () {
+            RouteNavigator.gotoAppointmentPage(type: AppointmentListType.FUTURE);
+          }),
+          SizedBox(height: ScreenUtil.heightInPercent(1),),
+          _item(context, label: 'Past Appointment', icon: Icons.people_alt_outlined, onTap: () {
+            RouteNavigator.gotoAppointmentPage(type: AppointmentListType.PAST);
+          }),
+          SizedBox(height: ScreenUtil.heightInPercent(1),),
           _item(context, label: 'Update Profile', icon: Icons.people_alt_outlined, onTap: () {
             _showChangeProfileDialog(context);
           }),
-          SizedBox(height: ScreenUtil.heightInPercent(2),),
+          SizedBox(height: ScreenUtil.heightInPercent(1),),
           _item(context, label: 'Change Password', icon: Icons.lock_outline, onTap: () {
             _showChangePasswordDialog(context);
           }),
-          SizedBox(height: ScreenUtil.heightInPercent(4),),
+          SizedBox(height: ScreenUtil.heightInPercent(5),),
           _item(context, label: 'Logout', icon: Icons.exit_to_app, onTap: () {
             _showLogoutConfirmationDialog(context);
           }),

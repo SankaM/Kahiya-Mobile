@@ -55,4 +55,8 @@ class ApiEndPoint {
 
   // ==================================================================== Doctor
   static const String DOCTOR_PROFILE = PREFIX + '/doctors/{doctorId}/profile';
+
+  static const String DOCTOR_APPOINTMENT_PAST = PREFIX + '/doctors/{doctorId}/appointment/past';
+
+  static const String DOCTOR_APPOINTMENT_FUTURE = PREFIX + '/doctors/{doctorId}/appointment/future';
 }

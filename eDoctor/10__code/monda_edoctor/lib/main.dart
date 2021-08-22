@@ -6,6 +6,7 @@ import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__account.dart';
+import 'package:monda_edoctor/_2__datasource/api/api__appointment.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__diagnosis.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__doctor.dart';
 import 'package:monda_edoctor/_2__datasource/api/api__drug.dart';
@@ -26,12 +27,12 @@ import 'package:monda_edoctor/_4__presentation/page/_1__home/controller__home.da
 import 'package:monda_edoctor/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_add.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_batch_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/controller__inventory_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_add.dart';
-import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_batch_update.dart';
+import 'package:monda_edoctor/_4__presentation/page/_2__inventory/page__inventory_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__patient_register.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/page__medical_record.dart';
@@ -43,7 +44,9 @@ import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__add_p
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
+import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/page__account.dart';
+import 'package:monda_edoctor/_4__presentation/page/_5__account/page__appointment_list.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +71,7 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(DiagnosisApi.newInstance());
     Get.put(PrescriptionApi.newInstance());
     Get.put(DoctorApi.newInstance());
+    Get.put(AppointmentApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());
@@ -84,7 +88,6 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(SignInController.newInstance());
     Get.put(HomeController.newInstance());
     Get.put(MedicalRecordController.newInstance());
-
     Get.put(PatientRegisterController());
     Get.put(AddPrescriptionController());
     Get.put(InvoiceDetailController());
@@ -94,6 +97,7 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(DetailInventoryController());
     Get.put(InvoiceController());
     Get.put(AccountController());
+    Get.put(AppointmentListController.newInstance());
   }
 
   @override
@@ -139,7 +143,9 @@ class MondaEDoctorApp extends StatelessWidget {
         // ------------------------------------------------- 6. Add Prescription
         GetPage(name: Routes.page_add_prescription, page: () => AddPrescriptionPage(),),
 
+        // ----------------------------------------------------- 7. Account Page
         GetPage(name: Routes.page_account, page: () => AccountPage(),),
+        GetPage(name: Routes.page_appointment, page: () => AppointmentListPage(),),
       ],
     );
   }

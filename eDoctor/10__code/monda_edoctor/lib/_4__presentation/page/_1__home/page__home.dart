@@ -159,7 +159,6 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
             ),
             ReactiveFormConsumer(
                 builder: (context, form, child) {
-                  log('===========================================reactiveFormConsumer - inventory');
                   HomeController.instance.getSearchPatient();
                   return Container();
                 }
