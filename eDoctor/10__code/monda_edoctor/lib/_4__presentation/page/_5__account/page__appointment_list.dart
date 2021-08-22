@@ -68,7 +68,7 @@ class AppointmentListPage extends AbstractPageWithBackgroundAndContent {
       } else {
         List<Widget> children = [];
         children.add(SizedBox(height: ScreenUtil.heightInPercent(2),));
-        children.addAll(_.appointmentList!.map((e) => _AppointmentItem(appointment: e)).toList());
+        children.addAll(_.appointmentList!.map((e) => _AppointmentItem(appointment: e,)).toList());
         children.add(SizedBox(height: ScreenUtil.heightInPercent(20),));
 
         return Container(
@@ -99,7 +99,7 @@ class AppointmentListPage extends AbstractPageWithBackgroundAndContent {
 class _AppointmentItem extends StatelessWidget {
   final Appointment appointment;
 
-  _AppointmentItem({required this.appointment});
+  _AppointmentItem({required this.appointment,});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +140,14 @@ class _AppointmentItem extends StatelessWidget {
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Text('${DateFormat('hh:mm').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
                   Spacer(),
-                  Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),)
+                  Row(
+                    children: [
+                      Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
+                      if(appointment.status == 'PRESCRIBED') SizedBox(width: ScreenUtil.widthInPercent(15),),
+                      if(appointment.status == 'PRESCRIBED') Text('SGD xxx', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w500, color: Style.colorPrimary),),
+                    ],
+                  )
+
                 ],
               )
             ],
