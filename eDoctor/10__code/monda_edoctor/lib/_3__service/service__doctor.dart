@@ -77,6 +77,30 @@ class DoctorService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<UpdateAppointmentStatus, void, String>> declineAppointment({required String appointmentId,}) {
+    return updateUpcomingAppointment(appointmentId: appointmentId, status: 'DECLINED');
+  }
+
+  Future<StatusWrapper<UpdateAppointmentStatus, void, String>> acceptAppointment({required String appointmentId,}) {
+    return updateUpcomingAppointment(appointmentId: appointmentId, status: 'ACCEPTED');
+  }
+
+  Future<StatusWrapper<UpdateAppointmentStatus, void, String>> updateUpcomingAppointment({required String appointmentId, required String status}) {
+    var completer = Completer<StatusWrapper<UpdateAppointmentStatus, void, String>>();
+
+    var doctorId = UserSecureStorage.instance.user!.id;
+    AppointmentApi.instance.updateAppointment(doctorId: doctorId, appointmentId: appointmentId, status: status).then((ResponseWrapper<void> res) {
+      if(res.isSuccess) {
+        completer.complete(StatusWrapper(status: UpdateAppointmentStatus.SUCCESS,));
+      } else {
+        completer.complete(StatusWrapper(status: UpdateAppointmentStatus.ERROR, error: res.message),);
+      }
+    });
+
+    return completer.future;
+  }
 }
 
 enum GetDoctorProfileStatus {
@@ -90,6 +114,11 @@ enum UpdateDoctorProfileStatus {
 }
 
 enum GetAppointmentListStatus {
+  SUCCESS,
+  ERROR,
+}
+
+enum UpdateAppointmentStatus {
   SUCCESS,
   ERROR,
 }

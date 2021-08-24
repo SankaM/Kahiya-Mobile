@@ -10,6 +10,7 @@ import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__past_appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__upcoming_appointment_list.dart';
 
 class PastAppointmentListPage extends AbstractPageWithBackgroundAndContent {
@@ -25,7 +26,7 @@ class PastAppointmentListPage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    UpcomingAppointmentListController.instance.retrieveData();
+    PastAppointmentListController.instance.retrieveData();
 
     return Stack(
       fit: StackFit.expand,
@@ -59,7 +60,7 @@ class PastAppointmentListPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _contentBody(BuildContext context) {
-    return GetBuilder<UpcomingAppointmentListController>(builder: (_) {
+    return GetBuilder<PastAppointmentListController>(builder: (_) {
       if(_.appointmentList == null || _.appointmentList!.length == 0) {
         return Center(child: Text('No appointment'));
       } else {

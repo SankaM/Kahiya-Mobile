@@ -45,6 +45,7 @@ import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoi
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/page__account.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__past_appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__upcoming_appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_6__appointment/page__past_appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_6__appointment/page__upcoming_appointment_list.dart';
@@ -99,6 +100,7 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(InvoiceController());
     Get.put(AccountController());
     Get.put(UpcomingAppointmentListController.newInstance());
+    Get.put(PastAppointmentListController.newInstance());
   }
 
   @override

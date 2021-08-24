@@ -7,7 +7,7 @@ class Appointment {
 
   final DateTime? appointmentDate;
 
-  final String? status;
+  String? status;
 
   Appointment({
     required this.id,
