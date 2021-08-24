@@ -12,7 +12,6 @@ import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_backgro
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class AccountPage extends AbstractPageWithBackgroundAndContent {
@@ -61,27 +60,29 @@ class AccountPage extends AbstractPageWithBackgroundAndContent {
   Widget _contentBody(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: ScreenUtil.heightInPercent(80),
       padding: EdgeInsets.symmetric(horizontal: ScreenUtil.widthInPercent(5)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            width: ScreenUtil.widthInPercent(30),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               child: Image.network(UserSecureStorage.instance.user!.imageUrl!, height: ScreenUtil.widthInPercent(30), width: ScreenUtil.widthInPercent(30), fit: BoxFit.cover,),
             ) ,
           ),
-          SizedBox(height: ScreenUtil.heightInPercent(4),),
+          SizedBox(height: ScreenUtil.heightInPercent(2),),
           Text('${UserSecureStorage.instance.user!.name}', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500), ),
           if(UserSecureStorage.instance.user!.location != null) SizedBox(height: ScreenUtil.heightInPercent(2),),
           if(UserSecureStorage.instance.user!.location != null) Text('${UserSecureStorage.instance.user!.location}', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontSize: Style.fontSize_Default), ),
-          SizedBox(height: ScreenUtil.heightInPercent(5),),
-          _item(context, label: 'Upcoming Appointment', icon: Icons.people_alt_outlined, onTap: () {
-            RouteNavigator.gotoAppointmentPage(type: AppointmentListType.FUTURE);
+          SizedBox(height: ScreenUtil.heightInPercent(3),),
+          _item(context, label: 'Invoice List', icon: Icons.people_alt_outlined, onTap: () {
+            RouteNavigator.gotoInvoiceListPage();
           }),
           SizedBox(height: ScreenUtil.heightInPercent(1),),
           _item(context, label: 'Past Appointment', icon: Icons.people_alt_outlined, onTap: () {
-            RouteNavigator.gotoAppointmentPage(type: AppointmentListType.PAST);
+            RouteNavigator.gotoPastAppointmentPage();
           }),
           SizedBox(height: ScreenUtil.heightInPercent(1),),
           _item(context, label: 'Update Profile', icon: Icons.people_alt_outlined, onTap: () {
@@ -91,7 +92,7 @@ class AccountPage extends AbstractPageWithBackgroundAndContent {
           _item(context, label: 'Change Password', icon: Icons.lock_outline, onTap: () {
             _showChangePasswordDialog(context);
           }),
-          SizedBox(height: ScreenUtil.heightInPercent(5),),
+          SizedBox(height: ScreenUtil.heightInPercent(3),),
           _item(context, label: 'Logout', icon: Icons.exit_to_app, onTap: () {
             _showLogoutConfirmationDialog(context);
           }),

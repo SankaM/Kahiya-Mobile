@@ -44,9 +44,10 @@ import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__add_p
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice.dart';
 import 'package:monda_edoctor/_4__presentation/page/_4__prescription/page__invoice_detail.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__account.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 import 'package:monda_edoctor/_4__presentation/page/_5__account/page__account.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__account/page__appointment_list.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__upcoming_appointment_list.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/page__past_appointment_list.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/page__upcoming_appointment_list.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -97,7 +98,7 @@ class MondaEDoctorApp extends StatelessWidget {
     Get.put(DetailInventoryController());
     Get.put(InvoiceController());
     Get.put(AccountController());
-    Get.put(AppointmentListController.newInstance());
+    Get.put(UpcomingAppointmentListController.newInstance());
   }
 
   @override
@@ -145,7 +146,8 @@ class MondaEDoctorApp extends StatelessWidget {
 
         // ----------------------------------------------------- 7. Account Page
         GetPage(name: Routes.page_account, page: () => AccountPage(),),
-        GetPage(name: Routes.page_appointment, page: () => AppointmentListPage(),),
+        GetPage(name: Routes.page_upcoming_appointment, page: () => UpcomingAppointmentListPage(),),
+        GetPage(name: Routes.page_past_appointment, page: () => PastAppointmentListPage(),),
       ],
     );
   }

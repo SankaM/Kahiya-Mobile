@@ -133,7 +133,7 @@ class MyScaffold extends StatelessWidget {
   Widget _defaultBottomNavigationBar() {
     var itemIconList = [Icons.notes, Icons.store];
     var itemLabelList = [
-      TextString.page_title__invoice,
+      'Appointment',
       TextString.page_title__inventory
     ];
 
@@ -185,7 +185,7 @@ class MyScaffold extends StatelessWidget {
           switch (i) {
             case 0:
               {
-                RouteNavigator.gotoInvoiceListPage();
+                RouteNavigator.gotoUpcomingAppointmentPage();
                 break;
               }
             case 1:

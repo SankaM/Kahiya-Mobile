@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/inventoryBatch.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
 
 class Routes {
   static const String page_blank_before_splash = '/blank-before-splash';
@@ -35,7 +34,9 @@ class Routes {
 
   static const String page_account = '/account';
 
-  static const String page_appointment = '/appointment';
+  static const String page_upcoming_appointment = '/appointment/upcoming';
+
+  static const String page_past_appointment = '/appointment/past';
 
   Routes._();
 }
@@ -114,8 +115,12 @@ class RouteNavigator {
     return _goto(Routes.page_account, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoAppointmentPage({required AppointmentListType type}) {
-    return _goto(Routes.page_appointment, forgetBefore: false, arguments: type);
+  static Future<dynamic> gotoUpcomingAppointmentPage() {
+    return _goto(Routes.page_upcoming_appointment, forgetBefore: false,);
+  }
+
+  static Future<dynamic> gotoPastAppointmentPage() {
+    return _goto(Routes.page_past_appointment, forgetBefore: false,);
   }
 
   // -------------------------------------------------------------------- helper

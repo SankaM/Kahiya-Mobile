@@ -10,33 +10,32 @@ import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
-import 'package:monda_edoctor/_4__presentation/page/_5__account/controller__appointment_list.dart';
+import 'package:monda_edoctor/_4__presentation/page/_6__appointment/controller__upcoming_appointment_list.dart';
 
-class AppointmentListPage extends AbstractPageWithBackgroundAndContent {
-  AppointmentListPage() : super(
+class UpcomingAppointmentListPage extends AbstractPageWithBackgroundAndContent {
+  UpcomingAppointmentListPage() : super(
     title: 'Appointment List',
     backgroundAsset: Asset.png__background03,
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: true,
     showBottomNavigationBar: true,
-    selectedIndexOfBottomNavigationBar: 1,
+    selectedIndexOfBottomNavigationBar: 0,
   );
 
   @override
   Widget constructContent(BuildContext context) {
-    AppointmentListType type = Get.arguments;
-    AppointmentListController.instance.retrieveData(appointmentListType: type);
+    UpcomingAppointmentListController.instance.retrieveData();
 
     return Stack(
       fit: StackFit.expand,
       children: [
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: _contentCustomAppBar(context, type),
+          appBar: _contentCustomAppBar(context),
           body: _contentBody(context),
         ),
-        GetBuilder<AppointmentListController>(
+        GetBuilder<UpcomingAppointmentListController>(
           builder: (c) {
             return Visibility(
               child: ProgressIndicatorOverlay(text: 'Retrieving Appointment List'),
@@ -48,8 +47,8 @@ class AppointmentListPage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
-  PreferredSize _contentCustomAppBar(BuildContext context, AppointmentListType type) {
-    String firstLineLabel = type == AppointmentListType.FUTURE ? 'Upcoming' : 'Past';
+  PreferredSize _contentCustomAppBar(BuildContext context) {
+    String firstLineLabel = 'Upcoming';
 
     return CustomAppBarBuilder.build(
       context: context,
@@ -60,7 +59,7 @@ class AppointmentListPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _contentBody(BuildContext context) {
-    return GetBuilder<AppointmentListController>(builder: (_) {
+    return GetBuilder<UpcomingAppointmentListController>(builder: (_) {
       if(_.appointmentList == null || _.appointmentList!.length == 0) {
         return Center(child: Text('No appointment'));
       } else {

@@ -24,7 +24,7 @@ class InvoicePage extends AbstractPageWithBackgroundAndContent {
     usingSafeArea: true,
     showAppBar: false,
     showFloatingActionButton: false,
-    showBottomNavigationBar: true,
+    showBottomNavigationBar: false,
     selectedIndexOfBottomNavigationBar: 0,
         );
 

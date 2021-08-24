@@ -22,7 +22,7 @@ class AppointmentApi {
   }
 
   // ===========================================================================
-  Future<ResponseWrapper<List<Appointment>>> getFutureAppointment({required doctorId}) async {
+  Future<ResponseWrapper<List<Appointment>>> getUpcomingAppointment({required doctorId}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.DOCTOR_APPOINTMENT_FUTURE, params: {'doctorId': doctorId}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {

@@ -63,11 +63,11 @@ class DoctorService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>> retrieveFutureAppointment() {
+  Future<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>> retrieveUpcomingAppointment() {
     var completer = Completer<StatusWrapper<GetAppointmentListStatus, List<Appointment>, String>>();
 
     var doctorId = UserSecureStorage.instance.user!.id;
-    AppointmentApi.instance.getFutureAppointment(doctorId: doctorId).then((ResponseWrapper<List<Appointment>> res) {
+    AppointmentApi.instance.getUpcomingAppointment(doctorId: doctorId).then((ResponseWrapper<List<Appointment>> res) {
       if(res.isSuccess) {
         completer.complete(StatusWrapper(status: GetAppointmentListStatus.SUCCESS, data: res.data));
       } else {
