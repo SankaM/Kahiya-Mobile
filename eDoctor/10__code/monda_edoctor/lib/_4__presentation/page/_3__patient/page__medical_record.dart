@@ -98,7 +98,8 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         children: [
           _firstRowProfile(context),
           _medicalDescriptionSection(context),
-          _prescriptionSection(context),
+          _currentPrescriptionSection(context),
+          _lastPrescriptionSection(context),
           _pastHistorySection(context),
           _addPrescriptionButton(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
@@ -202,17 +203,17 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
-  Widget _prescriptionSection(BuildContext context) {
+  Widget _currentPrescriptionSection(BuildContext context) {
     List<Widget> children = [];
 
     children.add(
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
-          child: Text(MedicalRecordController.instance.prescriptionLabel, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+          child: Text('Current Prescription', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         )
     );
 
-    if(MedicalRecordController.instance.prescriptionList == null || MedicalRecordController.instance.prescriptionList!.isEmpty) {
+    if(MedicalRecordController.instance.currentPrescriptionList == null || MedicalRecordController.instance.currentPrescriptionList!.isEmpty) {
       children.add(
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
@@ -220,12 +221,39 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         ),
       );
     } else {
-      children.addAll(MedicalRecordController.instance.prescriptionList!.map((e) => _CurrentPrescriptionItem(prescription: e)).toList());
+      children.addAll(MedicalRecordController.instance.currentPrescriptionList!.map((e) => _CurrentPrescriptionItem(prescription: e)).toList());
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: children
+    );
+  }
+
+  Widget _lastPrescriptionSection(BuildContext context) {
+    List<Widget> children = [];
+
+    children.add(
+        Padding(
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
+          child: Text('Last Prescription', style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
+        )
+    );
+
+    if(MedicalRecordController.instance.lastPrescriptionList == null || MedicalRecordController.instance.lastPrescriptionList!.isEmpty) {
+      children.add(
+        Padding(
+          padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
+          child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5),),
+        ),
+      );
+    } else {
+      children.addAll(MedicalRecordController.instance.lastPrescriptionList!.map((e) => _CurrentPrescriptionItem(prescription: e)).toList());
+    }
+
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children
     );
   }
 
@@ -236,7 +264,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
       child: Text(TextString.label__past_diagnostic, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
     ));
-    children.addAll(MedicalRecordController.instance.prescriptionList!.map((e) => _PastDiagnosticItem(prescription: e)).toList());
+    children.addAll(MedicalRecordController.instance.currentPrescriptionList!.map((e) => _PastDiagnosticItem(prescription: e)).toList());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: children

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -22,7 +21,9 @@ class MedicalRecordController extends AbstractController {
 
   String prescriptionLabel = 'Prescription';
 
-  List<Prescription>? prescriptionList;
+  List<Prescription>? currentPrescriptionList;
+
+  List<Prescription>? lastPrescriptionList;
 
   final updateHealthProfileForm = FormGroup({
     'healthProfile': FormControl<String>(validators: [Validators.required]),
@@ -39,6 +40,7 @@ class MedicalRecordController extends AbstractController {
 
     await _retrievePatient(patientId: patientId);
     await _retrieveCurrentPrescription(patientId: patientId);
+    await _retrieveLastPrescription(patientId: patientId);
 
     _changeProgressBarShow(false);
   }
@@ -58,12 +60,7 @@ class MedicalRecordController extends AbstractController {
     var wrapperCurrentPrescription = await PatientService.instance.getCurrentPrescriptionByPatient(patientId: patientId);
 
     if(wrapperCurrentPrescription.status == GetPrescriptionListStatus.SUCCESS) {
-      this.prescriptionList = wrapperCurrentPrescription.data;
-      this.prescriptionLabel = 'Current Prescription';
-
-      if(wrapperCurrentPrescription.data == null || wrapperCurrentPrescription.data!.length == 0) {
-        await _retrieveLastPrescription(patientId: patientId);
-      }
+      this.currentPrescriptionList = wrapperCurrentPrescription.data;
     } else {
       AlertUtil.showMessage(wrapperCurrentPrescription.data != null ? wrapperCurrentPrescription.error.toString() : TextString.label__error);
     }
@@ -73,8 +70,7 @@ class MedicalRecordController extends AbstractController {
     var wrapperLastPrescription = await PatientService.instance.getLastPrescriptionByPatient(patientId: patientId);
 
     if(wrapperLastPrescription.status == GetPrescriptionListStatus.SUCCESS) {
-      this.prescriptionList = wrapperLastPrescription.data;
-      this.prescriptionLabel = 'Last Prescription';
+      this.lastPrescriptionList = wrapperLastPrescription.data;
     } else {
       AlertUtil.showMessage(wrapperLastPrescription.data != null ? wrapperLastPrescription.error.toString() : TextString.label__error);
     }
@@ -86,7 +82,6 @@ class MedicalRecordController extends AbstractController {
   }
 
   void updateHealthProfile() async {
-    log('=============================== Update Health Profile');
     this.progressDialogShow = true;
     update();
 
