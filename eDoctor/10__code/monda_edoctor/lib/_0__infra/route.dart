@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/inventoryBatch.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
@@ -74,9 +75,10 @@ class RouteNavigator {
     return _goto(Routes.page_inventory, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoMedicalRecordPage({required String patientId, bool forgetBefore = false}) {
+  static Future<dynamic> gotoMedicalRecordPage({required String patientId, Appointment? appointment, bool forgetBefore = false}) {
     var arguments = {
       'patientId': patientId,
+      'appointment': appointment,
     };
     return _goto(Routes.page_medical_record, forgetBefore: forgetBefore, arguments: arguments);
   }
@@ -85,9 +87,10 @@ class RouteNavigator {
     return _goto(Routes.page_patient_register, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoAddPrescriptionPage({required Patient patient}) {
+  static Future<dynamic> gotoAddPrescriptionPage({required Patient patient, Appointment? appointment}) {
     var arguments = {
       'patient': patient,
+      'appointment': appointment,
     };
     return _goto(Routes.page_add_prescription, forgetBefore: false, arguments: arguments);
   }

@@ -51,13 +51,14 @@ class PrescriptionApi extends ApiDataSource {
   }
 
   // ===========================================================================
-  Future<ResponseWrapper<Prescription>> newPrescription({required String doctorId, required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile}) async {
+  Future<ResponseWrapper<Prescription>> newPrescription({required String doctorId, required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile, String? appointmentId,}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.PRESCRIPTION_NEW, params: {'doctorId': doctorId, 'patientId': patientId, }).toString();
     var data = {
       'diagnosisId': diagnosisId,
       'illnessSeverity': illnessSeverity,
       'notes': notes,
       'treatmentItemList': treatmentItemList,
+      'appointmentId': appointmentId,
     };
 
     // ===========================================================================

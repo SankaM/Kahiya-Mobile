@@ -6,12 +6,14 @@ import 'package:monda_edoctor/_0__infra/asset.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_3__service/service__prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__appointment_info.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__focus_button.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__patient_name_section.dart';
@@ -33,7 +35,9 @@ class AddPrescriptionPage extends AbstractPageWithBackgroundAndContent {
   Widget constructContent(BuildContext context) {
     if(Get.arguments != null && Get.arguments['patient'] != null) {
       Patient patient = Get.arguments['patient'];
-      AddPrescriptionController.instance.initData(patient: patient);
+      Appointment? appointment = Get.arguments['appointment'];
+
+      AddPrescriptionController.instance.initData(patient: patient, appointment: appointment);
     }
 
     return Scaffold(
@@ -100,6 +104,12 @@ class _AddPrescriptionForm extends StatelessWidget {
     Patient patient = AddPrescriptionController.instance.patient!;
 
     List<Widget> children = [];
+
+    // ----- Appointment
+    if(AddPrescriptionController.instance.appointment != null) {
+      children.add(AppointmentInfo(appointment: AddPrescriptionController.instance.appointment!),);
+      children.add(SizedBox(height: ScreenUtil.heightInPercent(2),),);
+    }
 
     // ----- Patient Name
     children.add(Text(TextString.label__patients_name, style: TextStyle(color: Colors.grey[500]),),);

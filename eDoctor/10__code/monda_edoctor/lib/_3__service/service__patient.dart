@@ -128,11 +128,11 @@ class PatientService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<NewPrescriptionStatus, Prescription, String>> newPrescription({required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile}) {
+  Future<StatusWrapper<NewPrescriptionStatus, Prescription, String>> newPrescription({required String patientId, required String diagnosisId, required String illnessSeverity, required String notes, required List<TreatmentItem> treatmentItemList, File? attachmentFile, String? appointmentId,}) {
     var completer = Completer<StatusWrapper<NewPrescriptionStatus, Prescription, String>>();
 
     var doctorId = UserSecureStorage.instance.user!.id;
-    PrescriptionApi.instance.newPrescription(doctorId: doctorId, patientId: patientId, diagnosisId: diagnosisId, illnessSeverity: illnessSeverity, notes: notes, treatmentItemList: treatmentItemList, attachmentFile: attachmentFile).then((responseWrapper) {
+    PrescriptionApi.instance.newPrescription(doctorId: doctorId, patientId: patientId, diagnosisId: diagnosisId, illnessSeverity: illnessSeverity, notes: notes, treatmentItemList: treatmentItemList, attachmentFile: attachmentFile, appointmentId: appointmentId).then((responseWrapper) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: NewPrescriptionStatus.SUCCESS, data: responseWrapper.data));
       } else {

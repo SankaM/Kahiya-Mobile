@@ -12,11 +12,13 @@ import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
+import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_1__model/dosage.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
 import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
+import 'package:monda_edoctor/_4__presentation/common/widget__appointment_info.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__progress_indicator_overlay.dart';
 import 'package:monda_edoctor/_4__presentation/page/_3__patient/controller__medical_record.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -36,7 +38,9 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
   Widget constructContent(BuildContext context) {
     if(Get.arguments != null && Get.arguments['patientId'] != null) {
       String patientId = Get.arguments['patientId'];
-      MedicalRecordController.instance.retrieveData(patientId: patientId);
+      Appointment? appointment = Get.arguments['appointment'];
+
+      MedicalRecordController.instance.retrieveData(patientId: patientId, appointment: appointment);
     }
 
     return Stack(
@@ -96,16 +100,27 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
       ),
       child: ListView(
         children: [
+          _appointmentInfo(context),
           _firstRowProfile(context),
           _medicalDescriptionSection(context),
           _currentPrescriptionSection(context),
           _lastPrescriptionSection(context),
-          _pastHistorySection(context),
+          _pastDiagnosticSection(context),
           _addPrescriptionButton(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
       ),
     );
+  }
+
+  Widget _appointmentInfo(BuildContext context) {
+    Appointment? appointment = MedicalRecordController.instance.appointment;
+
+    if(appointment != null) {
+      return AppointmentInfo(appointment: appointment);
+    } else {
+      return Container();
+    }
   }
 
   Widget _firstRowProfile(BuildContext context) {
@@ -257,7 +272,7 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
-  Widget _pastHistorySection(BuildContext context) {
+  Widget _pastDiagnosticSection(BuildContext context) {
     List<Widget> children = [];
     
     children.add(Padding(
@@ -280,7 +295,9 @@ class MedicalRecordPage extends AbstractPageWithBackgroundAndContent {
         elevation: 3,
         onPressed: () {
           if(MedicalRecordController.instance.patient != null) {
-            RouteNavigator.gotoAddPrescriptionPage(patient: MedicalRecordController.instance.patient!);
+            RouteNavigator.gotoAddPrescriptionPage(
+                patient: MedicalRecordController.instance.patient!,
+                appointment: MedicalRecordController.instance.appointment);
           }
         },
         child: Text(TextString.label__add_prescription, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),

@@ -40,7 +40,7 @@ class UpcomingAppointmentListController extends AbstractController {
   void acceptAppointment(Appointment appointment) async {
     var wrapper = await DoctorService.instance.acceptAppointment(appointmentId: appointment.id);
     if(wrapper.status == UpdateAppointmentStatus.SUCCESS) {
-      appointment.status = 'ACCEPTED';
+      appointment.status = AppointmentStatus.ACCEPTED;
       update();
       Navigator.pop(Get.context!);
     } else if(wrapper.status == UpdateAppointmentStatus.ERROR) {
@@ -52,7 +52,7 @@ class UpcomingAppointmentListController extends AbstractController {
   void declineAppointment(Appointment appointment) async {
     var wrapper = await DoctorService.instance.declineAppointment(appointmentId: appointment.id);
     if(wrapper.status == UpdateAppointmentStatus.SUCCESS) {
-      appointment.status = 'DECLINED';
+      appointment.status = AppointmentStatus.DECLINED;
       update();
       Navigator.pop(Get.context!);
     } else if(wrapper.status == UpdateAppointmentStatus.ERROR) {

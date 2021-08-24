@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
@@ -107,12 +108,20 @@ class _AppointmentItem extends StatelessWidget {
       height: ScreenUtil.heightInPercent(15),
       child: InkWell(
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return _upcomingAppointmentActionDialog(context);
-            },
-          );
+          // REQUESTED || DECLINED
+          if(appointment.status == AppointmentStatus.REQUESTED || appointment.status == AppointmentStatus.DECLINED) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return _upcomingAppointmentActionDialog(context);
+              },
+            );
+          }
+
+          // ACCEPTED
+          if(appointment.status == AppointmentStatus.ACCEPTED) {
+            RouteNavigator.gotoMedicalRecordPage(patientId: appointment.patient!.id, appointment: appointment);
+          }
         },
         child: Card(
           elevation: 5,
@@ -149,14 +158,7 @@ class _AppointmentItem extends StatelessWidget {
                     SizedBox(height: ScreenUtil.heightInPercent(1),),
                     Text('${DateFormat('hh:mm').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
                     Spacer(),
-                    Row(
-                      children: [
-                        Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
-                        if(appointment.status == 'PRESCRIBED') SizedBox(width: ScreenUtil.widthInPercent(15),),
-                        if(appointment.status == 'PRESCRIBED') Text('SGD xxx', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w500, color: Style.colorPrimary),),
-                      ],
-                    )
-
+                    Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
                   ],
                 )
               ],

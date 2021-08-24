@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/util/util__alert.dart';
+import 'package:monda_edoctor/_1__model/appointment.dart';
 import 'package:monda_edoctor/_1__model/diagnosis.dart';
 import 'package:monda_edoctor/_1__model/inventory.dart';
 import 'package:monda_edoctor/_1__model/patient.dart';
@@ -25,6 +26,8 @@ class AddPrescriptionController extends AbstractController {
   String errorMessage = '';
 
   // Reff Data
+  Appointment? appointment;
+
   List<Diagnosis> diagnosisList = [];
 
   List<Inventory> availableInventoryList = [];
@@ -49,9 +52,11 @@ class AddPrescriptionController extends AbstractController {
     'name': FormControl<String>(value: '', validators: [Validators.required]),
   });
 
-  void initData({required Patient patient}) async {
-    this.errorMessage = '';
+  void initData({required Patient patient, Appointment? appointment}) async {
     this.patient = patient;
+    this.appointment = appointment;
+
+    this.errorMessage = '';
     this.progressDialogShow = true;
     this.selectedDiagnosis = null;
     this.illnessSeverity = null;
@@ -170,6 +175,7 @@ class AddPrescriptionController extends AbstractController {
         notes: notes!,
         treatmentItemList: treatmentItemMap.entries.map((entry) => entry.value,).toList(),
         attachmentFile: attachment,
+        appointmentId: appointment != null ? appointment!.id : null,
     );
 
     if(wrapper.status == NewPrescriptionStatus.SUCCESS) {

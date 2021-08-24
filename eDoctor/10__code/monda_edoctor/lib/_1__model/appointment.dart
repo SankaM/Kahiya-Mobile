@@ -23,3 +23,13 @@ class Appointment {
     appointmentDate: json['appointmentDate'] != null ? DateTime.parse(json['appointmentDate']) : null,
   );
 }
+
+class AppointmentStatus {
+  static const String REQUESTED = 'REQUESTED';
+
+  static const String ACCEPTED = 'ACCEPTED';
+
+  static const String DECLINED = 'DECLINED';
+
+  static const String PRESCRIBED = 'PRESCRIBED';
+}
