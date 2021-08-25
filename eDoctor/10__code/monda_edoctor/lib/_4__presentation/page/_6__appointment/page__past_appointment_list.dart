@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/route.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
@@ -104,44 +105,52 @@ class _AppointmentItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       height: ScreenUtil.heightInPercent(15),
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: ScreenUtil.heightInPercent(2), horizontal: ScreenUtil.widthInPercent(5)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('${DateFormat('MMM dd').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w600, color: Style.colorPrimary),),
-                  SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text('${DateFormat('yyy').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Style.colorPrimary),),
-                  Spacer(),
-                  Text('${DateFormat('EEE').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w600, color: Style.colorPrimary),),
-                ],
-              ),
-              SizedBox(width: ScreenUtil.widthInPercent(4),),
-              Container(
-                height: ScreenUtil.heightInPercent(10),
-                width: 1,
-                color: Colors.grey[200],
-              ),
-              SizedBox(width: ScreenUtil.widthInPercent(4),),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${appointment.patient!.name}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
-                  SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text('${DateFormat('hh:mm').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
-                  Spacer(),
-                  Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
-                ],
-              )
-            ],
+      child: InkWell(
+        onTap: () {
+          // PRESCRIBED
+          if(appointment.status == AppointmentStatus.PRESCRIBED && appointment.prescriptionId != null) {
+            RouteNavigator.gotoInvoiceDetailPage(prescriptionId: appointment.prescriptionId!);
+          }
+        },
+        child: Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: ScreenUtil.heightInPercent(2), horizontal: ScreenUtil.widthInPercent(5)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('${DateFormat('MMM dd').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w600, color: Style.colorPrimary),),
+                    SizedBox(height: ScreenUtil.heightInPercent(1),),
+                    Text('${DateFormat('yyy').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Style.colorPrimary),),
+                    Spacer(),
+                    Text('${DateFormat('EEE').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w600, color: Style.colorPrimary),),
+                  ],
+                ),
+                SizedBox(width: ScreenUtil.widthInPercent(4),),
+                Container(
+                  height: ScreenUtil.heightInPercent(10),
+                  width: 1,
+                  color: Colors.grey[200],
+                ),
+                SizedBox(width: ScreenUtil.widthInPercent(4),),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${appointment.patient!.name}', style: Style.defaultTextStyle(fontSize: Style.fontSize_L, fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
+                    SizedBox(height: ScreenUtil.heightInPercent(1),),
+                    Text('${DateFormat('hh:mm').format(appointment.appointmentDate!)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_S, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
+                    Spacer(),
+                    Text('${StringUtil.capitalize(appointment.status)}', style: Style.defaultTextStyle(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w400, color: Colors.grey[600]!),),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

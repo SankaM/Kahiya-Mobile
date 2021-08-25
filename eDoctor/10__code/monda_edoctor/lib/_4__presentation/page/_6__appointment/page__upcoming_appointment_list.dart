@@ -122,6 +122,11 @@ class _AppointmentItem extends StatelessWidget {
           if(appointment.status == AppointmentStatus.ACCEPTED) {
             RouteNavigator.gotoMedicalRecordPage(patientId: appointment.patient!.id, appointment: appointment);
           }
+
+          // PRESCRIBED
+          if(appointment.status == AppointmentStatus.PRESCRIBED && appointment.prescriptionId != null) {
+            RouteNavigator.gotoInvoiceDetailPage(prescriptionId: appointment.prescriptionId!);
+          }
         },
         child: Card(
           elevation: 5,

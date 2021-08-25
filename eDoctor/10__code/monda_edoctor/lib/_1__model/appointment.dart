@@ -9,11 +9,14 @@ class Appointment {
 
   String? status;
 
+  final String? prescriptionId;
+
   Appointment({
     required this.id,
     this.patient,
     this.appointmentDate,
     this.status,
+    this.prescriptionId,
   });
 
   factory Appointment.build(Map<String, dynamic> json) => Appointment(
@@ -21,6 +24,7 @@ class Appointment {
     patient: json['patient'] != null ? Patient.buildDetail(json['patient']) : null,
     status: json['status'],
     appointmentDate: json['appointmentDate'] != null ? DateTime.parse(json['appointmentDate']) : null,
+    prescriptionId: json['prescriptionId'],
   );
 }
 
