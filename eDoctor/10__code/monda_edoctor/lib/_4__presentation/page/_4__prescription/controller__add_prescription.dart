@@ -223,6 +223,18 @@ class AddPrescriptionController extends AbstractController {
       return false;
     }
 
+    // --- Check stock enough
+    Inventory? inventoryThatStockNotEnough;
+    this.treatmentItemMap.forEach((key, value) {
+      if(!value.isStockEnough()) {
+        inventoryThatStockNotEnough = value.inventory;
+      }
+    });
+    if(inventoryThatStockNotEnough != null) {
+      MySnackBar.show(Get.context!, 'Stock of ${inventoryThatStockNotEnough!.drug!.completeName} not enough. Only have ${inventoryThatStockNotEnough!.availableUnits} unit');
+      return false;
+    }
+
     // --- Check notes
     if(notes == null || notes!.isEmpty) {
       MySnackBar.show(Get.context!, 'Notes is empty');
@@ -253,6 +265,12 @@ class TreatmentItem {
     }
 
     return false;
+  }
+
+  bool isStockEnough() {
+    int neededStock = treatmentDays! * timesPerDay! * dosageCount!;
+
+    return neededStock <= inventory!.availableUnits!.toInt();
   }
 
   @override
