@@ -61,4 +61,7 @@ class ApiEndPoint {
   static const String DOCTOR_APPOINTMENT_UPCOMING = PREFIX + '/doctors/{doctorId}/appointment/upcoming';
 
   static const String APPOINTMENT_UPDATE = PREFIX + '/doctors/{doctorId}/appointment/{appointmentId}';
+
+  // ==================================================================== Attachment
+  static const String DOWNLOAD_ATTACHMENT = PREFIX + '/download/{attachmentId}';
 }

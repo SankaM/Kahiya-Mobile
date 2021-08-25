@@ -1,13 +1,20 @@
+
+import 'dart:io';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:monda_edoctor/_0__infra/api_endpoint.dart';
 import 'package:monda_edoctor/_0__infra/asset.dart';
+import 'package:monda_edoctor/_0__infra/download.dart';
 import 'package:monda_edoctor/_0__infra/screen_util.dart';
 import 'package:monda_edoctor/_0__infra/style.dart';
 import 'package:monda_edoctor/_0__infra/text_string.dart';
+import 'package:monda_edoctor/_0__infra/util/template_string.dart';
 import 'package:monda_edoctor/_0__infra/util/util__string.dart';
 import 'package:monda_edoctor/_1__model/dosage.dart';
+import 'package:monda_edoctor/_1__model/prescription.dart';
 import 'package:monda_edoctor/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_edoctor/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_edoctor/_4__presentation/common/widget__my_circular_progress_indicator.dart';
@@ -113,8 +120,8 @@ class _InvoiceForm extends StatelessWidget {
         SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // ----- LinkBox
-        // _LinkBox(url: 'http://loremipsumdolorsita'),
-        // SizedBox(height: ScreenUtil.heightInPercent(3),),
+        _LinkBox(prescription: InvoiceDetailController.instance.prescription!,),
+        SizedBox(height: ScreenUtil.heightInPercent(3),),
 
         // ----- Send To Patient Button
         // _SendToPatientButton(),
@@ -350,29 +357,95 @@ class _Total extends StatelessWidget {
   }
 }
 
-// class _LinkBox extends StatelessWidget {
-//   final String url;
-//
-//   _LinkBox({required this.url});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(5),
-//         border: Border.all(color: Colors.grey[300]!),
-//       ),
-//       padding: EdgeInsets.all(15),
-//       child: Row(
-//         children: [
-//           Text(url, style: Style.defaultTextStyle(color: Colors.grey),),
-//           Spacer(),
-//           FaIcon(FontAwesomeIcons.link, color: Style.colorPrimary, size: Style.iconSize_S,),
-//         ]
-//       ),
-//     );
-//   }
-// }
+class _LinkBox extends StatelessWidget {
+  final Prescription prescription;
+
+  _LinkBox({required this.prescription});
+
+  @override
+  Widget build(BuildContext context) {
+    if(prescription.attachmentId == null) {
+      return Container();
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Colors.grey[300]!),
+      ),
+      padding: EdgeInsets.all(15),
+      child: InkWell(
+        onTap: () {
+          _showAttachment(context);
+        },
+        child: Row(
+          children: [
+            Text('Show Attachment'),
+            Spacer(),
+            FaIcon(FontAwesomeIcons.link, color: Style.colorPrimary, size: Style.iconSize_S,),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAttachment(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return _attachmentDialog(context);
+      },
+    );
+  }
+
+  Widget _attachmentDialog(BuildContext context) {
+    String attachmentUrl = TemplateString(stringWithParams: ApiEndPoint.DOWNLOAD_ATTACHMENT, params: {'attachmentId': prescription.attachmentId!}).toString();
+    Future<File> attachmentFileFuture = AttachmentUtil.downloadFile(attachmentUrl, prescription.attachmentId!);
+
+    return AlertDialog(
+      content: Container(
+        height: ScreenUtil.heightInPercent(50),
+        padding: EdgeInsets.zero,
+        child: FutureBuilder(
+          future: attachmentFileFuture,
+          builder: (context, snapshot) {
+            if(snapshot.connectionState == ConnectionState.done) {
+              File file = snapshot.data as File;
+              if(file.path.contains('jpg')) {
+                return Image.file(file, fit: BoxFit.cover,);
+              } else if(file.path.contains('png')) {
+                return Image.file(file, fit: BoxFit.cover,);
+              } else if(file.path.contains('txt')) {
+                  return FutureBuilder(
+                    future: file.readAsString(),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.done) {
+                        return Text(snapshot.data! as String);
+                      } else {
+                        return Center(child: Text('Error'),);
+                      }
+                    },
+                  );
+                } else {
+                return Center(child: Text('Unknown file type'),);
+              }
+            } else {
+              return MyCircularProgressIndicator();
+            }
+          },
+        )
+      ),
+      actions: [
+        TextButton(
+          child: Text("Close"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}
 
 // class _SendToPatientButton extends StatelessWidget {
 //   @override
