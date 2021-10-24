@@ -14,6 +14,12 @@ dependencies:
   # Non UI related dependencies
   get: ^4.1.4
   flutter_phoenix: ^1.0.0
+  dio: ^4.0.0
+  pretty_dio_logger: ^1.1.1
+  flutter_secure_storage: ^4.2.0
+  intl: ^0.17.0
+  file_picker: ^3.0.4
+  path_provider: ^2.0.2
 
   # UI related dependencies
   cupertino_icons: ^1.0.2
