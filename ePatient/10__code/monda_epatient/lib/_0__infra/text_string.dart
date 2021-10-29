@@ -153,4 +153,6 @@ class TextString {
   static const String label__error = 'Error';
 
   static const String label__cannot_empty = 'Cannot empty';
+
+  static const String label__successfully_signup = 'Successfully sign up';
 }

@@ -22,4 +22,15 @@ class AccountApi extends ApiDataSource {
 
     return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
   }
+
+  Future<ResponseWrapper<User>> signup({required String email, required String username, required String password}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.SIGNUP).toString();
+    var data = {'email': email, 'userName': username, 'password': password};
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<User>.success(data: User.buildDetail(json['data']));
+    };
+
+    return ApiUtil.post(url: url, postData: data, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }

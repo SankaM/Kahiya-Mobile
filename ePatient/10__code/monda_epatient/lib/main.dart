@@ -17,6 +17,7 @@ import 'package:monda_epatient/_3__service/service__doctor.dart';
 import 'package:monda_epatient/_3__service/service__patient.dart';
 import 'package:monda_epatient/_3__service/service__prescription.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signin.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__blank_before_splash.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_signup.dart';
@@ -38,13 +39,13 @@ void main() {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return runApp(
       Phoenix(
-        child: MondaEDoctorApp(),
+        child: MondaEPatientApp(),
       ),
     );
   });
 }
 
-class MondaEDoctorApp extends StatelessWidget {
+class MondaEPatientApp extends StatelessWidget {
   Future<void> _onInit() async {
     // API
     Get.put(AccountApi.newInstance());
@@ -66,6 +67,7 @@ class MondaEDoctorApp extends StatelessWidget {
 
     // Initialize all controller
     Get.put(SignInController());
+    Get.put(SignUpController());
     Get.put(DoctorProfileController());
   }
 

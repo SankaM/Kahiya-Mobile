@@ -5,4 +5,6 @@ class ApiEndPoint {
 
   // =================================================================== Account
   static const String LOGIN = PREFIX + '/patient/login';
+
+  static const String SIGNUP = PREFIX + '/patient/signup';
 }

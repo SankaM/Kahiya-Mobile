@@ -27,4 +27,18 @@ class AccountService {
 
     return completer.future;
   }
+
+  Future<StatusWrapper<Status, User, String>> signup({required String email, required String username, required String password}) {
+    var completer = Completer<StatusWrapper<Status, User, String>>();
+
+    AccountApi.instance.signup(email: email, username: username, password: password).then((ResponseWrapper<User> res) {
+      if(res.isSuccess) {
+        completer.complete(StatusWrapper(status: Status.SUCCESS, data: res.data));
+      } else {
+        completer.complete(StatusWrapper(status: Status.ERROR, error: res.message),);
+      }
+    });
+
+    return completer.future;
+  }
 }
