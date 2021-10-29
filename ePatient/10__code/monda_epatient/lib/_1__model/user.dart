@@ -1,7 +1,9 @@
 class User {
   String id;
 
-  String? name;
+  String? firstName;
+
+  String? lastName;
 
   String? userName;
 
@@ -9,11 +11,12 @@ class User {
 
   String? imageUrl;
 
-  User({required this.id, this.name, this.userName, this.location, this.imageUrl});
+  User({required this.id, this.firstName, this.lastName, this.userName, this.location, this.imageUrl});
 
   factory User.buildDetail(Map<String, dynamic> json) => User(
     id: json['patientId'],
-    name: json['patientName'],
+    firstName: json['firstName'],
+    lastName: json['lastName'],
     userName: json['userName'],
     location: json['location'],
     imageUrl: json['imageUrl'],

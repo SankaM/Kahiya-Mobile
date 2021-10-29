@@ -45,7 +45,7 @@ class UserSecureStorage {
       user = User(
         id: _allValues['User__id']!,
         userName: _allValues['User__userName'],
-        name: _allValues['User__name'],
+        firstName: _allValues['User__firstName'],
         location: _allValues['User__location'],
         imageUrl: _allValues['User__imageUrl'],
       );
@@ -58,7 +58,7 @@ class UserSecureStorage {
     if(user != null) {
       _storage.write(key: 'User__id', value: user.id);
       _storage.write(key: 'User__userName', value: user.userName);
-      _storage.write(key: 'User__name', value: user.name);
+      _storage.write(key: 'User__firstName', value: user.firstName);
       _storage.write(key: 'User__location', value: user.location);
       _storage.write(key: 'User__imageUrl', value: user.imageUrl);
     }

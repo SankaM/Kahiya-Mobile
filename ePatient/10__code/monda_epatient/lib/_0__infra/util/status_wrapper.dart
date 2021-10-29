@@ -7,3 +7,8 @@ class StatusWrapper<S, D, E> {
 
   StatusWrapper({required this.status, this.data, this.error});
 }
+
+enum Status {
+  SUCCESS,
+  ERROR,
+}

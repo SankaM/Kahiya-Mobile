@@ -149,4 +149,8 @@ class TextString {
   static const String label__take = 'Take';
 
   static const String label__time_for = 'Time for';
+
+  static const String label__error = 'Error';
+
+  static const String label__cannot_empty = 'Cannot empty';
 }
