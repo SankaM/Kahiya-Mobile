@@ -12,10 +12,12 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_1__model/user.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
+import 'package:monda_epatient/_3__service/service__doctor.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__doctor_card.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__filter_button.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class HomePage extends AbstractPageWithBackgroundAndContent {
   HomePage() : super(
@@ -103,35 +105,54 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
     return Container(
       height: ScreenUtil.heightInPercent(10),
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
-      child: Row(
-        children: [
-          Container(
-            width: ScreenUtil.widthInPercent(60),
-            height: ScreenUtil.heightInPercent(8),
-            child: TextFormField(
-              style: TextStyle(color: Style.colorPrimary),
-              cursorColor: Style.colorPrimary,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
-                prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
-                hintText: TextString.label__search,
-                hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide.none,
+      child: ReactiveForm(
+        formGroup: HomeController.instance.vInput.searchForm,
+        child: Row(
+          children: [
+            Container(
+              width: ScreenUtil.widthInPercent(60),
+              height: ScreenUtil.heightInPercent(8),
+              child: ReactiveTextField(
+                formControlName: 'queryValue',
+                style: TextStyle(color: Style.colorPrimary),
+                cursorColor: Style.colorPrimary,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(top: ScreenUtil.heightInPercent(8)),
+                  prefixIcon: Icon(Icons.search, color: Style.colorPrimary,),
+                  hintText: TextString.label__search,
+                  hintStyle: TextStyle(fontSize: Style.fontSize_Default, color: Style.colorPalettes[300], fontWeight: FontWeight.w400),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
-          Spacer(),
-          Container(
-            width: ScreenUtil.heightInPercent(8),
-            height: ScreenUtil.heightInPercent(8),
-            child: FilterButton(labels: ['Name', 'Phone', 'Past History'],),
-          )
-        ],
+            Spacer(),
+            Container(
+              width: ScreenUtil.heightInPercent(8),
+              height: ScreenUtil.heightInPercent(8),
+              child: FilterButton(
+                labels: ['Name', 'Phone', 'Past History'],
+                onTap: (menuItemLabel) {
+                  if(menuItemLabel == 'Name') {
+                    HomeController.instance.vInput.field = SearchDoctorField.NAME;
+                  } else if(menuItemLabel == 'Phone') {
+                    HomeController.instance.vInput.field = SearchDoctorField.MOBILE_PHONE;
+                  }
+                },
+              ),
+            ),
+            ReactiveFormConsumer(
+              builder: (context, form, child) {
+                HomeController.instance.searchDoctors();
+                return Container();
+              }
+            )
+          ],
+        ),
       ),
     );
   }

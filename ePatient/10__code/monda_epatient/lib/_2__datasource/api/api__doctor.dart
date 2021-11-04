@@ -21,4 +21,15 @@ class DoctorApi extends ApiDataSource {
 
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
   }
+
+  // ===========================================================================
+  Future<ResponseWrapper<List<Doctor>>> searchDoctors({required String queryValue, required String field}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.DOCTORS__SEARCH, params: {'queryValue': queryValue, 'field': field}).toString();
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<List<Doctor>>.success(data: (json['data'] as List).map((e) => Doctor.buildDetail(e)).toList());
+    };
+
+    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
 }

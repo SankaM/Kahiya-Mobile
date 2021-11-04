@@ -25,4 +25,23 @@ class DoctorService {
 
     return completer.future;
   }
+
+  // ===========================================================================
+  Future<StatusWrapper<Status, List<Doctor>, String>> searchDoctors({required String queryValue, required SearchDoctorField field}) {
+    var completer = Completer<StatusWrapper<Status, List<Doctor>, String>>();
+
+    DoctorApi.instance.searchDoctors(queryValue: queryValue, field: field.toString().split('.').last).then((ResponseWrapper<List<Doctor>> responseWrapper,) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: Status.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: Status.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+}
+
+enum SearchDoctorField {
+  NAME, MOBILE_PHONE,
 }
