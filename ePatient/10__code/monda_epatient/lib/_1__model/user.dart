@@ -21,4 +21,18 @@ class User {
     location: json['location'],
     imageUrl: json['imageUrl'],
   );
+
+  String get name {
+    String _name = '';
+
+    if(firstName != null) {
+      _name += (firstName! + ' ');
+    }
+
+    if(lastName != null) {
+      _name += lastName!;
+    }
+
+    return _name;
+  }
 }

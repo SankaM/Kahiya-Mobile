@@ -9,6 +9,8 @@ import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_1__model/user.dart';
+import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__doctor_card.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__filter_button.dart';
@@ -39,6 +41,10 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _welcomeAccountRow(BuildContext context) {
+    User? user = UserSecureStorage.instance.user;
+    String patientName = user != null ? user.name : '';
+    String? imageUrl = user != null ? user.imageUrl != null ? user.imageUrl! : null : null;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,20 +52,26 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _welcomeText(context),
-            _patientNameText(context),
+            _patientNameText(context, name: patientName),
           ],
         ),
         Spacer(),
-        _accountProfilePicture(context),
+        _accountProfilePicture(context, imageUrl: imageUrl),
       ],
     );
   }
 
-  Widget _accountProfilePicture(BuildContext context) {
+  Widget _accountProfilePicture(BuildContext context, {String? imageUrl}) {
+    ImageProvider image = AssetImage(Asset.png__no_image_available);
+    if(imageUrl != null && imageUrl.isNotEmpty) {
+      image = NetworkImage(imageUrl);
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: GFAvatar(
-        backgroundImage: AssetImage(Asset.png__patient01),
+        backgroundImage: image,
+        backgroundColor: Colors.white,
         shape: GFAvatarShape.square,
         size: ScreenUtil.widthInPercent(7),
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -74,10 +86,12 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
     );
   }
 
-  Widget _patientNameText(BuildContext context) {
+  Widget _patientNameText(BuildContext context, {required String name}) {
+    name = name.length > 20 ? name.substring(0, 19) : name;
+
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(1.5), right: ScreenUtil.widthInPercent(8)),
-      child: Text('Steve,', style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
+      child: Text(name, style: GoogleFonts.montserrat(fontSize: Style.fontSize_XL, fontWeight: FontWeight.w500, color: Style.textColorPrimary),),
     );
   }
 

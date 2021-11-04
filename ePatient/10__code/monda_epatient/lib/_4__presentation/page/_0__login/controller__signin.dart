@@ -69,8 +69,8 @@ class _ViewInput extends ViewInput {
   @override
   void reset() {
     this.loginForm.reset(value: {
-      'username':'',
-      'password':''
+      'username':'patient1',
+      'password':'12341234'
     });
   }
 }
