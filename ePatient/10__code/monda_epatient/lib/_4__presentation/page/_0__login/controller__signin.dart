@@ -51,12 +51,7 @@ class SignInController extends AbstractController<_ViewState, _ViewReference, _V
   }
 }
 
-class _ViewState extends ViewState {
-  @override
-  void reset() {
-    progressDialogShow = false;
-  }
-}
+class _ViewState extends ViewState {}
 
 class _ViewReference extends ViewReference {}
 

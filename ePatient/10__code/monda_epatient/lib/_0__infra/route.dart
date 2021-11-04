@@ -68,18 +68,13 @@ class RouteNavigator {
     return _goto(Routes.page_appointment_all, forgetBefore: false);
   }
 
-  static Future<dynamic> gotoDoctorProfilePage(
-      {required String assetImage,
-      required String firstLineText,
-      required String secondLineText,
-      required String thirdLineText,
-      required String assetIcon}) {
+  static Future<dynamic> gotoDoctorProfilePage({required String doctorId}) {
     var arguments = {
-      'assetImage': assetImage,
-      'firstLineText': firstLineText,
-      'secondLineText': secondLineText,
-      'thirdLineText': thirdLineText,
-      'assetIcon': assetIcon,
+      // 'assetImage': assetImage,
+      // 'firstLineText': firstLineText,
+      // 'secondLineText': secondLineText,
+      // 'thirdLineText': thirdLineText,
+      // 'assetIcon': assetIcon,
     };
 
     return _goto(Routes.page_doctor_profile, forgetBefore: false, arguments: arguments);

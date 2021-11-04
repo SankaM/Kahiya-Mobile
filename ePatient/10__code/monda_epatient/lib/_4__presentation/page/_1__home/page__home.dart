@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -12,6 +13,7 @@ import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_1__model/user.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
+import 'package:monda_epatient/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__doctor_card.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/widget__filter_button.dart';
 
@@ -28,6 +30,8 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
+    HomeController.instance.init();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,21 +140,42 @@ class HomePage extends AbstractPageWithBackgroundAndContent {
     var width = ScreenUtil.widthInPercent(80);
     var height = ScreenUtil.heightInPercent(17);
 
+    var noDoctorFound = Padding(
+      padding: EdgeInsets.all(ScreenUtil.widthInPercent(10)),
+      child: Center(
+        child: Text(
+          TextString.label__no_doctor_found,
+          style: Style.defaultTextStyle(color: Colors.grey[500]!),
+        ),
+      ),
+    );
+
+    var builder = GetBuilder<HomeController>(
+      builder: (_) {
+        List<Widget> children = [];
+        children.add(_doctorsTextLabel(context));
+
+        if(_.vReference.doctorList.isEmpty) {
+          children.add(noDoctorFound);
+        } else {
+          children.addAll(_.vReference.doctorList.map((d) => DoctorCard(doctor: d,width: width, height: height,),),);
+        }
+
+        children.add(_myAppointmentTextLabel(context));
+        children.add(_myAppointmentButton(context));
+        children.add(SizedBox(height: ScreenUtil.heightInPercent(10)));
+
+        return ListView(
+          children: children,
+        );
+      },
+    );
+
     return Padding(
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(2.5), right: ScreenUtil.widthInPercent(8)),
       child: Container(
         height: ScreenUtil.heightInPercent(70),
-        child: ListView(
-          children: [
-            _doctorsTextLabel(context),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face01, firstLineText: 'Dr. Carl Johnson', secondLineText: 'Skin Care Specialist', thirdLineText: '10:00 AM - 5:00 PM', assetIcon: Asset.png_time01,),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face02, firstLineText: 'Dr. Melinda Margot', secondLineText: 'ENT Specialist / Surgeon', thirdLineText: '9:00 AM - 6:00 PM', assetIcon: Asset.png_time02,),
-            DoctorCard(width: width, height: height, assetImage: Asset.png_face03, firstLineText: 'Dr. William Martin', secondLineText: 'Gynecologist', thirdLineText: '10:00 AM - 7:00 PM', assetIcon: Asset.png_time03,),
-            _myAppointmentTextLabel(context),
-            _myAppointmentButton(context),
-            SizedBox(height: ScreenUtil.heightInPercent(10),),
-          ],
-        ),
+        child: builder,
       ),
     );
   }

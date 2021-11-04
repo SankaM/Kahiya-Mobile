@@ -22,7 +22,9 @@ abstract class AbstractController<S extends ViewState, R extends ViewReference, 
 abstract class ViewState {
   bool progressDialogShow = false;
 
-  void reset() {}
+  void reset() {
+    progressDialogShow = false;
+  }
 }
 
 /// [ViewReference] is data class that you put your reference data. Usually you

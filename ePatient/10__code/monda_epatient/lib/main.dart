@@ -23,6 +23,7 @@ import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin.dart
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart';
+import 'package:monda_epatient/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__notification.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
@@ -68,6 +69,7 @@ class MondaEPatientApp extends StatelessWidget {
     // Initialize all controller
     Get.put(SignInController());
     Get.put(SignUpController());
+    Get.put(HomeController());
     Get.put(DoctorProfileController());
   }
 

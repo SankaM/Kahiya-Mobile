@@ -155,4 +155,8 @@ class TextString {
   static const String label__cannot_empty = 'Cannot empty';
 
   static const String label__successfully_signup = 'Successfully sign up';
+
+  static const String label__error_retrieving_data = 'Error retrieving data';
+
+ static const String label__no_doctor_found = 'No doctor found';
 }
