@@ -7,8 +7,6 @@ abstract class AbstractController<S extends ViewState, R extends ViewReference, 
 
   late I vInput;
 
-
-
   void init({dynamic data}) {
   }
 

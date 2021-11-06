@@ -68,4 +68,20 @@ class Doctor {
     isActive: json['isActive'],
     doctorCost: json['doctorCost'],
   );
+
+  String get nonNullName {
+    return name == null ? '' : name!;
+  }
+
+  String get nonNullSpeciality {
+    return speciality == null ? '' : speciality!;
+  }
+
+  String get nonNullGeneralWorkHour {
+    return generalWorkHour == null ? '' : generalWorkHour!;
+  }
+
+  String get nonNullProfile {
+    return profile == null ? '' : profile!;
+  }
 }

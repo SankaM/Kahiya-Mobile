@@ -13,12 +13,6 @@ class DoctorCard extends StatelessWidget {
   
   late final String? imageUrl;
 
-  late final String doctorName;
-
-  late final String doctorSpeciality;
-
-  late final String doctorGeneralWorkHour;
-
   final double width;
 
   final double height;
@@ -27,9 +21,6 @@ class DoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    doctorName = doctor.name == null ? '' : doctor.name!;
-    doctorSpeciality = doctor.speciality == null ? '' : doctor.speciality!;
-    doctorGeneralWorkHour = doctor.generalWorkHour == null ? '' : doctor.generalWorkHour!;
     ImageProvider noImage = AssetImage(Asset.png__no_image_available);
 
     return Container(
@@ -38,7 +29,7 @@ class DoctorCard extends StatelessWidget {
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoDoctorProfilePage(doctorId: doctor.id);
+          RouteNavigator.gotoDoctorProfilePage(doctorId: doctor.id, doctorName: doctor.nonNullName);
         },
         child:Card(
           elevation: 5,
@@ -66,15 +57,15 @@ class DoctorCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(doctorName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                      Text(doctor.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
-                      Text(doctorSpeciality, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
+                      Text(doctor.nonNullSpeciality, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                       Spacer(),
                       Row(
                         children: [
                           Image.asset(Asset.png_time01, width: Style.iconSize_Default, height: Style.iconSize_Default,),
                           SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                          Text(doctorGeneralWorkHour, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                          Text(doctor.nonNullGeneralWorkHour, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                         ],
                       )
                     ],

@@ -26,31 +26,64 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   @override
   Widget constructContent(BuildContext context) {
     var arguments = Get.arguments;
-    if(arguments != null) {
-      DoctorProfileController.instance.initializeData(
-          assetImage: arguments['assetImage'],
-          firstLineText: arguments['firstLineText'],
-          secondLineText: arguments['secondLineText'],
-          thirdLineText: arguments['thirdLineText'],
-          assetIcon: arguments['assetIcon']);
-    }
+    DoctorProfileController.instance.init(data: arguments['doctorId']);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: _contentCustomAppBar(context),
+      appBar: _contentCustomAppBar(context, doctorName: arguments['doctorName']),
       body: _contentBody(context),
     );
   }
 
-  PreferredSize _contentCustomAppBar(BuildContext context) {
+  PreferredSize _contentCustomAppBar(BuildContext context, {required String doctorName}) {
     return CustomAppBarBuilder.build(
       context: context,
-      firstLineLabel: Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
+      firstLineLabel: Text(doctorName, style: Style.defaultTextStyle(fontSize: Style.fontSize_3XL, fontWeight: FontWeight.w700),),
       secondLineLabel: Text(TextString.label__profile, style: Style.defaultTextStyle()),
     );
   }
 
   Widget _contentBody(BuildContext context) {
+    var firstRowProfile = GetBuilder<DoctorProfileController>(builder: (_) {
+      if(_.vReference.doctor != null) {
+        return _firstRowProfile(context);
+      }
+
+      return Container();
+    });
+
+    var aboutDoctorSection = GetBuilder<DoctorProfileController>(builder: (_) {
+      if(_.vReference.doctor != null) {
+        return _aboutDoctorSection(context);
+      }
+
+      return Container();
+    });
+
+    var pastHistorySection = GetBuilder<DoctorProfileController>(builder: (_) {
+      if(_.vReference.doctorStatistic != null) {
+        return _pastHistorySection(context);
+      }
+
+      return Container();
+    });
+
+    var workHoursSection = GetBuilder<DoctorProfileController>(builder: (_) {
+      if(_.vReference.workHours.isNotEmpty) {
+        return _workHoursSection(context);
+      }
+
+      return Container();
+    });
+
+    var availableAppointmentHoursSection = GetBuilder<DoctorProfileController>(builder: (_) {
+      if(_.vReference.workHours.isNotEmpty) {
+        return _availableAppointmentHoursSection(context);
+      }
+
+      return Container();
+    });
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(8), top: ScreenUtil.heightInPercent(4), right: ScreenUtil.widthInPercent(8)),
@@ -71,11 +104,11 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
       ),
       child: ListView(
         children: [
-          _firstRowProfile(context),
-          _aboutDoctorSection(context),
-          _pastHistorySection(context),
-          _workHoursSection(context),
-          _availableAppointmentHoursSection(context),
+          firstRowProfile,
+          aboutDoctorSection,
+          pastHistorySection,
+          workHoursSection,
+          availableAppointmentHoursSection,
           _makeAnAppointmentButton(context),
           SizedBox(height: ScreenUtil.heightInPercent(20),),
         ],
@@ -84,6 +117,8 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _firstRowProfile(BuildContext context) {
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+
     return Container(
       height: ScreenUtil.heightInPercent(16),
       child: Row(
@@ -96,7 +131,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               margin: EdgeInsets.all(ScreenUtil.widthInPercent(1.5)),
               height: double.infinity,
               child: GFAvatar(
-                backgroundImage: AssetImage(DoctorProfileController.instance.assetImage),
+                backgroundImage: DoctorProfileController.instance.vReference.doctor!.imageUrl == null ? noImage : NetworkImage(DoctorProfileController.instance.vReference.doctor!.imageUrl!),
                 shape: GFAvatarShape.square,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
@@ -109,17 +144,17 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
+                  Text(DoctorProfileController.instance.vReference.doctor!.nonNullName, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text(DoctorProfileController.instance.secondLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
+                  Text(DoctorProfileController.instance.vReference.doctor!.nonNullSpeciality, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
                   Spacer(),
                   Text(TextString.label__available_for_appointment, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, color: Colors.grey[500]!),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Row(
                     children: [
-                      Image.asset(DoctorProfileController.instance.assetIcon, width: Style.iconSize_Default, height: Style.iconSize_Default,),
+                      Image.asset(Asset.png_time01, width: Style.iconSize_Default, height: Style.iconSize_Default,),
                       SizedBox(width: ScreenUtil.widthInPercent(1),),
-                      Text(DoctorProfileController.instance.thirdLineText, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
+                      Text(DoctorProfileController.instance.vReference.doctor!.nonNullGeneralWorkHour, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[700]!, fontWeight: FontWeight.w600),),
                     ],
                   )
                 ],
@@ -141,7 +176,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         ),
         Padding(
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), right: ScreenUtil.widthInPercent(1)),
-          child: Text(TextString.label__lorem_ipsum, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
+          child: Text(DoctorProfileController.instance.vReference.doctor!.nonNullProfile, style: Style.defaultTextStyle(color: Colors.grey[600]!, height: 1.5), textAlign: TextAlign.justify,),
         )
       ],
     );

@@ -56,6 +56,8 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _heroSection(BuildContext context) {
+    var noImage = Image.asset(Asset.png__no_image_available);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -75,20 +77,21 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 width: double.infinity,
-                child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
+                // child: Image.asset(DoctorProfileController.instance.assetImage, fit: BoxFit.fitWidth,),
+                child: DoctorProfileController.instance.vReference.doctor!.imageUrl == null ? noImage : Image.network(DoctorProfileController.instance.vReference.doctor!.imageUrl!, fit: BoxFit.fitWidth,),
               ),
             ),
             // SizedBox(height: 10,),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
-            Text('Appointment With', style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
+            Text(TextString.label__appointment_with, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.grey[600]!),),
             SizedBox(height: ScreenUtil.heightInPercent(1),),
-            Text(DoctorProfileController.instance.firstLineText, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
+            Text(DoctorProfileController.instance.vReference.doctor!.nonNullName, style: Style.defaultTextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Style.fontSize_L),),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
             Row(
               children: [
                 Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_Default,),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
-                Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                Text('Mon | 17 May, 2021 (change me)', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
             SizedBox(height: 10,),
@@ -96,7 +99,7 @@ class PayAndConfirmPage extends AbstractPageWithBackgroundAndContent {
               children: [
                 Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
-                Text('12:00 PM', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                Text('12:00 PM (change me)', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
           ],

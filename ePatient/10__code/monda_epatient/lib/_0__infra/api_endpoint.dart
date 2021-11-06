@@ -12,4 +12,10 @@ class ApiEndPoint {
   static const String DOCTORS__FIND_ALL = PREFIX + '/doctors';
 
   static const String DOCTORS__SEARCH = PREFIX + '/doctors/search?query={queryValue}&field={field}';
+
+  static const String DOCTORS__PROFILE = PREFIX + '/doctors/{doctorId}/profile';
+
+  static const String DOCTORS__WORK_HOURS = PREFIX + '/doctors/{doctorId}/work-hours';
+
+  static const String DOCTORS__STATISTIC = PREFIX + '/doctors/{doctorId}/statistic';
 }
