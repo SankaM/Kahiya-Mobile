@@ -1,4 +1,6 @@
+
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_0__infra/util/abstract_controller.dart';
 import 'package:monda_epatient/_0__infra/util/status_wrapper.dart';
@@ -9,6 +11,8 @@ import 'package:monda_epatient/_1__model/work_hour.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
 
 class DoctorProfileController extends AbstractController<_ViewState, _ViewReference, _ViewInput> {
+  static const int nextDaysCount = 30;
+  
   static DoctorProfileController get instance => Get.find();
 
   DoctorProfileController() {
@@ -51,6 +55,7 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
     if(statusWrapper.status == Status.SUCCESS && statusWrapper.data != null) {
       vReference.workHours.clear();
       vReference.workHours.addAll(statusWrapper.data!);
+      generateAppointmentOptionHours();
       update();
     } else {
       vReference.workHours.clear();
@@ -82,10 +87,77 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
         return workHour;
       }
     }
+
+    return null;
+  }
+
+  void generateAppointmentOptionHours() {
+    vState.appointmentOptionHours.clear();
+
+    var now = DateTime.now();
+
+    for(int i = 1; i <= nextDaysCount; i++) {
+      var nextDay = now.add(Duration(days: i));
+      WorkHour? availableWorkHour;
+
+      switch(nextDay.weekday) {
+        case DateTime.monday:
+          availableWorkHour = findWorkHour('MONDAY');
+          break;
+        case DateTime.tuesday:
+          availableWorkHour = findWorkHour('TUESDAY');
+          break;
+        case DateTime.wednesday:
+          availableWorkHour = findWorkHour('WEDNESDAY');
+          break;
+        case DateTime.thursday:
+          availableWorkHour = findWorkHour('THURSDAY');
+          break;
+        case DateTime.friday:
+          availableWorkHour = findWorkHour('FRIDAY');
+          break;
+        case DateTime.saturday:
+          availableWorkHour = findWorkHour('SATURDAY');
+          break;
+        case DateTime.sunday:
+          availableWorkHour = findWorkHour('SUNDAY');
+          break;
+      }
+
+      if(availableWorkHour != null) {
+        String dayLabel = availableWorkHour.nonNullDayOfWeek.capitalizeFirst!;
+        if(dayLabel.length > 3) {
+          dayLabel = dayLabel.substring(0, 3);
+        }
+
+        AppointmentOptionHour appointmentOptionHour = AppointmentOptionHour(
+          id: i,
+          workHourId: availableWorkHour.id,
+          dayLabel: dayLabel,
+          timeLabel: availableWorkHour.nonNullTime,
+          dateLabel: DateFormat('d MMM, yyy').format(nextDay),
+        );
+
+        vState.appointmentOptionHours.add(appointmentOptionHour);
+      }
+    }
+
+    update();
+  }
+
+  void selectOptionHour(int selectedOptionHour) {
+    vInput.selectedOptionHour = selectedOptionHour;
   }
 }
 
-class _ViewState extends ViewState {}
+class _ViewState extends ViewState {
+  final List<AppointmentOptionHour> appointmentOptionHours = [];
+
+  @override
+  void reset() {
+    appointmentOptionHours.clear();
+  }
+}
 
 class _ViewReference extends ViewReference {
   String? doctorId;
@@ -100,9 +172,30 @@ class _ViewReference extends ViewReference {
   void reset() {
     doctorId = null;
     doctor = null;
-    workHours.clear();
     doctorStatistic = null;
+    workHours.clear();
   }
 }
 
-class _ViewInput extends ViewInput {}
+class _ViewInput extends ViewInput {
+  int? selectedOptionHour;
+
+  @override
+  void reset() {
+    selectedOptionHour = null;
+  }
+}
+
+class AppointmentOptionHour {
+  final int id;
+
+  final String workHourId;
+
+  final String dayLabel;
+
+  final String timeLabel;
+
+  final String dateLabel;
+
+  AppointmentOptionHour({required this.id, required this.workHourId, required this.dayLabel, required this.timeLabel, required this.dateLabel});
+}

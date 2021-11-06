@@ -12,4 +12,12 @@ class WorkHour {
     dayOfWeek: json['dayOfWeek'],
     time: json['time'],
   );
+
+  String get nonNullDayOfWeek {
+    return dayOfWeek == null ? '' : dayOfWeek!;
+  }
+
+  String get nonNullTime {
+    return time == null ? '' : time!;
+  }
 }

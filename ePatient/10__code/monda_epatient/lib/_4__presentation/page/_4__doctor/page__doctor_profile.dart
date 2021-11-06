@@ -258,14 +258,6 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
             Expanded(flex: 1, child: friWidget,),
             Expanded(flex: 1, child: satWidget,),
             Expanded(flex: 1, child: sunWidget,),
-
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: '10 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: '11 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: '10 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: '10 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: '12 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: '11 AM\n -\n5 PM'),),
-            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: 'OFF'),),
           ],
         )
       ],
@@ -273,12 +265,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _availableAppointmentHoursSection(BuildContext context) {
-    List<_OptionHour> optionHourList = [
-      _OptionHour(id: 1, dayLabel: 'Mon', timeLabel: '12:00 PM', dateLabel: '17 May, 2021'),
-      _OptionHour(id: 2, dayLabel: 'Wed', timeLabel: '3:00 PM', dateLabel: '19 May, 2021'),
-      _OptionHour(id: 3, dayLabel: 'Thu', timeLabel: '11:00 AM', dateLabel: '20 May, 2021'),
-    ];
-    return _AvailableAppointmentHours(optionHourList: optionHourList);
+    return _AvailableAppointmentHours(optionHourList: DoctorProfileController.instance.vState.appointmentOptionHours);
   }
 
   Widget _makeAnAppointmentButton(BuildContext context) {
@@ -358,20 +345,8 @@ class _WorkHourCard extends StatelessWidget {
   }
 }
 
-class _OptionHour {
-  final int id;
-
-  final String dayLabel;
-
-  final String timeLabel;
-
-  final String dateLabel;
-
-  _OptionHour({required this.id, required this.dayLabel, required this.timeLabel, required this.dateLabel});
-}
-
 class _AvailableAppointmentHours extends StatefulWidget {
-  final List<_OptionHour> optionHourList;
+  final List<AppointmentOptionHour> optionHourList;
 
   _AvailableAppointmentHours({required this.optionHourList});
 
@@ -402,7 +377,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
     );
   }
 
-  Widget _optionItemWidget(BuildContext context, _OptionHour _optionHour) {
+  Widget _optionItemWidget(BuildContext context, AppointmentOptionHour _optionHour) {
     Color color1 = (selectedId == _optionHour.id) ? Colors.grey[700]! : Colors.grey[500]!;
     Color color2 = (selectedId == _optionHour.id) ? Colors.grey[600]! : Colors.grey[400]!;
 
@@ -417,6 +392,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
         onTap: () {
           setState(() {
             selectedId = _optionHour.id;
+            DoctorProfileController.instance.selectOptionHour(_optionHour.id);
           });
         },
         child: Row(
