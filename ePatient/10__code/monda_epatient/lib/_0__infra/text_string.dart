@@ -159,4 +159,8 @@ class TextString {
   static const String label__error_retrieving_data = 'Error retrieving data';
 
  static const String label__no_doctor_found = 'No doctor found';
+
+ static const String label__total_diagnostics = 'Total Diagnostics';
+
+  static const String label__total_prescriptions = 'Total Prescriptions';
 }

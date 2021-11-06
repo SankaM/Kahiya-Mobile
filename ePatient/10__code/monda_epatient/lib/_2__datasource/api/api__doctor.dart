@@ -62,7 +62,7 @@ class DoctorApi extends ApiDataSource {
     String url = TemplateString(stringWithParams: ApiEndPoint.DOCTORS__STATISTIC, params: {'doctorId': doctorId,}).toString();
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
-      return ResponseWrapper<DoctorStatistic>.success(data: DoctorStatistic.build(json));
+      return ResponseWrapper<DoctorStatistic>.success(data: DoctorStatistic.build(json['data']));
     };
 
     return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);

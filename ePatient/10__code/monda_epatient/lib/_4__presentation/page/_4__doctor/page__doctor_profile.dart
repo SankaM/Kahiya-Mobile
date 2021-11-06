@@ -7,6 +7,7 @@ import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_1__model/work_hour.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
@@ -190,14 +191,57 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
           padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(1), top: ScreenUtil.heightInPercent(3), right: ScreenUtil.widthInPercent(1), bottom: ScreenUtil.heightInPercent(2.5)),
           child: Text(TextString.label__past_history, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w700,),),
         ),
-        _PastHistoryItem(icon: Icons.system_update_tv_outlined, itemLabel: 'Total Diagnostic', itemCount: '25'),
-        _PastHistoryItem(icon: Icons.note, itemLabel: 'Total Prescriptions', itemCount: '30'),
-        _PastHistoryItem(icon: Icons.person, itemLabel: 'Total Surgeries', itemCount: '15'),
+        _PastHistoryItem(icon: Icons.system_update_tv_outlined, itemLabel: TextString.label__total_diagnostics, itemCount: DoctorProfileController.instance.vReference.doctorStatistic!.nonNullTotalDiagnostics),
+        _PastHistoryItem(icon: Icons.note, itemLabel: TextString.label__total_prescriptions, itemCount: DoctorProfileController.instance.vReference.doctorStatistic!.nonNullTotalPrescriptions),
+        // _PastHistoryItem(icon: Icons.person, itemLabel: 'Total Surgeries', itemCount: '15'),
       ],
     );
   }
 
   Widget _workHoursSection(BuildContext context) {
+    var monWidget = _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: 'OFF');
+    var tueWidget = _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: 'OFF');
+    var wedWidget = _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: 'OFF');
+    var thuWidget = _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: 'OFF');
+    var friWidget = _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: 'OFF');
+    var satWidget = _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: 'OFF');
+    var sunWidget = _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: 'OFF');
+
+    WorkHour? monWorkHour = DoctorProfileController.instance.findWorkHour('MONDAY');
+    if(monWorkHour != null && monWorkHour.time != null) {
+      monWidget = monWidget = _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: monWorkHour.time!.split('-')[0] + '\n - \n' + monWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? tueWorkHour = DoctorProfileController.instance.findWorkHour('TUESDAY');
+    if(tueWorkHour != null && tueWorkHour.time != null) {
+      tueWidget = tueWidget = _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: tueWorkHour.time!.split('-')[0] + '\n - \n' + tueWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? wedWorkHour = DoctorProfileController.instance.findWorkHour('WEDNESDAY');
+    if(wedWorkHour != null && wedWorkHour.time != null) {
+      wedWidget = wedWidget = _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: wedWorkHour.time!.split('-')[0] + '\n - \n' + wedWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? thuWorkHour = DoctorProfileController.instance.findWorkHour('THURSDAY');
+    if(thuWorkHour != null && thuWorkHour.time != null) {
+      thuWidget = thuWidget = _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: thuWorkHour.time!.split('-')[0] + '\n - \n' + thuWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? friWorkHour = DoctorProfileController.instance.findWorkHour('FRIDAY');
+    if(friWorkHour != null && friWorkHour.time != null) {
+      friWidget = friWidget = _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: friWorkHour.time!.split('-')[0] + '\n - \n' + friWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? satWorkHour = DoctorProfileController.instance.findWorkHour('SATURDAY');
+    if(satWorkHour != null && satWorkHour.time != null) {
+      satWidget = satWidget = _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: satWorkHour.time!.split('-')[0] + '\n - \n' + satWorkHour.time!.split('-')[1]);
+    }
+
+    WorkHour? sunWorkHour = DoctorProfileController.instance.findWorkHour('SUNDAY');
+    if(sunWorkHour != null && sunWorkHour.time != null) {
+      sunWidget = sunWidget = _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: sunWorkHour.time!.split('-')[0] + '\n - \n' + sunWorkHour.time!.split('-')[1]);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,13 +251,21 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         ),
         Row(
           children: [
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: '10 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: '11 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: '10 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: '10 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: '12 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: '11 AM\n -\n5 PM'),),
-            Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: 'OFF'),),
+            Expanded(flex: 1, child: monWidget,),
+            Expanded(flex: 1, child: tueWidget,),
+            Expanded(flex: 1, child: wedWidget,),
+            Expanded(flex: 1, child: thuWidget,),
+            Expanded(flex: 1, child: friWidget,),
+            Expanded(flex: 1, child: satWidget,),
+            Expanded(flex: 1, child: sunWidget,),
+
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: '10 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: '11 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: '10 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: '10 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: '12 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: '11 AM\n -\n5 PM'),),
+            // Expanded(flex: 1, child: _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: 'OFF'),),
           ],
         )
       ],
@@ -299,7 +351,7 @@ class _WorkHourCard extends StatelessWidget {
         children: [
           Text(dayNameLabel, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS, fontWeight: FontWeight.w700)),
           SizedBox(height: ScreenUtil.heightInPercent(2),),
-          Text(workHoursLabel, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontSize: Style.fontSize_XS),),
+          Text(workHoursLabel, textAlign: TextAlign.center, style: Style.defaultTextStyle(fontSize: Style.fontSize_2XS),),
         ],
       ),
     );

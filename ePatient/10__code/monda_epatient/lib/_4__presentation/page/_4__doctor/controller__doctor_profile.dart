@@ -71,6 +71,18 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
       AlertUtil.showMessage(TextString.label__error_retrieving_data);
     }
   }
+
+  WorkHour? findWorkHour(String dayOfWeek) {
+    if(vReference.workHours.isEmpty) {
+      return null;
+    }
+
+    for(var workHour in vReference.workHours) {
+      if(workHour.dayOfWeek != null && workHour.dayOfWeek == dayOfWeek) {
+        return workHour;
+      }
+    }
+  }
 }
 
 class _ViewState extends ViewState {}
