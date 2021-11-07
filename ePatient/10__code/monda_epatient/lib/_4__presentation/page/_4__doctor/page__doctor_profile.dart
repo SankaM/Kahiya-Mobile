@@ -273,7 +273,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         size: ScreenUtil.heightInPercent(6),
         elevation: 3,
         onPressed: () {
-          DoctorProfileController.instance.makeAppointment();
+          DoctorProfileController.instance.gotoAppointmentConfirmationPage();
         },
         child: Text(TextString.label__make_an_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),

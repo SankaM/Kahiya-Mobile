@@ -13,6 +13,7 @@ import 'package:monda_epatient/_2__datasource/api/api__drug.dart';
 import 'package:monda_epatient/_2__datasource/api/api__patient.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_3__service/service__account.dart';
+import 'package:monda_epatient/_3__service/service__appointment.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
 import 'package:monda_epatient/_3__service/service__patient.dart';
 import 'package:monda_epatient/_3__service/service__prescription.dart';
@@ -62,6 +63,7 @@ class MondaEPatientApp extends StatelessWidget {
 
     // Service
     Get.put(AccountService.newInstance());
+    Get.put(AppointmentService.newInstance());
     Get.put(PatientService.newInstance());
     Get.put(PrescriptionService.newInstance());
     Get.put(DoctorService.newInstance());

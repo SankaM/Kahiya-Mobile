@@ -8,10 +8,13 @@ import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_0__infra/util/abstract_controller.dart';
 import 'package:monda_epatient/_0__infra/util/status_wrapper.dart';
 import 'package:monda_epatient/_0__infra/util/util__alert.dart';
+import 'package:monda_epatient/_1__model/appointment.dart';
 import 'package:monda_epatient/_1__model/appointment_option_hour.dart';
 import 'package:monda_epatient/_1__model/doctor.dart';
 import 'package:monda_epatient/_1__model/doctor_statistic.dart';
 import 'package:monda_epatient/_1__model/work_hour.dart';
+import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
+import 'package:monda_epatient/_3__service/service__appointment.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
 
 class DoctorProfileController extends AbstractController<_ViewState, _ViewReference, _ViewInput> {
@@ -139,7 +142,7 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
           workHourId: availableWorkHour.id,
           dayLabel: dayLabel,
           timeLabel: availableWorkHour.nonNullTime,
-          dateLabel: DateFormat('d MMM, yyy').format(nextDay),
+          date: nextDay,
         );
 
         vState.appointmentOptionHours.add(appointmentOptionHour);
@@ -151,13 +154,48 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
 
   void selectOptionHour(AppointmentOptionHour appointmentOptionHour) {
     vInput.selectedAppointmentOptionHour = appointmentOptionHour;
+    update();
+    // log('========================================= ${vInput.selectedAppointmentOptionHour!.id} - ${vInput.selectedAppointmentOptionHour!.dateLabel}');
   }
 
-  void makeAppointment() {
+  void gotoAppointmentConfirmationPage() {
     if(vInput.selectedAppointmentOptionHour == null) {
       AlertUtil.showMessage(TextString.label__please_select_appointment_hour);
     } else {
       RouteNavigator.gotoConfirmAppointmentPage();
+    }
+  }
+  
+  void makeAppointment() async {
+    if(vReference.doctorId == null || vInput.selectedAppointmentOptionHour == null || UserSecureStorage.instance.user == null) {
+      return;
+    }
+
+    String patientId = UserSecureStorage.instance.user!.id;
+    String doctorId = vReference.doctorId!;
+    String workHourId = vInput.selectedAppointmentOptionHour!.workHourId;
+    String appointmentDate = DateFormat("yyyy-MM-dd").format(vInput.selectedAppointmentOptionHour!.date);
+
+    changeProgressBarShow(true);
+
+    StatusWrapper<Status, Appointment, String> statusWrapper = await AppointmentService.instance.makeAppointment(patientId: patientId, doctorId: doctorId, workHourId: workHourId, appointmentDate: appointmentDate);
+
+    switch (statusWrapper.status) {
+      case Status.SUCCESS: {
+        changeProgressBarShow(false);
+        AlertUtil.showMessage(statusWrapper.error != null ? statusWrapper.error.toString() : TextString.label__successfully_make_appointment);
+        RouteNavigator.gotoPayAndConfirmPage();
+        break;
+      }
+      case Status.ERROR: {
+        AlertUtil.showMessage(statusWrapper.error != null ? statusWrapper.error.toString() : TextString.label__error);
+        changeProgressBarShow(false);
+        break;
+      }
+      default: {
+        changeProgressBarShow(false);
+        break;
+      }
     }
   }
 }

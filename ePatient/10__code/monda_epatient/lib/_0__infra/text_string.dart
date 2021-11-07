@@ -165,4 +165,6 @@ class TextString {
   static const String label__total_prescriptions = 'Total Prescriptions';
 
   static const String label__please_select_appointment_hour = 'Please select appointment hour';
+
+  static const String label__successfully_make_appointment = 'Successfully make appointment';
 }

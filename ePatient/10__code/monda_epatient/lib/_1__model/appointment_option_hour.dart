@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class AppointmentOptionHour {
   final int id;
 
@@ -7,7 +9,11 @@ class AppointmentOptionHour {
 
   final String timeLabel;
 
-  final String dateLabel;
+  final DateTime date;
 
-  AppointmentOptionHour({required this.id, required this.workHourId, required this.dayLabel, required this.timeLabel, required this.dateLabel});
+  AppointmentOptionHour({required this.id, required this.workHourId, required this.dayLabel, required this.timeLabel, required this.date});
+
+  String get dateLabel {
+    return DateFormat('d MMM, yyy').format(date);
+  }
 }

@@ -18,4 +18,7 @@ class ApiEndPoint {
   static const String DOCTORS__WORK_HOURS = PREFIX + '/doctors/{doctorId}/work-hours';
 
   static const String DOCTORS__STATISTIC = PREFIX + '/doctors/{doctorId}/statistic';
+
+  // =============================================================== Appointment
+  static const String APPOINTMENT_MAKE_NEW = PREFIX + '/appointment';
 }
