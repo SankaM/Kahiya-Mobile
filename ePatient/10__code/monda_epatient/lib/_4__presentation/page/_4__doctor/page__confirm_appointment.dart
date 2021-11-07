@@ -58,6 +58,9 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
 
   Widget _heroSection(BuildContext context) {
     var noImage = Image.asset(Asset.png__no_image_available, fit: BoxFit.fitWidth,);
+    var dayLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.dayLabel;
+    var dateLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.dateLabel;
+    var timeLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.timeLabel;
 
     return Container(
       width: double.infinity,
@@ -90,7 +93,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
               children: [
                 Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_Default,),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
-                Text('Mon | 17 May, 2021 (change me)', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                Text('$dayLabel | $dateLabel', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
             SizedBox(height: ScreenUtil.heightInPercent(1.5),),
@@ -98,7 +101,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
               children: [
                 Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
                 SizedBox(width: ScreenUtil.widthInPercent(2),),
-                Text('12:00 PM (change me)', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                Text(timeLabel, style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
               ],
             ),
           ],

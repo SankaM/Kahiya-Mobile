@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_epatient/_1__model/appointment_option_hour.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 
 class Routes {
   static const String page_blank_before_splash = '/blank-before-splash';
@@ -74,7 +76,8 @@ class RouteNavigator {
       'doctorName': doctorName,
     };
 
-    return _goto(Routes.page_doctor_profile, forgetBefore: false, arguments: arguments,);
+    DoctorProfileController.instance.init(data: arguments);
+    return _goto(Routes.page_doctor_profile, forgetBefore: false,);
   }
 
   static Future<dynamic> gotoConfirmAppointmentPage() {

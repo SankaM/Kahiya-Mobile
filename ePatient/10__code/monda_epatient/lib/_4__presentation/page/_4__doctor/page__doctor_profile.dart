@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
-import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_1__model/appointment_option_hour.dart';
 import 'package:monda_epatient/_1__model/work_hour.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
@@ -26,12 +26,9 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
 
   @override
   Widget constructContent(BuildContext context) {
-    var arguments = Get.arguments;
-    DoctorProfileController.instance.init(data: arguments['doctorId']);
-
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: _contentCustomAppBar(context, doctorName: arguments['doctorName']),
+      appBar: _contentCustomAppBar(context, doctorName: DoctorProfileController.instance.vReference.doctorName!),
       body: _contentBody(context),
     );
   }
@@ -276,7 +273,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
         size: ScreenUtil.heightInPercent(6),
         elevation: 3,
         onPressed: () {
-          RouteNavigator.gotoConfirmAppointmentPage();
+          DoctorProfileController.instance.makeAppointment();
         },
         child: Text(TextString.label__make_an_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
       ),
@@ -392,7 +389,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
         onTap: () {
           setState(() {
             selectedId = _optionHour.id;
-            DoctorProfileController.instance.selectOptionHour(_optionHour.id);
+            DoctorProfileController.instance.selectOptionHour(_optionHour);
           });
         },
         child: Row(

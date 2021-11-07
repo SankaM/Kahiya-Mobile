@@ -1,10 +1,14 @@
 
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_0__infra/util/abstract_controller.dart';
 import 'package:monda_epatient/_0__infra/util/status_wrapper.dart';
 import 'package:monda_epatient/_0__infra/util/util__alert.dart';
+import 'package:monda_epatient/_1__model/appointment_option_hour.dart';
 import 'package:monda_epatient/_1__model/doctor.dart';
 import 'package:monda_epatient/_1__model/doctor_statistic.dart';
 import 'package:monda_epatient/_1__model/work_hour.dart';
@@ -27,9 +31,9 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
     vReference.reset();
     vInput.reset();
 
-
     if(data != null) {
-      vReference.doctorId = data;
+      vReference.doctorId = data['doctorId'];
+      vReference.doctorName = data['doctorName'];
       retrieveDoctorProfile();
       retrieveDoctorWorkHours();
       retrieveDoctorStatistics();
@@ -145,8 +149,16 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
     update();
   }
 
-  void selectOptionHour(int selectedOptionHour) {
-    vInput.selectedOptionHour = selectedOptionHour;
+  void selectOptionHour(AppointmentOptionHour appointmentOptionHour) {
+    vInput.selectedAppointmentOptionHour = appointmentOptionHour;
+  }
+
+  void makeAppointment() {
+    if(vInput.selectedAppointmentOptionHour == null) {
+      AlertUtil.showMessage(TextString.label__please_select_appointment_hour);
+    } else {
+      RouteNavigator.gotoConfirmAppointmentPage();
+    }
   }
 }
 
@@ -164,6 +176,8 @@ class _ViewReference extends ViewReference {
 
   Doctor? doctor;
 
+  String? doctorName;
+
   final List<WorkHour> workHours = [];
 
   DoctorStatistic? doctorStatistic;
@@ -172,30 +186,17 @@ class _ViewReference extends ViewReference {
   void reset() {
     doctorId = null;
     doctor = null;
+    doctorName = null;
     doctorStatistic = null;
     workHours.clear();
   }
 }
 
 class _ViewInput extends ViewInput {
-  int? selectedOptionHour;
+  AppointmentOptionHour? selectedAppointmentOptionHour;
 
   @override
   void reset() {
-    selectedOptionHour = null;
+    selectedAppointmentOptionHour = null;
   }
-}
-
-class AppointmentOptionHour {
-  final int id;
-
-  final String workHourId;
-
-  final String dayLabel;
-
-  final String timeLabel;
-
-  final String dateLabel;
-
-  AppointmentOptionHour({required this.id, required this.workHourId, required this.dayLabel, required this.timeLabel, required this.dateLabel});
 }
