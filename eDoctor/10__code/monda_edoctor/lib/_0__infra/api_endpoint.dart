@@ -3,7 +3,7 @@ class ApiEndPoint {
 
   // static const String PREFIX = 'http://ec2-3-14-87-205.us-east-2.compute.amazonaws.com:3005/v1';
 
-  static const String PREFIX = 'http://192.168.0.12:3005/v1';
+  static const String PREFIX = 'http://192.168.0.101:3005/v1';
 
   // =================================================================== Account
   static const String LOGIN = PREFIX + '/doctor/login';

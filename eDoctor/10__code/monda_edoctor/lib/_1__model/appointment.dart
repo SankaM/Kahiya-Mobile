@@ -36,4 +36,6 @@ class AppointmentStatus {
   static const String DECLINED = 'DECLINED';
 
   static const String PRESCRIBED = 'PRESCRIBED';
+
+  static const String CANCELLED = 'CANCELLED';
 }
