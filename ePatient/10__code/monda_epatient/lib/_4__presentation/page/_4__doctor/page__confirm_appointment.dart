@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:intl/intl.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
-import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -60,7 +60,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
     var noImage = Image.asset(Asset.png__no_image_available, fit: BoxFit.fitWidth,);
     var dayLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.dayLabel;
     var dateLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.dateLabel;
-    var timeLabel = DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.timeLabel;
+    var timeLabel = DateFormat('HH:mm').format(DoctorProfileController.instance.vInput.selectedAppointmentOptionHour!.time);
 
     return Container(
       width: double.infinity,

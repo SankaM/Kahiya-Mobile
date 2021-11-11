@@ -205,38 +205,38 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
     var sunWidget = _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: 'OFF');
 
     WorkHour? monWorkHour = DoctorProfileController.instance.findWorkHour('MONDAY');
-    if(monWorkHour != null && monWorkHour.time != null) {
-      monWidget = monWidget = _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: monWorkHour.time!.split('-')[0] + '\n - \n' + monWorkHour.time!.split('-')[1]);
+    if(monWorkHour != null && monWorkHour.startTime != null && monWorkHour.endTime != null) {
+      monWidget = monWidget = _WorkHourCard(dayNameLabel: 'Mon', workHoursLabel: '${monWorkHour.startTime!}\n - \n${monWorkHour.endTime!}');
     }
 
     WorkHour? tueWorkHour = DoctorProfileController.instance.findWorkHour('TUESDAY');
-    if(tueWorkHour != null && tueWorkHour.time != null) {
-      tueWidget = tueWidget = _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel: tueWorkHour.time!.split('-')[0] + '\n - \n' + tueWorkHour.time!.split('-')[1]);
+    if(tueWorkHour != null && tueWorkHour.startTime != null && tueWorkHour.endTime != null) {
+      tueWidget = tueWidget = _WorkHourCard(dayNameLabel: 'Tue', workHoursLabel:  '${tueWorkHour.startTime!}\n - \n${tueWorkHour.endTime!}');
     }
 
     WorkHour? wedWorkHour = DoctorProfileController.instance.findWorkHour('WEDNESDAY');
-    if(wedWorkHour != null && wedWorkHour.time != null) {
-      wedWidget = wedWidget = _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: wedWorkHour.time!.split('-')[0] + '\n - \n' + wedWorkHour.time!.split('-')[1]);
+    if(wedWorkHour != null && wedWorkHour.startTime != null && wedWorkHour.endTime != null) {
+      wedWidget = wedWidget = _WorkHourCard(dayNameLabel: 'Wed', workHoursLabel: '${wedWorkHour.startTime!}\n - \n${wedWorkHour.endTime!}');
     }
 
     WorkHour? thuWorkHour = DoctorProfileController.instance.findWorkHour('THURSDAY');
-    if(thuWorkHour != null && thuWorkHour.time != null) {
-      thuWidget = thuWidget = _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: thuWorkHour.time!.split('-')[0] + '\n - \n' + thuWorkHour.time!.split('-')[1]);
+    if(thuWorkHour != null && thuWorkHour.startTime != null && thuWorkHour.endTime != null) {
+      thuWidget = thuWidget = _WorkHourCard(dayNameLabel: 'Thu', workHoursLabel: '${thuWorkHour.startTime!}\n - \n${thuWorkHour.endTime!}');
     }
 
     WorkHour? friWorkHour = DoctorProfileController.instance.findWorkHour('FRIDAY');
-    if(friWorkHour != null && friWorkHour.time != null) {
-      friWidget = friWidget = _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: friWorkHour.time!.split('-')[0] + '\n - \n' + friWorkHour.time!.split('-')[1]);
+    if(friWorkHour != null && friWorkHour.startTime != null && friWorkHour.endTime != null) {
+      friWidget = friWidget = _WorkHourCard(dayNameLabel: 'Fri', workHoursLabel: '${friWorkHour.startTime!}\n - \n${friWorkHour.endTime!}');
     }
 
     WorkHour? satWorkHour = DoctorProfileController.instance.findWorkHour('SATURDAY');
-    if(satWorkHour != null && satWorkHour.time != null) {
-      satWidget = satWidget = _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: satWorkHour.time!.split('-')[0] + '\n - \n' + satWorkHour.time!.split('-')[1]);
+    if(satWorkHour != null && satWorkHour.startTime != null && satWorkHour.endTime != null) {
+      satWidget = satWidget = _WorkHourCard(dayNameLabel: 'Sat', workHoursLabel: '${satWorkHour.startTime!}\n - \n${satWorkHour.endTime!}');
     }
 
     WorkHour? sunWorkHour = DoctorProfileController.instance.findWorkHour('SUNDAY');
-    if(sunWorkHour != null && sunWorkHour.time != null) {
-      sunWidget = sunWidget = _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: sunWorkHour.time!.split('-')[0] + '\n - \n' + sunWorkHour.time!.split('-')[1]);
+    if(sunWorkHour != null && sunWorkHour.startTime != null && sunWorkHour.endTime != null) {
+      sunWidget = sunWidget = _WorkHourCard(dayNameLabel: 'Sun', workHoursLabel: '${sunWorkHour.startTime!}\n - \n${sunWorkHour.endTime!}');
     }
 
     return Column(

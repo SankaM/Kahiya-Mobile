@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:monda_epatient/_1__model/appointment_option_hour.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 
 class Routes {

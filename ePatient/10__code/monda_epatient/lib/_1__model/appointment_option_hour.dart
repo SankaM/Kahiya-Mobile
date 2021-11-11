@@ -1,19 +1,24 @@
 import 'package:intl/intl.dart';
+import 'package:monda_epatient/_1__model/work_hour.dart';
 
 class AppointmentOptionHour {
   final int id;
 
-  final String workHourId;
+  final WorkHour workHour;
 
-  final String dayLabel;
+  final DateTime time;
 
-  final String timeLabel;
-
-  final DateTime date;
-
-  AppointmentOptionHour({required this.id, required this.workHourId, required this.dayLabel, required this.timeLabel, required this.date});
+  AppointmentOptionHour({required this.id, required this.workHour, required this.time});
 
   String get dateLabel {
-    return DateFormat('d MMM, yyy').format(date);
+    return DateFormat('d MMM, yyy').format(time);
+  }
+
+  String get dayLabel {
+    return DateFormat('EEEE').format(time).substring(0, 3);
+  }
+
+  String get timeLabel {
+    return DateFormat('HH:mm').format(time);
   }
 }

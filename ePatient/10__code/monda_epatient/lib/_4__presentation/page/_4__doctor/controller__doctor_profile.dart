@@ -18,7 +18,9 @@ import 'package:monda_epatient/_3__service/service__appointment.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
 
 class DoctorProfileController extends AbstractController<_ViewState, _ViewReference, _ViewInput> {
-  static const int nextDaysCount = 30;
+  static const int nextDaysCount = 7;
+
+  static const int perSlotDurationInMinute = 30;
   
   static DoctorProfileController get instance => Get.find();
 
@@ -104,7 +106,7 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
     var now = DateTime.now();
 
     for(int i = 1; i <= nextDaysCount; i++) {
-      var nextDay = now.add(Duration(days: i));
+      var nextDay = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0).add(Duration(days: i));
       WorkHour? availableWorkHour;
 
       switch(nextDay.weekday) {
@@ -132,20 +134,20 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
       }
 
       if(availableWorkHour != null) {
-        String dayLabel = availableWorkHour.nonNullDayOfWeek.capitalizeFirst!;
-        if(dayLabel.length > 3) {
-          dayLabel = dayLabel.substring(0, 3);
+        DateTime startTimeSlot = DateTime(nextDay.year, nextDay.month, nextDay.day, int.parse(availableWorkHour.startTime!.split(':')[0]), int.parse(availableWorkHour.startTime!.split(':')[1]));
+        DateTime endTimeSlot = DateTime(nextDay.year, nextDay.month, nextDay.day, int.parse(availableWorkHour.endTime!.split(':')[0]), int.parse(availableWorkHour.endTime!.split(':')[1]));
+        Duration slotDuration = endTimeSlot.difference(startTimeSlot);
+        int howManySlot = slotDuration.inMinutes ~/ perSlotDurationInMinute;
+
+        for(int j = 0; j < howManySlot; j++) {
+          AppointmentOptionHour appointmentOptionHour = AppointmentOptionHour(
+            id: i*1000 + j,
+            workHour: availableWorkHour,
+            time: startTimeSlot.add(Duration(minutes: perSlotDurationInMinute * j)),
+          );
+
+          vState.appointmentOptionHours.add(appointmentOptionHour);
         }
-
-        AppointmentOptionHour appointmentOptionHour = AppointmentOptionHour(
-          id: i,
-          workHourId: availableWorkHour.id,
-          dayLabel: dayLabel,
-          timeLabel: availableWorkHour.nonNullTime,
-          date: nextDay,
-        );
-
-        vState.appointmentOptionHours.add(appointmentOptionHour);
       }
     }
 
@@ -154,8 +156,8 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
 
   void selectOptionHour(AppointmentOptionHour appointmentOptionHour) {
     vInput.selectedAppointmentOptionHour = appointmentOptionHour;
+    log('------------------------------------------------------- ${vInput.selectedAppointmentOptionHour!.id} => ${vInput.selectedAppointmentOptionHour!.time}');
     update();
-    // log('========================================= ${vInput.selectedAppointmentOptionHour!.id} - ${vInput.selectedAppointmentOptionHour!.dateLabel}');
   }
 
   void gotoAppointmentConfirmationPage() {
@@ -173,8 +175,8 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
 
     String patientId = UserSecureStorage.instance.user!.id;
     String doctorId = vReference.doctorId!;
-    String workHourId = vInput.selectedAppointmentOptionHour!.workHourId;
-    String appointmentDate = DateFormat("yyyy-MM-dd").format(vInput.selectedAppointmentOptionHour!.date);
+    String workHourId = vInput.selectedAppointmentOptionHour!.workHour.id;
+    String appointmentDate = DateFormat('yyyy-MM-ddTHH:mm').format(vInput.selectedAppointmentOptionHour!.time);
 
     changeProgressBarShow(true);
 
