@@ -167,4 +167,8 @@ class TextString {
   static const String label__please_select_appointment_hour = 'Please select appointment hour';
 
   static const String label__successfully_make_appointment = 'Successfully make appointment';
+
+  static const String label__no_data = 'No data';
+
+  static const String label__error_cancelling_appointment = 'Error cancelling appointment';
 }

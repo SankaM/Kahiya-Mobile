@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_1__model/appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
 class UpcomingAppointmentCard extends StatelessWidget {
-  final String assetImage;
+  final Appointment appointment;
 
-  final String firstLineText;
-
-  final String assetIcon;
-
-  UpcomingAppointmentCard({required this.assetImage, required this.firstLineText, required this.assetIcon});
+  UpcomingAppointmentCard({required this.appointment,});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,8 @@ class UpcomingAppointmentCard extends StatelessWidget {
         child: Column(
           children: [
             _firstRow(context),
-            _cancelAppointmentButton(context),
+            if(appointment.statusNonNull == AppointmentStatus.ACCEPTED || appointment.statusNonNull == AppointmentStatus.REQUESTED) _cancelAppointmentButton(context),
+            SizedBox(height: ScreenUtil.heightInPercent(1),)
           ],
         ),
       ),
@@ -35,8 +36,10 @@ class UpcomingAppointmentCard extends StatelessWidget {
   }
 
   Widget _firstRow(BuildContext context) {
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+
     return Container(
-      height: ScreenUtil.heightInPercent(16),
+      height: ScreenUtil.heightInPercent(17.5),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +50,7 @@ class UpcomingAppointmentCard extends StatelessWidget {
               margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
               height: double.infinity,
               child: GFAvatar(
-                backgroundImage: AssetImage(assetImage),
+                backgroundImage: appointment.doctor!.imageUrl == null ? noImage : NetworkImage(appointment.doctor!.imageUrl!),
                 shape: GFAvatarShape.square,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
@@ -62,13 +65,13 @@ class UpcomingAppointmentCard extends StatelessWidget {
                 children: [
                   Text(TextString.label__appointment_with, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text(firstLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                  Text(appointment.doctor!.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                   Spacer(),
                   Row(
                     children: [
                       Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_S,),
                       SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                      Text('${appointment.dayLabel} | ${appointment.dateLabel}', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
                     ],
                   ),
                   SizedBox(height: ScreenUtil.heightInPercent(1.5),),
@@ -76,9 +79,11 @@ class UpcomingAppointmentCard extends StatelessWidget {
                     children: [
                       Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
                       SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('12:00 PM', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                      Text('${appointment.timeLabel}', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
                     ],
                   ),
+                  SizedBox(height: ScreenUtil.heightInPercent(1.5),),
+                  Text(appointment.statusNonNull.capitalizeFirst!, style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
                 ],
               ),
             ),
@@ -101,10 +106,11 @@ class UpcomingAppointmentCard extends StatelessWidget {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (context) => _CancelDialog(
-                doctorName: 'Dr. Carl Johnson',
-                date: 'Tuesday, May 18, 2021',
-                time: '1:00 PM'),
+            builder: (context) => _CancelAppointmentDialog(
+              appointmentId: appointment.id,
+              doctorName: appointment.doctor!.nonNullName,
+              date: '${appointment.dayLabel}, ${appointment.dateLabel}',
+              time: '${appointment.timeLabel}'),
           );
         },
         child: Text(TextString.label__cancel_appointment, style: Style.defaultTextStyle(color: Style.colorPrimary),),
@@ -113,14 +119,16 @@ class UpcomingAppointmentCard extends StatelessWidget {
   }
 }
 
-class _CancelDialog extends StatelessWidget {
+class _CancelAppointmentDialog extends StatelessWidget {
+  final String appointmentId;
+
   final String doctorName;
 
   final String date;
 
   final String time;
 
-  _CancelDialog({required this.doctorName, required this.date, required this.time});
+  _CancelAppointmentDialog({required this.appointmentId, required this.doctorName, required this.date, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -163,6 +171,7 @@ class _CancelDialog extends StatelessWidget {
         size: ScreenUtil.heightInPercent(6),
         elevation: 0,
         onPressed: () {
+          AllAppointmentController.instance.cancelAppointment(appointmentId: appointmentId);
           Navigator.pop(context);
         },
         child: Text(

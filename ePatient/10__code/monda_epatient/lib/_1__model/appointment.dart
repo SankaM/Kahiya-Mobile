@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:monda_epatient/_1__model/doctor.dart';
 import 'package:monda_epatient/_1__model/patient.dart';
 import 'package:monda_epatient/_1__model/work_hour.dart';
@@ -36,6 +37,34 @@ class Appointment {
     appointmentDate: json['appointmentDate'] != null ? DateTime.parse(json['appointmentDate']) : null,
     prescriptionId: json['prescriptionId'],
   );
+
+  String get dateLabel {
+    if(appointmentDate == null) {
+      return '';
+    }
+
+    return DateFormat('d MMM, yyy').format(appointmentDate!);
+  }
+
+  String get dayLabel {
+    if(appointmentDate == null) {
+      return '';
+    }
+
+    return DateFormat('EEEE').format(appointmentDate!).substring(0, 3);
+  }
+
+  String get timeLabel {
+    if(appointmentDate == null) {
+      return '';
+    }
+
+    return DateFormat('HH:mm').format(appointmentDate!);
+  }
+
+  String get statusNonNull {
+    return status == null ? '' : status!;
+  }
 }
 
 class AppointmentStatus {
@@ -46,4 +75,6 @@ class AppointmentStatus {
   static const String DECLINED = 'DECLINED';
 
   static const String PRESCRIBED = 'PRESCRIBED';
+
+  static const String CANCELLED = 'CANCELLED';
 }

@@ -32,7 +32,8 @@ import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doct
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_confirm.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/page__all_appointments.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/page__all_appointment.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,6 +74,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(SignUpController());
     Get.put(HomeController());
     Get.put(DoctorProfileController());
+    Get.put(AllAppointmentController());
   }
 
   @override

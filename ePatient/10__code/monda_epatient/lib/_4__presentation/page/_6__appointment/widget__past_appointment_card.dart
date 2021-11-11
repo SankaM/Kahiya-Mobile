@@ -8,7 +8,7 @@ import 'package:monda_epatient/_0__infra/style.dart';
 class PastAppointmentCard extends StatelessWidget {
   final String assetImage;
 
-  final String firstLineText;
+  final String doctorName;
 
   final String assetIcon;
 
@@ -16,7 +16,7 @@ class PastAppointmentCard extends StatelessWidget {
 
   final Color statusColor;
 
-  PastAppointmentCard({required this.assetImage, required this.firstLineText, required this.assetIcon, required this.status, required this.statusColor});
+  PastAppointmentCard({required this.assetImage, required this.doctorName, required this.assetIcon, required this.status, required this.statusColor});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class PastAppointmentCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(firstLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                  Text(doctorName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                   Spacer(),
                   Row(
                     children: [

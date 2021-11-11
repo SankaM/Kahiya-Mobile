@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
@@ -156,7 +153,6 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
 
   void selectOptionHour(AppointmentOptionHour appointmentOptionHour) {
     vInput.selectedAppointmentOptionHour = appointmentOptionHour;
-    log('------------------------------------------------------- ${vInput.selectedAppointmentOptionHour!.id} => ${vInput.selectedAppointmentOptionHour!.time}');
     update();
   }
 

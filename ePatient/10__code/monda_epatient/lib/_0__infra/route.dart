@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
 
 class Routes {
   static const String page_blank_before_splash = '/blank-before-splash';
@@ -66,6 +67,7 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoAllAppointmentPage() {
+    AllAppointmentController.instance.init();
     return _goto(Routes.page_appointment_all, forgetBefore: false);
   }
 
