@@ -1,5 +1,3 @@
-import 'package:monda_epatient/_0__infra/util/template_string.dart';
-
 class TextString {
   // ================================================================== App Name
   static const String app_name = 'MONDA';
@@ -152,7 +150,21 @@ class TextString {
 
   static const String label__time_for = 'Time for';
 
-  // ============================================================ TemplateString
-  static final TemplateString labelCancelAppointmentDialog = TemplateString('<center>Are you sure want to cancel appointment with <b>{doctorName}</b> due on <b>{date}</b> at <b>{time}</b> ?</center>');
+  static const String label__error = 'Error';
 
+  static const String label__cannot_empty = 'Cannot empty';
+
+  static const String label__successfully_signup = 'Successfully sign up';
+
+  static const String label__error_retrieving_data = 'Error retrieving data';
+
+  static const String label__no_doctor_found = 'No doctor found';
+
+  static const String label__total_diagnostics = 'Total Diagnostics';
+
+  static const String label__total_prescriptions = 'Total Prescriptions';
+
+  static const String label__please_select_appointment_hour = 'Please select appointment hour';
+
+  static const String label__successfully_make_appointment = 'Successfully make appointment';
 }

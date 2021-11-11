@@ -8,7 +8,9 @@ import 'package:monda_epatient/_9__modify/flutter/custom_popup_menu_item.dart';
 class FilterButton extends StatefulWidget {
   final List<String> labels;
 
-  FilterButton({required this.labels});
+  final Function onTap;
+
+  FilterButton({required this.labels, required this.onTap});
 
   @override
   State<StatefulWidget> createState() {
@@ -27,6 +29,7 @@ class _FilterButtonState extends State<FilterButton> {
       padding: EdgeInsets.zero,
       onSelected: (menuItemLabel) {
         selectedIndex = widget.labels.indexOf(menuItemLabel.toString());
+        widget.onTap(menuItemLabel);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       itemBuilder: (context) {
@@ -70,14 +73,14 @@ class _FilterButtonState extends State<FilterButton> {
     }
 
     return CustomPopupMenuItem(
-        value: menuItemLabel,
-        child: Row(
-          children: [
-            Container(height: ScreenUtil.heightInPercent(3), width: ScreenUtil.widthInPercent(1), color: markerColor,),
-            SizedBox(width: ScreenUtil.heightInPercent(3), height: ScreenUtil.heightInPercent(6),),
-            Text(menuItemLabel, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: textColor),),
-          ],
-        ),
+      value: menuItemLabel,
+      child: Row(
+        children: [
+          Container(height: ScreenUtil.heightInPercent(3), width: ScreenUtil.widthInPercent(1), color: markerColor,),
+          SizedBox(width: ScreenUtil.heightInPercent(3), height: ScreenUtil.heightInPercent(6),),
+          Text(menuItemLabel, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, fontWeight: FontWeight.w500, color: textColor),),
+        ],
+      ),
     );
   }
 }

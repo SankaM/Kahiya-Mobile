@@ -2,41 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
+import 'package:monda_epatient/_1__model/doctor.dart';
 
 class DoctorCard extends StatelessWidget {
-  final String assetImage;
-
-  final String firstLineText;
-
-  final String secondLineText;
-
-  final String thirdLineText;
-
-  final String assetIcon;
+  final Doctor doctor;
+  
+  late final String? imageUrl;
 
   final double width;
 
   final double height;
 
-  DoctorCard({required this.assetImage, required this.firstLineText, required this.secondLineText, required this.thirdLineText, required this.assetIcon, required this.width, required this.height});
+  DoctorCard({required this.doctor, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+
     return Container(
       width: width,
       height: height,
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoDoctorProfilePage(
-              assetImage: assetImage,
-              firstLineText: firstLineText,
-              secondLineText: secondLineText,
-              thirdLineText: thirdLineText,
-              assetIcon: assetIcon);
+          RouteNavigator.gotoDoctorProfilePage(doctorId: doctor.id, doctorName: doctor.nonNullName);
         },
         child:Card(
           elevation: 5,
@@ -51,7 +44,7 @@ class DoctorCard extends StatelessWidget {
                   margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
                   height: double.infinity,
                   child: GFAvatar(
-                    backgroundImage: AssetImage(assetImage),
+                    backgroundImage: doctor.imageUrl == null ? noImage : NetworkImage(doctor.imageUrl!),
                     shape: GFAvatarShape.square,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
@@ -64,15 +57,15 @@ class DoctorCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(firstLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                      Text(doctor.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
-                      Text(secondLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
+                      Text(doctor.nonNullSpeciality, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                       Spacer(),
                       Row(
                         children: [
-                          Image.asset(assetIcon, width: Style.iconSize_Default, height: Style.iconSize_Default,),
+                          Image.asset(Asset.png_time01, width: Style.iconSize_Default, height: Style.iconSize_Default,),
                           SizedBox(width: ScreenUtil.widthInPercent(1.5),),
-                          Text(thirdLineText, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
+                          Text(doctor.nonNullGeneralWorkHour, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[700], fontWeight: FontWeight.w600),),
                         ],
                       )
                     ],

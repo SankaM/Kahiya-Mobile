@@ -5,11 +5,26 @@ import 'package:get/get.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_2__datasource/api/api__account.dart';
+import 'package:monda_epatient/_2__datasource/api/api__appointment.dart';
+import 'package:monda_epatient/_2__datasource/api/api__diagnosis.dart';
+import 'package:monda_epatient/_2__datasource/api/api__doctor.dart';
+import 'package:monda_epatient/_2__datasource/api/api__drug.dart';
+import 'package:monda_epatient/_2__datasource/api/api__patient.dart';
+import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
+import 'package:monda_epatient/_3__service/service__account.dart';
+import 'package:monda_epatient/_3__service/service__appointment.dart';
+import 'package:monda_epatient/_3__service/service__doctor.dart';
+import 'package:monda_epatient/_3__service/service__patient.dart';
+import 'package:monda_epatient/_3__service/service__prescription.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signin.dart';
+import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__blank_before_splash.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signin_or_signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__signup.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart';
+import 'package:monda_epatient/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__notification.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
@@ -26,15 +41,37 @@ void main() {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return runApp(
       Phoenix(
-        child: MondaEDoctorApp(),
+        child: MondaEPatientApp(),
       ),
     );
   });
 }
 
-class MondaEDoctorApp extends StatelessWidget {
+class MondaEPatientApp extends StatelessWidget {
   Future<void> _onInit() async {
+    // API
+    Get.put(AccountApi.newInstance());
+    Get.put(PatientApi.newInstance());
+    Get.put(DrugApi.newInstance());
+    Get.put(DiagnosisApi.newInstance());
+    Get.put(DoctorApi.newInstance());
+    Get.put(AppointmentApi.newInstance());
+
+    // Secure Storage
+    Get.put(UserSecureStorage.newInstance());
+    UserSecureStorage.instance.init();
+
+    // Service
+    Get.put(AccountService.newInstance());
+    Get.put(AppointmentService.newInstance());
+    Get.put(PatientService.newInstance());
+    Get.put(PrescriptionService.newInstance());
+    Get.put(DoctorService.newInstance());
+
     // Initialize all controller
+    Get.put(SignInController());
+    Get.put(SignUpController());
+    Get.put(HomeController());
     Get.put(DoctorProfileController());
   }
 

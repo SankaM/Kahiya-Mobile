@@ -13,6 +13,18 @@ class Style {
   static const Color textColorPrimary = const Color(0xFFFFFFFF);
 
   // ignore: non_constant_identifier_names
+  static double get fontSize_3XS {
+    // return ScreenUtil.fontSize(3);
+    return ScreenUtil.fontSize(0.75);
+  }
+
+  // ignore: non_constant_identifier_names
+  static double get fontSize_2XS {
+    // return ScreenUtil.fontSize(3);
+    return ScreenUtil.fontSize(1.0);
+  }
+
+  // ignore: non_constant_identifier_names
   static double get fontSize_XS {
     // return ScreenUtil.fontSize(3);
     return ScreenUtil.fontSize(1.25);

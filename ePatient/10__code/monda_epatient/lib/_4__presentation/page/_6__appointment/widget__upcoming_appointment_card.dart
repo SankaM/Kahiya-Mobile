@@ -124,7 +124,7 @@ class _CancelDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String info = TextString.labelCancelAppointmentDialog.format({'doctorName': doctorName, 'date': date, 'time': time});
+    String info = '<center>Are you sure want to cancel appointment with <b>$doctorName</b> due on <b>$date</b> at <b>$time</b> ?</center>';
 
     return Dialog(
       shape: RoundedRectangleBorder(
