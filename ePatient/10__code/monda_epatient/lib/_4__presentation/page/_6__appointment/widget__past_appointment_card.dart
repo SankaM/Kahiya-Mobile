@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
+import 'package:monda_epatient/_1__model/appointment.dart';
 
 class PastAppointmentCard extends StatelessWidget {
-  final String assetImage;
+  final Appointment appointment;
 
-  final String doctorName;
-
-  final String assetIcon;
-
-  final String status;
-
-  final Color statusColor;
-
-  PastAppointmentCard({required this.assetImage, required this.doctorName, required this.assetIcon, required this.status, required this.statusColor});
+  PastAppointmentCard({required this.appointment,});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +27,9 @@ class PastAppointmentCard extends StatelessWidget {
   }
 
   Widget _firstRow(BuildContext context) {
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+    Color statusColor = appointment.status == AppointmentStatus.PRESCRIBED ? Style.colorPrimary : Colors.grey;
+
     return Container(
       height: ScreenUtil.heightInPercent(17),
       child: Row(
@@ -44,7 +42,7 @@ class PastAppointmentCard extends StatelessWidget {
               margin: EdgeInsets.all(ScreenUtil.widthInPercent(2)),
               height: double.infinity,
               child: GFAvatar(
-                backgroundImage: AssetImage(assetImage),
+                backgroundImage: appointment.doctor!.imageUrl == null ? noImage : NetworkImage(appointment.doctor!.imageUrl!),
                 shape: GFAvatarShape.square,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
@@ -57,13 +55,13 @@ class PastAppointmentCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(doctorName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                  Text(appointment.doctor!.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                   Spacer(),
                   Row(
                     children: [
                       Icon(Icons.calendar_today_sharp, color: Style.colorPrimary, size: Style.iconSize_S,),
                       SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('Mon | 17 May, 2021', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                      Text('${appointment.dayLabel} | ${appointment.dateLabel}', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
                     ],
                   ),
                   SizedBox(height: ScreenUtil.heightInPercent(1.5),),
@@ -71,7 +69,7 @@ class PastAppointmentCard extends StatelessWidget {
                     children: [
                       Icon(Icons.watch_later, color: Style.colorPrimary, size: Style.iconSize_S,),
                       SizedBox(width: ScreenUtil.widthInPercent(2),),
-                      Text('12:00 PM', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                      Text('${appointment.timeLabel}', style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
                     ],
                   ),
                   SizedBox(height: ScreenUtil.heightInPercent(1.5),),
@@ -79,7 +77,7 @@ class PastAppointmentCard extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: EdgeInsets.only(right: ScreenUtil.widthInPercent(3),),
-                      child: Text(status, style: Style.defaultTextStyle(color: statusColor),),
+                      child: Text(appointment.status!.capitalizeFirst!, style: Style.defaultTextStyle(color: statusColor),),
                     ),
                   )
                 ],

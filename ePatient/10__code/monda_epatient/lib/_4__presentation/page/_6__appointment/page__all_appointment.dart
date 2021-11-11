@@ -80,16 +80,28 @@ class AllAppointmentPage extends AbstractPageWithBackgroundAndContent {
   }
 
   Widget _pastAppointmentSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
-          child: Text(TextString.label__past_appointments, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
-        ),
-        PastAppointmentCard(assetImage: Asset.png_face02, doctorName: 'Dr. Melinda Margot', assetIcon: Asset.png_time02, status: 'Approve', statusColor: Style.colorPrimary,),
-        PastAppointmentCard(assetImage: Asset.png_face03, doctorName: 'Dr. William Martin', assetIcon: Asset.png_time03, status: 'Declined', statusColor: Colors.grey,),
-      ],
-    );
+    return GetBuilder<AllAppointmentController>(builder: (_) {
+      if(_.vReference.pastAppointmentList.isEmpty) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
+              child: Text(TextString.label__past_appointments, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
+            ),
+            Text(TextString.label__no_data),
+          ],
+        );
+      }
+
+      List<Widget> children = [];
+      children.add(Padding(
+        padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
+        child: Text(TextString.label__past_appointments, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
+      ),);
+      children.addAll(_.vReference.pastAppointmentList.map((appointment) => PastAppointmentCard(appointment: appointment)).toList());
+
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children,);
+    });
   }
 }
