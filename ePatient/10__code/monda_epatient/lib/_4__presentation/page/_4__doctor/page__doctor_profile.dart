@@ -416,6 +416,7 @@ class _AvailableAppointmentHoursState extends State<_AvailableAppointmentHours> 
                   onChanged: (id) {
                     setState(() {
                       selectedId = id as int;
+                      DoctorProfileController.instance.selectOptionHour(_optionHour);
                     });
                   },
                 ),
