@@ -142,7 +142,7 @@ class DoctorProfilePage extends AbstractPageWithBackgroundAndContent {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(DoctorProfileController.instance.vReference.doctor!.nonNullName, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
+                  Text(DoctorProfileController.instance.vReference.doctor!.nameNonNull, style: Style.defaultTextStyle(color: Colors.grey[700]!, fontWeight: FontWeight.w700),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Text(DoctorProfileController.instance.vReference.doctor!.nonNullSpeciality, style: Style.defaultTextStyle(fontSize: Style.fontSize_S, color: Colors.grey[500]!),),
                   Spacer(),

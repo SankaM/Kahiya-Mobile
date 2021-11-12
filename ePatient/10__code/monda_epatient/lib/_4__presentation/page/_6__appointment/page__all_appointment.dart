@@ -6,7 +6,7 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/builder__custom_app_bar.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_6__appointment/widget__past_appointment_card.dart';
 import 'package:monda_epatient/_4__presentation/page/_6__appointment/widget__upcoming_appointment_card.dart';
 
@@ -63,7 +63,7 @@ class AllAppointmentPage extends AbstractPageWithBackgroundAndContent {
               padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
               child: Text(TextString.label__upcoming_appointments, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
             ),
-            Text(TextString.label__no_data),
+            Center(child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[500]!),),),
           ],
         );
       }
@@ -89,7 +89,7 @@ class AllAppointmentPage extends AbstractPageWithBackgroundAndContent {
               padding: EdgeInsets.only(left: 0, top: ScreenUtil.heightInPercent(4), right: 0, bottom: ScreenUtil.heightInPercent(2)),
               child: Text(TextString.label__past_appointments, style: Style.defaultTextStyle(color: Colors.grey[500]!, fontWeight: FontWeight.w500, fontSize: Style.fontSize_XL),),
             ),
-            Text(TextString.label__no_data),
+            Center(child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[500]!),),),
           ],
         );
       }

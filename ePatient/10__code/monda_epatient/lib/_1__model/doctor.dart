@@ -69,7 +69,7 @@ class Doctor {
     doctorCost: json['doctorCost'],
   );
 
-  String get nonNullName {
+  String get nameNonNull {
     return name == null ? '' : name!;
   }
 

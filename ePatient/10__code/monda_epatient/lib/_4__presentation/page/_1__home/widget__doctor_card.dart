@@ -29,7 +29,7 @@ class DoctorCard extends StatelessWidget {
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(1), bottom: ScreenUtil.heightInPercent(1)),
       child: InkWell(
         onTap: () {
-          RouteNavigator.gotoDoctorProfilePage(doctorId: doctor.id, doctorName: doctor.nonNullName);
+          RouteNavigator.gotoDoctorProfilePage(doctorId: doctor.id, doctorName: doctor.nameNonNull);
         },
         child:Card(
           elevation: 5,
@@ -57,7 +57,7 @@ class DoctorCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(doctor.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                      Text(doctor.nameNonNull, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                       SizedBox(height: ScreenUtil.heightInPercent(1),),
                       Text(doctor.nonNullSpeciality, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                       Spacer(),

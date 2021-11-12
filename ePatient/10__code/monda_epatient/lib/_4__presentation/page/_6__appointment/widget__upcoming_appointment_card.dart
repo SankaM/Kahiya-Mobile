@@ -8,7 +8,7 @@ import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_1__model/appointment.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
 class UpcomingAppointmentCard extends StatelessWidget {
@@ -65,7 +65,7 @@ class UpcomingAppointmentCard extends StatelessWidget {
                 children: [
                   Text(TextString.label__appointment_with, style: GoogleFonts.montserrat(fontSize: Style.fontSize_S, color: Colors.grey[500]),),
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Text(appointment.doctor!.nonNullName, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
+                  Text(appointment.doctor!.nameNonNull, style: GoogleFonts.montserrat(fontSize: Style.fontSize_Default, color: Colors.grey[700], fontWeight: FontWeight.w700),),
                   Spacer(),
                   Row(
                     children: [
@@ -108,7 +108,7 @@ class UpcomingAppointmentCard extends StatelessWidget {
             context: context,
             builder: (context) => _CancelAppointmentDialog(
               appointmentId: appointment.id,
-              doctorName: appointment.doctor!.nonNullName,
+              doctorName: appointment.doctor!.nameNonNull,
               date: '${appointment.dayLabel}, ${appointment.dateLabel}',
               time: '${appointment.timeLabel}'),
           );

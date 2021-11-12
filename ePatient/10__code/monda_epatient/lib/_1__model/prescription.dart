@@ -1,4 +1,5 @@
 
+import 'package:intl/intl.dart';
 import 'package:monda_epatient/_1__model/diagnosis.dart';
 import 'package:monda_epatient/_1__model/doctor.dart';
 import 'package:monda_epatient/_1__model/dosage.dart';
@@ -47,6 +48,14 @@ class Prescription {
 
   bool get isPrescribed {
     return dosageList != null && dosageList!.isNotEmpty;
+  }
+
+  String get diagnosticNonNull {
+    return diagnosis == null ? '' : diagnosis!.name == null ? '' : diagnosis!.name!;
+  }
+
+  String get prescriptionDateNonNull {
+    return prescriptionDate == null ? '' : DateFormat('dd MMM, yyyy').format(prescriptionDate!);
   }
 
   Prescription({

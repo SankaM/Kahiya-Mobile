@@ -27,12 +27,13 @@ import 'package:monda_epatient/_4__presentation/page/_0__login/page__splash.dart
 import 'package:monda_epatient/_4__presentation/page/_1__home/controller__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_1__home/page__home.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/page__notification.dart';
+import 'package:monda_epatient/_4__presentation/page/_3__medical_history/controller__medical_history.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__medical_history.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_confirm.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/controll__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_6__appointment/page__all_appointment.dart';
 
 void main() {
@@ -75,6 +76,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(HomeController());
     Get.put(DoctorProfileController());
     Get.put(AllAppointmentController());
+    Get.put(MedicalHistoryController());
   }
 
   @override

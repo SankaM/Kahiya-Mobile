@@ -47,6 +47,14 @@ class Patient {
     return name;
   }
 
+  String get genderNonNull {
+    return gender == null ? '' : gender!;
+  }
+
+  String get healthProfileNonNull {
+    return healthProfile == null ? '' : healthProfile!;
+  }
+
   Patient({
     required this.id,
     this.doctor,

@@ -12,7 +12,7 @@ class AppointmentApi {
 
   // ===========================================================================
   Future<ResponseWrapper<Appointment>> makeAppointment({required String patientId, required String doctorId, required String workHourId, required String appointmentDate}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT_MAKE_NEW).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__MAKE_NEW).toString();
     var data = {
       'patientId': patientId,
       'doctorId': doctorId,
@@ -29,7 +29,7 @@ class AppointmentApi {
 
   // ===========================================================================
   Future<ResponseWrapper<List<Appointment>>> retrieveUpcomingAppointment({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT_UPCOMING_LIST, params: {'patientId': patientId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__UPCOMING_LIST, params: {'patientId': patientId}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
@@ -41,7 +41,7 @@ class AppointmentApi {
 
   // ===========================================================================
   Future<ResponseWrapper<List<Appointment>>> retrievePastAppointment({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT_PAST_LIST, params: {'patientId': patientId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__PAST_LIST, params: {'patientId': patientId}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {
@@ -53,7 +53,7 @@ class AppointmentApi {
 
   // ===========================================================================
   Future<ResponseWrapper<Appointment>> updateAppointment({required String patientId, required String appointmentId, required String status}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT_CANCEL, params: {'patientId': patientId, 'appointmentId': appointmentId}).toString();
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__CANCEL, params: {'patientId': patientId, 'appointmentId': appointmentId}).toString();
     var data = {
       'status': status,
     };
