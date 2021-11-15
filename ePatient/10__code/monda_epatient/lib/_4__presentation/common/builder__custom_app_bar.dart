@@ -7,7 +7,7 @@ import 'package:monda_epatient/_0__infra/style.dart';
 class CustomAppBarBuilder {
   static const backButtonDefault = Icon(Icons.arrow_back, color: Colors.white, size: Style.iconSize_2XL,);
 
-  static PreferredSize build({required BuildContext context, Size? preferredSize, Icon backButtonIcon = backButtonDefault, required Text firstLineLabel, Text? secondLineLabel}) {
+  static PreferredSize build({required BuildContext context, Size? preferredSize, Icon backButtonIcon = backButtonDefault, required Text firstLineLabel, Text? secondLineLabel, bool showBackButton = true}) {
     if(preferredSize == null) preferredSize = Size.fromHeight(ScreenUtil.heightInPercent(20));
 
     return PreferredSize(
@@ -17,7 +17,7 @@ class CustomAppBarBuilder {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
+            if(showBackButton) InkWell(
               onTap: () {
                 Get.back();
               },
@@ -29,7 +29,7 @@ class CustomAppBarBuilder {
                 child: backButtonIcon,
               ),
             ),
-            SizedBox(height: ScreenUtil.heightInPercent(2),),
+            if(showBackButton) SizedBox(height: ScreenUtil.heightInPercent(2),),
             Padding(padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(4)), child: firstLineLabel,),
             if(secondLineLabel != null) SizedBox(height: ScreenUtil.heightInPercent(1),),
             if(secondLineLabel != null) Padding(padding: EdgeInsets.only(left: ScreenUtil.widthInPercent(4)), child: secondLineLabel),

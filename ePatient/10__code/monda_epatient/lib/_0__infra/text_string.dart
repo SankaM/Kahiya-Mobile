@@ -173,4 +173,22 @@ class TextString {
   static const String label__error_cancelling_appointment = 'Error cancelling appointment';
 
   static const String label__years = 'Years';
+
+  static const String label__pay_with_paypal = 'Pay With Paypal';
+
+  static const String label__pay_with_credit_card = 'Pay With Credit Card';
+
+  static const String label__pay_now = 'Pay now';
+
+  static const String label__pay_later = 'Pay later';
+
+  static const String label__payment_information = 'Payment Information';
+
+  static const String label__amount = 'Amount';
+
+  static const String label__payment_success = 'Payment success';
+
+  static const String label__payment_failed = 'Payment failed';
+
+  static const String label__payment_cancelled = 'Payment cancelled';
 }

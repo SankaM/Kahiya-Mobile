@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:monda_epatient/_0__infra/route.dart';
@@ -13,6 +16,7 @@ import 'package:monda_epatient/_1__model/work_hour.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_3__service/service__appointment.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
+import 'package:monda_epatient/_3__service/service__payment.dart';
 
 class DoctorProfileController extends AbstractController<_ViewState, _ViewReference, _ViewInput> {
   static const int nextDaysCount = 7;
@@ -164,7 +168,7 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
     }
   }
   
-  void makeAppointment() async {
+  void generateAppointment() async {
     if(vReference.doctorId == null || vInput.selectedAppointmentOptionHour == null || UserSecureStorage.instance.user == null) {
       return;
     }
@@ -182,6 +186,7 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
       case Status.SUCCESS: {
         changeProgressBarShow(false);
         AlertUtil.showMessage(statusWrapper.error != null ? statusWrapper.error.toString() : TextString.label__successfully_make_appointment);
+        vReference.generatedAppointment = statusWrapper.data!;
         RouteNavigator.gotoPayAndConfirmPage();
         break;
       }
@@ -195,6 +200,24 @@ class DoctorProfileController extends AbstractController<_ViewState, _ViewRefere
         break;
       }
     }
+  }
+
+  void requestPayment() {
+    if(vReference.generatedAppointment == null) {
+      return;
+    }
+
+    String items = 'Payment for doctor ${vReference.generatedAppointment!.doctor!
+        .nameNonNull} for appointment ${vReference.generatedAppointment!
+        .dateLabel} ${vReference.generatedAppointment!.timeLabel}';
+
+    log('============================================== requestPayment');
+
+    PaymentService.instance.payhereCheckout(
+      orderId: vReference.generatedAppointment!.payment!.orderNumber,
+      amount: vReference.generatedAppointment!.payment!.amount,
+      items: items,
+    );
   }
 }
 
@@ -213,6 +236,8 @@ class _ViewReference extends ViewReference {
   Doctor? doctor;
 
   String? doctorName;
+  
+  Appointment? generatedAppointment;
 
   final List<WorkHour> workHours = [];
 
@@ -224,6 +249,7 @@ class _ViewReference extends ViewReference {
     doctor = null;
     doctorName = null;
     doctorStatistic = null;
+    generatedAppointment = null;
     workHours.clear();
   }
 }

@@ -1,7 +1,9 @@
+import 'package:monda_epatient/config.dart';
+
 class ApiEndPoint {
   ApiEndPoint._();
 
-  static const String PREFIX = 'http://192.168.0.101:3005/v1';
+  static const String PREFIX = Config.PREFIX_API_ENDPOINT;
 
   // =================================================================== Account
   static const String LOGIN = PREFIX + '/patient/login';
@@ -34,4 +36,7 @@ class ApiEndPoint {
   static const String PATIENT__CURRENT_PRESCRIPTION = PREFIX + '/patient/{patientId}/prescription/current';
 
   static const String PATIENT__PAST_PRESCRIPTION = PREFIX + '/patient/{patientId}/prescription/past';
+
+  // =================================================================== Payment
+  static const String PAYMENT__UPDATE_STATUS = PREFIX + '/payment/update-status';
 }

@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="monda.epatient">
+    package="monda.epatient"
+    xmlns:tools="http://schemas.android.com/tools">
    <application
         android:label="Monda - ePatient"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        tools:replace="android:label">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

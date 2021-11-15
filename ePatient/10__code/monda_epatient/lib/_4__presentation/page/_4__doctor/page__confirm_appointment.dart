@@ -120,7 +120,7 @@ class ConfirmAppointmentPage extends AbstractPageWithBackgroundAndContent {
           size: ScreenUtil.heightInPercent(6),
           elevation: 3,
           onPressed: () {
-            DoctorProfileController.instance.makeAppointment();
+            DoctorProfileController.instance.generateAppointment();
           },
           child: Text(TextString.label__confirm_appointment, style: Style.defaultTextStyle(fontWeight: FontWeight.w700),),
         ),

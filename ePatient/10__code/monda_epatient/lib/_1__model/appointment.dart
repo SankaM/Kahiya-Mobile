@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:monda_epatient/_1__model/doctor.dart';
 import 'package:monda_epatient/_1__model/patient.dart';
+import 'package:monda_epatient/_1__model/payment.dart';
 import 'package:monda_epatient/_1__model/work_hour.dart';
 
 class Appointment {
@@ -18,6 +19,8 @@ class Appointment {
 
   final String? prescriptionId;
 
+  final Payment? payment;
+
   Appointment({
     required this.id,
     this.patient,
@@ -26,6 +29,7 @@ class Appointment {
     this.appointmentDate,
     this.status,
     this.prescriptionId,
+    this.payment,
   });
 
   factory Appointment.build(Map<String, dynamic> json) => Appointment(
@@ -36,6 +40,7 @@ class Appointment {
     status: json['status'],
     appointmentDate: json['appointmentDate'] != null ? DateTime.parse(json['appointmentDate']) : null,
     prescriptionId: json['prescriptionId'],
+    payment: json['payment'] != null ? Payment.build(json['payment']) : null,
   );
 
   String get dateLabel {

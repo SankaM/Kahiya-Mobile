@@ -11,11 +11,13 @@ import 'package:monda_epatient/_2__datasource/api/api__diagnosis.dart';
 import 'package:monda_epatient/_2__datasource/api/api__doctor.dart';
 import 'package:monda_epatient/_2__datasource/api/api__drug.dart';
 import 'package:monda_epatient/_2__datasource/api/api__patient.dart';
+import 'package:monda_epatient/_2__datasource/api/api__payment.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_3__service/service__account.dart';
 import 'package:monda_epatient/_3__service/service__appointment.dart';
 import 'package:monda_epatient/_3__service/service__doctor.dart';
 import 'package:monda_epatient/_3__service/service__patient.dart';
+import 'package:monda_epatient/_3__service/service__payment.dart';
 import 'package:monda_epatient/_3__service/service__prescription.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signin.dart';
 import 'package:monda_epatient/_4__presentation/page/_0__login/controller__signup.dart';
@@ -32,7 +34,7 @@ import 'package:monda_epatient/_4__presentation/page/_3__medical_history/page__m
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__confirm_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_profile.dart';
-import 'package:monda_epatient/_4__presentation/page/_5__payment/page__pay_and_confirm.dart';
+import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__pay_and_confirm.dart';
 import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_6__appointment/page__all_appointment.dart';
 
@@ -58,6 +60,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(DiagnosisApi.newInstance());
     Get.put(DoctorApi.newInstance());
     Get.put(AppointmentApi.newInstance());
+    Get.put(PaymentApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());
@@ -69,6 +72,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(PatientService.newInstance());
     Get.put(PrescriptionService.newInstance());
     Get.put(DoctorService.newInstance());
+    Get.put(PaymentService.newInstance());
 
     // Initialize all controller
     Get.put(SignInController());
