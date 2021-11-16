@@ -15,6 +15,8 @@ class Appointment {
 
   final DateTime? appointmentDate;
 
+  final DateTime? updatedDate;
+
   String? status;
 
   final String? prescriptionId;
@@ -27,6 +29,7 @@ class Appointment {
     this.doctor,
     this.workHour,
     this.appointmentDate,
+    this.updatedDate,
     this.status,
     this.prescriptionId,
     this.payment,
@@ -39,6 +42,7 @@ class Appointment {
     workHour: json['workHour'] != null ? WorkHour.build(json['workHour']) : null,
     status: json['status'],
     appointmentDate: json['appointmentDate'] != null ? DateTime.parse(json['appointmentDate']) : null,
+    updatedDate: json['updatedDate'] != null ? DateTime.parse(json['updatedDate']) : null,
     prescriptionId: json['prescriptionId'],
     payment: json['payment'] != null ? Payment.build(json['payment']) : null,
   );

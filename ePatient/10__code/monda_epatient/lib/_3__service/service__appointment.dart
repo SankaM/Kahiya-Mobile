@@ -60,6 +60,22 @@ class AppointmentService {
   }
 
   // ===========================================================================
+  Future<StatusWrapper<Status, List<Appointment>, String>> retrieveAllAppointment() {
+    var completer = Completer<StatusWrapper<Status, List<Appointment>, String>>();
+
+    String patientId = UserSecureStorage.instance.user!.id;
+    AppointmentApi.instance.retrieveAllAppointment(patientId: patientId).then((ResponseWrapper<List<Appointment>> responseWrapper,) {
+      if(responseWrapper.isSuccess) {
+        completer.complete(StatusWrapper(status: Status.SUCCESS, data: responseWrapper.data));
+      } else {
+        completer.complete(StatusWrapper(status: Status.ERROR, error: responseWrapper.message),);
+      }
+    });
+
+    return completer.future;
+  }
+
+  // ===========================================================================
   Future<StatusWrapper<Status, Appointment, String>> cancelAppointment({required String appointmentId}) {
     var completer = Completer<StatusWrapper<Status, Appointment, String>>();
 

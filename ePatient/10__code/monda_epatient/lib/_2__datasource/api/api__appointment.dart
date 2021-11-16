@@ -52,6 +52,18 @@ class AppointmentApi {
   }
 
   // ===========================================================================
+  Future<ResponseWrapper<List<Appointment>>> retrieveAllAppointment({required String patientId}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__ALL_LIST, params: {'patientId': patientId}).toString();
+
+    var options = await ApiUtil.generateDioOptions();
+    var responseDataBuilder = (Map<String, dynamic> json) {
+      return ResponseWrapper<List<Appointment>>.success(data: (json['data'] as List).map((e) => Appointment.build(e)).toList());
+    };
+
+    return ApiUtil.get(url: url, options: options, responseDataBuilder: responseDataBuilder);
+  }
+
+  // ===========================================================================
   Future<ResponseWrapper<Appointment>> updateAppointment({required String patientId, required String appointmentId, required String status}) async {
     String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__CANCEL, params: {'patientId': patientId, 'appointmentId': appointmentId}).toString();
     var data = {

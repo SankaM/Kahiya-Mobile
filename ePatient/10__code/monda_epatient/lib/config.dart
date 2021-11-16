@@ -1,4 +1,8 @@
 class Config {
+  Config._();
+
+  static const String VERSION = 'Version 0.1';
+
   //static const String PREFIX_API_ENDPOINT = 'http://192.168.0.101:3005/v1';
 
   static const String PREFIX_API_ENDPOINT = 'http://192.168.43.34:3005/v1';
@@ -15,5 +19,5 @@ class Config {
 
   static const String PAYHERE__NOTIFY_URL = PREFIX_API_ENDPOINT + '/payment/payhere-notify';
 
-  static const String PAYHERE__CURRENCY = 'USD';
+  static const String PAYHERE__CURRENCY = 'USD'; // USD or LKR only
 }
