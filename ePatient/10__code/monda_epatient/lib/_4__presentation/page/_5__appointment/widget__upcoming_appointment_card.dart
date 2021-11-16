@@ -8,7 +8,7 @@ import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_1__model/appointment.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_5__appointment/controller__all_appointment.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
 class UpcomingAppointmentCard extends StatelessWidget {

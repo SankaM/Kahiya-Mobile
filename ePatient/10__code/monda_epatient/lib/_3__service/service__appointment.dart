@@ -60,11 +60,11 @@ class AppointmentService {
   }
 
   // ===========================================================================
-  Future<StatusWrapper<Status, List<Appointment>, String>> retrieveAllAppointment() {
+  Future<StatusWrapper<Status, List<Appointment>, String>> retrieveAcceptedAppointment() {
     var completer = Completer<StatusWrapper<Status, List<Appointment>, String>>();
 
     String patientId = UserSecureStorage.instance.user!.id;
-    AppointmentApi.instance.retrieveAllAppointment(patientId: patientId).then((ResponseWrapper<List<Appointment>> responseWrapper,) {
+    AppointmentApi.instance.retrieveAcceptedAppointment(patientId: patientId).then((ResponseWrapper<List<Appointment>> responseWrapper,) {
       if(responseWrapper.isSuccess) {
         completer.complete(StatusWrapper(status: Status.SUCCESS, data: responseWrapper.data));
       } else {

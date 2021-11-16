@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
+import 'package:monda_epatient/_1__model/appointment.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 
 class NotificationItem extends StatelessWidget {
-  final String doctorName;
+  final Appointment appointment;
 
-  final String status;
+  late final String doctorName;
 
-  final String dateTime;
+  late final String status;
 
-  final String fuzzyDateTime;
+  late final String dateTime;
 
-  final String doctorImage;
+  late final String fuzzyDateTime;
 
-  NotificationItem({required this.doctorName, required this.status, required this.dateTime, required this.fuzzyDateTime, required this.doctorImage});
+  NotificationItem({required this.appointment,});
 
   @override
   Widget build(BuildContext context) {
+    doctorName = appointment.doctor!.nameNonNull;
+    status = appointment.statusNonNull.capitalizeFirst!;
+    dateTime = appointment.dateLabel + ' | ' + appointment.dateLabel + ' | ' + appointment.timeLabel;
+    fuzzyDateTime = appointment.updatedDate != null ? timeago.format(appointment.updatedDate!) : '';
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+
     return Container(
       margin: EdgeInsets.only(top: ScreenUtil.heightInPercent(3), bottom: ScreenUtil.heightInPercent(2)),
       child: Row(
@@ -38,7 +49,7 @@ class NotificationItem extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 3,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -46,7 +57,7 @@ class NotificationItem extends StatelessWidget {
                   SizedBox(height: ScreenUtil.heightInPercent(1),),
                   Container(
                     child: GFAvatar(
-                      backgroundImage: AssetImage(doctorImage),
+                      backgroundImage: appointment.doctor!.imageUrl == null ? noImage : NetworkImage(appointment.doctor!.imageUrl!),
                       shape: GFAvatarShape.square,
                       size: ScreenUtil.heightInPercent(3),
                       borderRadius: BorderRadius.all(Radius.circular(10)),

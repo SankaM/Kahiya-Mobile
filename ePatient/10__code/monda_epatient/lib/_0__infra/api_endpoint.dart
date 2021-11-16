@@ -28,7 +28,7 @@ class ApiEndPoint {
 
   static const String APPOINTMENT__PAST_LIST = PREFIX + '/patient/{patientId}/appointment/past';
 
-  static const String APPOINTMENT__ALL_LIST = PREFIX + '/patient/{patientId}/appointment/all';
+  static const String APPOINTMENT__STATUS_ACCEPTED_LIST = PREFIX + '/patient/{patientId}/appointment/status/accepted';
 
   static const String APPOINTMENT__CANCEL = PREFIX + '/patient/{patientId}/appointment/{appointmentId}';
 

@@ -52,8 +52,8 @@ class AppointmentApi {
   }
 
   // ===========================================================================
-  Future<ResponseWrapper<List<Appointment>>> retrieveAllAppointment({required String patientId}) async {
-    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__ALL_LIST, params: {'patientId': patientId}).toString();
+  Future<ResponseWrapper<List<Appointment>>> retrieveAcceptedAppointment({required String patientId}) async {
+    String url = TemplateString(stringWithParams: ApiEndPoint.APPOINTMENT__STATUS_ACCEPTED_LIST, params: {'patientId': patientId}).toString();
 
     var options = await ApiUtil.generateDioOptions();
     var responseDataBuilder = (Map<String, dynamic> json) {

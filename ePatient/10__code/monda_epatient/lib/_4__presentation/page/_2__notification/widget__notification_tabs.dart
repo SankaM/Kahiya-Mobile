@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
+import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_4__presentation/page/_2__notification/controller__notification.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/widget__medication_alert_item.dart';
 import 'package:monda_epatient/_4__presentation/page/_2__notification/widget__notification_item.dart';
 import 'package:monda_epatient/_9__modify/bubble_tab_indicator__0_1_6/bubble_tab_indicator.dart';
@@ -32,8 +35,8 @@ class NotificationTabs extends StatelessWidget {
                 unselectedLabelColor: Colors.grey[600],
                 labelStyle: Style.defaultTextStyle(letterSpacing: 0, fontWeight: FontWeight.w500),
                 tabs: [
-                  Tab(text: 'Notifications'),
-                  Tab(text: 'Medication Alerts'),
+                  Tab(text: TextString.label__notifications),
+                  Tab(text: TextString.label__medication_alerts),
                 ],
               ),
             ),
@@ -56,43 +59,29 @@ class NotificationTabs extends StatelessWidget {
 class _NotificationTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil.heightInPercent(80),
-      child: ListView(
-        children: [
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          NotificationItem(doctorName: 'Dr. Melinda Margot', status: 'Appointment Confirmed', dateTime: 'Mon | 17 May, 2021 | 12:00 PM', fuzzyDateTime: 'Just Now', doctorImage: Asset.png_face01,),
-          Divider(),
-          SizedBox(height: ScreenUtil.heightInPercent(20),),
-        ],
-      ),
+    return GetBuilder<NotificationController>(
+      builder: (_) {
+        if(_.vReference.acceptedAppointment.isEmpty) {
+          return Padding(
+            padding: EdgeInsets.all(ScreenUtil.widthInPercent(10)),
+            child: Center(
+              child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[500]!),),
+            ),
+          );
+        }
+
+        List<Widget> children = [];
+        _.vReference.acceptedAppointment.forEach((appointment) {
+          children.add(NotificationItem(appointment: appointment),);
+          children.add(Divider(),);
+        });
+        children.add(SizedBox(height: ScreenUtil.heightInPercent(20),),);
+
+        return Container(
+          height: ScreenUtil.heightInPercent(80),
+          child: ListView(children: children),
+        );
+      },
     );
   }
 }

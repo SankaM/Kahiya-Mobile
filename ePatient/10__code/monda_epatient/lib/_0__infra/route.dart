@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:monda_epatient/_4__presentation/page/_2__notification/controller__notification.dart';
 import 'package:monda_epatient/_4__presentation/page/_3__medical_history/controller__medical_history.dart';
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/controller__doctor_profile.dart';
-import 'package:monda_epatient/_4__presentation/page/_6__appointment/controller__all_appointment.dart';
+import 'package:monda_epatient/_4__presentation/page/_5__appointment/controller__all_appointment.dart';
 
 class Routes {
   static const String page_blank_before_splash = '/blank-before-splash';
@@ -60,6 +61,7 @@ class RouteNavigator {
   }
 
   static Future<dynamic> gotoNotificationPage() {
+    NotificationController.instance.init();
     return _goto(Routes.page_notification, forgetBefore: false);
   }
 
