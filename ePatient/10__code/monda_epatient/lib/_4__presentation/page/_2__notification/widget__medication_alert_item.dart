@@ -1,44 +1,54 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:intl/intl.dart';
+import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
+import 'package:monda_epatient/_1__model/taken_medicine.dart';
+import 'package:monda_epatient/_4__presentation/page/_2__notification/controller__notification.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-class MedicationAlertItem extends StatelessWidget {
-  final MedicationAlertItemType type;
+class MedicationAlertItem extends StatefulWidget {
+  final TakenMedicine takenMedicine;
 
-  final String fuzzyNotificationTime;   // 'Just Now'
+  MedicationAlertItem({required this.takenMedicine});
 
-  final String drugName;                // 'Paracetamol'
+  @override
+  State<MedicationAlertItem> createState() => _MedicationAlertItemState();
+}
 
-  final String drugImage;               // 'assets/blablabla.png'
+class _MedicationAlertItemState extends State<MedicationAlertItem> {
+  String fuzzyNotificationTime = '';
 
-  final String drugSize;                // '500mg'
+  String drugName = '';
 
-  final String drugCount;               // '2 Tablets
+  String drugSize = '';
 
-  final String medicineTime;            // 'Within an hour'
+  String drugCount = '';
 
-  final String drugCondition;           // 'Before Meal'
+  String medicineTime = '';
 
-  MedicationAlertItem({
-    required this.type,
-    required this.fuzzyNotificationTime,
-    required this.drugName,
-    required this.drugImage,
-    required this.drugSize,
-    required this.drugCount,
-    required this.medicineTime,
-    required this.drugCondition,
-  });
+  String drugCondition = '';
 
   @override
   Widget build(BuildContext context) {
     Color color = Style.colorPrimary;
-    if(type == MedicationAlertItemType.missed) {
+    fuzzyNotificationTime = timeago.format(widget.takenMedicine.scheduledTakenDate!);
+    drugName = widget.takenMedicine.dosage!.drug!.name!;
+    ImageProvider noImage = AssetImage(Asset.png__no_image_available);
+    drugSize = widget.takenMedicine.dosage!.drug!.measurement!.toString() + ' ' + widget.takenMedicine.dosage!.drug!.measurementUnit!;
+    drugCount = widget.takenMedicine.dosage!.dosageCount!.toString();
+    medicineTime = DateFormat('HH:mm').format(widget.takenMedicine.scheduledTakenDate!);
+    drugCondition = widget.takenMedicine.dosage!.dosageRule!.capitalizeFirst!.replaceAll('_', ' ');
+
+    if(widget.takenMedicine.takenStatus != null && widget.takenMedicine.takenStatus == TakenStatus.NOT_TAKEN) {
       color = Colors.red;
-    } else if(type == MedicationAlertItemType.taken) {
+    } else if(widget.takenMedicine.takenStatus != null && widget.takenMedicine.takenStatus == TakenStatus.TAKEN) {
       color = Colors.green;
     }
 
@@ -58,7 +68,7 @@ class MedicationAlertItem extends StatelessWidget {
               Spacer(),
               Container(
                 child: GFAvatar(
-                  backgroundImage: AssetImage(drugImage),
+                  backgroundImage: widget.takenMedicine.dosage!.drug!.imageUrl == null ? noImage : NetworkImage(widget.takenMedicine.dosage!.drug!.imageUrl!),
                   shape: GFAvatarShape.square,
                   size: ScreenUtil.heightInPercent(3),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -95,7 +105,7 @@ class MedicationAlertItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: ScreenUtil.heightInPercent(1)),
-                  if(type == MedicationAlertItemType.mark_taken) Row(
+                  if(widget.takenMedicine.takenStatusDate == null) Row(
                     children: [
                       Icon(Icons.watch_later, color: color, size: Style.iconSize_S,),
                       SizedBox(width: ScreenUtil.widthInPercent(1),),
@@ -122,11 +132,17 @@ class MedicationAlertItem extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              if(type == MedicationAlertItemType.taken) Text(TextString.label__taken, style: Style.defaultTextStyle(color: color, fontSize: Style.fontSize_S),),
-              if(type == MedicationAlertItemType.missed) Text(TextString.label__missed, style: Style.defaultTextStyle(color: color, fontSize: Style.fontSize_S),),
+              if(widget.takenMedicine.takenStatus != null && widget.takenMedicine.takenStatus == TakenStatus.TAKEN) Text(TextString.label__taken, style: Style.defaultTextStyle(color: color, fontSize: Style.fontSize_S),),
+              if(widget.takenMedicine.takenStatus != null && widget.takenMedicine.takenStatus == TakenStatus.NOT_TAKEN) Text(TextString.label__missed, style: Style.defaultTextStyle(color: color, fontSize: Style.fontSize_S),),
             ],
           ),
-          if(type == MedicationAlertItemType.mark_taken) _markTakenButton(context),
+          if(widget.takenMedicine.takenStatusDate == null) Row(
+              children: [
+                _markNotTakenButton(context),
+                Spacer(),
+                _markTakenButton(context),
+              ],
+            ),
         ],
       ),
     );
@@ -137,18 +153,38 @@ class MedicationAlertItem extends StatelessWidget {
       padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
       child: Container(
         color: Colors.white,
-        width: double.infinity,
+        width: ScreenUtil.widthInPercent(40),
         child: GFButton(
           color: Style.colorPrimary,
           type: GFButtonType.outline,
           size: ScreenUtil.heightInPercent(6),
           onPressed: () {
+            log('====================== markTakenButton');
+            NotificationController.instance.markTaken(id: widget.takenMedicine.id);
           },
-          child: Text('Mark Taken', style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Style.colorPrimary),),
+          child: Text(TextString.label__mark_taken, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Style.colorPrimary),),
+        ),
+      ),
+    );
+  }
+
+  Widget _markNotTakenButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: ScreenUtil.heightInPercent(2.5)),
+      child: Container(
+        color: Colors.white,
+        width: ScreenUtil.widthInPercent(40),
+        child: GFButton(
+          color: Style.colorPrimary,
+          type: GFButtonType.outline,
+          size: ScreenUtil.heightInPercent(6),
+          onPressed: () {
+            log('====================== markNotTakenButton');
+            NotificationController.instance.markNotTaken(id: widget.takenMedicine.id);
+          },
+          child: Text(TextString.label__mark_not_taken, style: Style.defaultTextStyle(fontWeight: FontWeight.w700, color: Style.colorPrimary),),
         ),
       ),
     );
   }
 }
-
-enum MedicationAlertItemType { taken, missed, mark_taken }

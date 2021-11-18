@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:monda_epatient/_1__model/dosage.dart';
 
 class TakenMedicine {
@@ -26,10 +27,26 @@ class TakenMedicine {
     scheduledTakenDate: json['scheduledTakenDate'] != null ? DateTime.parse(json['scheduledTakenDate']) : null,
     takenStatusDate: json['takenStatusDate'] != null ? DateTime.parse(json['takenStatusDate']) : null,
   );
+
+  bool isFuture() {
+    if(scheduledTakenDate == null) {
+      return false;
+    }
+
+    return scheduledTakenDate!.isAfter(DateTime.now());
+  }
+
+  String get scheduledTakenDateLabel {
+    if(scheduledTakenDate == null) {
+      return '';
+    }
+
+    return DateFormat('d MMM, yyy HH:mm').format(scheduledTakenDate!);
+  }
 }
 
 class TakenStatus {
   static const String TAKEN = 'TAKEN';
 
-  static const String PASS = 'PASS';
+  static const String NOT_TAKEN = 'NOT_TAKEN';
 }

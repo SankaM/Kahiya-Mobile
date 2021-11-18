@@ -12,6 +12,7 @@ import 'package:monda_epatient/_2__datasource/api/api__doctor.dart';
 import 'package:monda_epatient/_2__datasource/api/api__drug.dart';
 import 'package:monda_epatient/_2__datasource/api/api__patient.dart';
 import 'package:monda_epatient/_2__datasource/api/api__payment.dart';
+import 'package:monda_epatient/_2__datasource/api/api__prescription.dart';
 import 'package:monda_epatient/_2__datasource/securestorage/secure_storage__user.dart';
 import 'package:monda_epatient/_3__service/service__account.dart';
 import 'package:monda_epatient/_3__service/service__appointment.dart';
@@ -38,9 +39,11 @@ import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__doctor_pro
 import 'package:monda_epatient/_4__presentation/page/_4__doctor/page__pay_and_confirm.dart';
 import 'package:monda_epatient/_4__presentation/page/_5__appointment/controller__all_appointment.dart';
 import 'package:monda_epatient/_4__presentation/page/_5__appointment/page__all_appointment.dart';
+import 'package:monda_epatient/_8__notif/local_notification_api.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationApi.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -62,6 +65,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(DoctorApi.newInstance());
     Get.put(AppointmentApi.newInstance());
     Get.put(PaymentApi.newInstance());
+    Get.put(PrescriptionApi.newInstance());
 
     // Secure Storage
     Get.put(UserSecureStorage.newInstance());
@@ -74,6 +78,7 @@ class MondaEPatientApp extends StatelessWidget {
     Get.put(PrescriptionService.newInstance());
     Get.put(DoctorService.newInstance());
     Get.put(PaymentService.newInstance());
+    Get.put(PrescriptionService.newInstance());
 
     // Initialize all controller
     Get.put(SignInController());

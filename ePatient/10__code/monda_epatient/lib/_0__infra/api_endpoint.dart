@@ -32,6 +32,11 @@ class ApiEndPoint {
 
   static const String APPOINTMENT__CANCEL = PREFIX + '/patient/{patientId}/appointment/{appointmentId}';
 
+  // ============================================================ Taken Medicine
+  static const String TAKEN_MEDICINE__FIND_ALL = PREFIX + '/prescription/taken-medicine/{patientId}';
+
+  static const String TAKEN_MEDICINE__UPDATE = PREFIX + '/prescription/taken-medicine';
+
   // =========================================================== Medical Records
   static const String PATIENT__DETAIL = PREFIX + '/patient/{patientId}';
 

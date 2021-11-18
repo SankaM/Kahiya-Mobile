@@ -51,19 +51,19 @@ class NotificationItem extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(fuzzyDateTime, style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
-                  SizedBox(height: ScreenUtil.heightInPercent(1),),
-                  Container(
-                    child: GFAvatar(
-                      backgroundImage: appointment.doctor!.imageUrl == null ? noImage : NetworkImage(appointment.doctor!.imageUrl!),
-                      shape: GFAvatarShape.square,
-                      size: ScreenUtil.heightInPercent(3),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(fuzzyDateTime, style: Style.defaultTextStyle(color: Colors.grey, fontSize: Style.fontSize_S, fontWeight: FontWeight.w500),),
+                SizedBox(height: ScreenUtil.heightInPercent(1),),
+                Container(
+                  child: GFAvatar(
+                    backgroundImage: appointment.doctor!.imageUrl == null ? noImage : NetworkImage(appointment.doctor!.imageUrl!),
+                    shape: GFAvatarShape.square,
+                    size: ScreenUtil.heightInPercent(3),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                ]
+                ),
+              ]
             ),
           ),
         ],

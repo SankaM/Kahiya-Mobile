@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monda_epatient/_0__infra/asset.dart';
 import 'package:monda_epatient/_0__infra/screen_util.dart';
 import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
@@ -89,19 +88,25 @@ class _NotificationTab extends StatelessWidget {
 class _MedicationAlertTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil.heightInPercent(80),
-      child: ListView(
-        children: [
-          MedicationAlertItem(type: MedicationAlertItemType.mark_taken, drugName: 'Paracetamol', fuzzyNotificationTime: 'Just Now', drugImage: Asset.png__drug01, drugSize: '500mg', drugCount: '2 Tablets', drugCondition: 'Before Meal', medicineTime: 'Within an hour',),
-          Divider(),
-          MedicationAlertItem(type: MedicationAlertItemType.taken, drugName: 'Ibuprofen', fuzzyNotificationTime: '2hr ago', drugImage: Asset.png__drug01, drugSize: '500mg', drugCount: '1 Tablet', drugCondition: 'After Meal', medicineTime: 'Within an hour',),
-          Divider(),
-          MedicationAlertItem(type: MedicationAlertItemType.missed, drugName: 'Ibuprofen', fuzzyNotificationTime: '10hr ago', drugImage: Asset.png__drug01, drugSize: '500mg', drugCount: '1 Tablet', drugCondition: 'After Meal', medicineTime: 'Within an hour',),
-          Divider(),
-          SizedBox(height: ScreenUtil.heightInPercent(20),),
-        ],
-      ),
-    );
+    return GetBuilder<NotificationController>(builder: (_) {
+      if(_.vReference.allTakenMedicine.isEmpty) {
+        return Container(
+                height: ScreenUtil.heightInPercent(80),
+                child: Center(child: Text(TextString.label__no_data, style: Style.defaultTextStyle(color: Colors.grey[500]!),),),
+        );
+      }
+
+      List<Widget> children = [];
+      _.vReference.allTakenMedicine.forEach((takenMedicine) {
+        children.add(MedicationAlertItem(takenMedicine: takenMedicine,));
+        children.add(Divider());
+      });
+      children.add(SizedBox(height: ScreenUtil.heightInPercent(20),),);
+
+      return Container(
+        height: ScreenUtil.heightInPercent(80),
+        child: ListView(children: children,),
+      );
+    });
   }
 }

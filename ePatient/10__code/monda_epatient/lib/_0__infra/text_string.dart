@@ -193,4 +193,8 @@ class TextString {
   static const String label__payment_cancelled = 'Payment cancelled';
 
   static const String label__medication_alerts = 'Medication alerts';
+
+  static const String label__mark_taken = 'Mark taken';
+
+  static const String label__mark_not_taken = 'Mark not taken';
 }

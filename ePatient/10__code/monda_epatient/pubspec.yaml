@@ -21,6 +21,8 @@ dependencies:
   file_picker: ^3.0.4
   path_provider: ^2.0.2
   payhere_mobilesdk_flutter: ^1.2.1
+  flutter_local_notifications: ^9.1.2
+#  flutter_native_timezone: ^2.0.0
 
   # UI related dependencies
   cupertino_icons: ^1.0.2

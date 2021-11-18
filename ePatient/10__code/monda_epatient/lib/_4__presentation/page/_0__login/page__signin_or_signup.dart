@@ -9,6 +9,7 @@ import 'package:monda_epatient/_0__infra/style.dart';
 import 'package:monda_epatient/_0__infra/text_string.dart';
 import 'package:monda_epatient/_4__presentation/common/abstract_page_with_background_and_content.dart';
 import 'package:monda_epatient/_4__presentation/common/widget__monda_logo.dart';
+import 'package:monda_epatient/_8__notif/local_notification_api.dart';
 
 class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
   SigninOrSignupPage() : super(
@@ -58,7 +59,7 @@ class SigninOrSignupPage extends AbstractPageWithBackgroundAndContent {
               text: TextString.label__sign_up,
               textStyle: GoogleFonts.montserrat(fontSize: Style.fontSize_2XL, color: Style.colorPrimary, letterSpacing: 4),
             ),
-          )
+          ),
         ],
       ),
     );
